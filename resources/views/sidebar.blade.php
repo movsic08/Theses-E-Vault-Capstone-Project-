@@ -15,7 +15,7 @@
 </head>
 
 <body class="gradient-bg flex flex-row font-poppins">
-    <nav class="sticky top-0 left-0 flex h-screen flex-col justify-between border-r bg-white text-gray-700 drop-shadow-lg">
+    <nav class="sticky top-0 left-0 flex h-screen flex-col justify-between border-r z-10 bg-white text-gray-700 drop-shadow-lg">
         <div class="flex items-center justify-between p-4">
             <h1>logo</h1>
             <h1>ThesisKIosk</h1>
@@ -77,41 +77,40 @@
 
     </nav>
 
-    <div class="w-full">
-        <section>
-            <div class="top-0 flex w-full justify-between bg-red-500 px-7 py-2 text-base font-semibold text-gray-600">
-                <h1 class="">Good Morning, Pogi!</h1>
-                <h1>21-AC-0138</h1>
-            </div>
-            <h1 class="p-5 text-8xl font-bold">Hello everything Main</h1>
-        </section>
-        <section>
+    <div class="w-full z-0">
+        <section class="top-0 sticky gradient-bg backdrop-blur">
             <div class="top-0 flex w-full justify-between px-7 py-2 text-base font-semibold text-gray-600">
                 <h1 class="">Good Morning, Pogi!</h1>
                 <h1>21-AC-0138</h1>
             </div>
-            <h1 class="p-5 text-8xl font-bold">Hello everything Main</h1>
         </section>
         <section>
             <div class="top-0 flex w-full justify-between px-7 py-2 text-base font-semibold text-gray-600">
-                <h1 class="">Good Morning, Pogi!</h1>
-                <h1>21-AC-0138</h1>
+                <h1 class="">SAMPLE TEXT HEHEH</h1>
+                <h1>SAMPLE ULIT PERO SA JUSTFIY BETWEEN</h1>
             </div>
-            <h1 class="p-5 text-8xl font-bold">Hello everything Main</h1>
+            <h1 class="p-5 text-8xl font-bold">Lorem ipsum dolor sit amet consectetur ad</h1>
         </section>
         <section>
             <div class="top-0 flex w-full justify-between px-7 py-2 text-base font-semibold text-gray-600">
-                <h1 class="">Good Morning, Pogi!</h1>
-                <h1>21-AC-0138</h1>
+                <h1 class="">SAMPLE TEXT HEHEH</h1>
+                <h1>SAMPLE ULIT PERO SA JUSTFIY BETWEEN</h1>
             </div>
-            <h1 class="p-5 text-8xl font-bold">Hello everything Main</h1>
+            <h1 class="p-5 text-8xl font-bold">Lorem ipsum dolor sit amet consectetur ad</h1>
         </section>
         <section>
             <div class="top-0 flex w-full justify-between px-7 py-2 text-base font-semibold text-gray-600">
-                <h1 class="">Good Morning, Pogi!</h1>
-                <h1>21-AC-0138</h1>
+                <h1 class="">SAMPLE TEXT HEHEH</h1>
+                <h1>SAMPLE ULIT PERO SA JUSTFIY BETWEEN</h1>
             </div>
-            <h1 class="p-5 text-8xl font-bold">Hello everything Main</h1>
+            <h1 class="p-5 text-8xl font-bold">Lorem ipsum dolor sit amet consectetur ad</h1>
+        </section>
+        <section>
+            <div class="top-0 flex w-full justify-between px-7 py-2 text-base font-semibold text-gray-600">
+                <h1 class="">SAMPLE TEXT HEHEH</h1>
+                <h1>SAMPLE ULIT PERO SA JUSTFIY BETWEEN</h1>
+            </div>
+            <h1 class="p-5 text-8xl font-bold">Lorem ipsum dolor sit amet consectetur ad</h1>
         </section>
     </div>
 </body>
