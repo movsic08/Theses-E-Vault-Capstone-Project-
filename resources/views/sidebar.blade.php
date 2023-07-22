@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" def
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" def />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script href="{{ url('js/sideBar.js') }}"></script>
@@ -31,35 +28,82 @@
 
             </div>
             <div class="text-sm font-semibold">
-                <div class="rou4ded-md mx-3 mb-2 p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                    <a href="" class="items-center">
-                        <p>Notification</p>
+                <div class="rou4ded-md mx-1 mb-2 p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                    <a href="" class="flex items-center">
+                        <div>
+                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="m20.629 15.999-.23-.278c-1.03-1.247-1.655-2-1.655-5.531 0-1.828-.437-3.328-1.3-4.453-.635-.832-1.494-1.462-2.626-1.928a.142.142 0 0 1-.039-.031C14.372 2.414 13.257 1.5 12 1.5c-1.256 0-2.37.914-2.778 2.276a.147.147 0 0 1-.038.03c-2.644 1.09-3.928 3.177-3.928 6.383 0 3.533-.623 4.286-1.655 5.531l-.23.279a1.648 1.648 0 0 0-.217 1.763c.289.61.905.988 1.609.988h14.48c.7 0 1.312-.378 1.602-.985A1.649 1.649 0 0 0 20.629 16Z">
+                                </path>
+                                <path
+                                    d="M12 22.5a3.753 3.753 0 0 0 3.303-1.975.187.187 0 0 0-.074-.25.187.187 0 0 0-.092-.025H8.866a.188.188 0 0 0-.167.275 3.753 3.753 0 0 0 3.302 1.975Z">
+                                </path>
+                            </svg>
+                            <p>
+
+                            </p>
+                        </div>
+                        <p class="pl-2">Notification</p>
                     </a>
                 </div>
-                <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                    <a href="" class="items-center">
-                        <p>Chat</p>
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                    <a href="" class="flex items-center">
+                        <div class="relative">
+                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M22.276 9.68a10.281 10.281 0 0 0-3.62-5.844A10.66 10.66 0 0 0 11.992 1.5c-2.856 0-5.523 1.1-7.517 3.098C2.548 6.531 1.492 9.083 1.5 11.783c0 1.98.581 3.915 1.671 5.567l.204.283L2.25 22.5l5.381-1.339s.108.036.188.067c.08.03.765.293 1.493.497.604.168 1.863.422 2.848.422 2.796 0 5.407-1.083 7.352-3.05a10.332 10.332 0 0 0 2.988-7.308c0-.709-.075-1.416-.224-2.108Z">
+                                </path>
+                            </svg>
+                            <div
+                                class="  absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
+                                <p class="text-[8px]">1</p>
+                            </div>
+                        </div>
+
+                        <p class="pl-2">Chat</p>
                     </a>
                 </div>
-                <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                    <a href="" class="items-center">
-                        <p>Home</p>
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                    <a href="" class="flex items-center">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12.848 2.752a1.2 1.2 0 0 0-1.696 0l-8.4 8.4a1.2 1.2 0 0 0 1.696 1.696l.352-.351V20.4A1.2 1.2 0 0 0 6 21.6h2.4a1.2 1.2 0 0 0 1.2-1.2V18a1.2 1.2 0 0 1 1.2-1.2h2.4a1.2 1.2 0 0 1 1.2 1.2v2.4a1.2 1.2 0 0 0 1.2 1.2H18a1.2 1.2 0 0 0 1.2-1.2v-7.903l.352.351a1.2 1.2 0 0 0 1.696-1.696l-8.4-8.4Z">
+                            </path>
+                        </svg>
+                        <p class="pl-2">Home</p>
                     </a>
                 </div>
-                <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                    <a href="" class="items-center">
-                        <p>Search</p>
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                    <a href="" class="flex items-center">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M10.8 10.8a2.4 2.4 0 1 1 4.8 0 2.4 2.4 0 0 1-4.8 0Z"></path>
+                            <path fill-rule="evenodd"
+                                d="M12 21.6a9.6 9.6 0 1 0 0-19.2 9.6 9.6 0 0 0 0 19.2ZM13.2 6a4.8 4.8 0 0 0-4.135 7.238L6.352 15.95a1.2 1.2 0 0 0 1.696 1.698l2.714-2.713A4.8 4.8 0 1 0 13.2 6Z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="pl-2">Search</p>
                     </a>
                 </div>
-                <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                    <a href="" class="items-center">
-                        <p>Bookmark</p>
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                    <a href="" class="flex items-center">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M6 21a1 1 0 0 1-.863-.496A1 1 0 0 1 5 20V5.33A2.28 2.28 0 0 1 7.2 3h9.6A2.28 2.28 0 0 1 19 5.33V20a1 1 0 0 1-1.5.86l-5.67-3.21-5.33 3.2A1 1 0 0 1 6 21Z">
+                            </path>
+                        </svg>
+                        <p class="pl-2">Bookmark</p>
                     </a>
                 </div>
 
-                <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                    <a href="" class="items-center">
-                        <p>User</p>
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                    <a href="" class="flex items-center">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
+                            <path
+                                d="M8 13.25A3.75 3.75 0 0 0 4.25 17v1.188c0 .754.546 1.396 1.29 1.517 4.278.699 8.642.699 12.92 0a1.537 1.537 0 0 0 1.29-1.517V17A3.75 3.75 0 0 0 16 13.25h-.34c-.185 0-.369.03-.544.086l-.866.283a7.251 7.251 0 0 1-4.5 0l-.866-.283a1.752 1.752 0 0 0-.543-.086H8Z">
+                            </path>
+                        </svg>
+                        <p class="pl-2">User</p>
                     </a>
                 </div>
 
@@ -68,26 +112,42 @@
 
         {{-- Setting --}}
         <div class="text-sm font-semibold">
-            <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                <a href="" class="items-center">
-                    <p>Dark Mode</p>
+            <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                <a href="" class="flex items-center">
+                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12.375 22.5A10.875 10.875 0 0 1 1.5 11.625c0-4.406 2.531-8.357 6.45-10.063a.75.75 0 0 1 .988.988c-.45 1.033-.688 2.356-.688 3.825 0 5.17 4.206 9.375 9.375 9.375 1.47 0 2.792-.238 3.826-.688a.751.751 0 0 1 .987.988c-1.706 3.919-5.657 6.45-10.063 6.45Z">
+                        </path>
+                    </svg>
+                    <p class="pl-2">Dark Mode</p>
                 </a>
             </div>
-            <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                <a href="" class="items-center">
-                    <p>Help</p>
+            <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                <a href="" class="flex items-center">
+                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 3c-4.969 0-9 4.031-9 9s4.031 9 9 9 9-4.031 9-9-4.031-9-9-9Zm-.281 14.25a.938.938 0 1 1 0-1.875.938.938 0 0 1 0 1.875Zm1.567-4.781c-.76.51-.864.977-.864 1.406a.656.656 0 0 1-1.313 0c0-1.027.473-1.844 1.445-2.497.904-.606 1.415-.99 1.415-1.836 0-.574-.328-1.01-1.008-1.334-.16-.076-.515-.15-.953-.145-.55.007-.976.139-1.305.403-.62.499-.672 1.042-.672 1.05a.656.656 0 1 1-1.312-.064c.005-.114.084-1.14 1.16-2.006.56-.449 1.27-.682 2.11-.693.595-.007 1.155.094 1.534.273 1.135.537 1.758 1.432 1.758 2.516 0 1.586-1.06 2.298-1.995 2.927Z">
+                        </path>
+                    </svg>
+                    <p class="pl-2">Help</p>
                 </a>
             </div>
-            <div class="mx-3 my-2 rounded-md p-1 px-2 py-2 duration-500 hover:bg-gray-400">
-                <a href="" class="items-center">
-                    <p>Log out</p>
+            <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-400">
+                <a href="" class="flex items-center">
+                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1Zm14.242-.97-8-2A1 1 0 0 0 10 3v18a.999.999 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97ZM15 12.188a1 1 0 0 1-2 0v-.377a1 1 0 1 1 2 0v.377Z">
+                        </path>
+                    </svg>
+                    <p class="pl-2">Log out</p>
                 </a>
             </div>
         </div>
 
     </nav>
 
-    <div class=" z-40 w-full">
+    <div class="z-40 w-full">
         <section class="gradient-bg sticky top-0 backdrop-blur">
             <div class="top-0 flex w-full justify-between px-7 py-2 text-base font-semibold text-blue-950">
                 <h1 class="">Good Morning, Pogi!</h1>
@@ -95,7 +155,7 @@
             </div>
         </section>
         <section class="">
-            <div class="top-0  z-40 flex w-full flex-row justify-between px-7 py-2 font-semibold text-blue-950">
+            <div class="top-0 z-40 flex w-full flex-row justify-between px-7 py-2 font-semibold text-blue-950">
                 <div>
                     <h1 class="pt-5 text-8xl font-black">THESIS KIOSK</h1>
                     <p class="-mt-4 text-3xl font-light">UNDERGRADUATE WORKS</p>
@@ -104,12 +164,12 @@
                         groundbreaking discoveries, critical analyses, and creative endeavors presented by talented
                         undergraduate researchers from esteemed institutions. Begin your journey of exploration today.
                         Welcome to Thesis Kiosk, where undergraduate brilliance shines!</p>
-                        <button class=" bg-blue-950 p-2 rounded-full text-sm px-8 text-white">Explore Now</button>
+                    <button class="rounded-full bg-blue-950 p-2 px-8 text-sm text-white">Explore Now</button>
 
                 </div>
-                <div >
-                    <svg class="relative z-0 ease-in-out animate-bounce" width="431.74 " height="600" viewBox="0 0 583 809" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                <div>
+                    <svg class="relative z-0 animate-bounce ease-in-out" width="431.74 " height="600"
+                        viewBox="0 0 583 809" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M123.675 620.705C53.9782 408.828 -71.4753 422.767 140.402 383.737C352.279 344.707 438.702 587.251 307.673 517.554C176.644 447.858 140.402 333.556 201.734 252.708C263.067 171.86 647.792 261.071 541.853 369.798C435.914 478.524 190.583 149.557 327.188 104.952C463.793 60.3459 557.97 102.164 541.853 191.375C525.736 280.587 293.734 127.254 382.945 38.043"
                             stroke="black" />
@@ -331,23 +391,40 @@
                         <circle cx="451.799" cy="383.685" r="22.8604" fill="url(#paint215_linear_127_242)" />
                         <circle cx="455.976" cy="385.247" r="22.8604" fill="url(#paint216_linear_127_242)" />
                         <circle cx="460.201" cy="386.671" r="22.8604" fill="url(#paint217_linear_127_242)" />
-                        <circle cx="464.477" cy="387.944" r="22.8604" fill="url(#paint218_linear_127_242)" />
-                        <circle cx="468.795" cy="389.056" r="22.8604" fill="url(#paint219_linear_127_242)" />
-                        <circle cx="473.157" cy="389.991" r="22.8604" fill="url(#paint220_linear_127_242)" />
-                        <circle cx="477.554" cy="390.739" r="22.8604" fill="url(#paint221_linear_127_242)" />
-                        <circle cx="481.982" cy="391.284" r="22.8604" fill="url(#paint222_linear_127_242)" />
-                        <circle cx="486.428" cy="391.612" r="22.8604" fill="url(#paint223_linear_127_242)" />
-                        <circle cx="490.89" cy="391.706" r="22.8604" fill="url(#paint224_linear_127_242)" />
-                        <circle cx="495.347" cy="391.552" r="22.8604" fill="url(#paint225_linear_127_242)" />
-                        <circle cx="499.787" cy="391.14" r="22.8604" fill="url(#paint226_linear_127_242)" />
-                        <circle cx="504.195" cy="390.458" r="22.8604" fill="url(#paint227_linear_127_242)" />
-                        <circle cx="508.553" cy="389.497" r="22.8604" fill="url(#paint228_linear_127_242)" />
-                        <circle cx="512.835" cy="388.255" r="22.8604" fill="url(#paint229_linear_127_242)" />
-                        <circle cx="517.027" cy="386.732" r="22.8604" fill="url(#paint230_linear_127_242)" />
-                        <circle cx="521.107" cy="384.933" r="22.8604" fill="url(#paint231_linear_127_242)" />
-                        <circle cx="525.063" cy="382.868" r="22.8604" fill="url(#paint232_linear_127_242)" />
-                        <circle cx="528.874" cy="380.55" r="22.8604" fill="url(#paint233_linear_127_242)" />
-                        <circle cx="532.529" cy="377.997" r="22.8604" fill="url(#paint234_linear_127_242)" />
+                        <circle cx="464.477" cy="387.944" r="22.8604"
+                            fill="url(#paint218_linear_127_242)" />
+                        <circle cx="468.795" cy="389.056" r="22.8604"
+                            fill="url(#paint219_linear_127_242)" />
+                        <circle cx="473.157" cy="389.991" r="22.8604"
+                            fill="url(#paint220_linear_127_242)" />
+                        <circle cx="477.554" cy="390.739" r="22.8604"
+                            fill="url(#paint221_linear_127_242)" />
+                        <circle cx="481.982" cy="391.284" r="22.8604"
+                            fill="url(#paint222_linear_127_242)" />
+                        <circle cx="486.428" cy="391.612" r="22.8604"
+                            fill="url(#paint223_linear_127_242)" />
+                        <circle cx="490.89" cy="391.706" r="22.8604"
+                            fill="url(#paint224_linear_127_242)" />
+                        <circle cx="495.347" cy="391.552" r="22.8604"
+                            fill="url(#paint225_linear_127_242)" />
+                        <circle cx="499.787" cy="391.14" r="22.8604"
+                            fill="url(#paint226_linear_127_242)" />
+                        <circle cx="504.195" cy="390.458" r="22.8604"
+                            fill="url(#paint227_linear_127_242)" />
+                        <circle cx="508.553" cy="389.497" r="22.8604"
+                            fill="url(#paint228_linear_127_242)" />
+                        <circle cx="512.835" cy="388.255" r="22.8604"
+                            fill="url(#paint229_linear_127_242)" />
+                        <circle cx="517.027" cy="386.732" r="22.8604"
+                            fill="url(#paint230_linear_127_242)" />
+                        <circle cx="521.107" cy="384.933" r="22.8604"
+                            fill="url(#paint231_linear_127_242)" />
+                        <circle cx="525.063" cy="382.868" r="22.8604"
+                            fill="url(#paint232_linear_127_242)" />
+                        <circle cx="528.874" cy="380.55" r="22.8604"
+                            fill="url(#paint233_linear_127_242)" />
+                        <circle cx="532.529" cy="377.997" r="22.8604"
+                            fill="url(#paint234_linear_127_242)" />
                         <circle cx="536.024" cy="375.228" r="22.8604"
                             fill="url(#paint235_linear_127_242)" />
                         <circle cx="539.349" cy="372.261" r="22.8604"
