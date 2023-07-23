@@ -22,5 +22,16 @@ $(document).ready(function () {
       }
       isExpanded = !isExpanded; // Toggle the flag value
     });
+
+    var menuLeft = $('#left-btn');
+    menuLeft.on('click', function () {
+        sidebarNav.removeClass('hidden');;
+    });
+
+
+    var hideBtn = $('#menu-hide-btn');
+    hideBtn.on('click', function () {
+        sidebarNav.toggleClass('hidden');
+    });
   });
   
