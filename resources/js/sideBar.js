@@ -1,1 +1,3 @@
-console.log("Hi there");
+$(document).ready(function(){
+    alert(hi);
+});

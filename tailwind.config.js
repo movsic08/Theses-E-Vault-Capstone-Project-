@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
@@ -25,6 +26,13 @@ export default {
         'italic': 'italic',
         // Add more font styles as needed
       },
+    },
+  },
+  variants: {
+    extend: {
+      backgroundColor: ['dark'], // Enable dark mode for background colors
+      textColor: ['dark'], // Enable dark mode for text colors
+      // Add other utility classes here if you want to support dark mode for other properties
     },
   },
   plugins: [],
