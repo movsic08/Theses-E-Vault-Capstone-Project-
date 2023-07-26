@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  mode: 'jit',
   darkMode: 'class',
   content: [
     "./resources/**/*.blade.php",
@@ -26,6 +27,9 @@ export default {
         'italic': 'italic',
         // Add more font styles as needed
       },
+      colors: {
+        'primary-color': '#0A2647',
+      }
     },
   },
   variants: {
