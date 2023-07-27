@@ -1,7 +1,7 @@
 <nav id="sidebar-nav"
-    class="sticky left-full hidden top-0 z-50 h-screen w-auto md:w-14 bg-white text-gray-700 drop-shadow-xl dark:bg-red-900 md:left-0 md:flex md:h-screen md:flex-col md:justify-between md:rounded-r-xl">
+    class="sticky left-full hidden top-0 z-50 h-screen w-auto md:w-14 bg-white backdrop-blur-md bg-opacity-70 text-gray-700 drop-shadow-xl dark:bg-red-900 md:left-0 md:flex md:h-screen md:flex-col md:justify-between md:rounded-r-xl">
     {{-- LOGO AND NAME AND FEATURE CONTAINER --}}
-    <div class="md:flex md:items-center md:justify-between">
+    <div class="">
         <div>
             <div class="flex items-center justify-between space-x-1 p-4">
                 <h1>logo</h1>
@@ -21,7 +21,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="justify-between text-sm font-semibold">
+            <div class=" text-sm font-semibold">
                 <div id="sample" class="mx-1 mb-2 items-center rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white flex  justify-between div-container">
                     <a href="" class="flex items-center">
                         <div class="relative">
@@ -58,7 +58,7 @@
                     <p class="text-xs md:hidden font-normal bg-slate-200 px-4 py-1 rounded-lg">1 Message</p>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                    <a href="{{ route('home') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path

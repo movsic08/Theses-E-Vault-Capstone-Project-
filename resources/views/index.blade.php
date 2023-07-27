@@ -8,13 +8,13 @@
     <div
         class="grid flex-grow grid-flow-row-dense grid-cols-7 gap-4 px-7 py-2 text-primary-color md:mx-8 md:my-2 md:px-0">
         <!-- Row 1, Column 1 -->
-        <div class="z-10 col-span-7  flex flex-col justify-center md:col-span-7 lg:col-span-4">
+        <div class="z-10 col-span-7 flex flex-col justify-center md:col-span-7 lg:col-span-4">
             <h1 class="text-5xl font-black md:text-7xl">THESIS KIOSK</h1>
             <p class="-mt-3 text-2xl font-light md:text-4xl lg:text-5xl">UNDERGRADUATE WORKS</p>
         </div>
         <!-- Row 2, Column 1 -->
         <div
-            class="z-10 col-span-7 flex items-center justify-centermd:col-span-3 md:items-start md:justify-center lg:col-span-4">
+            class="justify-centermd:col-span-3 z-10 col-span-7 flex items-center md:items-start md:justify-center md:col-span-4 lg:col-span-4 ">
             <p class="text-xl font-light md:text-2xl">Thesis Kiosk is a dedicated platform designed to showcase the
                 exceptional
                 research and
@@ -24,8 +24,7 @@
                 brilliance shines!</p>
         </div>
         <!-- Row 1, Column 2 -->
-        <div
-            class="z-0 hidden p-4 md:col-span-4 md:flex md:items-center md:justify-center lg:col-span-3 lg:row-span-3">
+        <div class="z-0 hidden p-4 md:col-span-3 md:flex md:items-center md:justify-center lg:col-span-3 lg:row-span-3 ">
             <svg width="395.29" height="500" viewBox="0 0 583 809" fill="none">
                 <path
                     d="M123.675 620.705C53.9782 408.828 -71.4753 422.767 140.402 383.737C352.279 344.707 438.702 587.251 307.673 517.554C176.644 447.858 140.402 333.556 201.734 252.708C263.067 171.86 647.792 261.071 541.853 369.798C435.914 478.524 190.583 149.557 327.188 104.952C463.793 60.3459 557.97 102.164 541.853 191.375C525.736 280.587 293.734 127.254 382.945 38.043"
@@ -5250,18 +5249,19 @@
                     </linearGradient>
                 </defs>
             </svg>
-
         </div>
 
         <!-- Row 2, Column 2 -->
         <div
-            class="z-10 col-span-7 flex items-center justify-center md:col-span-6 md:flex-row md:items-start md:justify-start lg:col-span-4">
-            <button
-                class="animation w-full animate-bounce rounded-full bg-primary-color py-2 text-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-blue-950 transition duration-1000 hover:bg-sky-900 hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:shadow-sky-800 md:w-1/2">Explore
-                now</button>
+            class="z-10 col-span-7 flex items-center justify-center md:col-span-6 md:flex-row md:items-start md:justify-start lg:col-span-4 ">
+            <a href="{{ route('home') }}"
+                class="animation w-full text-center animate-bounce rounded-full bg-primary-color py-2 text-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-blue-950 transition duration-1000 hover:bg-sky-900 hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:shadow-sky-800 md:w-1/2">
+                Explore now
+            </a>
         </div>
+
     </div>
-    
+
 </div>
 
 
