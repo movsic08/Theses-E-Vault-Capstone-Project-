@@ -1,5 +1,5 @@
 <nav id="sidebar-nav"
-    class="sticky left-full hidden top-0 z-50 h-screen w-auto md:w-14 bg-white backdrop-blur-md bg-opacity-70 text-gray-700 drop-shadow-xl dark:bg-red-900 md:left-0 md:flex md:h-screen md:flex-col md:justify-between md:rounded-r-xl">
+    class="bg-opacity-100text-gray-700 sticky left-full top-0 z-50 hidden h-screen w-auto bg-red-800 bg-opacity-20 drop-shadow-xl backdrop-blur-sm dark:bg-red-900 md:left-0 md:flex md:h-screen md:w-14 md:flex-col md:justify-between md:rounded-r-xl">
     {{-- LOGO AND NAME AND FEATURE CONTAINER --}}
     <div class="">
         <div>
@@ -21,25 +21,31 @@
                     </svg>
                 </button>
             </div>
-            <div class=" text-sm font-semibold">
-                <div id="sample" class="mx-1 mb-2 items-center rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white flex  justify-between div-container">
+            <div class="text-sm font-semibold">
+                <div id="sample"
+                    class="div-container mx-1 mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                     <a href="" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22Zm7-7.414V10c0-3.217-2.185-5.927-5.145-6.742A1.99 1.99 0 0 0 12 2a1.99 1.99 0 0 0-1.855 1.258C7.185 4.074 5 6.783 5 10v4.586l-1.707 1.707A.996.996 0 0 0 3 17v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a.996.996 0 0 0-.293-.707L19 14.586Z"></path>
+                                <path
+                                    d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22Zm7-7.414V10c0-3.217-2.185-5.927-5.145-6.742A1.99 1.99 0 0 0 12 2a1.99 1.99 0 0 0-1.855 1.258C7.185 4.074 5 6.783 5 10v4.586l-1.707 1.707A.996.996 0 0 0 3 17v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a.996.996 0 0 0-.293-.707L19 14.586Z">
+                                </path>
                             </svg>
-                            <div class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
+                            <div
+                                class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
                                 <p class="text-[8px]">1</p>
                             </div>
                         </div>
-                        <div class="flex flex-col ml-2">
+                        <div class="ml-2 flex flex-col">
                             <p class="hideName block md:hidden">Notification</p>
                         </div>
                     </a>
-                    <p id="msgCount" class="text-xs md:hidden font-normal bg-slate-200 px-4 py-1 rounded-lg  ">1 Notification</p>
+                    <p id="msgCount" class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1
+                        Notification</p>
                 </div>
-                
-                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white justify-between flex flex-row items-center">
+
+                <div
+                    class="mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                     <a href="" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -53,9 +59,9 @@
                             </div>
                         </div>
 
-                        <p class="hideName block md:hidden pl-2">Chat</p>
+                        <p class="hideName block pl-2 md:hidden">Chat</p>
                     </a>
-                    <p class="text-xs md:hidden font-normal bg-slate-200 px-4 py-1 rounded-lg">1 Message</p>
+                    <p class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1 Message</p>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                     <a href="{{ route('home') }}" class="flex items-center">
@@ -67,7 +73,7 @@
                             </svg>
                         </div>
 
-                        <p class="hideName block md:hidden pl-2">Home</p>
+                        <p class="hideName block pl-2 md:hidden">Home</p>
                     </a>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
@@ -81,7 +87,7 @@
                             </svg>
                         </div>
 
-                        <p class="hideName block md:hidden pl-2">Search</p>
+                        <p class="hideName block pl-2 md:hidden">Search</p>
                     </a>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
@@ -93,7 +99,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <p class="hideName block md:hidden pl-2">Bookmark</p>
+                        <p class="hideName block pl-2 md:hidden">Bookmark</p>
                     </a>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
@@ -106,7 +112,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <p class="hideName block md:hidden pl-2">User</p>
+                        <p class="hideName block pl-2 md:hidden">User</p>
                     </a>
                 </div>
             </div>
@@ -114,7 +120,7 @@
     </div>
 
     {{-- Setting --}}
-    <div >
+    <div>
         <div class="text-sm font-semibold">
             <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                 <a href="" class="flex items-center">
@@ -127,7 +133,7 @@
                         </svg>
                     </div>
 
-                    <p class="hideName block md:hidden pl-2">Dark</p>
+                    <p class="hideName block pl-2 md:hidden">Dark</p>
                 </a>
             </div>
             <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
@@ -140,7 +146,7 @@
                             </path>
                         </svg>
                     </div>
-                    <p class="hideName block md:hidden pl-2">Help</p>
+                    <p class="hideName block pl-2 md:hidden">Help</p>
                 </a>
             </div>
 
@@ -154,7 +160,7 @@
                             </path>
                         </svg>
                     </div>
-                    <p class="hideName block md:hidden pl-2">LogOut</p>
+                    <p class="hideName block pl-2 md:hidden">LogOut</p>
                 </a>
             </div>
         </div>
