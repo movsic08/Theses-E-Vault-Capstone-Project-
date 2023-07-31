@@ -1,5 +1,5 @@
 <nav id="sidebar-nav"
-    class="bg-opacity-100text-gray-700 sticky left-full top-0 z-50 hidden h-screen w-auto bg-red-800 bg-opacity-20 drop-shadow-xl backdrop-blur-sm dark:bg-red-900 md:left-0 md:flex md:h-screen md:w-14 md:flex-col md:justify-between md:rounded-r-xl">
+    class="sticky left-full top-0 z-50 hidden h-screen max-h-screen w-auto bg-white bg-opacity-100 text-gray-700 drop-shadow-xl backdrop-blur-sm dark:bg-red-900 md:left-0 md:flex md:h-screen md:w-14 md:flex-col md:justify-between md:rounded-r-xl">
     {{-- LOGO AND NAME AND FEATURE CONTAINER --}}
     <div class="">
         <div>
