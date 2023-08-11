@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
 //admin view
 Route::get('/list', function () {
-    return view('admin_pages.user-list');
+    return view('admin.pages.user-list');
 });
 
 
