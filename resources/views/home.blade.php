@@ -3,8 +3,10 @@
 
 <div class="relative h-screen w-full overflow-y-auto">
     <x-main_nav />
-    <div class="container sticky top-0 w-full text-secondary-color">
-        <h2>List of Collections</h2>
+    {{-- @dd(auth()->user()) --}}
+    <div class="container">
+        <x-session_flash />
+        <h2 class="text-secondary-color">List of Collections</h2>
     </div>
 
     <div class="container my-2 flex flex-col space-y-4 md:flex-row md:gap-2 md:space-y-0 lg:space-x-10">

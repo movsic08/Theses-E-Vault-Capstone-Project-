@@ -6,13 +6,6 @@
             <div class="flex items-center justify-between space-x-1 p-4">
                 <h1>logo</h1>
                 <h1 class="hideName block md:hidden">ThesisKIosk</h1>
-                <button id="menu-hide-btn" class="md:hidden">
-                    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242-1.414-1.414Z">
-                        </path>
-                    </svg>
-                </button>
                 <button id="sidebarBtn" class="absolute -right-7 z-40 hidden md:block">
                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -103,7 +96,7 @@
                     </a>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                    <a href="#" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
@@ -150,19 +143,51 @@
                 </a>
             </div>
 
-            <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                <a href="" class="flex items-center">
-                    <div class="relative">
-                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1Zm14.242-.97-8-2A1 1 0 0 0 10 3v18a.999.999 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97ZM15 12.188a1 1 0 0 1-2 0v-.377a1 1 0 1 1 2 0v.377Z">
-                            </path>
-                        </svg>
-                    </div>
-                    <p class="hideName block pl-2 md:hidden">LogOut</p>
-                </a>
-            </div>
+            @auth
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <form action="{{ route('user.logout') }}" method="POST">
+                        @csrf
+                        <button class="flex items-center" type="submit">
+                            <div class="relative">
+                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1Zm14.242-.97-8-2A1 1 0 0 0 10 3v18a.999.999 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97ZM15 12.188a1 1 0 0 1-2 0v-.377a1 1 0 1 1 2 0v.377Z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <p class="hideName block pl-2 md:hidden">LogOut</p>
+                        </button>
+                    </form>
+                </div>
+            @else
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a href="{{ route('login') }}" class="flex items-center">
+                        <div class="relative">
+                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3.72 20.4a.6.6 0 1 0 0 1.2h15.6a.6.6 0 1 0 0-1.2h-1.8v-15a1.8 1.8 0 0 0-1.8-1.8h-.6V3a.599.599 0 0 0-.684-.594l-8.4 1.2a.6.6 0 0 0-.516.594v16.2h-1.8Zm11.4-15.6h.6a.6.6 0 0 1 .6.6v15h-1.2V4.8Zm-3 9.6c-.331 0-.6-.537-.6-1.2 0-.662.269-1.2.6-1.2.331 0 .6.538.6 1.2 0 .663-.269 1.2-.6 1.2Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <p class="hideName block pl-2 md:hidden">Login</p>
+                    </a>
+                </div>
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a href="{{ route('register') }}" class="flex items-center">
+                        <div class="relative">
+                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3.72 20.4a.6.6 0 1 0 0 1.2h15.6a.6.6 0 1 0 0-1.2h-1.8v-15a1.8 1.8 0 0 0-1.8-1.8h-.6V3a.599.599 0 0 0-.684-.594l-8.4 1.2a.6.6 0 0 0-.516.594v16.2h-1.8Zm11.4-15.6h.6a.6.6 0 0 1 .6.6v15h-1.2V4.8Zm-3 9.6c-.331 0-.6-.537-.6-1.2 0-.662.269-1.2.6-1.2.331 0 .6.538.6 1.2 0 .663-.269 1.2-.6 1.2Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <p class="hideName block pl-2 md:hidden">Signup</p>
+                    </a>
+                </div>
+            @endauth
+
         </div>
     </div>
 </nav>
