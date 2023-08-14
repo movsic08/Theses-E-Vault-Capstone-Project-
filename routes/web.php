@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+
 
 Route::get('/sidebar', function () {
     return view('sidebar');
@@ -30,19 +28,34 @@ Route::post('/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
 Route::post('/login/process', [UserController::class, 'loginProcess'])->name('login-process');
 
-// only autehnticated user level1
-Route::middleware('auth')->group(function () {
-    // Route::get('/user/{id}', [UserController::class, 'viewProfile'])->name('user.profile');
+// only autehnticated user
+Route::middleware('auth', 'user')->group(function () {
 
     Route::get('/user', function () {
         return view('user_pages.profile');
     })->name('user.profile');
-
 });
 
-//admin view
-Route::get('/list', function () {
-    return view('admin.pages.user-list');
+//no account needed
+Route::middleware('user')->group(function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home')->middleware('user');
+});
+
+//admin routes
+Route::middleware('auth', 'admin')->prefix('admin')->group(function () {
+    //list of users and adding process
+    Route::get('/list', [UserController::class, 'studentList'])->name('admin.users');
+    Route::post('/list/add-user', [UserController::class, 'addNewUser'])->name('addNewUser');
+    //ajax
+    Route::post('/list/add-userAJAX', [UserController::class, 'addNewUserAJAX'])->name('addNewUserAJAX');
+
+
+    //designing
+    Route::get('/home', function () {
+        return view('admin.pages.index')->with('title', 'Home');
+    })->name('admin.home');
 });
 
 

@@ -22,12 +22,14 @@ class User extends Authenticatable
         'email',
         'password',
         'first_name',
-        'role_id'
+        'role_id',
+        'is_user',
+        'is_admin',
     ];
 
     public function account_role()
     {
-        return $this->belongsTo(Account_role::class);
+        return $this->belongsTo(Account_role::class, 'role_id');
     }
 
     public function bachelorDegree()

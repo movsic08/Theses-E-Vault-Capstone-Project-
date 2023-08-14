@@ -1,8 +1,5 @@
-@include('partials.__header')
-<x-navbar />
+<x-app-layout>
 
-<div class="relative h-screen w-full overflow-y-auto">
-    <x-main_nav />
     {{-- @dd(auth()->user()) --}}
     <div class="container">
         <x-session_flash />
@@ -652,11 +649,4 @@
             </div>
         </div>
     </div>
-</div>
-
-
-
-
-
-
-@include('partials.__footer')
+</x-app-layout>

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -14,6 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->string('email')->unique();
             $table->string('username')->unique();
+            $table->boolean('is_admin')->default(false); // Set default value to false
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('first_name')->nullable();
@@ -23,7 +25,7 @@ return new class extends Migration {
             $table->string('profile_picture')->nullable();
             $table->string('bio')->nullable();
             $table->unsignedBigInteger('bachelor_degree')->nullable();
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
@@ -31,6 +33,7 @@ return new class extends Migration {
             $table->foreign('role_id')->references('id')->on('account_roles');
             $table->foreign('bachelor_degree')->references('id')->on('bachelor_degrees')->nullable();
         });
+
     }
 
     /**
