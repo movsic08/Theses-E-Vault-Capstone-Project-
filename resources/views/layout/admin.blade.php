@@ -8,4 +8,9 @@
     {{ $slot }}
 
 </div>
+
+
+
+
+
 @include('admin.partials.__admin_footer')

@@ -40,13 +40,18 @@ class UserController extends Controller
     //logout
     public function logout(Request $request)
     {
+        $is_admin = auth()->user()->is_admin;
         auth()->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        //return the user to previous page
-        return redirect()->back()->with('message', 'Log out successfully.');
+        // Redirect based on the is_admin value
+        if ($is_admin) {
+            return redirect()->route('login')->with('message', 'Log out successfully.');
+        } else {
+            return redirect()->route('home')->with('message', 'Log out successfully.');
+        }
     }
 
     //login

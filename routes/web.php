@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Admin\AddNewUser;
+use App\Http\Livewire\Admin\CreateUsers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,12 +47,12 @@ Route::middleware('user')->group(function () {
 
 //admin routes
 Route::middleware('auth', 'admin')->prefix('admin')->group(function () {
+    Route::get('/component', AddNewUser::class);
+    // Route::post('list', AddNewUser::class)->name('admin.users');
+
     //list of users and adding process
     Route::get('/list', [UserController::class, 'studentList'])->name('admin.users');
-    Route::post('/list/add-user', [UserController::class, 'addNewUser'])->name('addNewUser');
-    //ajax
-    Route::post('/list/add-userAJAX', [UserController::class, 'addNewUserAJAX'])->name('addNewUserAJAX');
-
+    // Route::post('/list/add-user', [UserController::class, 'addNewUser'])->name('addNewUser');
 
     //designing
     Route::get('/home', function () {
@@ -64,3 +66,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::get('/signup', [UserController::class, 'register'])->name('register');
 });
+
+
+
+
+
+Route::get('test', CreateUsers::class);

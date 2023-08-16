@@ -21,6 +21,8 @@
         rel="stylesheet">
     <title>ADMIN</title>
     @vite('resources/css/app.css')
+
+    @livewireStyles
 </head>
 
 
