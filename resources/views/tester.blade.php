@@ -26,13 +26,14 @@
     <div class="flex w-full flex-col">
         {{-- navbar --}}
         <x-navbar />
-        {{-- contents --}}
         {{ $slot }}
+        {{-- contents --}}
         {{-- <section class="container flex h-screen items-center justify-center">
             <div class="">
                 <h2 class="bg-blue-900 p-20 text-white">Content for the first section</h2>
             </div>
         </section> --}}
+
     </div>
 </body>
 

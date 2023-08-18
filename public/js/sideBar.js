@@ -36,6 +36,10 @@ $(document).ready(function () {
         isExpanded = !isExpanded; // Toggle the flag value
     });
 
+    $("#closeBtnSession").on("click", function () {
+        $("#sessionMsg").fadeOut(400);
+    });
+
     // var menuLeft = $("#left-btn");
     // menuLeft.on("click", function () {
     //     sidebarNav.removeClass("hidden");

@@ -82,7 +82,7 @@ class UserController extends Controller
             if ($user->is_admin) {
                 return redirect()->route('admin.home')->with('message', 'Welcome back, Admin ' . $user->email . '!');
             } else {
-                return redirect()->back()->with('message', 'Welcome back, ' . $user->email . '!');
+                return redirect()->route('home')->with('message', 'Welcome back, ' . $user->email . '!');
             }
 
         }

@@ -1,6 +1,7 @@
 <x-app-layout>
     @section('title', 'Home')
     {{-- @dd(auth()->user()) --}}
+    <x-session_flash />
     <div class="container">
         <h2 class="text-secondary-color">List of Collections</h2>
     </div>

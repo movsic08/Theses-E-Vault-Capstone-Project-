@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Livewire\Admin\AddNewUser;
-use App\Http\Livewire\Admin\CreateUsers;
+use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
+use App\Http\Livewire\{EditProfile};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +36,8 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/user', function () {
         return view('user_pages.profile');
     })->name('user.profile');
+
+    Route::get('/profile/edit', EditProfile::class)->name('edit-profile');
 });
 
 //no account needed
@@ -70,5 +72,7 @@ Route::middleware('guest')->group(function () {
 
 
 
-
+Route::get('/sample', function(){
+    return view('tester');
+});
 Route::get('test', CreateUsers::class);
