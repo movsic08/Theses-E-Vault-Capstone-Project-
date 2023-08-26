@@ -1,0 +1,88 @@
+<div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
+    <div class="flex w-full flex-col md:w-1/2">
+        <label class="text-sm font-semibold" for="email">Email address</label>
+        <input
+            class="rounded-md border border-gray-400 p-1 text-sm"
+            type="email"
+            wire:model="email"
+            id="email"
+            value="{{ $user->email }}"
+        />
+        @error('email')
+        <small class="text-red-500">{{ $message }}</small>
+        @enderror
+    </div>
+    <div class="flex w-full flex-col md:w-1/2">
+        <label for="pnumber" class="text-sm font-semibold">Phone number</label>
+        <input
+            class="rounded-md border border-gray-400 p-1 text-sm"
+            type="text"
+            name="pnumber"
+            id="pnumber"
+            value="09107891327"
+        />
+        @error('first_name')
+        <small class="text-red-500">{{ $message }}</small>
+        @enderror
+    </div>
+</div>
+<div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
+    <div class="flex w-full flex-col md:w-1/2">
+        <label class="text-sm font-semibold" for="studentID">Student ID</label>
+        <input
+            class="rounded-md border border-gray-400 p-1 text-sm"
+            type="text"
+            name="studentID"
+            id="studentID"
+            value="21-JK-2342"
+        />
+        @error('first_name')
+        <small class="text-red-500">{{ $message }}</small>
+        @enderror
+    </div>
+    <div class="flex w-full flex-col md:w-1/2">
+        <label class="text-sm font-semibold" for="usernames">Username</label>
+        <input
+            class="rounded-md border border-gray-400 p-1 text-sm"
+            type="text"
+            name="usernames"
+            id="usernames"
+            value="21-JK-2342"
+        />
+        @error('first_name')
+        <small class="text-red-500">{{ $message }}</small>
+        @enderror
+    </div>
+</div>
+<div class="w-full">
+    <label class="text-sm font-semibold" for="bachelor_degree"
+        >Bachelor Degree</label
+    >
+    <select
+        wire:model="bachelor_degree"
+        id="bachelor-degree"
+        class="w-full rounded-md border border-gray-400 p-1 text-sm"
+    >
+        @foreach ($bachelor_degree as $degree)
+        <option class="text-sm" value="{{ $degree->id }}">
+            {{ $degree->name }}
+        </option>
+        @endforeach
+    </select>
+    @error('first_name')
+    <small class="text-red-500">{{ $message }}</small>
+    @enderror
+</div>
+<div class="flex w-full flex-col">
+    <label class="text-sm font-semibold" for="address">Address</label>
+    <input
+        class="rounded-md border border-gray-400 p-1 text-sm"
+        type="text"
+        name="address"
+        id="address"
+        value="Almainos, City Pangasinan"
+    />
+    @error('first_name')
+    <small class="text-red-500">{{ $message }}</small>
+    @enderror
+</div>

@@ -32,7 +32,10 @@ class CreateUsers extends Component
             'email' => ['required', 'email', 'unique:users'],
             'password' => 'required|confirmed|min:8',
             'account_level' => 'required',
-        ]);
+        ], 
+    [
+        
+    ]);
 
         // dd($this->validate()->all());
 

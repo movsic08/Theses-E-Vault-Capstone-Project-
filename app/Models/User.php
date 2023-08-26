@@ -17,14 +17,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
-        'email',
-        'password',
-        'first_name',
-        'role_id',
-        'is_user',
-        'is_admin',
+    protected $guarded = [
+
     ];
 
     public function account_role()

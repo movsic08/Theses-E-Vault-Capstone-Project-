@@ -2,11 +2,34 @@
     class="md:gradient-bg-light sticky top-0 z-30 bg-slate-100 bg-opacity-70 backdrop-blur-md md:px-7 md:py-1 lg:px-7">
     <div
         class="container top-0 flex w-full items-center justify-between px-7 py-2 text-base font-semibold text-blue-950 md:px-2">
-        <h1 class="">Good Morning, Pogi!</h1>
+        <h1 class="">Good Morning,
+            @auth
+                @if (empty(auth()->user()->first_name))
+                    {{ auth()->user()->username }}
+                @else
+                    {{ auth()->user()->first_name }}!
+                @endif
+            @endauth
+            @guest
+                Guest!
+            @endguest
+        </h1>
         <div class="flex flex-row items-center justify-center">
             @auth
-                <h1>21-AC-0138</h1>
+                @if (empty(auth()->user()->student_id))
+                    User!
+                @else
+                    <h1> {{ auth()->user()->student_id }}</h1>
+                    @if (auth()->user()->profile_picture)
+                        <img class="mx-1 h-7 w-7 rounded-full object-cover"
+                            src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture">
+                    @else
+                        <img class="mx-1 h-7 w-7 rounded-full object-cover" src="{{ asset('assets/default_profile.png') }}"
+                            alt="Default Profile Picture">
+                    @endif
+                @endif
             @endauth
+
             @guest
                 <div class="flex items-center justify-center gap-2">
                     <a class="rounded-md bg-primary-color p-1 px-2 text-sm text-white duration-300 hover:bg-blue-900"

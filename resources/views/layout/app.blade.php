@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" def />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/jQuery.js') }}"></script>
     <script src="{{ asset('js/sideBar.js') }}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.3/dist/cdn.min.js"></script>
@@ -26,6 +29,7 @@
     <div class="flex w-full flex-col">
         {{-- navbar --}}
         <x-navbar />
+
         {{-- contents --}}
         {{ $slot }}
         {{-- <section class="container flex h-screen items-center justify-center">
@@ -33,10 +37,10 @@
                 <h2 class="bg-blue-900 p-20 text-white">Content for the first section</h2>
             </div>
         </section> --}}
+
     </div>
+    @livewireScripts
+    <script src="{{ asset('js/app/editProfile.js') }}"></script>
 </body>
-
-
-
 
 </html>
