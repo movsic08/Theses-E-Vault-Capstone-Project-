@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\BachelorDegree;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
@@ -91,12 +92,50 @@ class EditProfile extends Component {
         $this->bachelor_degree  = $this->user->bachelor_degree;
     }
 
-    public $current_password, $new_password, $password_confirmation;
+    public $activeTab = 'tab2';
+
+    public function setActiveTab( $tab ) {
+        $this->activeTab = $tab;
+    }
+
+    public $showDeleteBox = true;
+
+    public function showdelBox() {
+        $this->showDeleteBox = !$this->showDeleteBox;
+    }
+    public $current_password, $password, $password_confirmation;
 
     public function changePassword() {
         $this->validate( [
             'current_password' => 'required',
+            'password' => [ 'required', 'min:8', 'confirmed', 'different:current_password' ],
+        ],
+        [
+            'password.confirmed' =>'Password is not match!',
         ] );
+
+        $user = Auth::user();
+        if ( Hash::check( $this->current_password, $user->password ) ) {
+            $user->update( [
+                'password' => Hash::make( $this->password ),
+            ] );
+            session()->flash( 'message', 'Password changed successfully.' );
+        } else {
+            session()->flash( 'message', 'Incorrect old password.' );
+        }
+        $this->reset( [ 'current_password', 'password', 'password_confirmation' ] );
+
+    }
+
+    public $showDeleteConfirmation = false;
+
+    public function toggleDeleteConfirmation() {
+        $this->showDeleteConfirmation = ! $this->showDeleteConfirmation;
+    }
+
+    public function deletemyAccount() {
+        Auth::user()->delete();
+        return redirect()->route( 'home' )->with( 'message', 'Your account deleted successfully.' );
     }
 
     public function render() {

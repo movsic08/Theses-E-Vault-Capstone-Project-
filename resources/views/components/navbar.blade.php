@@ -17,9 +17,9 @@
         <div class="flex flex-row items-center justify-center">
             @auth
                 @if (empty(auth()->user()->student_id))
-                    User!
+                    <h1 class="hidden md:block">User!</h1>
                 @else
-                    <h1> {{ auth()->user()->student_id }}</h1>
+                    <h1 class="hidden md:block"> {{ auth()->user()->student_id }}</h1>
                     @if (auth()->user()->profile_picture)
                         <img class="mx-1 h-7 w-7 rounded-full object-cover"
                             src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture">
@@ -60,7 +60,7 @@
     {{-- mobile version --}}
     <div class="relative">
         <div id="mobileMenu" class="absolute hidden h-auto w-screen bg-slate-100 backdrop-blur-sm">
-            <div class="text-sm font-semibold">
+            <div class="container text-sm font-semibold">
                 <div id="sample"
                     class="div-container mx-1 mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                     <a href="" class="flex items-center">
@@ -158,7 +158,7 @@
                 @endauth
 
             </div>
-            <div>
+            <div class="container">
                 <div class="text-sm font-semibold">
                     <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                         <a href="" class="flex items-center">

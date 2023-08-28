@@ -1,5 +1,5 @@
 <aside id="sidebar-nav"
-    class="sticky top-0 z-50 hidden h-screen w-14 flex-col justify-between rounded-r-xl bg-white text-gray-700 drop-shadow-lg md:flex">
+    class="sticky bottom-0 left-0 top-0 z-50 hidden h-screen w-14 flex-col justify-between rounded-r-xl bg-white text-gray-700 drop-shadow-lg md:flex">
     <section>
         {{-- logo ang name --}}
         <div class="flex items-center justify-between space-x-1 p-4">

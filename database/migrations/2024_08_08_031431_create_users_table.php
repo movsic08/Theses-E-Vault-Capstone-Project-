@@ -25,6 +25,8 @@ return new class extends Migration {
             $table->string('student_id')->nullable();
             $table->string('staff_id')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->string('facebook_url')->nullable();
+            $table->string('ms_url')->nullable();
             $table->string('bio')->nullable();
             $table->unsignedBigInteger('bachelor_degree')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();

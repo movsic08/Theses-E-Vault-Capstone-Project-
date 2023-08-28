@@ -26,7 +26,7 @@
     {{-- sidebar --}}
     <x-sidebar />
 
-    <div class="flex w-full flex-col">
+    <div class="flex w-full max-w-full flex-col">
         {{-- navbar --}}
         <x-navbar />
 
@@ -40,7 +40,7 @@
 
     </div>
     @livewireScripts
-    <script src="{{ asset('js/app/editProfile.js') }}"></script>
+
 </body>
 
 </html>
