@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OtpAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
 use App\Http\Livewire\{EditProfile};
@@ -25,6 +26,11 @@ Route::get('/sidebar', function () {
     return view('sidebar');
 });
 
+// Route::controller(UserController:: class)->group(funtion(){
+//     Route::post('/create', 'create')->name('user.create');
+// Route::post('/logout', 'logout')->name('user.logout');
+// Route::post('/login/process', 'loginProcess')->name('login-process');
+// });
 
 Route::post('/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
@@ -39,6 +45,8 @@ Route::middleware('auth', 'user')->group(function () {
 
     Route::get('/profile/edit', EditProfile::class)->name('edit-profile');
 });
+
+
 
 //no account needed
 Route::middleware('user')->group(function () {
@@ -71,4 +79,12 @@ Route::middleware('guest')->group(function () {
 Route::get('/sample', function(){
     return view('tester');
 });
+
 Route::get('test', CreateUsers::class);
+
+Route::get('/otp', [OtpAuthController::class, 'showForm']);
+Route::post('/sentOtp', [OtpAuthController::class, 'sendOtp'])->name('sendOtp');
+Route::post('/verifyOTP', function(){
+    return view('verifyOtp');
+} )->name('verifyOTP');
+Route::post('verifying', [OtpAuthController::class, 'checkOTP'])->name('verifyInputOTP');

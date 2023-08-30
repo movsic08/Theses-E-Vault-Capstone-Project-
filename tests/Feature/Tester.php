@@ -1,22 +1,18 @@
 <?php
 
-namespace App\Http\Livewire;
-
-use App\Mail\OtpEmail;
-use App\Models\BachelorDegree;
-use App\Models\VerificationCode;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+namespace Tests\Feature;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use Livewire\WithFileUploads;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
-class EditProfile extends Component {
+class Tester extends TestCase {
+    /**
+    * A basic feature test example.
+    */
 
     use WithFileUploads;
     public $bachelor_degree_data, $user;
-    public $facebook_url, $ms_url, $verifyEmail;
     public $first_name, $last_name, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input, $bachelor_degree,  $address, $profile_picture;
 
     public function mount() {
@@ -28,9 +24,7 @@ class EditProfile extends Component {
         $this->student_id = $this->user->student_id;
         $this->username = $this->user->username;
         $this->address = $this->user->address;
-        $this->facebook_url = $this->user->facebook_url;
-        $this->ms_url = $this->user->ms_url;
-        $this->verifyEmail = $this->user->email;
+
         $bachelorDegree = BachelorDegree::find( $this->user->bachelor_degree );
         $this->bachelorDegreeName = $bachelorDegree ? $bachelorDegree->name : null;
 
@@ -99,19 +93,16 @@ class EditProfile extends Component {
         $this->bachelor_degree  = $this->user->bachelor_degree;
     }
 
-    public $activeTab = 'tab3';
+    public $activeTab = 'tab2';
 
     public function setActiveTab( $tab ) {
         $this->activeTab = $tab;
     }
 
-    public $showDeleteBox = false;
-    public $confirmationInput = '';
+    public $showDeleteBox = true;
 
     public function showdelBox() {
         $this->showDeleteBox = !$this->showDeleteBox;
-        $this->confirmationInput = '';
-        // Reset input field
     }
     public $current_password, $password, $password_confirmation;
 
@@ -146,62 +137,6 @@ class EditProfile extends Component {
     public function deletemyAccount() {
         Auth::user()->delete();
         return redirect()->route( 'home' )->with( 'message', 'Your account deleted successfully.' );
-    }
-
-    public function addUrl() {
-        $this->validate( [
-            'facebook_url' => 'required',
-            'ms_url' => 'required',
-        ], [
-            'facebook_url.required' => 'Please provide your Faceboook URL',
-            'ms_url.required' => 'Please provide your Microsoft account URL',
-        ] );
-
-        if ( ( empty( auth()->user()->facebook_url ) || empty( auth()->user()->ms_url ) ) ) {
-            Auth::user()->update( [
-                'facebook_url' => $this->facebook_url,
-                'ms_url' => $this->ms_url,
-            ] );
-            session()->flash( 'message', 'Adding social media success' );
-        } else {
-            Auth::user()->update( [
-                'facebook_url' => $this->facebook_url,
-                'ms_url' => $this->ms_url,
-            ] );
-
-            session()->flash( 'message', 'Edit Social media links success!' );
-        }
-    }
-
-    public $enterOtpBox = false;
-
-    public function verifyMyEmail() {
-        $this->validate( [
-            'verifyEmail' => [ 'required', 'email', 'regex:/^[A-Za-z0-9._%+-]+@psu\.edu\.ph$/i' ],
-        ], [
-            'verifyEmail.regex' => 'Use your institutional account to verify your account.',
-        ] );
-
-        $email = $this->verifyEmail;
-        $existingOTP = VerificationCode::where( 'email', $email )->where( 'expire_at', '>', now() )->first();
-
-        if ( !$existingOTP ) {
-            $generatedOTP  = strtoupper( Str::random( 6 ) );
-
-            $test = VerificationCode::create( [
-                'user_id' =>auth()->id(),
-                'email' => $email,
-                'otp' => $generatedOTP,
-                'expire_at' => now()->addMinutes( 2 ),
-            ] );
-
-            Mail::to( $email )->send( new OtpEmail( $generatedOTP ) );
-            $this->enterOtpBox = true;
-            // return dd( $test );
-        } else {
-            return dd( 'existing' );
-        }
-
     }
 
     public function render() {
