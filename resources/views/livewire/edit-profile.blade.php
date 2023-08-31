@@ -57,18 +57,66 @@
         {{-- box for otp --}}
         <div
             class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
-            <div class="mx-3 flex w-fit flex-col gap-1 rounded-md bg-white px-10 py-5 text-center md:w-2/5">
-                <form action="">
-                    <h1>The otp is sent to your {{ $verifyEmail }}</h1>
-                    <label for="">Enter the 6 letters to verify your account</label>
-                    <input type="text">
+            <div
+                class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg">
+                <img class="h-10" src="{{ asset('icons/logo.svg') }}" alt="Icon Description">
+                <h1 class="font-bold">Enter verification code</h1>
+                <h1 class="">We've send a code to <strong> {{ $verifyEmail }}</strong></h1>
+                <form wire:submit.prevent="checkOtpInput">
+                    <section class="flex flex-col items-center justify-center">
+                        <label class="" for="">Enter the 6 letters to verify your account</label>
+                        <div class="flex w-full flex-row justify-evenly capitalize">
+                            @for ($i = 1; $i <= 6; $i++)
+                                <input type="text"
+                                    class="@error('input' . $i) border-red-600 @enderror h-10 w-10 rounded-md border-2 border-gray-300 text-center text-lg font-semibold capitalize focus:border-blue-400 focus:ring focus:ring-blue-200"
+                                    maxlength="1" id="input{{ $i }}" wire:model="input{{ $i }}">
+                            @endfor
+                        </div>
+                        @error('validateOtp')
+                            <small class="text-red-500">{{ $message }}</small>
+                        @enderror
+                        @error('alreadySent')
+                            <small class="text-red-500">{{ $message }}</small>
+                        @enderror
+                        <span>Didn't get a code? <button><Strong>Request new code</Strong></button></span>
+                        <div class="flex w-full flex-col gap-3 md:flex-row">
+                            <button wire:click="closeOtpBox"
+                                class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
+                                Cancel
+                            </button>
+                            <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
+                                wire:loading.attr="disabled">
+                                Verify
+                            </button>
+                        </div>
+                    </section>
                 </form>
             </div>
         </div>
     @endif
 
-
-
+    @if ($verifiedBox)
+        <div
+            class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
+            <div
+                class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg">
+                <div class="flex items-center justify-center">
+                    <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M7.52 4.146a3.68 3.68 0 0 0 2.094-.868 3.68 3.68 0 0 1 4.772 0 3.68 3.68 0 0 0 2.094.868 3.68 3.68 0 0 1 3.374 3.374 3.67 3.67 0 0 0 .868 2.094 3.68 3.68 0 0 1 0 4.772 3.679 3.679 0 0 0-.868 2.094 3.68 3.68 0 0 1-3.374 3.374 3.679 3.679 0 0 0-2.094.868 3.68 3.68 0 0 1-4.772 0 3.679 3.679 0 0 0-2.094-.868 3.68 3.68 0 0 1-3.374-3.374 3.68 3.68 0 0 0-.868-2.094 3.68 3.68 0 0 1 0-4.772 3.68 3.68 0 0 0 .868-2.094A3.68 3.68 0 0 1 7.52 4.146Zm8.928 6.302a1.2 1.2 0 0 0-1.696-1.696L10.8 12.703l-1.552-1.551a1.2 1.2 0 0 0-1.696 1.696l2.4 2.4a1.2 1.2 0 0 0 1.696 0l4.8-4.8Z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h1>Account Verified!</h1>
+                <p>You have succesfully verified your acocunt.</p>
+                <button wire:click="closeVerifiedBox"
+                    class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
+                    Close
+                </button>
+            </div>
+        </div>
+    @endif
 
     <x-session_flash />
     <div class="container mb-4">
@@ -449,15 +497,36 @@
                                                 to recover your account.
                                             </p>
                                         @else
-                                            <h1>Account is verified</h1>
+                                            <div class="mx-3 flex items-center text-blue-600">
+                                                <svg fill="currentColor" height="40" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M7.52 4.146a3.68 3.68 0 0 0 2.094-.868 3.68 3.68 0 0 1 4.772 0 3.68 3.68 0 0 0 2.094.868 3.68 3.68 0 0 1 3.374 3.374 3.67 3.67 0 0 0 .868 2.094 3.68 3.68 0 0 1 0 4.772 3.679 3.679 0 0 0-.868 2.094 3.68 3.68 0 0 1-3.374 3.374 3.679 3.679 0 0 0-2.094.868 3.68 3.68 0 0 1-4.772 0 3.679 3.679 0 0 0-2.094-.868 3.68 3.68 0 0 1-3.374-3.374 3.68 3.68 0 0 0-.868-2.094 3.68 3.68 0 0 1 0-4.772 3.68 3.68 0 0 0 .868-2.094A3.68 3.68 0 0 1 7.52 4.146Zm8.928 6.302a1.2 1.2 0 0 0-1.696-1.696L10.8 12.703l-1.552-1.551a1.2 1.2 0 0 0-1.696 1.696l2.4 2.4a1.2 1.2 0 0 0 1.696 0l4.8-4.8Z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="flex flex-col text-xs">
+                                                <p>
+                                                    Account Verified! Welcome to our Research & Thesis Hub! 🎓
+                                                </p>
+                                                <p> Your institutional account has been verified. Dive into
+                                                    a world of research,
+                                                    thesis, and capstone excellence. Enjoy exploring and learning on our
+                                                    platform!</p>
+                                                <p> Happy researching! 📚🔍</p>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="flex w-full flex-col">
                                         <label class="text-sm font-semibold" for="verifyEmail">Institutional Email</label>
-                                        <small>To verify your account, you need to use your
-                                            institutional account.</small>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="email"
-                                            wire:model="verifyEmail" id="email" />
+                                        @if (auth()->user()->is_verified == false)
+                                            <small>To verify your account, you need to use your institutional
+                                                account.</small>
+                                        @endif
+                                        <input
+                                            class="{{ auth()->user()->is_verified ? 'text-gray-400' : '' }} /> rounded-md border border-gray-400 p-2 text-sm"
+                                            type="email" wire:model="verifyEmail" id="email"
+                                            {{ auth()->user()->is_verified ? 'disabled' : '' }} />
                                         @error('verifyEmail')
                                             <small class="text-red-500">{{ $message }}</small>
                                         @enderror
@@ -472,15 +541,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                            wire:loading.attr="disabled">
-                                            Save
-                                        </button>
-                                        <button
-                                            class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                                            Cancel
-                                        </button>
-
+                                        @if (auth()->user()->is_verified == false)
+                                            <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
+                                                wire:loading.attr="disabled">
+                                                Save
+                                            </button>
+                                            <button
+                                                class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
+                                                Cancel
+                                            </button>
+                                        @endif
                                     </div>
                                 </form>
                             </section>

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Mail\OtpEmail;
 use App\Models\BachelorDegree;
+use App\Models\OtpRequestHistory;
 use App\Models\VerificationCode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -99,7 +100,7 @@ class EditProfile extends Component {
         $this->bachelor_degree  = $this->user->bachelor_degree;
     }
 
-    public $activeTab = 'tab3';
+    public $activeTab = 'tab1';
 
     public function setActiveTab( $tab ) {
         $this->activeTab = $tab;
@@ -183,12 +184,34 @@ class EditProfile extends Component {
         ] );
 
         $email = $this->verifyEmail;
-        $existingOTP = VerificationCode::where( 'email', $email )->where( 'expire_at', '>', now() )->first();
+        $user = auth()->user();
+
+        $todayRequests = OtpRequestHistory::where( 'user_id', $user->id )
+        ->whereDate( 'request_date', now() )
+        ->first();
+
+        if ( !$todayRequests ) {
+            OtpRequestHistory::create( [
+                'user_id' => $user->id,
+                'request_date' => now(),
+                'request_count' => 1,
+            ] );
+        } else {
+            // Increment the request count if history exists
+            $todayRequests->increment( 'request_count' );
+            if ( $todayRequests->request_count >= 3 ) {
+                return $this->addError( 'verifyEmail', 'You have reached the OTP request limit for today. Try again tomorrow.' );
+            }
+        }
+
+        $existingOTP = VerificationCode::where( 'email', $email )
+        ->where( 'expire_at', '>', now() )
+        ->first();
 
         if ( !$existingOTP ) {
             $generatedOTP  = strtoupper( Str::random( 6 ) );
 
-            $test = VerificationCode::create( [
+            VerificationCode::create( [
                 'user_id' =>auth()->id(),
                 'email' => $email,
                 'otp' => $generatedOTP,
@@ -199,9 +222,57 @@ class EditProfile extends Component {
             $this->enterOtpBox = true;
             // return dd( $test );
         } else {
-            return dd( 'existing' );
+            $this->enterOtpBox = true;
+            $this->addError( 'alreadySent', ' The OTP is already sent to you, check your inbox now.' );
         }
 
+    }
+
+    public function closeOtpBox() {
+        $this->enterOtpBox = false;
+    }
+    public $input1, $input2, $input3, $input4, $input5, $input6;
+
+    public function checkOtpInput() {
+        $this->validate( [
+            'input1' => 'required',
+            'input2' => 'required',
+            'input3' => 'required',
+            'input4' => 'required',
+            'input5' => 'required',
+            'input6' => 'required',
+        ] );
+
+        $compiledInput = $this->input1.$this->input2.$this->input3.$this->input4.$this->input5.$this->input6;
+        $email = $this->verifyEmail;
+        $is_existingOtp = VerificationCode::where( 'email', $email )
+        ->where( 'otp', $compiledInput )
+        ->first();
+
+        if ( $is_existingOtp ) {
+            if ( $is_existingOtp->expire_at < now() ) {
+                $this->addError( 'validateOtp', 'The OTP is already expired, request a new one.' );
+            } else {
+                Auth::user()->update( [
+                    'email' => $email,
+                    'is_verified' => true,
+                ] );
+
+                $this->enterOtpBox = false;
+                $this->verifiedBox = true;
+                session()->flash( 'message', 'Account verified successfully.' );
+            }
+        } else {
+            $this->addError( 'validateOtp', 'The OTP you entered is invalid.' );
+        }
+        //end of nested else if
+    }
+
+    public $verifiedBox = false;
+
+    public function closeVerifiedBox() {
+        $this->verifiedBox = false;
+        $this->enterOtpBox = false;
     }
 
     public function render() {
