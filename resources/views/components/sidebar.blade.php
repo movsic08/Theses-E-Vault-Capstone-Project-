@@ -3,7 +3,7 @@
     <section>
         {{-- logo ang name --}}
         <div class="flex items-center justify-between space-x-1 p-4">
-            <h1>logo</h1>
+            <img class="max-w-12 h-12 max-h-12 w-12" src="{{ asset('icons/logo.svg') }}" alt="logo" srcset="">
             <h1 class="hideName block md:hidden">ThesisKIosk</h1>
             <button id="sidebarBtn" class="absolute -right-7 z-40 hidden md:block">
                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">

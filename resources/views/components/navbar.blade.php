@@ -1,8 +1,18 @@
-<section
-    class="md:gradient-bg-light sticky top-0 z-30 bg-slate-100 bg-opacity-70 backdrop-blur-md md:px-7 md:py-1 lg:px-7">
+<section class="md:gradient-bg-light sticky top-0 z-30 bg-slate-100 bg-opacity-70 backdrop-blur md:px-7 md:py-1 lg:px-7">
     <div
         class="container top-0 flex w-full items-center justify-between px-7 py-2 text-base font-semibold text-blue-950 md:px-2">
-        <h1 class="">Good Morning,
+        @php
+            $currentHour = now()->format('g');
+            
+            if ($currentHour >= 5 && $currentHour < 12) {
+                $greeting = 'morning';
+            } elseif ($currentHour >= 12 && $currentHour < 18) {
+                $greeting = 'afternoon';
+            } else {
+                $greeting = 'evening';
+            }
+        @endphp
+        <h1 class="">Good {{ $greeting }},
             @auth
                 @if (empty(auth()->user()->first_name))
                     {{ auth()->user()->username }}
@@ -21,11 +31,11 @@
                 @else
                     <h1 class="hidden md:block"> {{ auth()->user()->student_id }}</h1>
                     @if (auth()->user()->profile_picture)
-                        <img class="mx-1 h-7 w-7 rounded-full object-cover"
+                        <img class="h-7 w-7 rounded-full object-cover md:mx-2"
                             src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture">
                     @else
-                        <img class="mx-1 h-7 w-7 rounded-full object-cover" src="{{ asset('assets/default_profile.png') }}"
-                            alt="Default Profile Picture">
+                        <img class="h-7 w-7 rounded-full object-cover md:mx-2"
+                            src="{{ asset('assets/default_profile.png') }}" alt="Default Profile Picture">
                     @endif
                 @endif
             @endauth

@@ -4,6 +4,7 @@ use App\Http\Controllers\OtpAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
 use App\Http\Livewire\{EditProfile};
+use App\Http\Livewire\UploadDocument;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,13 +38,14 @@ Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
 Route::post('/login/process', [UserController::class, 'loginProcess'])->name('login-process');
 
 // only autehnticated user
-Route::middleware('auth', 'user')->group(function () {
+Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('/user', function () {
         return view('user_pages.profile');
     })->name('user.profile');
 
-    Route::get('/profile/edit', EditProfile::class)->name('edit-profile');
+    Route::get('/profile/edit/{activeTab?}', EditProfile::class)->name('edit-profile');
+    Route::get('/upload-document', UploadDocument::class)->name('upload-document-form');
 });
 
 
@@ -56,7 +58,7 @@ Route::middleware('user')->group(function () {
 });
 
 //admin routes
-Route::middleware('auth', 'admin')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/component', AddNewUser::class);
     // Route::post('list', AddNewUser::class)->name('admin.users');
 
@@ -81,6 +83,7 @@ Route::get('/sample', function(){
 });
 
 Route::get('test', CreateUsers::class);
+
 
 Route::get('/otp', [OtpAuthController::class, 'showForm']);
 Route::post('/sentOtp', [OtpAuthController::class, 'sendOtp'])->name('sendOtp');

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Mail\OtpEmail;
 use App\Models\BachelorDegree;
+use App\Models\DocuPost;
 use App\Models\OtpRequestHistory;
 use App\Models\VerificationCode;
 use Illuminate\Support\Facades\Hash;
@@ -34,8 +35,12 @@ class EditProfile extends Component {
         $this->verifyEmail = $this->user->email;
         $bachelorDegree = BachelorDegree::find( $this->user->bachelor_degree );
         $this->bachelorDegreeName = $bachelorDegree ? $bachelorDegree->name : null;
-
+        $this->loadDocuPost();
         $this->bachelor_degree_data = BachelorDegree::all();
+    }
+
+    public function loadDocuPost() {
+        $this->docu_posts = DocuPost::where( 'user_id', auth()->id() )->get();
     }
 
     public function updatedProfilePicture() {
@@ -104,6 +109,9 @@ class EditProfile extends Component {
 
     public function setActiveTab( $tab ) {
         $this->activeTab = $tab;
+        if ( $tab == 'tab4' ) {
+            $this->loadDocuPost();
+        }
     }
 
     public $showDeleteBox = false;
@@ -273,6 +281,39 @@ class EditProfile extends Component {
     public function closeVerifiedBox() {
         $this->verifiedBox = false;
         $this->enterOtpBox = false;
+    }
+    public  $docu_posts ;
+
+    public $showDeleteDocuPostBox = false;
+    public $docuPostID, $postitle, $userPostID;
+
+    public function deletePost( $id, $postTitle, $userPostID ) {
+        $this->showDeleteDocuPostBox = true;
+        $this->docuPostID = $id;
+        $this->postitle = $postTitle;
+        $this->userPostID = $userPostID;
+    }
+
+    public $deletedPostTitle, $deletedPostID;
+
+    public function deleteDocuPostYes() {
+        if ( $this->userPostID == auth()->user()->id ) {
+            $docu_post_delete = DocuPost::find( $this->docuPostID );
+            if ( $docu_post_delete ) {
+                $docu_post_delete->delete();
+                session()->flash( 'message', 'Post deleted successfully.' );
+                $this->loadDocuPost();
+            } else {
+                session()->flash( 'message', "Post is not found, can't proceed." );
+            }
+        } else {
+            session()->flash( 'message', 'You are not authorized for this, contact administrator.' );
+        }
+        $this->showDeleteDocuPostBox = false;
+    }
+
+    public function closeDeletePostBox() {
+        $this->showDeleteDocuPostBox = false;
     }
 
     public function render() {

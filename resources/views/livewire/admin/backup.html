@@ -1,62 +1,55 @@
-<div
-    class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white text-center text-gray-600 drop-shadow-lg md:w-2/5"
->
-    <img
-        class="h-10"
-        src="{{ asset('icons/logo.svg') }}"
-        alt="Icon Description"
-    />
-    <h1 class="font-bold">Enter verification code</h1>
-    <h1 class="">We've send a code to <strong> {{ $verifyEmail }}</strong></h1>
-    <form action="">
-        <section class="flex flex-col items-center justify-center">
-            <label class="" for=""
-                >Enter the 6 letters to verify your account</label
-            >
-            <div class="flex w-full flex-row justify-between">
-                <input
-                    type="text"
-                    class="w-12 rounded-md border-2 border-gray-300 px-2 py-3 text-center font-semibold drop-shadow-md"
-                    maxlength="1"
-                    id=""
+<tr>
+    <td class="w-2/5 overflow-ellipsis">{{ $docuPost->title }}</td>
+    <td class="text-center">
+        {{ \Carbon\Carbon::parse($docuPost->created_at)->format('d M Y') }}
+    </td>
+    <td class="text-center">
+        <div
+            class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-green-700 p-1 text-white"
+        >
+            <span> Approved </span>
+            <svg class="h-4" viewBox="0 0 21 21" fill="none">
+                <path
+                    d="M20.0827 10.5003C20.0827 13.042 19.073 15.4795 17.2758 17.2768C15.4786 19.074 13.041 20.0837 10.4993 20.0837C7.95769 20.0837 5.52013 19.074 3.72291 17.2768C1.92569 15.4795 0.916016 13.042 0.916016 10.5003C0.916016 7.95867 1.92569 5.52111 3.72291 3.72389C5.52013 1.92666 7.95769 0.916992 10.4993 0.916992C13.041 0.916992 15.4786 1.92666 17.2758 3.72389C19.073 5.52111 20.0827 7.95867 20.0827 10.5003ZM15.3274 6.87112C15.2419 6.78576 15.1401 6.71853 15.028 6.67346C14.9159 6.62839 14.7958 6.6064 14.6751 6.60882C14.5543 6.61123 14.4352 6.638 14.325 6.68752C14.2148 6.73703 14.1157 6.80828 14.0337 6.89699L9.8726 12.1975L7.3656 9.68958C7.19645 9.52489 6.96926 9.43343 6.73319 9.43501C6.49711 9.43659 6.27116 9.53106 6.10423 9.698C5.9373 9.86493 5.84282 10.0909 5.84124 10.327C5.83967 10.563 5.93112 10.7902 6.09581 10.9594L9.26597 14.1305C9.35151 14.2154 9.45323 14.2822 9.56509 14.327C9.67696 14.3719 9.79668 14.3938 9.91716 14.3914C10.0376 14.3891 10.1564 14.3626 10.2665 14.3135C10.3765 14.2644 10.4756 14.1937 10.5578 14.1056L15.3399 8.12845C15.503 7.95892 15.5932 7.73221 15.591 7.49696C15.5889 7.26171 15.4946 7.03667 15.3284 6.87016H15.3265L15.3274 6.87112Z"
+                    fill="white"
                 />
-                <input
-                    type="text"
-                    class="w-12 rounded-md border-2 border-gray-300 px-2 py-3 text-center font-semibold drop-shadow-md"
-                    maxlength="1"
-                    id=""
-                />
-                <input
-                    type="text"
-                    class="w-12 rounded-md border-2 border-gray-300 px-2 py-3 text-center font-semibold drop-shadow-md"
-                    maxlength="1"
-                    id=""
-                />
-                <input
-                    type="text"
-                    class="w-12 rounded-md border-2 border-gray-300 px-2 py-3 text-center font-semibold drop-shadow-md"
-                    maxlength="1"
-                    id=""
-                />
+            </svg>
+        </div>
+    </td>
+    <td class="text-center text-white">
+        <div class="flex items-center gap-1">
+            <div class="rounded-md bg-blue-600 p-1">
+                <svg class="h-5" viewBox="0 0 23 23" fill="none">
+                    <path
+                        d="M11.5 14.375C12.2625 14.375 12.9938 14.0721 13.5329 13.5329C14.0721 12.9938 14.375 12.2625 14.375 11.5C14.375 10.7375 14.0721 10.0062 13.5329 9.46707C12.9938 8.9279 12.2625 8.625 11.5 8.625C10.7375 8.625 10.0062 8.9279 9.46707 9.46707C8.9279 10.0062 8.625 10.7375 8.625 11.5C8.625 12.2625 8.9279 12.9938 9.46707 13.5329C10.0062 14.0721 10.7375 14.375 11.5 14.375Z"
+                        fill="white"
+                    />
+                    <path
+                        d="M17.7359 6.34225C15.7713 4.99579 13.6697 4.3125 11.4904 4.3125C9.52775 4.3125 7.61396 4.89708 5.80367 6.04133C3.97613 7.19708 2.185 9.29967 0.71875 11.5C1.90517 13.477 3.52954 15.5087 5.22004 16.675C7.15971 18.01 9.269 18.6875 11.4895 18.6875C13.6908 18.6875 15.7952 18.0109 17.7474 16.675C19.4647 15.4982 21.1006 13.4684 22.2812 11.5C21.0958 9.54883 19.4561 7.52196 17.7359 6.34225ZM11.5 15.8125C10.3563 15.8125 9.25935 15.3581 8.4506 14.5494C7.64185 13.7406 7.1875 12.6437 7.1875 11.5C7.1875 10.3563 7.64185 9.25935 8.4506 8.4506C9.25935 7.64185 10.3563 7.1875 11.5 7.1875C12.6437 7.1875 13.7406 7.64185 14.5494 8.4506C15.3581 9.25935 15.8125 10.3563 15.8125 11.5C15.8125 12.6437 15.3581 13.7406 14.5494 14.5494C13.7406 15.3581 12.6437 15.8125 11.5 15.8125Z"
+                        fill="white"
+                    />
+                </svg>
             </div>
-            <span
-                >Didn't get a code?
-                <button><strong>Request new code</strong></button></span
-            >
-            <div class="flex w-full flex-col gap-3 md:flex-row">
-                <button
-                    wire:click="closeOtpBox"
-                    class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white"
-                >
-                    Cancel
-                </button>
-                <button
-                    class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                    wire:loading.attr="disabled"
-                >
-                    Verify
-                </button>
+            <div class="rounded-md bg-cyan-600 p-1">
+                <svg class="h-5" viewBox="0 0 23 23" fill="none">
+                    <path
+                        d="M4.62683 20.8475H2.15625V18.3759L16.0885 4.41016L18.5936 6.91524L4.62683 20.8475Z"
+                        fill="white"
+                    />
+                    <path
+                        d="M19.1243 6.37867L16.6211 3.87551L18.0433 2.49838C18.2627 2.27797 18.5991 2.15626 18.9115 2.15626C19.0653 2.15573 19.2176 2.1857 19.3598 2.24442C19.5019 2.30315 19.631 2.38946 19.7395 2.49838L20.5033 3.26217C20.6117 3.37063 20.6975 3.49945 20.7559 3.64123C20.8143 3.783 20.8441 3.93493 20.8435 4.08826C20.8435 4.40259 20.7218 4.73705 20.5014 4.95746L19.1243 6.37867Z"
+                        fill="white"
+                    />
+                </svg>
             </div>
-        </section>
-    </form>
-</div>
+            <div class="rounded-md bg-red-600 p-1">
+                <svg class="h-5" viewBox="0 0 23 23" fill="none">
+                    <path
+                        d="M20.1049 4.3125H15.0938V2.15625C15.0938 1.96563 15.018 1.78281 14.8832 1.64802C14.7484 1.51323 14.5656 1.4375 14.375 1.4375H8.625C8.43438 1.4375 8.25156 1.51323 8.11677 1.64802C7.98198 1.78281 7.90625 1.96563 7.90625 2.15625V4.3125H2.89512L2.875 6.10938H4.35754L5.26029 20.2151C5.28318 20.5797 5.44403 20.9219 5.71015 21.1722C5.97626 21.4224 6.32769 21.562 6.693 21.5625H16.307C16.6722 21.5623 17.0236 21.4231 17.2898 21.1732C17.5561 20.9233 17.7173 20.5814 17.7407 20.217L18.6425 6.10938H20.125L20.1049 4.3125ZM7.90625 18.6875L7.50183 7.1875H8.98438L9.38879 18.6875H7.90625ZM12.2188 18.6875H10.7812V7.1875H12.2188V18.6875ZM13.2969 4.3125H9.70312V3.05421C9.70338 3.00659 9.72247 2.96101 9.75623 2.92743C9.78999 2.89385 9.83567 2.875 9.88329 2.875H13.1167C13.1645 2.875 13.2103 2.89398 13.2441 2.92777C13.2779 2.96156 13.2969 3.00738 13.2969 3.05517V4.3125ZM15.0938 18.6875H13.6112L14.0156 7.1875H15.4982L15.0938 18.6875Z"
+                        fill="white"
+                    />
+                </svg>
+            </div>
+        </div>
+    </td>
+</tr>
