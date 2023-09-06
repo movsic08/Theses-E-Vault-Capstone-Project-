@@ -317,7 +317,10 @@ class EditProfile extends Component {
     }
 
     public function render() {
-        return view( 'livewire.edit-profile' )->layout( 'layout.app' );
+        $idAdmin = auth()->user()->is_admin;
+
+        $layout = $idAdmin ? 'layout.admin' : 'layout.app';
+        return view( 'livewire.edit-profile' )->layout( $layout );
     }
 
 }

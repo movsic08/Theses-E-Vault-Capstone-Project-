@@ -5,11 +5,11 @@
             $currentHour = now()->format('g');
             
             if ($currentHour >= 5 && $currentHour < 12) {
-                $greeting = 'morning';
-            } elseif ($currentHour >= 12 && $currentHour < 18) {
                 $greeting = 'afternoon';
-            } else {
+            } elseif ($currentHour >= 12 && $currentHour < 18) {
                 $greeting = 'evening';
+            } else {
+                $greeting = 'morning';
             }
         @endphp
         <h1 class="">Good {{ $greeting }},

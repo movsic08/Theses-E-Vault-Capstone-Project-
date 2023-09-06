@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\DocuPost;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use App\Models\BachelorDegree;
 use Livewire\WithFileUploads;
@@ -145,6 +146,7 @@ class UploadDocument extends Component {
 
     }
     public $rulesDone, $validationDone, $creatingDone, $successUploading;
+    public $docuReference;
 
     public function createNewDocuPostEntry() {
         $this->showProgressBox = true;
@@ -152,12 +154,20 @@ class UploadDocument extends Component {
         if ( $this->user_upload ) {
             $this->pdf_path = $this->user_upload->store( 'PDF_uploads', 'public' );
         }
+
+        do {
+            $this->docuReference = Str::random( 9 );
+        }
+        while( DocuPost::where( 'reference', $this->docuReference )->exists() );
+
         $this->progressInfo = 'preparing data ...';
 
         $inputsOfDocu = [
             'user_id' => $this->user->id,
+            'reference' => $this->docuReference,
             'title' => $this->title,
             'format' => $this->format,
+            'course' => $this->bachelor_degree_value,
             'document_type' => $this->document_type,
             'date_of_approval' => $this->date_of_approval,
             'physical_description' => $this->physical_description,

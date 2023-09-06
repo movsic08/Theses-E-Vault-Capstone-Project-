@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
 use App\Http\Livewire\{EditProfile};
 use App\Http\Livewire\UploadDocument;
+use App\Http\Livewire\ViewDocuPost;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('/profile/edit/{activeTab?}', EditProfile::class)->name('edit-profile');
     Route::get('/upload-document', UploadDocument::class)->name('upload-document-form');
+    Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('view-document');
 });
 
 

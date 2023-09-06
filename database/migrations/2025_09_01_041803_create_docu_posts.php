@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('docu_posts', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('user_id');
+            $table->string('reference');
+            $table->string('course');
             $table->string('title');
             $table->string('format');
             $table->string('document_type');
@@ -35,9 +37,9 @@ return new class extends Migration
             $table->string('keyword_6')->nullable();
             $table->string('keyword_7')->nullable();
             $table->string('keyword_8')->nullable();
-            $table->integer('citation_count')->nullable();
+            $table->integer('citation_count')->default(0);
             $table->integer('view_count')->nullable();
-            $table->string('recommended_citation');
+            $table->text('recommended_citation');
             $table->string('document_file_url')->nullable();
             $table->string('author_1');
             $table->string('author_2')->nullable();
