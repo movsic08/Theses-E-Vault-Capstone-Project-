@@ -8,38 +8,36 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
-{
-    public function register()
-    {
-        return view('user_pages.signup');
+class UserController extends Controller {
+    public function register() {
+        return view( 'user_pages.signup' );
     }
 
     //creating account
-    public function create(Request $request)
-    {
-        $validated = $request->validate([
-            "username" => ['required', 'min:4', Rule::unique('users', 'username')],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
+
+    public function create( Request $request ) {
+        $validated = $request->validate( [
+            'username' => [ 'required', 'min:4', Rule::unique( 'users', 'username' ) ],
+            'email' => [ 'required', 'email', Rule::unique( 'users', 'email' ) ],
             'password' => 'required|confirmed|min:8',
             'role_id' => 'required',
-        ]);
+        ] );
 
-        $validated['password'] = Hash::make($validated['password']);
-        // account role filtering 
-        if ($validated['role_id'] === 'student') {
-            $validated['role_id'] = 1;
-        } elseif ($validated['role_id'] === 'faculty') {
-            $validated['role_id'] = 2;
+        $validated[ 'password' ] = Hash::make( $validated[ 'password' ] );
+        // account role filtering
+        if ( $validated[ 'role_id' ] === 'student' ) {
+            $validated[ 'role_id' ] = 1;
+        } elseif ( $validated[ 'role_id' ] === 'faculty' ) {
+            $validated[ 'role_id' ] = 2;
         }
 
-        $user = User::create($validated);
-        auth()->login($user);
-        return redirect()->route('home')->with('message', 'Creating new account success, finish setup you account');
+        $user = User::create( $validated );
+        auth()->login( $user );
+        return redirect()->route( 'index' )->with( 'message', 'Creating new account success, finish setup you account' );
     }
     //logout
-    public function logout(Request $request)
-    {
+
+    public function logout( Request $request ) {
         $is_admin = auth()->user()->is_admin;
         auth()->logout();
 
@@ -47,122 +45,118 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         // Redirect based on the is_admin value
-        if ($is_admin) {
-            return redirect()->route('login')->with('message', 'Log out successfully.');
+        if ( $is_admin ) {
+            return redirect()->route( 'login' )->with( 'message', 'Log out successfully.' );
         } else {
-            return redirect()->route('home')->with('message', 'Log out successfully.');
+            return redirect()->route( 'home' )->with( 'message', 'Log out successfully.' );
         }
     }
 
     //login
-    public function login()
-    {
-        return view('user_pages.login');
+
+    public function login() {
+        return view( 'user_pages.login' );
     }
 
     //loginProcess
-    public function loginProcess(Request $request)
-    {
-        $validated = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required',
-        ]);
 
-        $user = User::where('email', $validated['email'])->first();
-        if (!$user) {
-            return back()->withErrors([
+    public function loginProcess( Request $request ) {
+        $validated = $request->validate( [
+            'email' => [ 'required', 'email' ],
+            'password' => 'required',
+        ] );
+
+        $user = User::where( 'email', $validated[ 'email' ] )->first();
+        if ( !$user ) {
+            return back()->withErrors( [
                 'email' => 'No account found with this email. Create a new account.',
-            ])->onlyInput('email');
+            ] )->onlyInput( 'email' );
         }
 
-
-        if (auth()->attempt($validated)) {
+        if ( auth()->attempt( $validated ) ) {
             $request->session()->regenerate();
             $user = auth()->user();
-            if ($user->is_admin) {
-                return redirect()->route('admin.home')->with('message', 'Welcome back, Admin ' . $user->email . '!');
+            if ( $user->is_admin ) {
+                return redirect()->route( 'admin.home' )->with( 'message', 'Welcome back, Admin ' . $user->email . '!' );
             } else {
-                return redirect()->route('home')->with('message', 'Welcome back, ' . $user->email . '!');
+                return redirect()->route( 'home' )->with( 'message', 'Welcome back, ' . $user->email . '!' );
             }
 
         }
 
-        return back()->withErrors(['email' => 'You entered invalid credentials'])->onlyInput('email');
+        return back()->withErrors( [ 'email' => 'You entered invalid credentials' ] )->onlyInput( 'email' );
     }
 
-
-    // public function viewProfile($id)
+    // public function viewProfile( $id )
     // {
-    //     $user = User::findOrFail($id);
+    //     $user = User::findOrFail( $id );
 
-    //     if ($user->id !== auth()->user()->id) {
-    //         return redirect()->route('home')->with('error', 'You are not authorized to view this profile.');
+    //     if ( $user->id !== auth()->user()->id ) {
+    //         return redirect()->route( 'home' )->with( 'error', 'You are not authorized to view this profile.' );
     //     }
 
-    //     return view('user_pages.profile', compact('user'));
+    //     return view( 'user_pages.profile', compact( 'user' ) );
     // }
 
-    // show all student 
-    public function studentList()
-    {
+    // show all student
+
+    public function studentList() {
         $users = User::all();
         $bachelor_degree = BachelorDegree::all();
-        // dd($users);
-        return view('admin.pages.user-list', compact('users', 'bachelor_degree'))->with('title', 'List of users');
+        // dd( $users );
+        return view( 'admin.pages.user-list', compact( 'users', 'bachelor_degree' ) )->with( 'title', 'List of users' );
     }
 
-    public function addNewUser(Request $request)
-    {
-        // dd($request);
-        $validated = $request->validate([
-            "username" => ['required', 'min:4'],
-            "email" => ['required', 'email'],
+    public function addNewUser( Request $request ) {
+        // dd( $request );
+        $validated = $request->validate( [
+            'username' => [ 'required', 'min:4' ],
+            'email' => [ 'required', 'email' ],
             'password' => 'required|confirmed|min:8',
             'account_level' => 'required',
             // 'role_id' => 'required',
-        ]);
-        $validated['password'] = Hash::make($validated['password']);
+        ] );
+        $validated[ 'password' ] = Hash::make( $validated[ 'password' ] );
 
         // Account role filtering
-        if ($validated['account_level'] === 'user') {
+        if ( $validated[ 'account_level' ] === 'user' ) {
             $is_admin = false;
-        } elseif ($validated['account_level'] === 'admin') {
+        } elseif ( $validated[ 'account_level' ] === 'admin' ) {
             $is_admin = true;
         }
 
         // Merge the calculated values into the validated data
-        $validated['is_admin'] = $is_admin;
+        $validated[ 'is_admin' ] = $is_admin;
 
         //creation of user
-        $user = User::create($validated);
-        auth()->login($user);
-        return redirect()->route('home')->with('message', 'Creating new account success, finish setup you account');
+        $user = User::create( $validated );
+        auth()->login( $user );
+        return redirect()->route( 'home' )->with( 'message', 'Creating new account success, finish setup you account' );
 
     }
 
-    public function addNewUserAJAX(Request $request)
-    {
-        // dd($request);
-        $validated = $request->validate([
-            "username" => ['required', 'min:4'],
-            "email" => ['required', 'email'],
+    public function addNewUserAJAX( Request $request ) {
+        // dd( $request );
+        $validated = $request->validate( [
+            'username' => [ 'required', 'min:4' ],
+            'email' => [ 'required', 'email' ],
             'password' => 'required|confirmed|min:8',
             'account_level' => 'required',
             // 'role_id' => 'required',
-        ]);
-        $validated['password'] = Hash::make($validated['password']);
+        ] );
+        $validated[ 'password' ] = Hash::make( $validated[ 'password' ] );
 
         // Account role filtering
-        if ($validated['account_level'] === 'user') {
+        if ( $validated[ 'account_level' ] === 'user' ) {
             $is_admin = false;
-        } elseif ($validated['account_level'] === 'admin') {
+        } elseif ( $validated[ 'account_level' ] === 'admin' ) {
             $is_admin = true;
         }
 
         // Merge the calculated values into the validated data
-        $validated['is_admin'] = $is_admin;
+        $validated[ 'is_admin' ] = $is_admin;
 
-        return Response()->json($validated);
+        return Response()->json( $validated );
     }
 
 }

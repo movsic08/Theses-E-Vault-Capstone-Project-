@@ -8,7 +8,7 @@
             <h1 class="text-sm font-medium text-primary-color lg:text-base">Document details</h1>
             <h1 class="text-xs font-light text-primary-color lg:text-sm">Home>Thesis>234534</h1>
         </div>
-        <section class="grid grid-cols-4 gap-3 text-primary-color">
+        <section class="relative grid grid-cols-4 gap-3 text-primary-color">
             {{-- 1st div --}}
             <div class="col-span-4 lg:col-span-3">
                 <div class="flex flex-col gap-3 rounded-lg bg-white px-7 py-4 drop-shadow-lg">
@@ -78,7 +78,7 @@
             </div>
             {{-- 2nd div --}}
             <div
-                class="col-span-4 flex h-fit flex-col-reverse gap-4 lg:sticky lg:left-auto lg:right-0 lg:top-16 lg:col-span-1 lg:flex-col">
+                class="col-span-4 flex h-fit flex-col-reverse gap-4 lg:sticky lg:left-auto lg:right-14 lg:top-[92px] lg:col-span-1 lg:flex-col">
                 <div class="grid grid-cols-4 gap-4">
                     {{-- 1st div --}}
                     <div class="col-span-2 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4">
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 rounded-lg bg-white p-4 drop-shadow-lg">
+                <div class="flex flex-col gap-2 overflow-y-auto rounded-lg bg-white p-4 drop-shadow-lg">
                     <div>
                         <p class="font-extrabold">ADVISOR</p>
                         <p class="text-gray-600">{{ $data->advisor }}</p>

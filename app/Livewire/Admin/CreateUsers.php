@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use App\Models\BachelorDegree;
 use App\Models\User;
@@ -57,7 +57,7 @@ class CreateUsers extends Component
         $this->reset(['username', 'email']);
 
         session()->flash('message', 'Creating account success!');
-        $this->emit('contentRefreshed');
+        $this->dispatch('contentRefreshed');
         $this->showForm = false;
     }
 

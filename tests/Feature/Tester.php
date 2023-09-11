@@ -40,7 +40,7 @@ class Tester extends TestCase {
             $imagePath = $this->profile_picture->store( 'profile_pictures', 'public' );
             Auth::user()->update( [ 'profile_picture' => $imagePath ] );
 
-            $this->emit( 'profilePictureUpdated' );
+            $this->dispatch( 'profilePictureUpdated' );
             session()->flash( 'message', 'Profile picture changed successfully.' );
         } else {
             session()->flash( 'message', 'There is problem uploading your image, try again.' );

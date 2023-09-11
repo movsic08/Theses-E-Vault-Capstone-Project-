@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" def />
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="{{ asset('icons/logo.svg') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="js/jQuery.js"></script>
     <script src="js/sideBar.js"></script>
@@ -20,23 +21,32 @@
 <body class="relative h-screen overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-cover bg-center"
         style="background-image: url('{{ asset('assets/psu_acc.jpg') }}');"></div>
-    <div class="absolute inset-0 z-10 bg-blue-800 opacity-60"></div>
+    <div class="absolute inset-0 z-10 bg-blue-800 opacity-50"></div>
     <div class="container absolute inset-0 z-20 flex items-center justify-center">
-
-        <div class="flex rounded-md bg-white drop-shadow-xl">
-            <div class="hidden w-1/2 bg-red-500 md:block">
-                <h1>Thesis Kiosk</h1>
+        <div class="flex md:h-[32rem] md:w-[55rem]">
+            <div
+                class="hidden w-1/2 items-start justify-center rounded-l-lg bg-blue-400 bg-opacity-50 p-8 drop-shadow-lg backdrop-blur-md md:flex md:flex-col">
+                <h1 class="whitespace-wrap font-extrabold leading-tight text-yellow-400 md:text-[3rem] lg:text-[4rem]">
+                    Pangasinan
+                    State
+                    Univeristy
+                </h1>
+                <h2 class="text-[1.7rem] font-bold text-white">Alaminos City Campus</h2>
             </div>
-            <div class="p-4">
-                <div class="my-3">
-                    <h1 class="text-lg font-semibold">Login</h1>
+            <div class="flex flex-col rounded-l-lg rounded-r-lg bg-white p-8 drop-shadow-lg md:w-1/2 md:rounded-l-none">
+                <div class="my-4 flex items-center justify-center gap-2">
+                    <img src="{{ asset('icons/logo.svg') }}" alt="PSU LOGO" srcset="">
+                    <h1 class="text-xl font-bold">ThesisKiosk</h1>
+                </div>
+                <div class="my-4">
                     <p class="text-gray-500">
-                        Don't have an account yet? <a class="text-blue-500" href="{{ route('register') }}">Signup</a>
+                        Explore research works in a faster way. Don’t have an account? <a class="text-blue-500"
+                            href="{{ route('register') }}">Signup</a>
                     </p>
                 </div>
 
                 {{-- FORM --}}
-                <form action="{{ route('login-process') }}" method="POST">
+                <form action="{{ route('login-process') }}" method="POST" class="my-6">
                     @csrf
                     @error('email')
                         <span class="w-full px-1 text-xs text-red-700">
@@ -45,14 +55,14 @@
                     @enderror
                     <div class="flex flex-col gap-6">
                         <div class="flex flex-col">
-                            <label class="font-medium" for="email">Email</label>
+                            <label class="font-medium text-gray-800" for="email">Email</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="email" name="email" id="email" placeholder="user@psu.edu.ph"
                                 value="{{ old('email') }}">
 
                         </div>
                         <div class="flex flex-col">
-                            <label class="font-medium" for="password">Password</label>
+                            <label class="font-medium text-gray-800" for="password">Password</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="password" name="password" id="password">
                             @error('password')
@@ -61,8 +71,18 @@
                                 </span>
                             @enderror
                         </div>
-                        <input class="h-9 rounded-md bg-blue-950 font-medium text-white duration-200 hover:bg-blue-800"
-                            type="submit" value="Login">
+                        <div class="flex items-center justify-between text-gray-500 md:text-sm lg:text-base">
+                            <div class="flex flex-row gap-2">
+                                <input type="checkbox" name="" id="remember_me">
+                                <label class="font-normal" for="remember_me">Remember me</label>
+                            </div>
+                            <a href="#"
+                                class="text-blue-500 duration-150 ease-in-out hover:font-normal hover:text-blue-950">Forgot
+                                your password?</a>
+                        </div>
+                        <input
+                            class="h-9 cursor-pointer rounded-md bg-blue-950 font-medium text-white duration-200 hover:bg-blue-800"
+                            type="submit" value="Sign in to your account">
                     </div>
 
                 </form>

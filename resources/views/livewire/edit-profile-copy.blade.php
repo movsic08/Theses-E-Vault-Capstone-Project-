@@ -69,8 +69,7 @@
                             @for ($i = 1; $i <= 6; $i++)
                                 <input type="text"
                                     class="@error('input' . $i) border-red-600 @enderror h-10 w-10 rounded-md border-2 border-gray-300 text-center text-lg font-semibold capitalize focus:border-blue-400 focus:ring focus:ring-blue-200"
-                                    maxlength="1" id="input{{ $i }}"
-                                    wire:model.live="input{{ $i }}">
+                                    maxlength="1" id="input{{ $i }}" wire:model.live="input{{ $i }}">
                             @endfor
                         </div>
                         @error('validateOtp')
@@ -306,7 +305,7 @@
                                 <div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
                                     <div class="flex w-full flex-col md:mb-0 md:w-1/2">
                                         <label class="text-sm font-semibold" for="fname">First name</label>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                        <input class="rounded-md border border-gray-400 p-1 text-sm" type="text"
                                             wire:model.live="first_name" id="fname" />
                                         @error('first_name')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -314,7 +313,7 @@
                                     </div>
                                     <div class="flex w-full flex-col md:mb-0 md:w-1/2">
                                         <label for="fname" class="text-sm font-semibold">Last name</label>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                        <input class="rounded-md border border-gray-400 p-1 text-sm" type="text"
                                             wire:model.live="last_name" id="fname" value="{{ $user->last_name }}" />
                                         @error('last_name')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -324,7 +323,7 @@
                                 <div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
                                     <div class="flex w-full flex-col md:w-1/2">
                                         <label class="text-sm font-semibold" for="email">Email address</label>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="email"
+                                        <input class="rounded-md border border-gray-400 p-1 text-sm" type="email"
                                             wire:model.live="email" id="email" value="{{ $user->email }}" />
                                         @error('email')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -332,7 +331,7 @@
                                     </div>
                                     <div class="flex w-full flex-col md:w-1/2">
                                         <label for="pnumber" class="text-sm font-semibold">Phone number</label>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                        <input class="rounded-md border border-gray-400 p-1 text-sm" type="text"
                                             wire:model.live="phone_no" id="pnumber" value="{{ $user->phone_no }}" />
                                         @error('phone_no')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -342,16 +341,15 @@
                                 <div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
                                     <div class="flex w-full flex-col md:w-1/2">
                                         <label class="text-sm font-semibold" for="studentID">Student ID</label>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                            wire:model.live="student_id" id="studentID"
-                                            value="{{ $user->student_id }}" />
+                                        <input class="rounded-md border border-gray-400 p-1 text-sm" type="text"
+                                            wire:model.live="student_id" id="studentID" value="{{ $user->student_id }}" />
                                         @error('student_id')
                                             <small class="text-red-500">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="flex w-full flex-col md:w-1/2">
                                         <label class="text-sm font-semibold" for="usernames">Username</label>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                        <input class="rounded-md border border-gray-400 p-1 text-sm" type="text"
                                             wire:model.live="username" id="usernames" value="{{ $user->username }}" />
                                         @error('username')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -361,7 +359,7 @@
                                 <div class="w-full">
                                     <label class="text-sm font-semibold" for="bachelor_degree">Bachelor Degree</label>
                                     <select wire:model.live="bachelor_degree_input" id="bachelor-degree"
-                                        class="w-full rounded-md border border-gray-400 p-2 text-sm">
+                                        class="w-full rounded-md border border-gray-400 p-1 text-sm">
                                         @if ($user->bachelor_degree == null)
                                             @foreach ($bachelor_degree_data as $degree)
                                                 <option class="text-sm" value="{{ $degree->id }}">
@@ -391,7 +389,7 @@
 
                                 <div class="flex w-full flex-col">
                                     <label class="text-sm font-semibold" for="address">Address</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                    <input class="rounded-md border border-gray-400 p-1 text-sm" type="text"
                                         wire:model.live="address" id="address" value="{{ $user->address }}" />
                                     @error('address')
                                         <small class="text-red-500">{{ $message }}</small>
@@ -481,7 +479,7 @@
                             class="flex min-h-[26.5rem] w-full flex-col gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4">
                             <h2>Link your social media account.</h2>
                             <section>
-                                <form wire:submit="addUrl" class="flex flex-col gap-2">
+                                <form wire:submit="addUrl">
                                     <div class="flex w-full flex-col">
                                         <label class="text-sm font-semibold" for="fb_url">Facebook account URL</label>
                                         <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
@@ -644,10 +642,10 @@
                                     <p>Verify your account first</p>
                                 @else
                                     @if (!empty($docu_posts))
-                                        <section class="flex h-full flex-col gap-2">
+                                        <section class="flex flex-col gap-2">
                                             <div class="flex items-end justify-end">
                                                 <a class="flex w-fit flex-row items-center justify-center gap-1 rounded-md bg-blue-600 px-2 py-1 text-white duration-200 ease-out hover:bg-blue-700"
-                                                    wire:navigate href="{{ route('user-upload-document-form') }}">Add new
+                                                    href="{{ route('upload-document-form') }}">Add new
                                                     <svg class="h-5" viewBox="0 0 28 28" fill="none">
                                                         <path
                                                             d="M14 2.625C7.728 2.625 2.625 7.728 2.625 14C2.625 20.272 7.728 25.375 14 25.375C20.272 25.375 25.375 20.272 25.375 14C25.375 7.728 20.272 2.625 14 2.625ZM18.375 14.875H14.875V18.375C14.875 18.6071 14.7828 18.8296 14.6187 18.9937C14.4546 19.1578 14.2321 19.25 14 19.25C13.7679 19.25 13.5454 19.1578 13.3813 18.9937C13.2172 18.8296 13.125 18.6071 13.125 18.375V14.875H9.625C9.39294 14.875 9.17038 14.7828 9.00628 14.6187C8.84219 14.4546 8.75 14.2321 8.75 14C8.75 13.7679 8.84219 13.5454 9.00628 13.3813C9.17038 13.2172 9.39294 13.125 9.625 13.125H13.125V9.625C13.125 9.39294 13.2172 9.17038 13.3813 9.00628C13.5454 8.84219 13.7679 8.75 14 8.75C14.2321 8.75 14.4546 8.84219 14.6187 9.00628C14.7828 9.17038 14.875 9.39294 14.875 9.625V13.125H18.375C18.6071 13.125 18.8296 13.2172 18.9937 13.3813C19.1578 13.5454 19.25 13.7679 19.25 14C19.25 14.2321 19.1578 14.4546 18.9937 14.6187C18.8296 14.7828 18.6071 14.875 18.375 14.875Z"
@@ -655,109 +653,92 @@
                                                     </svg>
                                                 </a>
                                             </div>
-                                            <div class="flex h-full flex-col justify-between">
-                                                <table class="min-w-full">
-                                                    <thead>
-                                                        <tr class="my-2 font-semibold text-gray-800">
-                                                            <th scope="col" class="text-start">Title</th>
-                                                            <th scope="col" class="text-center">Date Uploaded</th>
-                                                            <th scope="col" class="text-center">Status</th>
-                                                            <th scope="col" class="">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="text-sm">
-                                                        @foreach ($docu_posts as $docuPost)
-                                                            <tr class="">
-                                                                <td scope="col" class="w-2/5 overflow-ellipsis py-2">
-                                                                    {{ $docuPost->title }}</td>
-                                                                <td scope="col" class="py-2 text-center">
-                                                                    {{ \Carbon\Carbon::parse($docuPost->created_at)->format('d M Y') }}
-                                                                </td>
-                                                                <td scope="col" class="py-2">
-                                                                    @if ($docuPost->status == 0)
-                                                                        <div
-                                                                            class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-yellow-500 px-2 py-1 text-white">
-                                                                            <span class="px-1"> Pending </span>
-                                                                            <svg class="h-4" viewBox="0 0 20 20"
-                                                                                fill="none">
-                                                                                <path
-                                                                                    d="M10 0C7.34784 0 4.8043 1.05357 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 15.5221 4.47692 20 10 20C15.5221 20 20 15.5221 20 10C20 4.47692 15.5221 0 10 0ZM14.6154 11.5385H10C9.79599 11.5385 9.60033 11.4574 9.45607 11.3132C9.31181 11.1689 9.23077 10.9732 9.23077 10.7692V3.84615C9.23077 3.64214 9.31181 3.44648 9.45607 3.30223C9.60033 3.15797 9.79599 3.07692 10 3.07692C10.204 3.07692 10.3997 3.15797 10.5439 3.30223C10.6882 3.44648 10.7692 3.64214 10.7692 3.84615V10H14.6154C14.8194 10 15.0151 10.081 15.1593 10.2253C15.3036 10.3696 15.3846 10.5652 15.3846 10.7692C15.3846 10.9732 15.3036 11.1689 15.1593 11.3132C15.0151 11.4574 14.8194 11.5385 14.6154 11.5385Z"
-                                                                                    fill="#FFFBFB" />
-                                                                            </svg>
-                                                                        </div>
-                                                                    @elseif($docuPost->status == 1)
-                                                                        <div
-                                                                            class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-green-700 px-2 py-1 text-white">
-                                                                            <span class="px-1"> Approved </span>
-                                                                            <svg class="h-4" viewBox="0 0 21 21"
-                                                                                fill="none">
-                                                                                <path
-                                                                                    d="M20.0827 10.5003C20.0827 13.042 19.073 15.4795 17.2758 17.2768C15.4786 19.074 13.041 20.0837 10.4993 20.0837C7.95769 20.0837 5.52013 19.074 3.72291 17.2768C1.92569 15.4795 0.916016 13.042 0.916016 10.5003C0.916016 7.95867 1.92569 5.52111 3.72291 3.72389C5.52013 1.92666 7.95769 0.916992 10.4993 0.916992C13.041 0.916992 15.4786 1.92666 17.2758 3.72389C19.073 5.52111 20.0827 7.95867 20.0827 10.5003ZM15.3274 6.87112C15.2419 6.78576 15.1401 6.71853 15.028 6.67346C14.9159 6.62839 14.7958 6.6064 14.6751 6.60882C14.5543 6.61123 14.4352 6.638 14.325 6.68752C14.2148 6.73703 14.1157 6.80828 14.0337 6.89699L9.8726 12.1975L7.3656 9.68958C7.19645 9.52489 6.96926 9.43343 6.73319 9.43501C6.49711 9.43659 6.27116 9.53106 6.10423 9.698C5.9373 9.86493 5.84282 10.0909 5.84124 10.327C5.83967 10.563 5.93112 10.7902 6.09581 10.9594L9.26597 14.1305C9.35151 14.2154 9.45323 14.2822 9.56509 14.327C9.67696 14.3719 9.79668 14.3938 9.91716 14.3914C10.0376 14.3891 10.1564 14.3626 10.2665 14.3135C10.3765 14.2644 10.4756 14.1937 10.5578 14.1056L15.3399 8.12845C15.503 7.95892 15.5932 7.73221 15.591 7.49696C15.5889 7.26171 15.4946 7.03667 15.3284 6.87016H15.3265L15.3274 6.87112Z"
-                                                                                    fill="white" />
-                                                                            </svg>
-                                                                        </div>
-                                                                    @else
-                                                                        <div
-                                                                            class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-red-500 px-2 py-1 text-white">
-                                                                            <span class="px-1"> Deleted </span>
-                                                                            <svg class="h-4" fill="currentColor"
-                                                                                viewBox="0 0 24 24">
-                                                                                <path fill-rule="evenodd"
-                                                                                    d="M7.2 2.4a2.4 2.4 0 0 0-2.4 2.4v14.4a2.4 2.4 0 0 0 2.4 2.4h9.6a2.4 2.4 0 0 0 2.4-2.4V8.897a2.4 2.4 0 0 0-.703-1.697L14.4 3.103a2.4 2.4 0 0 0-1.697-.703H7.2ZM8.4 12a1.2 1.2 0 0 0 0 2.4h7.2a1.2 1.2 0 1 0 0-2.4H8.4Z"
-                                                                                    clip-rule="evenodd"></path>
-                                                                            </svg>
-                                                                        </div>
-                                                                    @endif
-
-                                                                </td>
-                                                                <td scope="col" class="py-2 text-center">
+                                            <table class="min-w-full">
+                                                <thead>
+                                                    <tr class="my-2 font-semibold text-gray-800">
+                                                        <th scope="col" class="text-start">Title</th>
+                                                        <th scope="col" class="text-center">Date Uploaded</th>
+                                                        <th scope="col" class="text-center">Status</th>
+                                                        <th scope="col" class="">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-sm">
+                                                    @foreach ($docu_posts as $docuPost)
+                                                        <tr class="">
+                                                            <td scope="col" class="w-2/5 overflow-ellipsis py-2">
+                                                                {{ $docuPost->title }}</td>
+                                                            <td scope="col" class="py-2 text-center">
+                                                                {{ \Carbon\Carbon::parse($docuPost->created_at)->format('d M Y') }}
+                                                            </td>
+                                                            <td scope="col" class="py-2">
+                                                                @if ($docuPost->status == 0)
                                                                     <div
-                                                                        class="flex flex-col items-center gap-1 md:flex-row">
-                                                                        <a href="{{ route('view-document', ['reference' => $docuPost->reference]) }}"
-                                                                            class="rounded-md bg-blue-600 p-1 duration-100 ease-in-out hover:bg-blue-800">
-                                                                            <svg class="h-5" viewBox="0 0 23 23"
-                                                                                fill="none">
-                                                                                <path
-                                                                                    d="M11.5 14.375C12.2625 14.375 12.9938 14.0721 13.5329 13.5329C14.0721 12.9938 14.375 12.2625 14.375 11.5C14.375 10.7375 14.0721 10.0062 13.5329 9.46707C12.9938 8.9279 12.2625 8.625 11.5 8.625C10.7375 8.625 10.0062 8.9279 9.46707 9.46707C8.9279 10.0062 8.625 10.7375 8.625 11.5C8.625 12.2625 8.9279 12.9938 9.46707 13.5329C10.0062 14.0721 10.7375 14.375 11.5 14.375Z"
-                                                                                    fill="white" />
-                                                                                <path
-                                                                                    d="M17.7359 6.34225C15.7713 4.99579 13.6697 4.3125 11.4904 4.3125C9.52775 4.3125 7.61396 4.89708 5.80367 6.04133C3.97613 7.19708 2.185 9.29967 0.71875 11.5C1.90517 13.477 3.52954 15.5087 5.22004 16.675C7.15971 18.01 9.269 18.6875 11.4895 18.6875C13.6908 18.6875 15.7952 18.0109 17.7474 16.675C19.4647 15.4982 21.1006 13.4684 22.2812 11.5C21.0958 9.54883 19.4561 7.52196 17.7359 6.34225ZM11.5 15.8125C10.3563 15.8125 9.25935 15.3581 8.4506 14.5494C7.64185 13.7406 7.1875 12.6437 7.1875 11.5C7.1875 10.3563 7.64185 9.25935 8.4506 8.4506C9.25935 7.64185 10.3563 7.1875 11.5 7.1875C12.6437 7.1875 13.7406 7.64185 14.5494 8.4506C15.3581 9.25935 15.8125 10.3563 15.8125 11.5C15.8125 12.6437 15.3581 13.7406 14.5494 14.5494C13.7406 15.3581 12.6437 15.8125 11.5 15.8125Z"
-                                                                                    fill="white" />
-                                                                            </svg>
-                                                                        </a>
-                                                                        <div
-                                                                            class="rounded-md bg-cyan-600 p-1 duration-100 ease-in-out hover:bg-cyan-800">
-                                                                            <svg class="h-5" viewBox="0 0 23 23"
-                                                                                fill="none">
-                                                                                <path
-                                                                                    d="M4.62683 20.8475H2.15625V18.3759L16.0885 4.41016L18.5936 6.91524L4.62683 20.8475Z"
-                                                                                    fill="white" />
-                                                                                <path
-                                                                                    d="M19.1243 6.37867L16.6211 3.87551L18.0433 2.49838C18.2627 2.27797 18.5991 2.15626 18.9115 2.15626C19.0653 2.15573 19.2176 2.1857 19.3598 2.24442C19.5019 2.30315 19.631 2.38946 19.7395 2.49838L20.5033 3.26217C20.6117 3.37063 20.6975 3.49945 20.7559 3.64123C20.8143 3.783 20.8441 3.93493 20.8435 4.08826C20.8435 4.40259 20.7218 4.73705 20.5014 4.95746L19.1243 6.37867Z"
-                                                                                    fill="white" />
-                                                                            </svg>
-                                                                        </div>
-                                                                        <div wire:click="deletePost('{{ $docuPost->id }}',' {{ $docuPost->title }}', '{{ $docuPost->user_id }}' )"
-                                                                            class="rounded-md bg-red-600 p-1 duration-100 ease-in-out hover:bg-red-800">
-                                                                            <svg class="h-5" viewBox="0 0 23 23"
-                                                                                fill="none">
-                                                                                <path
-                                                                                    d="M20.1049 4.3125H15.0938V2.15625C15.0938 1.96563 15.018 1.78281 14.8832 1.64802C14.7484 1.51323 14.5656 1.4375 14.375 1.4375H8.625C8.43438 1.4375 8.25156 1.51323 8.11677 1.64802C7.98198 1.78281 7.90625 1.96563 7.90625 2.15625V4.3125H2.89512L2.875 6.10938H4.35754L5.26029 20.2151C5.28318 20.5797 5.44403 20.9219 5.71015 21.1722C5.97626 21.4224 6.32769 21.562 6.693 21.5625H16.307C16.6722 21.5623 17.0236 21.4231 17.2898 21.1732C17.5561 20.9233 17.7173 20.5814 17.7407 20.217L18.6425 6.10938H20.125L20.1049 4.3125ZM7.90625 18.6875L7.50183 7.1875H8.98438L9.38879 18.6875H7.90625ZM12.2188 18.6875H10.7812V7.1875H12.2188V18.6875ZM13.2969 4.3125H9.70312V3.05421C9.70338 3.00659 9.72247 2.96101 9.75623 2.92743C9.78999 2.89385 9.83567 2.875 9.88329 2.875H13.1167C13.1645 2.875 13.2103 2.89398 13.2441 2.92777C13.2779 2.96156 13.2969 3.00738 13.2969 3.05517V4.3125ZM15.0938 18.6875H13.6112L14.0156 7.1875H15.4982L15.0938 18.6875Z"
-                                                                                    fill="white" />
-                                                                            </svg>
-                                                                        </div>
+                                                                        class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-yellow-500 px-2 py-1 text-white">
+                                                                        <span class="px-1"> Pending </span>
+                                                                        <svg class="h-4" viewBox="0 0 20 20"
+                                                                            fill="none">
+                                                                            <path
+                                                                                d="M10 0C7.34784 0 4.8043 1.05357 2.92893 2.92893C1.05357 4.8043 0 7.34784 0 10C0 15.5221 4.47692 20 10 20C15.5221 20 20 15.5221 20 10C20 4.47692 15.5221 0 10 0ZM14.6154 11.5385H10C9.79599 11.5385 9.60033 11.4574 9.45607 11.3132C9.31181 11.1689 9.23077 10.9732 9.23077 10.7692V3.84615C9.23077 3.64214 9.31181 3.44648 9.45607 3.30223C9.60033 3.15797 9.79599 3.07692 10 3.07692C10.204 3.07692 10.3997 3.15797 10.5439 3.30223C10.6882 3.44648 10.7692 3.64214 10.7692 3.84615V10H14.6154C14.8194 10 15.0151 10.081 15.1593 10.2253C15.3036 10.3696 15.3846 10.5652 15.3846 10.7692C15.3846 10.9732 15.3036 11.1689 15.1593 11.3132C15.0151 11.4574 14.8194 11.5385 14.6154 11.5385Z"
+                                                                                fill="#FFFBFB" />
+                                                                        </svg>
                                                                     </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                                <br>
-                                                <br>
-                                                <div class="flex items-center justify-center">
-                                                    {{ $docu_posts->links() }}
-                                                </div>
-                                            </div>
+                                                                @elseif($docuPost->status == 1)
+                                                                    <div
+                                                                        class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-green-700 px-2 py-1 text-white">
+                                                                        <span class="px-1"> Approved </span>
+                                                                        <svg class="h-4" viewBox="0 0 21 21"
+                                                                            fill="none">
+                                                                            <path
+                                                                                d="M20.0827 10.5003C20.0827 13.042 19.073 15.4795 17.2758 17.2768C15.4786 19.074 13.041 20.0837 10.4993 20.0837C7.95769 20.0837 5.52013 19.074 3.72291 17.2768C1.92569 15.4795 0.916016 13.042 0.916016 10.5003C0.916016 7.95867 1.92569 5.52111 3.72291 3.72389C5.52013 1.92666 7.95769 0.916992 10.4993 0.916992C13.041 0.916992 15.4786 1.92666 17.2758 3.72389C19.073 5.52111 20.0827 7.95867 20.0827 10.5003ZM15.3274 6.87112C15.2419 6.78576 15.1401 6.71853 15.028 6.67346C14.9159 6.62839 14.7958 6.6064 14.6751 6.60882C14.5543 6.61123 14.4352 6.638 14.325 6.68752C14.2148 6.73703 14.1157 6.80828 14.0337 6.89699L9.8726 12.1975L7.3656 9.68958C7.19645 9.52489 6.96926 9.43343 6.73319 9.43501C6.49711 9.43659 6.27116 9.53106 6.10423 9.698C5.9373 9.86493 5.84282 10.0909 5.84124 10.327C5.83967 10.563 5.93112 10.7902 6.09581 10.9594L9.26597 14.1305C9.35151 14.2154 9.45323 14.2822 9.56509 14.327C9.67696 14.3719 9.79668 14.3938 9.91716 14.3914C10.0376 14.3891 10.1564 14.3626 10.2665 14.3135C10.3765 14.2644 10.4756 14.1937 10.5578 14.1056L15.3399 8.12845C15.503 7.95892 15.5932 7.73221 15.591 7.49696C15.5889 7.26171 15.4946 7.03667 15.3284 6.87016H15.3265L15.3274 6.87112Z"
+                                                                                fill="white" />
+                                                                        </svg>
+                                                                    </div>
+                                                                @else
+                                                                    <h2>deleted 'else'</h2>
+                                                                @endif
+
+                                                            </td>
+                                                            <td scope="col" class="py-2 text-center">
+                                                                <div class="flex items-center gap-1">
+                                                                    <a href="{{ route('view-document', ['reference' => $docuPost->reference]) }}"
+                                                                        class="rounded-md bg-blue-600 p-1 duration-100 ease-in-out hover:bg-blue-800">
+                                                                        <svg class="h-5" viewBox="0 0 23 23"
+                                                                            fill="none">
+                                                                            <path
+                                                                                d="M11.5 14.375C12.2625 14.375 12.9938 14.0721 13.5329 13.5329C14.0721 12.9938 14.375 12.2625 14.375 11.5C14.375 10.7375 14.0721 10.0062 13.5329 9.46707C12.9938 8.9279 12.2625 8.625 11.5 8.625C10.7375 8.625 10.0062 8.9279 9.46707 9.46707C8.9279 10.0062 8.625 10.7375 8.625 11.5C8.625 12.2625 8.9279 12.9938 9.46707 13.5329C10.0062 14.0721 10.7375 14.375 11.5 14.375Z"
+                                                                                fill="white" />
+                                                                            <path
+                                                                                d="M17.7359 6.34225C15.7713 4.99579 13.6697 4.3125 11.4904 4.3125C9.52775 4.3125 7.61396 4.89708 5.80367 6.04133C3.97613 7.19708 2.185 9.29967 0.71875 11.5C1.90517 13.477 3.52954 15.5087 5.22004 16.675C7.15971 18.01 9.269 18.6875 11.4895 18.6875C13.6908 18.6875 15.7952 18.0109 17.7474 16.675C19.4647 15.4982 21.1006 13.4684 22.2812 11.5C21.0958 9.54883 19.4561 7.52196 17.7359 6.34225ZM11.5 15.8125C10.3563 15.8125 9.25935 15.3581 8.4506 14.5494C7.64185 13.7406 7.1875 12.6437 7.1875 11.5C7.1875 10.3563 7.64185 9.25935 8.4506 8.4506C9.25935 7.64185 10.3563 7.1875 11.5 7.1875C12.6437 7.1875 13.7406 7.64185 14.5494 8.4506C15.3581 9.25935 15.8125 10.3563 15.8125 11.5C15.8125 12.6437 15.3581 13.7406 14.5494 14.5494C13.7406 15.3581 12.6437 15.8125 11.5 15.8125Z"
+                                                                                fill="white" />
+                                                                        </svg>
+                                                                    </a>
+                                                                    <div
+                                                                        class="rounded-md bg-cyan-600 p-1 duration-100 ease-in-out hover:bg-cyan-800">
+                                                                        <svg class="h-5" viewBox="0 0 23 23"
+                                                                            fill="none">
+                                                                            <path
+                                                                                d="M4.62683 20.8475H2.15625V18.3759L16.0885 4.41016L18.5936 6.91524L4.62683 20.8475Z"
+                                                                                fill="white" />
+                                                                            <path
+                                                                                d="M19.1243 6.37867L16.6211 3.87551L18.0433 2.49838C18.2627 2.27797 18.5991 2.15626 18.9115 2.15626C19.0653 2.15573 19.2176 2.1857 19.3598 2.24442C19.5019 2.30315 19.631 2.38946 19.7395 2.49838L20.5033 3.26217C20.6117 3.37063 20.6975 3.49945 20.7559 3.64123C20.8143 3.783 20.8441 3.93493 20.8435 4.08826C20.8435 4.40259 20.7218 4.73705 20.5014 4.95746L19.1243 6.37867Z"
+                                                                                fill="white" />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div wire:click="deletePost('{{ $docuPost->id }}',' {{ $docuPost->title }}', '{{ $docuPost->user_id }}' )"
+                                                                        class="rounded-md bg-red-600 p-1 duration-100 ease-in-out hover:bg-red-800">
+                                                                        <svg class="h-5" viewBox="0 0 23 23"
+                                                                            fill="none">
+                                                                            <path
+                                                                                d="M20.1049 4.3125H15.0938V2.15625C15.0938 1.96563 15.018 1.78281 14.8832 1.64802C14.7484 1.51323 14.5656 1.4375 14.375 1.4375H8.625C8.43438 1.4375 8.25156 1.51323 8.11677 1.64802C7.98198 1.78281 7.90625 1.96563 7.90625 2.15625V4.3125H2.89512L2.875 6.10938H4.35754L5.26029 20.2151C5.28318 20.5797 5.44403 20.9219 5.71015 21.1722C5.97626 21.4224 6.32769 21.562 6.693 21.5625H16.307C16.6722 21.5623 17.0236 21.4231 17.2898 21.1732C17.5561 20.9233 17.7173 20.5814 17.7407 20.217L18.6425 6.10938H20.125L20.1049 4.3125ZM7.90625 18.6875L7.50183 7.1875H8.98438L9.38879 18.6875H7.90625ZM12.2188 18.6875H10.7812V7.1875H12.2188V18.6875ZM13.2969 4.3125H9.70312V3.05421C9.70338 3.00659 9.72247 2.96101 9.75623 2.92743C9.78999 2.89385 9.83567 2.875 9.88329 2.875H13.1167C13.1645 2.875 13.2103 2.89398 13.2441 2.92777C13.2779 2.96156 13.2969 3.00738 13.2969 3.05517V4.3125ZM15.0938 18.6875H13.6112L14.0156 7.1875H15.4982L15.0938 18.6875Z"
+                                                                                fill="white" />
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </section>
                                     @else
                                         <div class="flex flex-col items-center justify-center">

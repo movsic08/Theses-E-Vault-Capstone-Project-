@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Mail\OtpEmail;
 use App\Models\BachelorDegree;
@@ -13,9 +13,10 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class EditProfile extends Component {
-
+    use WithPagination;
     use WithFileUploads;
     public $bachelor_degree_data, $user;
     public $facebook_url, $ms_url, $verifyEmail;
@@ -35,13 +36,12 @@ class EditProfile extends Component {
         $this->verifyEmail = $this->user->email;
         $bachelorDegree = BachelorDegree::find( $this->user->bachelor_degree );
         $this->bachelorDegreeName = $bachelorDegree ? $bachelorDegree->name : null;
-        $this->loadDocuPost();
         $this->bachelor_degree_data = BachelorDegree::all();
     }
 
-    public function loadDocuPost() {
-        $this->docu_posts = DocuPost::where( 'user_id', auth()->id() )->get();
-    }
+    // public function loadDocuPost() {
+    //     $this->
+    // }
 
     public function updatedProfilePicture() {
         $this->validate( [
@@ -52,10 +52,10 @@ class EditProfile extends Component {
             $imagePath = $this->profile_picture->store( 'profile_pictures', 'public' );
             Auth::user()->update( [ 'profile_picture' => $imagePath ] );
 
-            $this->emit( 'profilePictureUpdated' );
-            session()->flash( 'message', 'Profile picture changed successfully.' );
+            $this->dispatch( 'profilePictureUpdated' );
+            request()->session()->flash( 'message', 'Profile picture changed successfully.' );
         } else {
-            session()->flash( 'message', 'There is problem uploading your image, try again.' );
+            request()->session()->flash( 'message', 'There is problem uploading your image, try again.' );
         }
     }
     protected $listeners = [ 'profilePictureUpdated' => 'refreshProfilePicture' ];
@@ -68,14 +68,16 @@ class EditProfile extends Component {
         $this->validate( [
             'first_name' => [ 'required', 'min:2' ],
             'last_name' => [ 'required', 'min:2' ],
-            'phone_no' => [ 'required', 'min:2' ],
-            'student_id' => [ 'required', 'min:2' ],
+            'phone_no' => [ 'required', 'min:11', 'max:11', 'regex:/^09\d{9}$/' ],
+            'student_id' => [ 'required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/' ],
             'username' => [ 'required', 'min:2' ],
-            'address' => [ 'required', 'min:2' ],
+            'address' => [ 'required', 'min:5' ],
             'bachelor_degree_input' => [ 'required' ],
             'email' => 'required|email|unique:users,email,' . Auth::id(),
         ], [
-            // 'bacbachelor_degree_input.required' => 'Please select your bachelor degree',
+            'bacbachelor_degree_input.required' => 'Please select your bachelor degree',
+            'student_id.regex' => 'The student ID must be in the format "XX-AC-XXXX".',
+            'phone_no.regex' => 'The phone number must start with "09" and have 11 digits.',
         ] );
 
         // dd( $this->bachelor_degree_input );
@@ -105,13 +107,10 @@ class EditProfile extends Component {
         $this->bachelor_degree  = $this->user->bachelor_degree;
     }
 
-    public $activeTab = 'tab1';
+    public $activeTab = 'tab4';
 
     public function setActiveTab( $tab ) {
         $this->activeTab = $tab;
-        if ( $tab == 'tab4' ) {
-            $this->loadDocuPost();
-        }
     }
 
     public $showDeleteBox = false;
@@ -282,7 +281,6 @@ class EditProfile extends Component {
         $this->verifiedBox = false;
         $this->enterOtpBox = false;
     }
-    public  $docu_posts ;
 
     public $showDeleteDocuPostBox = false;
     public $docuPostID, $postitle, $userPostID;
@@ -302,7 +300,6 @@ class EditProfile extends Component {
             if ( $docu_post_delete ) {
                 $docu_post_delete->delete();
                 session()->flash( 'message', 'Post deleted successfully.' );
-                $this->loadDocuPost();
             } else {
                 session()->flash( 'message', "Post is not found, can't proceed." );
             }
@@ -317,10 +314,11 @@ class EditProfile extends Component {
     }
 
     public function render() {
-        $idAdmin = auth()->user()->is_admin;
+        $docu_posts = DocuPost::where( 'user_id', auth()->id() )->paginate( 3 );
 
-        $layout = $idAdmin ? 'layout.admin' : 'layout.app';
-        return view( 'livewire.edit-profile' )->layout( $layout );
+        return view( 'livewire.edit-profile', [
+            'docu_posts' => $docu_posts
+        ] )->layout( 'layout.app' );
     }
 
 }

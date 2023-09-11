@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\DocuPost;
 use Livewire\Component;
@@ -15,7 +15,12 @@ class ViewDocuPost extends Component {
     }
 
     public function render() {
-        $idAdmin = auth()->user()->is_admin;
+
+        if ( auth()->check() ) {
+            $idAdmin = auth()->user()->is_admin;
+        } else {
+            $idAdmin = false;
+        }
 
         $layout = $idAdmin ? 'layout.admin' : 'layout.app';
         return view( 'livewire.view-docu-post' )->layout( $layout );

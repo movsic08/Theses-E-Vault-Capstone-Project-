@@ -1,27 +1,19 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OtpAuthController;
 use App\Http\Controllers\UserController;
+use App\Livewire\ProfileEditTab;
+use App\Livewire\EditProfile;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
-use App\Http\Livewire\{EditProfile};
-use App\Http\Livewire\UploadDocument;
-use App\Http\Livewire\ViewDocuPost;
+use App\Livewire\UploadDocument;
+use App\Livewire\ViewDocuPost;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 
 Route::get('/sidebar', function () {
@@ -41,27 +33,46 @@ Route::post('/login/process', [UserController::class, 'loginProcess'])->name('lo
 // only autehnticated user
 Route::middleware(['auth', 'user'])->group(function () {
 
-    Route::get('/user', function () {
+    Route::get('/profile', function () {
         return view('user_pages.profile');
     })->name('user.profile');
+    Route::get('/tabtester', ProfileEditTab::class);
 
-    Route::get('/profile/edit/{activeTab?}', EditProfile::class)->name('edit-profile');
-    Route::get('/upload-document', UploadDocument::class)->name('upload-document-form');
-    Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('view-document');
+    Route::get('profile/edit/{activeTab?}',EditProfile::class )->name('edit-profile');
+    Route::get('/upload-document', UploadDocument::class)->name('user-upload-document-form');
+
+
+    Route::get('/notification', function(){
+        return view('pages.user.notification');
+    })->name('user-notification');
+
+    Route::get('/messages', function () {
+        return view('pages.user.messages');
+    })->name('user-messages');
+    
+    Route::get('/search', function () {
+        return view('pages.user.search');
+    })->name('user-search');
+
+    Route::get('/bookmark', function () {
+        return view('pages.user.bookmark');
+    })->name('user-bookmark');
+
+    Route::get('/catalogue', function () {
+        return view('pages.user.catalogue');
+    })->name('user-catalogue');
 });
 
 
 
 //no account needed
-Route::middleware('user')->group(function () {
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home')->middleware('user');
-});
+    Route::get('/home', [HomeController::class, 'show'])->name('home');
+    Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('view-document');
+
 
 //admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/component', AddNewUser::class);
+    // Route::get('/component', AddNewUser::class);
     // Route::post('list', AddNewUser::class)->name('admin.users');
 
     //list of users and adding process
@@ -70,8 +81,34 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     //designing
     Route::get('/home', function () {
-        return view('admin.pages.index')->with('title', 'Home');
-    })->name('admin.home');
+        return view('pages.admin.home')->with('title', 'Home');
+    })->name('admin-home');
+
+    Route::get('/analytics', function () {
+        return view('pages.admin.analytics');
+    })->name('admin-analytics');
+    
+    Route::get('/chats', function () {
+        return view('pages.admin.chats');
+    })->name('admin-chats');
+
+    Route::get('/help-and-support', function () {
+        return view('pages.admin.help-and-support');
+    })->name('admin-help-and-support');
+
+     Route::get('/list-of-books', function () {
+        return view('pages.admin.list-of-books');
+    })->name('admin-list-of-books');
+
+     Route::get('/notification', function () {
+        return view('pages.admin.notification');
+    })->name('admin-notification');
+
+     Route::get('/users', function () {
+        return view('pages.admin.users');
+    })->name('admin-users');
+
+    Route::get('/upload-document', UploadDocument::class)->name('upload-document-form');
 });
 
 
@@ -84,7 +121,7 @@ Route::get('/sample', function(){
     return view('tester');
 });
 
-Route::get('test', CreateUsers::class);
+// Route::get('test', CreateUsers::class);
 
 
 Route::get('/otp', [OtpAuthController::class, 'showForm']);

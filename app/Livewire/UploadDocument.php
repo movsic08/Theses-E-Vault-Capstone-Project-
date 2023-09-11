@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\DocuPost;
 use Illuminate\Support\Facades\Auth;
@@ -15,12 +15,17 @@ class UploadDocument extends Component {
 
     public function mount() {
         $this->user = Auth::user();
-        $bachelor_degree_int = BachelorDegree::find( $this->user->bachelor_degree );
-        $this->bachelor_degree_value = $bachelor_degree_int->name;
-        $this->author1 = $this->user->first_name . ' ' . $this->user->last_name;
+
+        if ( $this->user->is_admin ) {
+            $this->bachelor_degree_value = '';
+        } else {
+            $bachelor_degree_int = BachelorDegree::find( $this->user->bachelor_degree );
+            $this->bachelor_degree_value = $bachelor_degree_int->name;
+            $this->author1 = $this->user->first_name . ' ' . $this->user->last_name;
+        }
     }
 
-    public $currentTab = 1;
+    public $currentTab = 3;
 
     public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4;
     public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload,  $pdf_path;
@@ -34,6 +39,7 @@ class UploadDocument extends Component {
         'language' => 'required|min:3',
         'panel_chair' => 'required|min:3',
         'advisor' => 'required|min:3',
+        'bachelor_degree_value' => 'required',
         'panel_member1' => 'required|min:3',
         'panel_member2' => 'required|min:3',
         'panel_member3' => 'required|min:3',
@@ -82,7 +88,7 @@ class UploadDocument extends Component {
         $this->progressPercent += 4;
 
         // Emit a Livewire event to update the progress bar in the JavaScript
-        $this->emit( 'updateProgressBar', $this->progressPercent );
+        $this->dispatch( 'updateProgressBar', $this->progressPercent );
     }
 
     public $authorAPA;
@@ -156,7 +162,7 @@ class UploadDocument extends Component {
         }
 
         do {
-            $this->docuReference = Str::random( 9 );
+            $this->docuReference = Str::random( 12 );
         }
         while( DocuPost::where( 'reference', $this->docuReference )->exists() );
 
@@ -202,6 +208,13 @@ class UploadDocument extends Component {
     }
 
     public function render() {
-        return view( 'livewire.upload-document' )->layout( 'layout.app' );
+        if ( auth()->check() ) {
+            $idAdmin = auth()->user()->is_admin;
+        } else {
+            $idAdmin = false;
+        }
+
+        $layout = $idAdmin ? 'layout.admin' : 'layout.app';
+        return view( 'livewire.upload-document' )->layout( $layout );
     }
 }

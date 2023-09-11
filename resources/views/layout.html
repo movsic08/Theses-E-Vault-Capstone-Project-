@@ -1,0 +1,68 @@
+<x-app-layout>
+    @section('title', 'Home')
+    <x-session_flash />
+    <div class="container">
+        <section>
+            <h2 class="text-secondary-color">List of Collections</h2>
+        </section>
+
+        <section class="grid grid-cols-5 gap-3 text-primary-color">
+            {{-- 1st div (Scrollable) --}}
+            <div class="col-span-5 overflow-y-auto lg:col-span-3">
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <div class="bg-blue-500 p-4">
+                    <h2>Hello</h2>
+                </div>
+                <!-- Add more content divs as needed -->
+            </div>
+            {{-- 2nd div (Fixed Right Side) --}}
+            <div
+                class="sticky right-0 top-[4.75rem] col-span-5 h-fit lg:col-span-2"
+            >
+                <div class="flex flex-col gap-3">
+                    <div class="bg-orange-500 p-4">Hello</div>
+                    <div class="bg-orange-500 p-4">Hello</div>
+                    <!-- Add more sidebar content divs as needed -->
+                </div>
+            </div>
+        </section>
+    </div>
+</x-app-layout>

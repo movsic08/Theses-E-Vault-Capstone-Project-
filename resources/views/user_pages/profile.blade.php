@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'view profile')
+    @section('title', 'Profile')
     {{-- @dd(auth()->user()) --}}
     <div class="container">
         <x-session_flash />

@@ -1,11 +1,21 @@
-<aside id="sidebar-nav"
+<script src="{{ asset('js/sideBar.js') }}"></script>
+<nav id="sidebar-nav"
     class="sticky bottom-0 left-0 top-0 z-50 hidden h-screen w-14 flex-col justify-between rounded-r-xl bg-white text-gray-700 drop-shadow-lg md:flex">
     <section>
         {{-- logo ang name --}}
-        <div class="flex items-center justify-between space-x-1 p-4">
-            <img class="max-w-12 h-12 max-h-12 w-12" src="{{ asset('icons/logo.svg') }}" alt="logo" srcset="">
-            <h1 class="hideName block md:hidden">ThesisKIosk</h1>
-            <button id="sidebarBtn" class="absolute -right-7 z-40 hidden md:block">
+        <div>
+            <div id="sample"
+                class="mx-1 mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500">
+                <a wire:navigate href="{{ route('index') }}" class="flex items-center">
+                    <img height="30" width="30" src="{{ asset('icons/logo.svg') }}" alt="logo" srcset="">
+                    <div class="ml-2 flex flex-col">
+                        <p class="hideName block md:hidden">Thesis Kiosk</p>
+                    </div>
+                </a>
+                <p id="msgCount" class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1
+                    Notification</p>
+            </div>
+            <button id="sidebarBtn" class="absolute -right-7 top-2 z-40 hidden md:block">
                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-4.375 9.375a.625.625 0 1 0 0 1.25h7.241l-2.684 2.682a.627.627 0 0 0 .886.885l3.75-3.75a.625.625 0 0 0 0-.885l-3.75-3.75a.626.626 0 1 0-.886.886l2.684 2.682H7.625Z">
@@ -13,13 +23,14 @@
                 </svg>
             </button>
         </div>
+
         {{-- menus --}}
         <div class="text-sm font-semibold">
             @auth
                 {{-- notification --}}
-                <div id="sample"
-                    class="div-container mx-1 mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                <div
+                    class="{{ request()->routeIs('user-notification') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a wire:navigate href="{{ route('user-notification') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -31,17 +42,14 @@
                                 <p class="text-[8px]">1</p>
                             </div>
                         </div>
-                        <div class="ml-2 flex flex-col">
-                            <p class="hideName block md:hidden">Notification</p>
-                        </div>
+                        <p class="hideName block pl-2 md:hidden">Notification</p>
                     </a>
-                    <p id="msgCount" class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1
-                        Notification</p>
+                    <p class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1 NOtification</p>
                 </div>
                 {{-- message area --}}
                 <div
-                    class="mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                    class="{{ request()->routeIs('user-messages') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a wire:navigate href="{{ route('user-messages') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -61,7 +69,7 @@
 
             <div
                 class="{{ request()->routeIs('home') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                <a href="{{ route('home') }}" class="flex items-center">
+                <a wire:navigate href="{{ route('home') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -72,8 +80,9 @@
                     <p class="hideName block pl-2 md:hidden">Home</p>
                 </a>
             </div>
-            <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                <a href="" class="flex items-center">
+            <div
+                class="{{ request()->routeIs('user-search') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                <a wire:navigate href="{{ route('user-search') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M10.8 10.8a2.4 2.4 0 1 1 4.8 0 2.4 2.4 0 0 1-4.8 0Z"></path>
@@ -85,10 +94,34 @@
                     <p class="hideName block pl-2 md:hidden">Search</p>
                 </a>
             </div>
+            <div
+                class="{{ request()->routeIs('user-catalogue') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                <a wire:navigate href="{{ route('user-catalogue') }}" class="flex items-center">
+                    <div class="relative">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 33 28">
+                            <g clip-path="url(#clip0_549_3071)">
+                                <path
+                                    d="M30.7188 0.28125C26.0958 0.301667 22.6615 0.9375 20.175 2.03708C18.32 2.85813 17.5938 3.47792 17.5938 5.58083V27.625C20.436 25.0613 22.9575 24.3438 32.9062 24.3438V0.28125H30.7188Z"
+                                    fill="#3D4448" />
+                                <path
+                                    d="M2.28125 0.28125C6.90417 0.301667 10.3385 0.9375 12.825 2.03708C14.68 2.85813 15.4062 3.47792 15.4062 5.58083V27.625C12.564 25.0613 10.0425 24.3438 0.09375 24.3438V0.28125H2.28125Z"
+                                    fill="#3D4448" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_549_3071">
+                                    <rect width="33" height="28" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <p class="hideName block pl-2 md:hidden">Catalogue</p>
+                </a>
+            </div>
             @auth
                 {{-- bookmark --}}
-                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                <div
+                    class="{{ request()->routeIs('user-bookmark') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a wire:navigate href="{{ route('user-bookmark') }}" class="flex items-center">
                         <div class="relative">
                             <svg class="relative" width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -100,8 +133,9 @@
                     </a>
                 </div>
                 {{-- user --}}
-                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="{{ route('user.profile') }}" class="flex items-center">
+                <div
+                    class="{{ request()->routeIs('user.profile') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a wire:navigate href="{{ route('user.profile') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
@@ -167,4 +201,4 @@
 
         </div>
     </section>
-</aside>
+</nav>

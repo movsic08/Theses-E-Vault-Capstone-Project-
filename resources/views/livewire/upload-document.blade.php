@@ -28,7 +28,7 @@
 
     <div class="container">
         <section class="my-3 flex h-max w-full overflow-y-auto rounded-lg bg-white drop-shadow-lg">
-            <form class="flex w-full flex-col" wire:submit.prevent='uploadDocument' action="">
+            <form class="flex w-full flex-col" wire:submit='uploadDocument' action="">
                 <section
                     class="w-full gap-1 border-b border-gray-400 text-xs text-gray-600 md:justify-between md:text-sm">
                     <div class="flex justify-between px-8">
@@ -78,7 +78,7 @@
                                     <label class="text-sm font-semibold" for="title">
                                         Title</label>
                                     <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                        wire:model="title" id="title" placeholder="Title of your work" />
+                                        wire:model.live="title" id="title" placeholder="Title of your work" />
                                     @error('title')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
@@ -88,8 +88,10 @@
                                         <label class="text-sm font-semibold" for="bachelor_degree">
                                             Bachelor degree</label>
                                         <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                            wire:model="bachelor_degree_value" id="bachelor_degree" disabled />
-                                        @error('bachelor_degree')
+                                            wire:model.live="bachelor_degree_value" id="bachelor_degree"
+                                            {{ auth()->user()->is_admin ? '' : 'disabled' }}
+                                            placeholder="{{ auth()->user()->is_admin ? 'Degree name' : '' }}" />
+                                        @error('bachelor_degree_value')
                                             <small class="text-red-500">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -97,7 +99,7 @@
                                         <label class="text-sm font-semibold" for="document_type">
                                             Document type</label>
                                         <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                            wire:model="document_type" id="document_type" placeholder="English" />
+                                            wire:model.live="document_type" id="document_type" placeholder="English" />
                                         @error('document_type')
                                             <small class="text-red-500">{{ $message }}</small>
                                         @enderror
@@ -109,7 +111,7 @@
                                             <label class="text-sm font-semibold" for="date_of_approval">
                                                 Date of approval</label>
                                             <input class="rounded-md border border-gray-400 p-2 text-sm" type="date"
-                                                wire:model="date_of_approval" id="date_of_approval" />
+                                                wire:model.live="date_of_approval" id="date_of_approval" />
                                             @error('date_of_approval')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -118,7 +120,7 @@
                                             <label class="text-sm font-semibold" for="format">
                                                 Format</label>
                                             <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                                wire:model="format" id="format" placeholder="Eg. Electronic" />
+                                                wire:model.live="format" id="format" placeholder="Eg. Electronic" />
                                             @error('format')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -129,7 +131,7 @@
                                             <label class="text-sm font-semibold" for="physical_description">
                                                 Physical description</label>
                                             <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                                wire:model="physical_description" placeholder="189 pages"
+                                                wire:model.live="physical_description" placeholder="189 pages"
                                                 id="physical_description" />
                                             @error('physical_description')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -139,7 +141,7 @@
                                             <label class="text-sm font-semibold" for="language">
                                                 Language</label>
                                             <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                                wire:model="language" id="language" placeholder="English" />
+                                                wire:model.live="language" id="language" placeholder="English" />
                                             @error('language')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -151,7 +153,7 @@
                                         <label class="text-sm font-semibold" for="panel_chair">
                                             Defense panel chair</label>
                                         <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                            wire:model="panel_chair" id="panel_chair"
+                                            wire:model.live="panel_chair" id="panel_chair"
                                             placeholder="Name of panel chairperson" />
                                         @error('panel_chair')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -161,7 +163,7 @@
                                         <label class="text-sm font-semibold" for="advisor">
                                             Advisor</label>
                                         <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                            wire:model="advisor" id="advisor" placeholder="English"
+                                            wire:model.live="advisor" id="advisor" placeholder="English"
                                             placeholder="Name of your advisor" />
                                         @error('advisor')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -174,7 +176,7 @@
                                     <div class="flex flex-col gap-2 md:flex-row">
                                         <div class="w-full">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="panel_member1" id="panel_member"
+                                                type="text" wire:model.live="panel_member1" id="panel_member"
                                                 placeholder="Defense panel member 1" placeholder="Panel member 1" />
                                             @error('panel_member1')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -182,7 +184,7 @@
                                         </div>
                                         <div class="w-full">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="panel_member2" id="panel_member"
+                                                type="text" wire:model.live="panel_member2" id="panel_member"
                                                 placeholder="Defense panel member 2" placeholder="Panel member 2" />
                                             @error('panel_member2')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -192,7 +194,7 @@
                                     <div class="flex flex-col gap-2 md:flex-row">
                                         <div class="w-full">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="panel_member3" id="panel_member"
+                                                type="text" wire:model.live="panel_member3" id="panel_member"
                                                 placeholder="Defense panel member 3" placeholder="Panel member 3" />
                                             @error('panel_member3')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -200,7 +202,7 @@
                                         </div>
                                         <div class="w-full">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="panel_member4" id="panel_member"
+                                                type="text" wire:model.live="panel_member4" id="panel_member"
                                                 placeholder="Defense panel member 4" placeholder="Panel member 4" />
                                             @error('panel_member4')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -232,7 +234,7 @@
                                     <div class="flex w-full flex-col">
                                         <label class="text-sm font-semibold" for="abstract_or_summary">
                                             Abstract/ Summary</label>
-                                        <textarea class="rounded-md border border-gray-400 p-2 text-sm" type="text" wire:model="abstract_or_summary"
+                                        <textarea class="rounded-md border border-gray-400 p-2 text-sm" type="text" wire:model.live="abstract_or_summary"
                                             rows="25" id="abstract_or_summary" placeholder="abstract_or_summary of your work"></textarea>
                                         @error('abstract_or_summary')
                                             <small class="text-red-500">{{ $message }}</small>
@@ -245,7 +247,7 @@
                                             Author/s</label>
                                         <div class="">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="author1" id="authors"
+                                                type="text" wire:model.live="author1" id="authors"
                                                 placeholder="authors of your work" disabled />
                                             @error('author1')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -253,7 +255,7 @@
                                         </div>
                                         <div class="">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="author2" id="authors"
+                                                type="text" wire:model.live="author2" id="authors"
                                                 placeholder="authors of your work" />
                                             @error('author2')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -261,7 +263,7 @@
                                         </div>
                                         <div class="">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="author3" id="authors"
+                                                type="text" wire:model.live="author3" id="authors"
                                                 placeholder="authors of your work" />
                                             @error('author3')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -269,7 +271,7 @@
                                         </div>
                                         <div class="">
                                             <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                type="text" wire:model="author4" id="authors"
+                                                type="text" wire:model.live="author4" id="authors"
                                                 placeholder="authors of your work" />
                                             @error('author4')
                                                 <small class="text-red-500">{{ $message }}</small>
@@ -292,7 +294,7 @@
                                         <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword1" id="keywords"
+                                                    type="text" wire:model.live="keyword1" id="keywords"
                                                     placeholder="Keyword 1 required" />
                                                 @error('keyword1')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -300,7 +302,7 @@
                                             </div>
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword2" id="keywords"
+                                                    type="text" wire:model.live="keyword2" id="keywords"
                                                     placeholder="Keyword 2 required" />
                                                 @error('keyword2')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -308,7 +310,7 @@
                                             </div>
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword3" id="keywords"
+                                                    type="text" wire:model.live="keyword3" id="keywords"
                                                     placeholder="Keyword 3 required" />
                                                 @error('keyword3')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -316,7 +318,7 @@
                                             </div>
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword4" id="keywords"
+                                                    type="text" wire:model.live="keyword4" id="keywords"
                                                     placeholder="Keyword 4 required" />
                                                 @error('keyword4')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -325,7 +327,7 @@
 
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword5" id="keywords"
+                                                    type="text" wire:model.live="keyword5" id="keywords"
                                                     placeholder="Keyword 5 required" />
                                                 @error('keyword5')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -333,7 +335,7 @@
                                             </div>
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword6" id="keywords"
+                                                    type="text" wire:model.live="keyword6" id="keywords"
                                                     placeholder="Keyword 6 required" />
                                                 @error('keyword6')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -341,7 +343,7 @@
                                             </div>
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword7" id="keywords"
+                                                    type="text" wire:model.live="keyword7" id="keywords"
                                                     placeholder="Keyword 7 optional" />
                                                 @error('keyword7')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -349,7 +351,7 @@
                                             </div>
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
-                                                    type="text" wire:model="keyword8" id="keywords"
+                                                    type="text" wire:model.live="keyword8" id="keywords"
                                                     placeholder="Keyword 8 optional" />
                                                 @error('keyword8')
                                                     <small class="text-red-500">{{ $message }}</small>
@@ -369,7 +371,7 @@
                                     proper bibliography format.</small>
                                 <button wire:click.prevent="citationAPA_generator">Generate</button>
                                 <textarea class="resize-none rounded-md border border-gray-400 p-2 text-sm md:resize-y lg:resize-none"
-                                    wire:model="recommended_citation" rows="6" id="recommended_citation"></textarea>
+                                    wire:model.live="recommended_citation" rows="6" id="recommended_citation"></textarea>
                                 @error('recommended_citation')
                                     <small class="text-red-500">{{ $message }}</small>
                                 @enderror
@@ -515,7 +517,7 @@
                                             here</h2>
                                         <label for="uploadFile"
                                             class="w-full rounded-lg bg-primary-color px-1 py-2 text-center text-white hover:cursor-pointer">Upload
-                                            <input type="file" wire:model="user_upload" id="uploadFile"
+                                            <input type="file" wire:model.live="user_upload" id="uploadFile"
                                                 class="" hidden accept="application/pdf">
                                         </label>
                                         <small class="text-gray-600">Please be guided, the required file should be in
