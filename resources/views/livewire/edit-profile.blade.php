@@ -131,7 +131,6 @@
                     <input type="text" hidden wire:model.live="userPostID" value="{{ $userPostID }}">
                     <h1><em>{{ $postitle }}</em></h1>
                     <h1> {{ $docuPostID }}</h1>
-
                     <div class="flex w-full flex-col items-center justify-center gap-2 md:flex-row">
                         <button
                             class="w-full rounded-md border border-red-700 bg-white p-2 duration-200 hover:bg-red-100"

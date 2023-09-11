@@ -6,17 +6,44 @@
             <h2 class="text-secondary-color">List of Collections</h2>
         </section>
 
-        <section class="grid grid-cols-5 gap-2 text-primary-color">
+        <section class="grid grid-cols-5 gap-4 text-primary-color">
             {{-- 1st div (Scrollable) --}}
             <div class="col-span-5 flex flex-col gap-4 overflow-y-auto lg:col-span-3">
-                @if (empty($docuPostData))
-                    <div class="flex h-[35.2rem] items-center justify-center rounded-lg bg-white p-5 drop-shadow-xl">
-                        <h2 class="text-center text-xl font-medium text-gray-600">There is no uplaoded Document yet. If
-                            you find it
-                            as bug or something went wrong. Contact
-                            the
-                            administrator immediately</h2>
-                    </div>
+                @if (count($docuPostData) === 0)
+                    <section
+                        class="bg-primary relative z-10 flex h-[35.2rem] items-center justify-center rounded-lg border border-gray-300 bg-white p-5 py-[120px] text-gray-700 drop-shadow-lg">
+                        <div class="container mx-auto">
+                            <div class="-mx-4 flex">
+                                <div class="w-full px-4">
+                                    <div class="mx-auto flex max-w-[400px] flex-col items-center text-center">
+                                        <svg class="h-[10rem] text-gray-700" fill="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
+                                            </path>
+                                            <path
+                                                d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
+                                            </path>
+                                        </svg>
+                                        <h4 class="mb-3 text-[22px] font-semibold leading-tight">
+                                            Oops! There is no upload Document yet.
+                                        </h4>
+                                        <p class="mb-8 text-lg">
+                                            If
+                                            you find it
+                                            as bug or something went wrong. Contact
+                                            the
+                                            administrator immediately. Thank you for your cooperation.
+                                        </p>
+                                        <a href="{{ route('user.logout') }}"
+                                            class="hover:text-primary inline-block rounded-lg border bg-primary-color px-8 py-3 text-center text-base font-semibold text-white transition">
+                                            Logout
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 @endif
                 @foreach ($docuPostData as $docuData)
                     <div
@@ -33,7 +60,7 @@
                             </svg>
                         </div>
                         <div>
-                            <a href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
+                            <a wire:navigate href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
                                 class="whitespace-normal font-semibold text-secondary-color lg:text-sm">
                                 {{ $docuData->title }}</a>
                             <div class="flex text-sm text-white">
@@ -74,10 +101,14 @@
                                     </svg>
                                 </div>
                                 <ul class="flex w-auto flex-wrap text-sm">
-                                    <li class="inline">Cybercartography;</li>
-                                    <li class="inline">Histo-cultural Trail;</li>
-                                    <li class="inline">Landscape Walking Approach</li>
-                                    <li class="inline">Landscape Walking Approach</li>
+                                    <li class="inline">{{ $docuData->keyword_1 }}; </li>
+                                    <li class="inline">{{ $docuData->keyword_2 }}; </li>
+                                    <li class="inline">{{ $docuData->keyword_3 }}; </li>
+                                    <li class="inline">{{ $docuData->keyword_4 }}; </li>
+                                    <li class="inline">{{ $docuData->keyword_5 }}; </li>
+                                    <li class="inline">{{ $docuData->keyword_6 }}; </li>
+                                    <li class="inline">{{ $docuData->keyword_7 }}; </li>
+                                    <li class="inline">{{ $docuData->keyword_8 }}; </li>
                                 </ul>
                             </div>
                             <div class="flex justify-between">
@@ -106,15 +137,98 @@
                 @endforeach
             </div>
             {{-- 2nd div (Fixed Right Side) --}}
-            <div class="sticky right-0 top-[4.75rem] col-span-5 h-fit lg:col-span-2">
-                <div class="flex flex-col gap-3">
-                    <div class="my-2 bg-orange-500 p-4">
-                        Hello
+            <div class="sticky right-0 top-[4rem] col-span-5 h-fit lg:col-span-2">
+                <div class="flex flex-col gap-1">
+                    <div class="my-1 drop-shadow-lg">
+                        <div class="rounded-t-lg bg-gray-600 py-2 text-center text-white">
+                            <h1>Latest research works</h1>
+                        </div>
+                        <div class="h-full overflow-y-auto rounded-b-lg bg-white py-2 lg:h-[15rem]">
+                            <div class="flex h-full flex-col gap-2">
+                                @if (count($latestDocuPostData) === 0)
+                                    <section
+                                        class="bg-primary relative z-10 flex h-full items-center justify-center text-gray-700 drop-shadow-lg">
+                                        <div class="container">
+                                            <div class="-mx-4 flex h-full">
+                                                <div class="h-full w-full px-4">
+                                                    <div
+                                                        class="flex h-full max-w-[400px] flex-col items-center justify-center text-center">
+                                                        <svg class="h-[5rem] text-gray-700" fill="currentColor"
+                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
+                                                            </path>
+                                                            <path
+                                                                d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
+                                                            </path>
+                                                        </svg>
+                                                        <h4 class="mb-3 text-[22px] font-semibold leading-tight">
+                                                            Oops! There is no upload Document yet.
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                @else
+                                    @foreach ($latestDocuPostData as $itemLatest)
+                                        <div class="px-2">
+                                            <a href=""
+                                                class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
+                                            <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
+                                                class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-orange-500 p-4">
-                        Hello
+                    <div class="my-1 drop-shadow-lg">
+                        <div class="rounded-t-lg bg-gray-600 py-2 text-center text-white">
+                            <h1>Latest Posts</h1>
+                        </div>
+                        <div class="h-full overflow-y-auto rounded-b-lg bg-white py-2 lg:h-[15rem]">
+                            <div class="flex h-full flex-col gap-2">
+                                @if (count($latestDocuPostData) === 0)
+                                    <section
+                                        class="bg-primary relative z-10 flex h-full items-center justify-center text-gray-700 drop-shadow-lg">
+                                        <div class="container">
+                                            <div class="-mx-4 flex h-full">
+                                                <div class="h-full w-full px-4">
+                                                    <div
+                                                        class="flex h-full max-w-[400px] flex-col items-center justify-center text-center">
+                                                        <svg class="h-[5rem] text-gray-700" fill="currentColor"
+                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
+                                                            </path>
+                                                            <path
+                                                                d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
+                                                            </path>
+                                                        </svg>
+                                                        <h4 class="mb-3 text-[22px] font-semibold leading-tight">
+                                                            Oops! There is no upload Document yet.
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                @else
+                                    @foreach ($latestDocuPostData as $itemLatest)
+                                        <div class="px-2">
+                                            <a href=""
+                                                class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
+                                            <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
+                                                class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <!-- Add more sidebar content divs as needed -->
                 </div>
             </div>
         </section>

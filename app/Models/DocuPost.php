@@ -10,4 +10,8 @@ class DocuPost extends Model {
     protected $guarded = [];
     protected $primaryKey = 'id';
     protected $table = 'docu_posts';
+
+    public function bookmarkList() {
+        return $this->hasMany( BookmarkList::class, 'post_id', 'reference' );
+    }
 }

@@ -97,8 +97,15 @@
                                 </div>
                                 <div class="flex w-full flex-col gap-2">
                                     <div class="w-full">
-                                        <a class="block w-full rounded-md bg-amber-900 p-1 text-center text-white duration-200 ease-in-out hover:bg-amber-700"
-                                            href="">Bookmark</a>
+                                        <button wire:click="toggleBookmark"
+                                            class="block w-full rounded-md bg-amber-800 p-1 text-center text-white duration-200 ease-in-out hover:bg-amber-700"
+                                            href="">
+                                            @if ($isBookmarked)
+                                                Bookmarked
+                                            @else
+                                                Bookmark
+                                            @endif
+                                        </button>
                                     </div>
                                     <div class="w-full">
                                         <a class="block w-full rounded-md bg-orange-500 p-1 text-center text-white duration-200 ease-in-out hover:bg-orange-400"

@@ -9,7 +9,8 @@ class HomeController extends Controller {
     public function show() {
 
         $docuPostData = DocuPost::all();
+        $latestDocuPostData = DocuPost::latest()->take( 5 )->get();
 
-        return view( 'home', compact( 'docuPostData' ) );
+        return view( 'home', compact( 'docuPostData', 'latestDocuPostData' ) );
     }
 }

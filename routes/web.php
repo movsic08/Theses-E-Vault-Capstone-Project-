@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OtpAuthController;
 use App\Http\Controllers\UserController;
+use App\Livewire\Boomarks;
 use App\Livewire\ProfileEditTab;
 use App\Livewire\EditProfile;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
@@ -54,9 +55,7 @@ Route::middleware(['auth', 'user'])->group(function () {
         return view('pages.user.search');
     })->name('user-search');
 
-    Route::get('/bookmark', function () {
-        return view('pages.user.bookmark');
-    })->name('user-bookmark');
+    Route::get('/bookmark', Boomarks::class)->name('user-bookmark');
 
     Route::get('/catalogue', function () {
         return view('pages.user.catalogue');

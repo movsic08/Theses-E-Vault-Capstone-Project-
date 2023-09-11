@@ -37,6 +37,8 @@ return new class extends Migration {
             //relationships
             $table->foreign('role_id')->references('id')->on('account_roles');
             $table->foreign('bachelor_degree')->references('id')->on('bachelor_degrees')->nullable();
+            // $table->foreign('id')->references('user_id')->on('otp_request_history')->nullable();
+            // $table->foreign('id')->references('user_id')->on('bookmark_list')->nullable();
         });
 
     }
