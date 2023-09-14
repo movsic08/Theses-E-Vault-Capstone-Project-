@@ -19,20 +19,41 @@
 
 <body class="relative h-screen overflow-hidden">
     <div class="signup-gradient absolute inset-0 z-10 bg-cover"></div>
-    <div class="container absolute inset-0 z-20 flex items-center justify-center">
-        <div class="flex rounded-md bg-white drop-shadow-xl">
-            <div class="hidden w-1/2 bg-red-500 md:block">
-                <h1>Thesis Kiosk</h1>
+    <div class="container absolute inset-0 z-20 h-screen w-screen">
+        <div class="flex h-full w-full items-center justify-center">
+            <div class="hidden h-[35.9rem] w-[45%] overflow-hidden rounded-l-lg p-4 drop-shadow-lg md:block">
+                <div class="absolute inset-0 z-10 transform transition-transform duration-700 hover:scale-125">
+                    <img src="{{ asset('assets/psu_acc.jpg') }}" class="absolute z-10 h-full w-full object-cover"
+                        alt="psu-bg">
+                    <div class="absolute z-20 h-full w-full bg-blue-600 bg-opacity-50"></div>
+                </div>
+                <div class="absolute z-40 flex h-full w-full items-center px-4 py-4 text-white">
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-2">
+                            <img src="{{ asset('icons/logo.svg') }}" alt="">
+                            <h1 class="text-[1.9rem] font-semibold uppercase">Thesis Kiosk</h1>
+                        </div>
+                        <div class="flex flex-col items-center gap-2">
+                            <h1 class="text-[2rem] font-black leading-tight">Explore research works
+                                by undergraduates</h1>
+                            <p class="font-thin leading-tight">"Welcome to Thesis Kiosk! Here, you can easily explore a
+                                collection
+                                of research works by
+                                undergraduate scholars!Unlock the doors to a world of knowledge, inspiration, and
+                                endless possibilities as you immerse yourself in the remarkable achievements of our next
+                                generation of scholars. “</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-4">
+            <div
+                class="w-fit rounded-lg bg-white px-10 py-4 drop-shadow-lg md:w-[45%] md:rounded-l-none md:rounded-r-lg">
                 <div class="my-3">
                     <h1 class="text-lg font-semibold">Create an account</h1>
                     <p class="text-gray-500">
                         Do you have an account? <a class="text-blue-500" href="{{ route('login') }}">Login</a>
                     </p>
                 </div>
-
-                {{-- FORM --}}
                 <form action="{{ route('user.create') }}" method="POST">
                     @csrf
                     <div class="flex flex-col gap-6">
@@ -42,7 +63,7 @@
                                 type="text" name="username" id="username" placeholder="ezname902"
                                 value="{{ old('username') }}">
                             @error('username')
-                                <span class="w-full px-1 text-xs text-red-700">
+                                <span class="w-full text-xs text-red-700">
                                     {{ $message }}
                                 </span>
                             @enderror
@@ -53,7 +74,7 @@
                                 type="email" name="email" id="email" placeholder="user@psu.edu.ph"
                                 value="{{ old('email') }}">
                             @error('email')
-                                <span class="w-full px-1 text-xs text-red-700">
+                                <span class="w-full text-xs text-red-700">
                                     {{ $message }}
                                 </span>
                             @enderror
@@ -63,7 +84,7 @@
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="password" name="password" id="password">
                             @error('password')
-                                <span class="w-full px-1 text-xs text-red-700">
+                                <span class="w-full text-xs text-red-700">
                                     {{ $message }}
                                 </span>
                             @enderror
@@ -82,20 +103,20 @@
                                 <option value="faculty">Faculty Member</option>
                             </select>
                             @error('role_id')
-                                <span class="w-full px-1 text-xs text-red-700">
+                                <span class="w-full text-xs text-red-700">
                                     {{ $message }}
                                 </span>
                             @enderror
                         </div>
 
 
-                        <input class="h-9 rounded-md bg-blue-950 font-medium text-white duration-200 hover:bg-blue-800"
-                            type="submit" value="Create account">
+                        <input
+                            class="cursor-pointer rounded-md bg-blue-950 p-2 font-medium text-white duration-200 hover:bg-blue-800"
+                            type="submit" value="Sign up">
                     </div>
 
                 </form>
             </div>
-
         </div>
     </div>
 </body>

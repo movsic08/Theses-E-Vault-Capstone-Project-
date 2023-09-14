@@ -3,12 +3,19 @@
         dd($parameter);
         $data->user_id;
     @endphp --}}
+    <x-session_flash />
     <div class="container w-full">
         <div class="my-2 flex w-full items-center justify-between">
             <h1 class="text-sm font-medium text-primary-color lg:text-base">Document details</h1>
-            <h1 class="text-xs font-light text-primary-color lg:text-sm">Home>Thesis>234534</h1>
+            <h1 class="text-xs font-light text-primary-color lg:text-sm">
+                <a class="hover:font-medium hover:text-primary-color" href="{{ route('home') }}">Home</a>
+                >
+                Thesis
+                >
+                234534
+            </h1>
         </div>
-        <section class="relative grid grid-cols-4 gap-3 text-primary-color">
+        <section class="relative grid grid-flow-row-dense grid-cols-4 gap-3 text-primary-color">
             {{-- 1st div --}}
             <div class="col-span-4 lg:col-span-3">
                 <div class="flex flex-col gap-3 rounded-lg bg-white px-7 py-4 drop-shadow-lg">
@@ -74,6 +81,28 @@
                         <p class="font-extrabold">ABSTRACT/ SUMMARY</p>
                         <p class="text-gray-600">{{ $data->abstract_or_summary }}</p>
                     </div>
+                </div>
+            </div>
+            {{-- comment form --}}
+            <div class="hidden lg:col-span-3 lg:block">
+                <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
+                    <form action="">
+                        <div class="flex w-full items-center justify-center gap-2">
+                            <textarea class="w-full rounded-lg border-2 border-primary-color bg-gray-100 p-2" name=""
+                                placeholder="What's on your mind?" id="autoresizing"></textarea>
+                            <script type="text/javascript">
+                                $('#autoresizing').on('input', function() {
+                                    this.style.height = 'auto';
+
+                                    this.style.height =
+                                        (this.scrollHeight) + 'px';
+                                });
+                            </script>
+                            <input class="w-fit rounded-lg bg-primary-color p-2 text-white" type="submit"
+                                value="Comment">
+                        </div>
+
+                    </form>
                 </div>
             </div>
             {{-- 2nd div --}}
@@ -172,7 +201,7 @@
             </div>
         </section>
         <section class="mt-4 grid grid-cols-4">
-            <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
+            {{-- <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
                 <form action="">
                     <div class="flex w-full items-center justify-center gap-2">
                         <textarea class="w-full rounded-lg border-2 border-primary-color bg-gray-100 p-2" name=""
@@ -190,7 +219,7 @@
                     </div>
 
                 </form>
-            </div>
+            </div> --}}
         </section>
     </div>
 </div>

@@ -35,7 +35,7 @@
                                 alt="" srcset="">
                             <h1>JOHn JKD</h1>
                         </div>
-                        <a href="{{ route('edit-profile') }}"
+                        <a wire:navigate href="{{ route('edit-profile') }}"
                             class="w-fit rounded-md bg-blue-700 p-2 text-center text-white">Edit profile</a>
                         <div class="flex flex-col md:gap-3 lg:flex-row">
                             <label class="font-bold text-gray-700" for="username">Username</label>

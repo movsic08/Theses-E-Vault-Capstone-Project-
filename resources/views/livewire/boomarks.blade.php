@@ -6,15 +6,16 @@
             <div
                 class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg">
                 This will remove to your bookmark list
-                <form action="" wire:submit='removeFromList'>
+                <form action="" wire:submit.prevent='removeFromList'>
                     <input type="text" wire.model='deletingItemId' value="{{ $deletingItemId }}">
                     <input type="text" wire.model='deletingReferId' value="{{ $deletingReferId }}">
                     <h2>{{ $deletingItemId }}</h2>
                     <h2>{{ $deletingReferId }}</h2>
                     <div class="flex w-full flex-col gap-2 md:flex-row">
                         <button type="submit" class="rounded-md bg-primary-color p-2 text-white md:w-1/2">Yes</button>
-                        <button wire:click='closeConfirmationBox'
-                            class="rounded-md border border-primary-color p-2 md:w-1/2">No</button>
+                        <div wire:click='closeConfirmationBox'
+                            class="cursor-pointer rounded-md border border-primary-color p-2 text-center md:w-1/2">No
+                        </div>
                     </div>
                 </form>
             </div>
@@ -62,7 +63,8 @@
                                     fill="white" />
                             </svg>
                         </button>
-                        <a href="{{ route('view-document', ['reference' => $bookmarkedItem->reference]) }}"
+                        <a wire:navigate
+                            href="{{ route('view-document', ['reference' => $bookmarkedItem->reference]) }}"
                             class="rounded-lg bg-orange-600 p-2 text-white duration-200 ease-in-out hover:bg-orange-700">
                             <svg class="h-5" viewBox="0 0 40 40" fill="none">
                                 <path
@@ -74,7 +76,7 @@
                             </svg>
                         </a>
                     </div>
-                    <a href="{{ route('view-document', ['reference' => $bookmarkedItem->reference]) }}"
+                    <a wire:navigate href="{{ route('view-document', ['reference' => $bookmarkedItem->reference]) }}"
                         class="font-semibold text-primary-color">{{ $docuPost->title }}</a>
                 </div>
             @endforeach

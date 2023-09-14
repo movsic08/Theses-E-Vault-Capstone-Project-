@@ -35,20 +35,23 @@ class ViewDocuPost extends Component {
     }
 
     public function toggleBookmark() {
-        $this->isBookmarked = !$this->isBookmarked;
-        if ( $this->isBookmarked ) {
-            BookmarkList::create( [
-                'user_id' => auth()->id(),
-                'docu_post_id' => $this->data->id,
-                'reference' => $this->parameter,
-            ] );
+        if ( !auth()->check() ) {
+            request()->session()->flash( 'message', 'You need to sign in first' );
         } else {
-            BookmarkList::where( 'user_id', auth()->id() )
-            ->where( 'docu_post_id', $this->data->id )
-            ->where( 'reference', $this->parameter )
-            ->delete();
+            $this->isBookmarked = !$this->isBookmarked;
+            if ( $this->isBookmarked ) {
+                BookmarkList::create( [
+                    'user_id' => auth()->id(),
+                    'docu_post_id' => $this->data->id,
+                    'reference' => $this->parameter,
+                ] );
+            } else {
+                BookmarkList::where( 'user_id', auth()->id() )
+                ->where( 'docu_post_id', $this->data->id )
+                ->where( 'reference', $this->parameter )
+                ->delete();
+            }
         }
-
     }
 
     public function render() {

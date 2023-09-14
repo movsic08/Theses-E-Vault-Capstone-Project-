@@ -21,11 +21,6 @@
     <title>@yield('title', 'Thesis Kiosk')</title>
     @vite('resources/css/app.css')
     @livewireStyles
-</head>
-
-<body class="gradient-bg-light m-0 flex p-0 font-poppins">
-    {{-- sidebar --}}
-    <x-sidebar />
     <style>
         #nprogress .bar {
             height: 0.2rem;
@@ -58,6 +53,12 @@
             z-index: -3;
         }
     </style>
+</head>
+
+<body class="gradient-bg-light custom-scrollbar m-0 flex p-0 font-poppins">
+    {{-- sidebar --}}
+    <x-sidebar />
+
     <div class="flex w-full max-w-full flex-col">
         {{-- navbar --}}
         <x-navbar />

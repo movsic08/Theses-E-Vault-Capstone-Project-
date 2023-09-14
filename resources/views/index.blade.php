@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @livewire('profile-edit-tab')
+    {{-- @livewire('profile-edit-tab') --}}
     <div
         class="grid flex-grow grid-flow-row-dense grid-cols-7 gap-4 px-7 py-2 text-primary-color md:mx-8 md:my-2 md:px-0">
         <!-- Row 1, Column 1 -->

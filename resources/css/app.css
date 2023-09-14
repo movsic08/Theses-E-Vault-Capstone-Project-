@@ -9,3 +9,23 @@
 .signup-gradient {
   background: linear-gradient(136deg, #77DEF4 0%, #5CA4E8 100%);
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  margin: 0px 3px 0px 3px;
+  /* width of the entire scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: white;
+  /* color of the tracking area */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #9e9b9c;
+  /* color of the scroll thumb */
+  border-radius: 20px;
+  /* roundness of the scroll thumb */
+  border: 3px solid #9e9b9c;
+  /* creates padding around scroll thumb */
+}

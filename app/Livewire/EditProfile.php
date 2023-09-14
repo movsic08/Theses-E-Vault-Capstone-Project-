@@ -83,8 +83,8 @@ class EditProfile extends Component {
         // dd( $this->bachelor_degree_input );
 
         Auth::user()->update( [
-            'first_name' => $this->first_name,
-            'last_name' =>$this->last_name,
+            'first_name' => ucfirst($this->first_name),
+            'last_name' =>ucfirst($this->last_name),
             'email' => $this->email,
             'phone_no' => $this->phone_no,
             'student_id' => $this->student_id,

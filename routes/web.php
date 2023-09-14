@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OtpAuthController;
 use App\Http\Controllers\UserController;
+use App\Livewire\Admin\Dashboard;
 use App\Livewire\Boomarks;
 use App\Livewire\ProfileEditTab;
 use App\Livewire\EditProfile;
@@ -79,9 +81,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Route::post('/list/add-user', [UserController::class, 'addNewUser'])->name('addNewUser');
 
     //designing
-    Route::get('/home', function () {
-        return view('pages.admin.home')->with('title', 'Home');
-    })->name('admin-home');
+    Route::get('/home', Dashboard::class)->name('admin-home');  
 
     Route::get('/analytics', function () {
         return view('pages.admin.analytics');

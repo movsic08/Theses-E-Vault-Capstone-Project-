@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewUserCreated;
 use App\Models\BachelorDegree;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,9 +33,11 @@ class UserController extends Controller {
         }
 
         $user = User::create( $validated );
+        event( new NewUserCreated( $user ) );
         auth()->login( $user );
         return redirect()->route( 'index' )->with( 'message', 'Creating new account success, finish setup you account' );
     }
+
     //logout
 
     public function logout( Request $request ) {
@@ -77,9 +80,9 @@ class UserController extends Controller {
             $request->session()->regenerate();
             $user = auth()->user();
             if ( $user->is_admin ) {
-                return redirect()->route( 'admin.home' )->with( 'message', 'Welcome back, Admin ' . $user->email . '!' );
+                return redirect()->route( 'livewire.admin.home' )->with( 'message', 'Welcome back, Admin ' . $user->email . '!' );
             } else {
-                return redirect()->route( 'home' )->with( 'message', 'Welcome back, ' . $user->email . '!' );
+                return redirect()->intended( route( 'home' ) )->with( 'message', 'Welcome back, ' . $user->email . '!' );
             }
 
         }
@@ -133,30 +136,6 @@ class UserController extends Controller {
         auth()->login( $user );
         return redirect()->route( 'home' )->with( 'message', 'Creating new account success, finish setup you account' );
 
-    }
-
-    public function addNewUserAJAX( Request $request ) {
-        // dd( $request );
-        $validated = $request->validate( [
-            'username' => [ 'required', 'min:4' ],
-            'email' => [ 'required', 'email' ],
-            'password' => 'required|confirmed|min:8',
-            'account_level' => 'required',
-            // 'role_id' => 'required',
-        ] );
-        $validated[ 'password' ] = Hash::make( $validated[ 'password' ] );
-
-        // Account role filtering
-        if ( $validated[ 'account_level' ] === 'user' ) {
-            $is_admin = false;
-        } elseif ( $validated[ 'account_level' ] === 'admin' ) {
-            $is_admin = true;
-        }
-
-        // Merge the calculated values into the validated data
-        $validated[ 'is_admin' ] = $is_admin;
-
-        return Response()->json( $validated );
     }
 
 }

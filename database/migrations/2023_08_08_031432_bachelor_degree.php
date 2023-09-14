@@ -21,7 +21,11 @@ return new class extends Migration {
         //default values
         DB::table('bachelor_degrees')->insert([
             ['degree_name' => 'BSIT', 'name' => 'Bachelor of Science in Information and Technology'],
-            ['degree_name' => 'BEED', 'name' => 'Bachelor of Science in EED'],
+            ['degree_name' => 'BSME', 'name' => 'Bachelor of Science in Mechanical Engineering '],
+            ['degree_name' => 'BSCS', 'name' => 'Bachelor of Science in Computer Science '],
+            ['degree_name' => 'BSNUR', 'name' => 'Bachelor of Science in Nursing '],
+            ['degree_name' => 'BSPSCY', 'name' => 'Bachelor of Science in Psychology '],
+            ['degree_name' => 'MASTER AH', 'name' => 'Master of Arts in History'],
         ]);
     }
 
