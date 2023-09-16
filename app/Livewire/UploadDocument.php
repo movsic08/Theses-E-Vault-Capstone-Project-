@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use App\Models\BachelorDegree;
 use Livewire\WithFileUploads;
+use setasign\Fpdi\Fpdi;
 
 class UploadDocument extends Component {
     use WithFileUploads;
@@ -156,15 +157,13 @@ class UploadDocument extends Component {
 
     public function createNewDocuPostEntry() {
         $this->showProgressBox = true;
-        $this->progressInfo = 'Opended, processing ...';
-        if ( $this->user_upload ) {
-            $this->pdf_path = $this->user_upload->store( 'PDF_uploads', 'public' );
-        }
 
         do {
             $this->docuReference = Str::random( 12 );
         }
         while( DocuPost::where( 'reference', $this->docuReference )->exists() );
+        $currentDate = now()->format( 'Y-m-d' );
+        $customFileName = $this->user->last_name.'-'.$currentDate.'-'.$this->docuReference.'.pdf';
 
         $this->progressInfo = 'preparing data ...';
 
@@ -202,6 +201,42 @@ class UploadDocument extends Component {
         ];
 
         DocuPost::create( $inputsOfDocu );
+        if ( $this->user_upload ) {
+            $this->pdf_path = $this->user_upload->storeAs( 'PDF_uploads', $customFileName, 'public' );
+
+            $filePath = 'storage/' .$this->pdf_path;
+            $text_image = 'storage/watermark/watermark.png';
+
+            // Set source PDF file
+            $pdf = new Fpdi();
+            if ( file_exists( $filePath ) ) {
+                $pagecount = $pdf->setSourceFile( $filePath );
+            } else {
+                return;
+                // Handle PDF not found as per your requirement
+            }
+
+            // Add watermark image to PDF pages
+            for ( $i = 1; $i <= $pagecount; $i++ ) {
+                $tpl = $pdf->importPage( $i );
+                $size = $pdf->getTemplateSize( $tpl );
+                $pdf->AddPage( 'P', array( $size[ 'width' ], $size[ 'height' ] ) );
+                // Add a page with the same size
+
+                // Import the page content before the watermark
+                $pdf->useTemplate( $tpl );
+
+                // Put the watermark
+                $pdf->Image( $text_image, 0, 0, $size[ 'width' ], $size[ 'height' ], 'png' );
+            }
+
+            $existingFilePath = $filePath;
+            // Generate the new PDF content
+            $newPdfContent = $pdf->Output( '', 'S' );
+            // 'S' stands for string output
+            // Replace the existing PDF file with the new content
+            file_put_contents( $existingFilePath, $newPdfContent );
+        }
 
         $this->progressInfo = 'Success';
         $this->is_Success = true;
