@@ -30,8 +30,8 @@
             </div>
             {{-- users --}}
             <div
-                class="{{ request()->routeIs('admin.users') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                <a wire:navigate href="{{ route('admin.users') }}" class="flex items-center">
+                class="{{ request()->routeIs('admin-users-panel') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                <a wire:navigate href="{{ route('admin-users-panel') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                             <path

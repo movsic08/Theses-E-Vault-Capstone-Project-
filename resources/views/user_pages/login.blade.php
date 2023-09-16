@@ -34,14 +34,14 @@
                 <h2 class="text-[1.7rem] font-bold text-white">Alaminos City Campus</h2>
             </div>
             <div class="flex flex-col rounded-l-lg rounded-r-lg bg-white p-8 drop-shadow-lg md:w-1/2 md:rounded-l-none">
-                <div class="my-4 flex items-center justify-center gap-2">
+                <div class="mt-4 flex items-center justify-center gap-2">
                     <img src="{{ asset('icons/logo.svg') }}" alt="PSU LOGO" srcset="">
                     <h1 class="text-xl font-bold">ThesisKiosk</h1>
                 </div>
                 <div class="my-4">
                     <p class="text-gray-500">
-                        Explore research works in a faster way. Don’t have an account? <a class="text-blue-500"
-                            href="{{ route('register') }}">Signup</a>
+                        Explore research works in a faster way. Don’t have an account? <a wire:navigate
+                            class="text-blue-500" href="{{ route('register') }}">Signup</a>
                     </p>
                 </div>
 

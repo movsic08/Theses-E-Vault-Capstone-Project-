@@ -80,7 +80,7 @@ class UserController extends Controller {
             $request->session()->regenerate();
             $user = auth()->user();
             if ( $user->is_admin ) {
-                return redirect()->route( 'livewire.admin.home' )->with( 'message', 'Welcome back, Admin ' . $user->email . '!' );
+                return redirect()->route( 'admin-home' )->with( 'message', 'Welcome back, Admin ' . $user->email . '!' );
             } else {
                 return redirect()->intended( route( 'home' ) )->with( 'message', 'Welcome back, ' . $user->email . '!' );
             }

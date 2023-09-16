@@ -58,7 +58,7 @@
     }
 </style>
 
-<body class="gradient-bg-light m-0 flex p-0 font-poppins">
+<body class="gradient-bg-light custom-scrollbar m-0 flex p-0 font-poppins">
 
     {{-- sidebar --}}
     <x-admin.admin_SideBar />

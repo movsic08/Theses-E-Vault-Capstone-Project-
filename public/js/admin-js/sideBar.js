@@ -10,11 +10,13 @@ $(document).ready(function () {
         mobileMenu.removeClass("hidden");
         $("#left-btn").toggleClass("hidden");
         $("#menu-hide-btn").removeClass("hidden");
+        // $("#parentDiv").toggleClass("h-screen");
     });
     $("#menu-hide-btn").on("click", function () {
         mobileMenu.toggleClass("hidden");
         $("#menu-hide-btn").toggleClass("hidden");
         $("#left-btn").removeClass("hidden");
+        //  $("#parentDiv").removeClass("h-screen");
     });
 
     sidebarBtn.on("click", function () {

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OtpAuthController;
 use App\Http\Controllers\UserController;
+use App\Livewire\Admin\AdminUsersPanel;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Boomarks;
 use App\Livewire\ProfileEditTab;
@@ -82,6 +83,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     //designing
     Route::get('/home', Dashboard::class)->name('admin-home');  
+
+    Route::get('/usersPanel', AdminUsersPanel:: class)->name('admin-users-panel');
 
     Route::get('/analytics', function () {
         return view('pages.admin.analytics');
