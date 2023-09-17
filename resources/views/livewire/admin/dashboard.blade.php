@@ -8,7 +8,7 @@
             {{-- 1st div --}}
             <div class="col-span-10 flex h-full flex-col gap-4 md:col-span-5 lg:col-span-2">
                 <div
-                    class="overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
+                    class="z-10 overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
                     <div class="text-[0.9rem]">
                         <h2 class="font-semibold">Uploaded Files</h2>
                         <h3 class="text-[1.3rem] font-bold">{{ $uploadFilesCount }}</h3>
@@ -25,7 +25,7 @@
                     </svg>
                 </div>
                 <div
-                    class="overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
+                    class="z-10 overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
                     <div class="text-[0.9rem]">
                         <h2 class="font-semibold">Created Users</h2>
                         <h3 class="text-[1.3rem] font-bold">{{ $userCount }}</h3>
@@ -44,7 +44,7 @@
             </div>
             <div class="col-span-10 flex flex-col gap-4 md:col-span-5 lg:col-span-2">
                 <div
-                    class="overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
+                    class="z-10 overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
                     <div class="text-[0.9rem]">
                         <h2 class="font-semibold">Admin</h2>
                         <h3 class="text-[1.3rem] font-bold">{{ $adminUserCount }}</h3>
@@ -62,7 +62,7 @@
                     </svg>
                 </div>
                 <div
-                    class="overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
+                    class="z-10 overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110">
                     <div class="text-[0.9rem]">
                         <h2 class="font-semibold">Verified account</h2>
                         <h3 class="text-[1.3rem] font-bold">{{ $verifiedAccountCount }}</h3>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <section class="overflow-x-auto whitespace-nowrap duration-500 ease-in-out hover:scale-110">
+                <section class="-z-10 overflow-x-auto whitespace-nowrap">
                     <table class="w-full">
                         <tbody wire:poll.5000ms="loadDashboard">
                             @foreach ($latestAccounts as $latestAccountsItem)

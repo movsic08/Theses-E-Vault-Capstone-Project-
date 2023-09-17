@@ -97,6 +97,7 @@
     <div class="flex w-full max-w-full flex-col">
         {{-- navbar --}}
         <x-admin.admin_NavBar />
+        <x-session_flash />
 
         {{-- contents --}}
         {{-- @yield('content') --}}
