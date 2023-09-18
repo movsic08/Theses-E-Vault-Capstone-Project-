@@ -7,11 +7,11 @@ use App\Models\DocuPost;
 use Livewire\Component;
 
 class ViewDocuPost extends Component {
-    public $parameter, $data;
+    public $parameter, $data, $authenticatedUser;
 
     public function mount( $reference ) {
         $this->parameter = $reference;
-
+        $this->authenticatedUser = auth()->user();
         $this->data = DocuPost::where( 'reference', $this->parameter )->first();
     }
 
@@ -38,19 +38,34 @@ class ViewDocuPost extends Component {
         if ( !auth()->check() ) {
             request()->session()->flash( 'message', 'You need to sign in first' );
         } else {
-            $this->isBookmarked = !$this->isBookmarked;
-            if ( $this->isBookmarked ) {
-                BookmarkList::create( [
-                    'user_id' => auth()->id(),
-                    'docu_post_id' => $this->data->id,
-                    'reference' => $this->parameter,
-                ] );
+            $checkInfoData = empty( $this->authenticatedUser->last_name && $this->authenticatedUser->first_name && $this->authenticatedUser->last_name &&
+            $this->authenticatedUser->address &&
+            $this->authenticatedUser->phone_no &&
+            $this->authenticatedUser->student_id &&
+            $this->authenticatedUser->bachelor_degree );
+            if ( $checkInfoData ) {
+                request()->session()->flash( 'message', 'Account information details are incomplete, fill out now here.' );
             } else {
-                BookmarkList::where( 'user_id', auth()->id() )
-                ->where( 'docu_post_id', $this->data->id )
-                ->where( 'reference', $this->parameter )
-                ->delete();
+                if ( $this->authenticatedUser->is_verified == 0 ) {
+                    request()->session()->flash( 'message', 'Ve rify your account now, to enjoy the full features for free.' );
+                } else {
+                    $this->isBookmarked = !$this->isBookmarked;
+                    if ( $this->isBookmarked ) {
+                        BookmarkList::create( [
+                            'user_id' => auth()->id(),
+                            'docu_post_id' => $this->data->id,
+                            'reference' => $this->parameter,
+                        ] );
+                    } else {
+                        BookmarkList::where( 'user_id', auth()->id() )
+                        ->where( 'docu_post_id', $this->data->id )
+                        ->where( 'reference', $this->parameter )
+                        ->delete();
+                    }
+                }
+
             }
+
         }
     }
 
