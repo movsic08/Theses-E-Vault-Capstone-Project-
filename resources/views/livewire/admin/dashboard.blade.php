@@ -131,18 +131,22 @@
                 </section>
             </div>
             <div class="col-span-10 rounded-lg bg-white p-4 text-gray-600 drop-shadow-lg lg:col-span-8">
-                <a href="{{ route('admin-docu-post-panel') }}"
+                <a wire:navigate href="{{ route('admin-docu-post-panel') }}"
                     class="font-medium duration-100 ease-in-out hover:font-bold hover:text-primary-color">New uploaded
                     files</a>
                 <section class="">
+
                     <table class="w-full">
                         <tbody wire:poll.5000ms="loadDashboard">
                             @foreach ($latestDocuPostData as $latestDocuPostDataItem)
-                                <tr class="my-2 flex items-center justify-between">
-                                    <td class>
-                                        <p>{{ $latestDocuPostDataItem->title }}</p>
+                                <tr class="">
+                                    <td class="whitespace-normal px-6 py-2">
+                                        <a wire:navigate
+                                            href="{{ route('admin-view-document', ['reference' => $latestDocuPostDataItem->reference]) }}">
+                                            {{ $latestDocuPostDataItem->title }}
+                                        </a>
                                     </td>
-                                    <td>
+                                    <td class="whitespace-normal px-6 py-2">
                                         @if ($latestDocuPostDataItem->status == 0)
                                             <div
                                                 class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-yellow-500 p-2 text-white">
@@ -172,7 +176,7 @@
                                             </div>
                                         @endif
                                     </td>
-                                    <td class="ml-8">
+                                    <td class="ml-8 whitespace-normal px-6 py-2">
                                         <span>Approved</span>
                                     </td>
                                 </tr>

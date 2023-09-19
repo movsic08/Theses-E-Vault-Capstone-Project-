@@ -23,7 +23,8 @@ class AdminUsersPanel extends Component {
     }
 
     public function switchToAllUsersData() {
-        $this->currentListData = User::get();
+        $this->currentListData = User::latest()
+        ->get();
         $this->currentQuery = 'allUsers';
     }
 
@@ -176,23 +177,66 @@ class AdminUsersPanel extends Component {
         }
     }
 
+    // public function deleteUser() {
+    //     $user = User::find( $this->selectedData );
+
+    //     if ( !$user ) {
+    //         request()->session()->flash( 'error', 'User not found.' );
+    //     } else {
+    //         $deleteUserResult = $user->delete();
+
+    //         if ( $deleteUserResult ) {
+    //             request()->session()->flash( 'success', 'User deleted.' );
+    //         } else {
+    //             request()->session()->flash( 'error', 'Something went wrong in deleting the user, contact developer.' );
+    //         }
+    //     }
+    //     $this->showDeleteConfirmation = false;
+    //     $rowId = $this->selectedUserId;
+    //     $this->closeRowMenu( $rowId );
+    // }
+
     public function deleteUser() {
-        $user = User::find( $this->selectedData );
+        // Find users by their IDs
+        $users = User::find( $this->selectedData );
 
-        if ( !$user ) {
-            request()->session()->flash( 'error', 'User not found.' );
-        } else {
-            $deleteUserResult = $user->delete();
+        // Check if any users were found
+        if ( $users->isEmpty() ) {
+            request()->session()->flash( 'error', 'No users found.' );
+            $this->showDeleteConfirmation = true;
+            return;
+        }
 
-            if ( $deleteUserResult ) {
-                request()->session()->flash( 'success', 'User deleted.' );
+        // Loop through the found users and delete them
+        foreach ( $users as $user ) {
+            if ( $user->delete() ) {
+                request()->session()->flash( 'success', 'User deleted successfully.' );
             } else {
-                request()->session()->flash( 'error', 'Something went wrong in deleting the user, contact developer.' );
+                request()->session()->flash( 'error', 'Failed to delete the user. Please contact the developer.' );
             }
         }
-        $this->showDeleteConfirmation = false;
+
         $rowId = $this->selectedUserId;
         $this->closeRowMenu( $rowId );
+
+        if ( $this->currentQuery == 'allUsers' ) {
+            $this->currentQuery = $this->switchToAllUsersData();
+            request()->session()->flash( 'success', 'all users' );
+        } elseif ( $this->currentQuery == 'verifiedUsers' ) {
+            $this->currentQuery = $this->switchToVerifiedUsersData();
+            request()->session()->flash( 'success', 'all users' );
+        } elseif ( $this->currentQuery == 'unverifiedUsers' ) {
+            $this->currentQuery = $this->switchToUnverifiedUsers();
+            request()->session()->flash( 'success', 'all users' );
+        } elseif ( $this->currentQuery == 'adminUsers' ) {
+            $this->currentQuery = $this->switchToAdminUsers();
+            request()->session()->flash( 'success', 'all users' );
+        } else {
+            request()->session()->flash( 'success', 'esle block' );
+        }
+
+        $this->showDeleteConfirmation = false;
+
     }
 
     public function cancelDeleteBoxUser() {
