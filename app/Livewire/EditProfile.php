@@ -20,7 +20,7 @@ class EditProfile extends Component {
     use WithFileUploads;
     public $bachelor_degree_data, $user;
     public $facebook_url, $ms_url, $verifyEmail;
-    public $first_name, $last_name, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input, $bachelor_degree,  $address, $profile_picture;
+    public $first_name, $last_name, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '1', $bachelor_degree,  $address, $profile_picture;
 
     public function mount() {
         $this->user = Auth::user();
@@ -42,14 +42,29 @@ class EditProfile extends Component {
     // public function loadDocuPost() {
     //     $this->
     // }
+    public $uploadProfileBox = false;
+
+    public function showProfileUpload() {
+        $this->uploadProfileBox = !  $this->uploadProfileBox;
+        if ( $this->uploadProfileBox ==  false ) {
+            $this->reset( $this->profile_picture );
+        }
+    }
 
     public function updatedProfilePicture() {
         $this->validate( [
-            'profile_picture' => 'image|max:1024',
+            'profile_picture' => 'image|max:4024',
         ] );
+    }
+
+    public function changeProfile() {
         if ( $this->profile_picture ) {
-            // Save the uploaded image and update the profile picture field in the user model
-            $imagePath = $this->profile_picture->store( 'profile_pictures', 'public' );
+            $this->validate();
+            $extension = $this->profile_picture->getClientOriginalExtension();
+            $currentDate = date( 'MjY' );
+            $customFileName = $this->user->last_name.'-'.$this->user->first_name.$currentDate.'.'.$extension;
+            // $imagePath = $this->profile_picture->storeAs( 'profile_pictures', $customFileName, 'public' );
+            $imagePath = $this->profile_picture->storeAs( 'profile_pictures', $customFileName, 'public' );
             Auth::user()->update( [ 'profile_picture' => $imagePath ] );
 
             $this->dispatch( 'profilePictureUpdated' );
@@ -57,6 +72,7 @@ class EditProfile extends Component {
         } else {
             request()->session()->flash( 'message', 'There is problem uploading your image, try again.' );
         }
+        $this->uploadProfileBox = false;
     }
     protected $listeners = [ 'profilePictureUpdated' => 'refreshProfilePicture' ];
 
@@ -83,8 +99,8 @@ class EditProfile extends Component {
         // dd( $this->bachelor_degree_input );
 
         Auth::user()->update( [
-            'first_name' => ucfirst($this->first_name),
-            'last_name' =>ucfirst($this->last_name),
+            'first_name' => ucfirst( $this->first_name ),
+            'last_name' =>ucfirst( $this->last_name ),
             'email' => $this->email,
             'phone_no' => $this->phone_no,
             'student_id' => $this->student_id,
@@ -107,7 +123,7 @@ class EditProfile extends Component {
         $this->bachelor_degree  = $this->user->bachelor_degree;
     }
 
-    public $activeTab = 'tab4';
+    public $activeTab = 'tab1';
 
     public function setActiveTab( $tab ) {
         $this->activeTab = $tab;
@@ -296,12 +312,11 @@ class EditProfile extends Component {
 
     public function deleteDocuPostYes() {
         if ( $this->userPostID == auth()->user()->id ) {
-            $docu_post_delete = DocuPost::find( $this->docuPostID );
+            $docu_post_delete = DocuPost::find( $this->docuPostID )->delete();
             if ( $docu_post_delete ) {
-                $docu_post_delete->delete();
                 session()->flash( 'message', 'Post deleted successfully.' );
             } else {
-                session()->flash( 'message', "Post is not found, can't proceed." );
+                session()->flash( 'message', "Post is not found, can't proceed in deletion." );
             }
         } else {
             session()->flash( 'message', 'You are not authorized for this, contact administrator.' );

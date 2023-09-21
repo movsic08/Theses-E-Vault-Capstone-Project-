@@ -29,7 +29,7 @@ class UserFactory extends Factory {
             'staff_id' => $this->faker->unique()->randomNumber(),
             'profile_picture' => null,
             'bio' => $this->faker->sentence,
-            'bachelor_degree' => $this->faker->numberBetween( 1, 2 ),
+            'bachelor_degree' => $this->faker->numberBetween( 1, 6 ),
             'role_id' => $this->faker->numberBetween( 1, 2 ),
             'remember_token' => Str::random( 10 ),
             'created_at' => $this->faker->dateTimeThisDecade(),

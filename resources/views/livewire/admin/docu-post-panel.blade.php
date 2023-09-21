@@ -1,5 +1,26 @@
 <div class="container">
     <x-session_flash />
+
+    @if ($showDeleteConfirmation)
+        <div
+            class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
+            <div
+                class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg md:w-3/5 lg:w-4/12">
+                <h2><strong>Are you sure you want to delete your uploaded document?</strong></h2>
+                <form action="" wire:submit="deleteDocuPostYes">
+                    {{ $selectedPostId }}
+                    <div class="flex w-full flex-col items-center justify-center gap-2 md:flex-row">
+                        <div class="w-full cursor-pointer rounded-md border border-red-700 bg-white p-2 text-center duration-200 hover:bg-red-100"
+                            wire:click="showboxDelete({{ $selectedPostId }})">Close</div>
+                        <div wire:click='deleteDocuPost'
+                            class="w-full rounded-md bg-red-700 p-2 text-white duration-300 ease-in-out hover:bg-red-900">
+                            Yes</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+
     <div class="px-4">
         <div class="my-3 flex justify-between">
             <h2>List of Uploaded Documents</h2>
@@ -10,7 +31,7 @@
             <div class="custom-scrollbar overflow-x-auto">
                 <div class="max-h-[35rem]">
                     <table class="min-w-full">
-                        <thead class="sticky top-0 bg-white bg-opacity-25 backdrop-blur-md">
+                        <thead class="sticky top-0 bg-white bg-opacity-25 backdrop-blur">
                             <tr>
                                 <th class="px-6 py-2 text-left font-bold text-gray-700">
                                     Title
@@ -41,12 +62,13 @@
                                 @foreach ($listOfDucoPost as $itemPost)
                                     <tr>
                                         <td class="whitespace-normal px-6 py-2">
-                                            {{ $itemPost->title }}
+                                            <a
+                                                href="{{ route('view-document', [$itemPost->reference]) }}"><strong>{{ $itemPost->title }}</strong></a>
                                         </td>
                                         <td class="w-fit whitespace-nowrap px-6 py-2">
                                             {{ \Carbon\Carbon::parse($itemPost->created_at)->format('M d Y') }}
                                         </td>
-                                        <td class="whitespace-normal px-6 py-2">
+                                        <td class="whitespace-nowrap px-6 py-2">
                                             {{ $itemPost->author_1 }}
                                         </td>
                                         <td class="whitespace-normal px-6 py-2">
@@ -76,12 +98,51 @@
                                             @endif
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-2">
-                                            E A V D R
+                                            <div class="flex gap-1">
+                                                <svg class="h-7 cursor-pointer rounded-md bg-blue-600 p-1 text-white duration-200 ease-in-out hover:bg-blue-800"
+                                                    fill="currentColor" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M18.067 2.182a.625.625 0 0 0-.884 0l-2.058 2.059 4.634 4.634 2.058-2.058a.623.623 0 0 0 0-.885l-3.75-3.75Zm.808 7.576L14.24 5.125 6.116 13.25h.259a.625.625 0 0 1 .625.624v.625h.625a.625.625 0 0 1 .625.625v.625h.625a.625.625 0 0 1 .625.626V17h.625a.625.625 0 0 1 .625.625v.258l8.125-8.125ZM9.54 19.093a.625.625 0 0 1-.04-.218v-.625h-.625a.625.625 0 0 1-.625-.625V17h-.625A.625.625 0 0 1 7 16.375v-.626h-.625a.625.625 0 0 1-.625-.625V14.5h-.625a.624.624 0 0 1-.219-.04l-.224.223a.625.625 0 0 0-.137.21l-2.5 6.25a.625.625 0 0 0 .812.813l6.25-2.5a.625.625 0 0 0 .21-.138l.223-.223Z">
+                                                    </path>
+                                                </svg>
+                                                <svg class="h-7 cursor-pointer rounded-md bg-primary-color p-1 text-white duration-200 ease-in-out hover:bg-blue-900"
+                                                    fill="currentColor" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 11.64a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+                                                    <path
+                                                        d="M2.4 11.64S6 5.04 12 5.04s9.6 6.6 9.6 6.6-3.6 6.6-9.6 6.6-9.6-6.6-9.6-6.6Zm9.6 4.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z">
+                                                    </path>
+                                                </svg>
+                                                <svg wire:click='showboxDelete({{ $itemPost->id }})'
+                                                    class="h-7 cursor-pointer rounded-md bg-red-600 p-1 text-white duration-200 ease-in-out hover:bg-red-800"
+                                                    fill="currentColor" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M15.36 4.2v1.2h4.2a.6.6 0 0 1 0 1.2h-.645L17.89 19.392a2.4 2.4 0 0 1-2.393 2.208H8.022a2.4 2.4 0 0 1-2.392-2.208L4.606 6.6H3.96a.6.6 0 0 1 0-1.2h4.2V4.2a1.8 1.8 0 0 1 1.8-1.8h3.6a1.8 1.8 0 0 1 1.8 1.8Zm-6 0v1.2h4.8V4.2a.6.6 0 0 0-.6-.6h-3.6a.6.6 0 0 0-.6.6Zm-1.8 4.235.6 10.2a.6.6 0 1 0 1.198-.072l-.6-10.2a.6.6 0 1 0-1.198.072Zm7.836-.633a.6.6 0 0 0-.633.564l-.6 10.2a.6.6 0 0 0 1.197.07l.6-10.2a.6.6 0 0 0-.564-.634ZM11.76 7.8a.6.6 0 0 0-.6.6v10.2a.6.6 0 1 0 1.2 0V8.4a.6.6 0 0 0-.6-.6Z">
+                                                    </path>
+                                                </svg>
+                                                <svg class="h-7 cursor-pointer rounded-md bg-yellow-600 p-1 text-white duration-200 ease-in-out hover:bg-yellow-800"
+                                                    fill="currentColor" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M14.225 2.576A.6.6 0 0 1 14.4 3a.6.6 0 0 0 .6.6.6.6 0 0 1 .6.6v.6a.6.6 0 0 1-.6.6H9a.6.6 0 0 1-.6-.6v-.6a.6.6 0 0 1 .6-.6.6.6 0 0 0 .6-.6.6.6 0 0 1 .6-.6h3.6a.6.6 0 0 1 .425.176Z">
+                                                    </path>
+                                                    <path fill-rule="evenodd"
+                                                        d="M6.6 3.6h.702c-.066.188-.102.39-.102.6v.6A1.8 1.8 0 0 0 9 6.6h6a1.8 1.8 0 0 0 1.8-1.8v-.6c0-.21-.036-.412-.102-.6h.702a1.8 1.8 0 0 1 1.8 1.8v14.4a1.8 1.8 0 0 1-1.8 1.8H6.6a1.8 1.8 0 0 1-1.8-1.8V5.4a1.8 1.8 0 0 1 1.8-1.8Zm8.151 6.352a1.2 1.2 0 0 0-.351.849v6a1.2 1.2 0 1 0 2.4 0v-6a1.2 1.2 0 0 0-2.049-.849Zm-7.2 4.8a1.2 1.2 0 0 0-.351.849v1.2a1.2 1.2 0 0 0 2.4 0v-1.2a1.2 1.2 0 0 0-2.049-.849Zm5.297-2.4a1.2 1.2 0 0 0-2.048.849v3.6a1.2 1.2 0 1 0 2.4 0v-3.6a1.2 1.2 0 0 0-.352-.849Z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+
                     </table>
+                    <div
+                        class="sticky bottom-0 right-0 flex w-full items-center justify-center bg-white bg-opacity-25 backdrop-blur">
+                        {{ $listOfDucoPost->links() }}
+                    </div>
                 </div>
             </div>
         </div>

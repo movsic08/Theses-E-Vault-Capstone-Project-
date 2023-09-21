@@ -16,6 +16,7 @@ class UploadDocument extends Component {
 
     public function mount() {
         $this->user = Auth::user();
+        $this->document_type = 'Capstone';
 
         if ( $this->user->is_admin ) {
             $this->bachelor_degree_value = '';
@@ -148,7 +149,7 @@ class UploadDocument extends Component {
         if ( $checkMe ) {
             $this->createNewDocuPostEntry();
         } else {
-            session()->flash( 'message', 'missing enrty' );
+            session()->flash( 'message', 'missing entry' );
         }
 
     }
@@ -164,8 +165,6 @@ class UploadDocument extends Component {
         while( DocuPost::where( 'reference', $this->docuReference )->exists() );
         $currentDate = now()->format( 'Y-m-d' );
         $customFileName = $this->user->last_name.'-'.$currentDate.'-'.$this->docuReference.'.pdf';
-
-        $this->progressInfo = 'preparing data ...';
 
         $inputsOfDocu = [
             'user_id' => $this->user->id,
@@ -240,6 +239,12 @@ class UploadDocument extends Component {
 
         $this->progressInfo = 'Success';
         $this->is_Success = true;
+    }
+
+    public $showUploadPdfBox = false;
+
+    public function uploadPdfFileBox() {
+        $this->showUploadPdfBox = ! $this->showUploadPdfBox;
     }
 
     public function render() {

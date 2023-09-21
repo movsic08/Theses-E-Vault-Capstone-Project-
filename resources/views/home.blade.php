@@ -45,90 +45,88 @@
                         </div>
                     </section>
                 @endif
-                <div class="mt-2 space-y-4">
+                <div class="mt-2 space-y-6">
                     @foreach ($docuPostData as $docuData)
                         <div
-                            class="grid w-full grid-cols-7 gap-2 rounded-lg bg-white p-2 drop-shadow-lg duration-500 ease-in-out hover:-translate-y-1">
-                            <div class="col-span-7 grid w-full grid-cols-7 gap-2">
-                                <div class="col-span-1 flex items-center justify-center">
-                                    <svg class="h-10" viewBox="0 0 63 82" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M10.5 0H38.29C39.6819 0.00119619 41.0164 0.541935 42 1.50333L61.46 20.5C61.9482 20.976 62.3354 21.5412 62.5997 22.1633C62.8639 22.7855 63 23.4524 63 24.1259V71.75C63 74.4685 61.8938 77.0756 59.9246 78.9978C57.9555 80.9201 55.2848 82 52.5 82H10.5C7.71523 82 5.04451 80.9201 3.07538 78.9978C1.10625 77.0756 0 74.4685 0 71.75V10.25C0 7.53153 1.10625 4.9244 3.07538 3.00215C5.04451 1.07991 7.71523 0 10.5 0ZM39.375 7.6875V17.9375C39.375 19.2967 39.9281 20.6003 40.9127 21.5614C41.8973 22.5225 43.2326 23.0625 44.625 23.0625H55.125L39.375 7.6875ZM11.3662 70.0502C11.8387 70.9727 12.5737 71.8098 13.6631 72.1984C14.6614 72.5256 15.7497 72.4706 16.7081 72.0447C18.3794 71.3784 20.0419 69.811 21.5731 68.0173C23.3231 65.9587 25.1606 63.2639 26.9325 60.2743C30.3578 59.2839 33.8654 58.5879 37.415 58.1944C38.99 60.159 40.6175 61.8502 42.1925 63.0631C43.6625 64.1906 45.36 65.1302 47.0969 65.1985C48.0419 65.2455 48.9781 65.0021 49.7744 64.4939C50.5788 63.9591 51.221 63.223 51.6337 62.3627C52.1062 61.4359 52.395 60.4665 52.3556 59.4756C52.3217 58.5013 51.9517 57.5668 51.3056 56.8234C50.1244 55.4397 48.1775 54.7734 46.2656 54.4403C43.9475 54.0897 41.5954 54.0037 39.2569 54.1841C37.2822 51.4591 35.5604 48.5677 34.1119 45.5442C35.4244 42.1617 36.4087 38.9628 36.8419 36.3491C37.0333 35.3107 37.1183 34.2563 37.0956 33.2015C37.0897 32.2446 36.8624 31.3015 36.4306 30.4425C36.181 29.9687 35.8266 29.5551 35.393 29.2315C34.9594 28.908 34.4576 28.6827 33.9237 28.5719C32.865 28.3541 31.7712 28.5719 30.7737 28.9691C28.7919 29.7378 27.7463 31.3778 27.3525 33.1844C26.9675 34.9269 27.1425 36.9555 27.5931 39.0098C28.0569 41.0897 28.8444 43.3532 29.8506 45.6467C28.2387 49.5605 26.3772 53.3718 24.2769 57.0583C21.5703 57.889 18.9614 58.9971 16.4937 60.364C14.5512 61.4915 12.8231 62.824 11.7862 64.3956C10.6837 66.0655 10.3425 68.0557 11.3662 70.0502Z"
-                                            fill="#041A32" />
-                                    </svg>
-                                </div>
-                                <div class="col-span-6">
-                                    <a wire:navigate
-                                        href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
-                                        class="text-md whitespace-normal font-semibold leading-tight text-primary-color lg:text-base">
-                                        {{ $docuData->title }}</a>
-                                </div>
-                            </div>
-                            <div class="col-span-7 flex gap-2 pl-[1.2rem] md:pl-[4.2rem] lg:pl-[1.2rem]">
-                                <button
-                                    class="flex w-fit flex-row items-center justify-center gap-1 rounded-md bg-blue-500 px-2 py-1">
-                                    <svg class="h-5" viewBox="0 0 29 29" fill="none">
-                                        <path
-                                            d="M26.0999 13.5328C26.0999 19.1395 20.9065 23.6828 14.4999 23.6828C13.352 23.6852 12.2077 23.5366 11.0972 23.2406C10.2514 23.6695 8.30599 24.4924 5.03503 25.0289C4.74503 25.076 4.5239 24.7751 4.63869 24.5045C5.15224 23.2925 5.61624 21.677 5.75519 20.2028C3.97894 18.4217 2.8999 16.0872 2.8999 13.5328C2.8999 7.92977 8.09574 3.38281 14.4999 3.38281C20.9065 3.38281 26.0999 7.92856 26.0999 13.5328ZM13.3314 11.7445C13.236 11.602 13.1258 11.47 13.0028 11.3506C12.809 11.1505 12.5779 10.9904 12.3225 10.8793L12.3104 10.8745C11.9672 10.7147 11.593 10.6322 11.2144 10.6328C9.82486 10.6328 8.70111 11.7155 8.70111 13.0507C8.70111 14.3847 9.82486 15.4674 11.2144 15.4674C11.7123 15.4674 12.1751 15.3284 12.5642 15.0891C12.366 15.6534 11.9987 16.2552 11.3897 16.8581C11.3323 16.9142 11.2871 16.9814 11.2568 17.0556C11.2264 17.1298 11.2116 17.2094 11.2132 17.2896C11.2148 17.3697 11.2327 17.4487 11.266 17.5216C11.2993 17.5945 11.3471 17.6599 11.4066 17.7136C11.5288 17.825 11.6888 17.8854 11.8541 17.8827C12.0194 17.8801 12.1774 17.8144 12.2959 17.6991C14.2304 15.7731 14.2824 13.6996 13.6613 12.3257C13.5697 12.1225 13.4593 11.9271 13.3314 11.7445ZM18.8499 15.0891C18.6529 15.6534 18.2844 16.2552 17.6754 16.8581C17.618 16.9142 17.5727 16.9814 17.5424 17.0557C17.512 17.1299 17.4973 17.2096 17.499 17.2898C17.5007 17.37 17.5188 17.449 17.5523 17.5219C17.5857 17.5948 17.6338 17.6601 17.6935 17.7136C17.8155 17.8249 17.9754 17.8853 18.1405 17.8826C18.3055 17.8799 18.4634 17.8143 18.5817 17.6991C20.5162 15.7731 20.5682 13.6996 19.9471 12.3257C19.8555 12.1225 19.745 11.9283 19.6172 11.7457C19.5218 11.6028 19.4116 11.4704 19.2885 11.3506C19.0948 11.1504 18.8637 10.9903 18.6082 10.8793L18.5962 10.8745C18.2533 10.7149 17.8796 10.6324 17.5014 10.6328C16.1142 10.6328 14.9881 11.7155 14.9881 13.0507C14.9881 14.3847 16.1142 15.4674 17.5014 15.4674C17.978 15.4688 18.4457 15.3379 18.8523 15.0891H18.8499Z"
-                                            fill="white" />
-                                    </svg>
-                                    <span class="font-semibold text-white">1</span>
-                                </button>
-                                <button class="rounded-md bg-blue-800 px-2 py-1 text-[0.9rem] text-white">
-                                    {{ $docuData->course }}
-                                </button>
-                                <button class="rounded-md bg-green-800 px-2 py-1 text-[0.9rem] text-white">
-                                    {{ $docuData->document_type }}
-                                </button>
-                            </div>
-                            <div class="col-span-7 w-full pl-[1.2rem] md:pl-[4.2rem] lg:pl-[1.2rem]">
-                                <p class="text-sm">{{ $docuData->abstract_or_summary }}</p>
-                            </div>
-                            {{-- authors --}}
-                            {{-- <div class="col-span-7 flex pl-[1.2rem] md:pl-[4.2rem] lg:pl-[1.2rem]">
-                                <div class="flex items-center gap-2">
-                                    <div class="h-5 w-5">
-                                        <svg class="text-gray-800" fill="currentColor">
-                                            <path
-                                                d="M10.8 19.2s-1.2 0-1.2-1.2 1.2-4.8 6-4.8 6 3.6 6 4.8c0 1.2-1.2 1.2-1.2 1.2h-9.6Zm4.8-7.2a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2Z">
-                                            </path>
-                                            <path fill-rule="evenodd"
-                                                d="M8.66 19.2A2.685 2.685 0 0 1 8.4 18c0-1.626.816-3.3 2.324-4.464A7.592 7.592 0 0 0 8.4 13.2c-4.8 0-6 3.6-6 4.8 0 1.2 1.2 1.2 1.2 1.2h5.06Z"
-                                                clip-rule="evenodd"></path>
-                                            <path d="M7.8 12a3 3 0 1 0 .001-6 3 3 0 0 0 0 6Z"></path>
-                                        </svg>
-                                    </div>
-                                    <div class="text-[0.8rem] text-gray-600">
-                                        <div class="grid grid-cols-4 gap-2 leading-[0.7rem]">
-                                            <span class="col-span-2 lg:col-span-1">{{ $docuData->author_1 }}</span>
-                                            <span class="col-span-2 lg:col-span-1">{{ $docuData->author_2 }}</span>
-                                            <span class="col-span-2 lg:col-span-1">{{ $docuData->author_3 }}</span>
-                                            <span class="col-span-2 lg:col-span-1">{{ $docuData->author_4 }}</span>
+                            class="rounded-3xl bg-white p-4 drop-shadow-lg duration-500 ease-in-out hover:-translate-y-1">
+                            <div class="ml-4 flex justify-between">
+                                <div class="w-full">
+                                    <a wire:navigate href="{{ route('view-document', [$docuData->reference]) }}"
+                                        class="mr-4 font-semi-bold text-primary-color">{{ $docuData->title }}</a>
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div class="flex gap-1">
+                                            <svg class="min-h-6 h-6 max-h-6 w-6 text-primary-color" viewBox="0 0 46 46"
+                                                fill="none">
+                                                <path
+                                                    d="M10.1201 8.28047C10.1201 7.67047 10.3624 7.08546 10.7938 6.65412C11.2251 6.22279 11.8101 5.98047 12.4201 5.98047H22.9675C23.2698 5.98048 23.5691 6.04008 23.8483 6.15584C24.1275 6.27161 24.3812 6.44127 24.5948 6.65514L40.6948 22.7551C41.1261 23.1865 41.3684 23.7715 41.3684 24.3814C41.3684 24.9914 41.1261 25.5764 40.6948 26.0077L30.1474 36.5551C29.716 36.9864 29.131 37.2287 28.5211 37.2287C27.9111 37.2287 27.3261 36.9864 26.8948 36.5551L10.7948 20.4551C10.5809 20.2415 10.4113 19.9879 10.2955 19.7087C10.1797 19.4294 10.1201 19.1301 10.1201 18.8279V8.28047ZM18.1701 17.4805C18.6232 17.4805 19.0718 17.3912 19.4904 17.2179C19.9089 17.0445 20.2893 16.7903 20.6096 16.47C20.93 16.1496 21.1841 15.7693 21.3575 15.3507C21.5309 14.9322 21.6201 14.4835 21.6201 14.0305C21.6201 13.5774 21.5309 13.1288 21.3575 12.7102C21.1841 12.2916 20.93 11.9113 20.6096 11.591C20.2893 11.2706 19.9089 11.0165 19.4904 10.8431C19.0718 10.6697 18.6232 10.5805 18.1701 10.5805C17.2551 10.5805 16.3776 10.944 15.7306 11.591C15.0836 12.238 14.7201 13.1155 14.7201 14.0305C14.7201 14.9455 15.0836 15.823 15.7306 16.47C16.3776 17.117 17.2551 17.4805 18.1701 17.4805Z"
+                                                    fill="black" />
+                                                <path
+                                                    d="M8.49277 21.604C8.06202 21.1727 7.82005 20.5881 7.82002 19.9786V8.2793C7.21002 8.2793 6.62501 8.52162 6.19367 8.95295C5.76234 9.38428 5.52002 9.9693 5.52002 10.5793V21.1286C5.52002 21.7381 5.76152 22.3227 6.19277 22.754L22.2928 38.854C22.7241 39.2853 23.3091 39.5276 23.9191 39.5276C24.529 39.5276 25.114 39.2853 25.5454 38.854L25.645 38.7543L8.49277 21.604Z"
+                                                    fill="black" />
+                                            </svg>
+                                            <span
+                                                class="cursor-pointer bg-gray-50 duration-300 ease-in hover:bg-primary-color hover:text-white">
+                                                {{ $docuData->keyword_1 }} </span>
+                                            <span
+                                                class="cursor-pointer bg-gray-50 duration-300 ease-in hover:bg-primary-color hover:text-white">
+                                                {{ $docuData->keyword_2 }} </span>
+                                            <span
+                                                class="cursor-pointer bg-gray-50 duration-300 ease-in hover:bg-primary-color hover:text-white">
+                                                {{ $docuData->keyword_3 }} </span>
+                                            <span
+                                                class="cursor-pointer bg-gray-50 duration-300 ease-in hover:bg-primary-color hover:text-white">
+                                                {{ $docuData->keyword_4 }} </span>
+                                            <span
+                                                class="cursor-pointer bg-gray-50 duration-300 ease-in hover:bg-primary-color hover:text-white">
+                                                {{ $docuData->keyword_5 }} </span>
+                                            <span
+                                                class="cursor-pointer bg-gray-50 duration-300 ease-in hover:bg-primary-color hover:text-white">
+                                                {{ $docuData->keyword_6 }} </span>
+                                        </div>
+                                        <div class="mr-4">
+                                            {{ \Carbon\Carbon::parse($docuData->date_of_approval)->format('M d Y') }}
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
-                            {{-- keywords --}}
-                            {{-- <div class="col-span-7 flex items-center gap-1 pl-[1.2rem] md:pl-[4.2rem] lg:pl-[1.2rem]">
-                                <div>
-                                    <svg class="h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M5.28 4.32a1.2 1.2 0 0 1 1.2-1.2h5.503a1.2 1.2 0 0 1 .849.352l8.4 8.4a1.2 1.2 0 0 1 0 1.697l-5.503 5.503a1.2 1.2 0 0 1-1.697 0l-8.4-8.4a1.2 1.2 0 0 1-.352-.849V4.32Zm4.2 4.8a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6Z">
-                                        </path>
-                                        <path
-                                            d="M4.431 11.272a1.2 1.2 0 0 1-.351-.848V4.32a1.2 1.2 0 0 0-1.2 1.2v5.504c0 .318.126.623.351.848l8.4 8.4a1.2 1.2 0 0 0 1.697 0l.052-.052-8.949-8.948Z">
-                                        </path>
+                                <div class="flex items-start justify-end pr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="47" height="61"
+                                        viewBox="0 0 47 61" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7.83333 0H28.5656C29.604 0.000889848 30.5995 0.403146 31.3333 1.11833L45.8511 15.25C46.2153 15.6041 46.5042 16.0245 46.7014 16.4874C46.8985 16.9502 47 17.4463 47 17.9473V53.375C47 55.3973 46.1747 57.3367 44.7057 58.7667C43.2366 60.1967 41.2442 61 39.1667 61H7.83333C5.7558 61 3.76336 60.1967 2.29433 58.7667C0.825294 57.3367 0 55.3973 0 53.375V7.625C0 5.60272 0.825294 3.66328 2.29433 2.23331C3.76336 0.803345 5.7558 0 7.83333 0ZM29.375 5.71875V13.3437C29.375 14.3549 29.7876 15.3246 30.5222 16.0396C31.2567 16.7546 32.2529 17.1562 33.2917 17.1562H41.125L29.375 5.71875ZM8.47958 52.1105C8.83208 52.7968 9.38041 53.4195 10.1931 53.7086C10.9379 53.952 11.7498 53.9111 12.4648 53.5942C13.7116 53.0986 14.9519 51.9326 16.0942 50.5982C17.3998 49.0669 18.7706 47.0621 20.0925 44.8382C22.6479 44.1014 25.2647 43.5837 27.9128 43.2909C29.0878 44.7524 30.3019 46.0105 31.4769 46.9128C32.5736 47.7516 33.84 48.4505 35.1358 48.5014C35.8408 48.5363 36.5392 48.3552 37.1333 47.9771C37.7334 47.5794 38.2125 47.0318 38.5204 46.3918C38.8729 45.7023 39.0883 44.9811 39.059 44.2441C39.0337 43.5193 38.7576 42.8241 38.2756 42.2711C37.3944 41.2417 35.9419 40.7461 34.5156 40.4983C32.7862 40.2375 31.0315 40.1735 29.2869 40.3077C27.8137 38.2806 26.5292 36.1296 25.4485 33.8804C26.4277 31.3642 27.1621 28.9845 27.4852 27.0402C27.628 26.2677 27.6914 25.4833 27.6745 24.6986C27.6701 23.9869 27.5005 23.2853 27.1784 22.6462C26.9922 22.2938 26.7278 21.9861 26.4043 21.7454C26.0809 21.5047 25.7064 21.3371 25.3082 21.2547C24.5183 21.0927 23.7024 21.2547 22.9582 21.5502C21.4797 22.122 20.6996 23.342 20.4058 24.6859C20.1186 25.9822 20.2492 27.4913 20.5853 29.0195C20.9313 30.5667 21.5188 32.2506 22.2695 33.9567C21.067 36.8682 19.6782 39.7034 18.1113 42.4458C16.0921 43.0638 14.1458 43.8881 12.3049 44.9049C10.8557 45.7436 9.56646 46.7349 8.79292 47.9041C7.97042 49.1463 7.71583 50.6268 8.47958 52.1105Z"
+                                            fill="#041A32" />
                                     </svg>
                                 </div>
-                                <div class="flex gap-2 text-[0.8rem] text-gray-600">
-                                    <a class="cursor-pointer duration-300 ease-in-out hover:text-blue-700">
-                                        {{ $docuData->keyword_1 }}
-                                    </a>
-                                    <a class="cursor-pointer duration-300 ease-in-out hover:text-blue-700">
-                                        {{ $docuData->keyword_2 }}
-                                    </a>
+                            </div>
+
+                            <div class="my-1 ml-4 line-clamp-4 font-light lg:line-clamp-3">
+                                {{ $docuData->abstract_or_summary }}
+                            </div>
+                            <ul class="ml-4 flex flex-wrap">
+                                <svg class="min-h-6 mr-2 max-h-6 text-primary-color" viewBox="0 0 46 46" fill="none">
+                                    <path
+                                        d="M20.7 36.7992C20.7 36.7992 18.4 36.7992 18.4 34.4992C18.4 32.1992 20.7 25.2992 29.9 25.2992C39.1 25.2992 41.4 32.1992 41.4 34.4992C41.4 36.7992 39.1 36.7992 39.1 36.7992H20.7ZM29.9 22.9992C31.73 22.9992 33.4851 22.2723 34.7791 20.9783C36.0731 19.6843 36.8 17.9292 36.8 16.0992C36.8 14.2692 36.0731 12.5142 34.7791 11.2202C33.4851 9.92618 31.73 9.19922 29.9 9.19922C28.07 9.19922 26.315 9.92618 25.021 11.2202C23.727 12.5142 23 14.2692 23 16.0992C23 17.9292 23.727 19.6843 25.021 20.9783C26.315 22.2723 28.07 22.9992 29.9 22.9992Z"
+                                        fill="black" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M16.5983 36.7998C16.2568 36.0819 16.0862 35.2947 16.1 34.4998C16.1 31.3833 17.664 28.1748 20.5543 25.9438C19.1119 25.4994 17.6092 25.2822 16.1 25.2998C6.89997 25.2998 4.59998 32.1998 4.59998 34.4998C4.59998 36.7998 6.89998 36.7998 6.89998 36.7998H16.5983Z"
+                                        fill="black" />
+                                    <path
+                                        d="M14.95 23C16.475 23.0003 17.9376 22.3947 19.0161 21.3165C20.0946 20.2384 20.7007 18.776 20.7009 17.251C20.7012 15.726 20.0956 14.2633 19.0175 13.1848C17.9393 12.1063 16.4769 11.5003 14.9519 11.5C13.4269 11.5 11.9644 12.1058 10.886 13.1841C9.80771 14.2625 9.2019 15.725 9.2019 17.25C9.2019 18.775 9.80771 20.2375 10.886 21.3159C11.9644 22.3942 13.425 23 14.95 23Z"
+                                        fill="black" />
+                                </svg>
+                                <li class="mr-3 whitespace-nowrap">{{ $docuData->author_1 }}</li>
+                                <li class="mr-3 whitespace-nowrap">{{ $docuData->author_2 }}</li>
+                                <li class="mr-3 whitespace-nowrap">{{ $docuData->author_3 }}</li>
+                                <li class="mr-3 whitespace-nowrap">{{ $docuData->author_4 }}</li>
+                            </ul>
+                            <div class="ml-4 mt-1 flex flex-row gap-2">
+                                <div class="rounded-full bg-yellow-700 px-2 text-white">
+                                    {{ $docuData->document_type }}
                                 </div>
-                            </div> --}}
+                                <div class="rounded-full bg-emerald-800 px-2 text-white">
+                                    {{ $docuData->course }}
+                                </div>
+                                <div class="rounded-full bg-slate-500 text-white">Citation count ba?</div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -136,11 +134,11 @@
             {{-- 2nd div (Fixed Right Side) --}}
             <div class="sticky right-0 top-[4rem] col-span-5 h-fit lg:col-span-2">
                 <div class="flex flex-col gap-1">
-                    <div class="my-1 drop-shadow-lg">
-                        <div class="rounded-t-lg bg-gray-600 py-2 text-center text-white">
-                            <h1>Latest research works</h1>
+                    <div class="my-1 rounded-3xl bg-white drop-shadow-lg">
+                        <div class="rounded-t-lg py-2 text-center">
+                            <strong>Latest research works</strong>
                         </div>
-                        <div class="custom-scrollbar h-full overflow-y-auto rounded-b-lg bg-white py-2 lg:h-[15rem]">
+                        <div class="custom-scrollbar h-full overflow-y-auto py-2 md:h-[15rem] lg:h-[18rem]">
                             <div class="flex h-full flex-col gap-2">
                                 @if (count($latestDocuPostData) === 0)
                                     <section
@@ -181,11 +179,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="my-1 drop-shadow-lg">
-                        <div class="rounded-t-lg bg-gray-600 py-2 text-center text-white">
-                            <h1>Latest Posts</h1>
+                    <div class="my-1 rounded-3xl bg-white drop-shadow-lg">
+                        <div class="py-2 text-center">
+                            <strong>Latest Posts</strong>
                         </div>
-                        <div class="custom-scrollbar h-full overflow-y-auto rounded-b-lg bg-white py-2 lg:h-[15rem]">
+                        <div class="custom-scrollbar h-full overflow-y-auto py-2 md:h-[15rem] lg:h-[18rem]">
                             <div class="flex h-full flex-col gap-2">
                                 @if (count($latestDocuPostData) === 0)
                                     <section

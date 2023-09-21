@@ -1,4 +1,73 @@
-<div class="">
+<div class="relative">
+    <div wire:loading.block wire:target="uploadDocument"
+        class="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="mx-auto w-fit rounded-lg bg-white text-center text-gray-600 drop-shadow-lg">
+                <div class="rounded-t-xl bg-primary-color p-8 px-10 py-3 font-semibold text-white">
+                    <h1>Processing</h1>
+                </div>
+                <div class="flex flex-col gap-2 px-10 pb-8 pt-3">
+                    <img class="h-10" src="{{ asset('icons/logo.svg') }}" alt="Icon Description">
+                    <h3 class="text-xs md:text-base">Uploading is on the process, please wait.</h3>
+                    <div class="flex flex-col items-center justify-center gap-2">
+                        <div class="h-8 w-8 animate-spin rounded-md border-4 border-t-4 border-blue-500">
+                        </div>
+                        <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                            <div id="progress-bar" class="h-2.5 animate-pulse rounded-full bg-primary-color"
+                                style="width: 100%"></div>
+                        </div>
+                        <button wire:click="incrementProgress" class="text-white">Increment Progress</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @if ($showUploadPdfBox)
+        <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm"
+            x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true; progress = 0"
+            x-on:livewire-upload-finish="uploading = false; progress = 0"
+            x-on:livewire-upload-error="uploading = false; progress = 0"
+            x-on:livewire-upload-progress="progress = $event.detail.progress">
+            <div class="mx-3 w-5/6 rounded-xl bg-white text-center text-gray-600 drop-shadow-lg md:w-3/6 lg:w-5/12">
+                <div class="relative rounded-t-xl bg-primary-color px-10 py-3 font-semibold text-white">
+                    <svg wire:click='uploadPdfFileBox' class="absolute right-6 top-4 h-8 text-red-500"
+                        fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM8.693 7.808a.626.626 0 1 0-.885.885L11.116 12l-3.308 3.307a.626.626 0 1 0 .885.885L12 12.884l3.307 3.308a.627.627 0 0 0 .885-.885L12.884 12l3.308-3.307a.627.627 0 0 0-.885-.885L12 11.116 8.693 7.808Z">
+                        </path>
+                    </svg>
+                    <h1>Upload your file here </h1>
+                </div>
+                <div class="flex h-fit flex-col rounded-b-xl bg-white px-2 py-4">
+                    <label for="uploadFile"
+                        class="w-full rounded-lg bg-primary-color px-1 py-2 text-center text-white hover:cursor-pointer">Upload
+                        <input type="file" wire:model.live="user_upload" id="uploadFile" class="" hidden
+                            accept="application/pdf">
+                    </label>
+                    <small class="text-gray-600">Please be guided, the required file should be in PDF format.</small>
+                    <div>
+                        @error('user_upload')
+                            <small class="text-red-500">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div x-show="uploading" x-cloak>
+                        <div class="h-2 overflow-hidden rounded-full bg-gray-200">
+                            <div class="h-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500"
+                                :style="'width: ' + progress + '%'"></div>
+                        </div>
+                        <div class="mt-2" x-cloak>Uploading...</div>
+                    </div>
+                    <div x-show="!uploading && progress === 100">
+                        Upload complete!
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
     @if ($showProgressBox)
         <div
             class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
@@ -8,12 +77,11 @@
                 </div>
                 <div class="flex flex-col gap-2 px-10 pb-8 pt-3">
                     <img class="h-10" src="{{ asset('icons/logo.svg') }}" alt="Icon Description">
-                    <h3 class="text-xs md:text-base">Uploading is on the process, please wait. If the process is
-                        completed, it will bring you back to your profile.</h3>
+                    <h3 class="text-xs md:text-base">Uplaod completeed.</h3>
                     <div>
                         <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
                             <div id="progress-bar" class="h-2.5 animate-pulse rounded-full bg-primary-color"
-                                style="width: {{ $progressPercent }}%"></div>
+                                style="width: 100%"></div>
                         </div>
                         <button wire:click="incrementProgress" class="text-white">Increment Progress</button>
                     </div>
@@ -62,11 +130,13 @@
                 <div class="px-8 py-2">
                     @if ($currentTab === 1)
                         <div class="text-gray-700">
-                            <h1 class="flex flex-col text-center font-bold text-primary-color">Enter basic information
+                            <h1 class="flex flex-col text-center font-bold text-primary-color">Enter basic
+                                information
                                 about
                                 your
                                 work.
-                                <small class="font-normal text-gray-400">Please fill in basic information so that the
+                                <small class="font-normal text-gray-400">Please fill in basic information so that
+                                    the
                                     other
                                     users
                                     will know
@@ -98,8 +168,13 @@
                                     <div class="flex flex-col md:w-1/2">
                                         <label class="text-sm font-semibold" for="document_type">
                                             Document type</label>
-                                        <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                            wire:model.live="document_type" id="document_type" placeholder="English" />
+                                        <select class="rounded-md border border-gray-400 p-2 text-sm"
+                                            wire:model="document_type" id="document_type">
+                                            <option selected value="Capstone">Capstone</option>
+                                            <option value="Research">Research</option>
+                                            <option value="Feasibs">Feasibs</option>
+                                            <option value="Thesis">Thesis</option>
+                                        </select>
                                         @error('document_type')
                                             <small class="text-red-500">{{ $message }}</small>
                                         @enderror
@@ -110,8 +185,9 @@
                                         <div class="flex flex-col md:w-1/2">
                                             <label class="text-sm font-semibold" for="date_of_approval">
                                                 Date of approval</label>
-                                            <input class="rounded-md border border-gray-400 p-2 text-sm" type="date"
-                                                wire:model.live="date_of_approval" id="date_of_approval" />
+                                            <input class="rounded-md border border-gray-400 p-2 text-sm"
+                                                type="date" wire:model.live="date_of_approval"
+                                                id="date_of_approval" />
                                             @error('date_of_approval')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -119,8 +195,9 @@
                                         <div class="flex flex-col md:w-1/2">
                                             <label class="text-sm font-semibold" for="format">
                                                 Format</label>
-                                            <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                                wire:model.live="format" id="format" placeholder="Eg. Electronic" />
+                                            <input class="rounded-md border border-gray-400 p-2 text-sm"
+                                                type="text" wire:model.live="format" id="format"
+                                                placeholder="Eg. Electronic" />
                                             @error('format')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -130,9 +207,9 @@
                                         <div class="flex flex-col md:w-1/2">
                                             <label class="text-sm font-semibold" for="physical_description">
                                                 Physical description</label>
-                                            <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                                wire:model.live="physical_description" placeholder="189 pages"
-                                                id="physical_description" />
+                                            <input class="rounded-md border border-gray-400 p-2 text-sm"
+                                                type="text" wire:model.live="physical_description"
+                                                placeholder="189 pages" id="physical_description" />
                                             @error('physical_description')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -140,8 +217,9 @@
                                         <div class="flex flex-col md:w-1/2">
                                             <label class="text-sm font-semibold" for="language">
                                                 Language</label>
-                                            <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                                wire:model.live="language" id="language" placeholder="English" />
+                                            <input class="rounded-md border border-gray-400 p-2 text-sm"
+                                                type="text" wire:model.live="language" id="language"
+                                                placeholder="English" />
                                             @error('language')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -216,11 +294,13 @@
                         </div>
                     @elseif ($currentTab === 2)
                         <div class="text-gray-700">
-                            <h1 class="flex flex-col text-center font-bold text-primary-color">Enter basic information
+                            <h1 class="flex flex-col text-center font-bold text-primary-color">Enter basic
+                                information
                                 about
                                 your
                                 work.
-                                <small class="font-normal text-gray-400">Please fill in basic information so that the
+                                <small class="font-normal text-gray-400">Please fill in basic information so that
+                                    the
                                     other
                                     users
                                     will know
@@ -283,14 +363,17 @@
                                             Keywords/s</label>
                                         <small class="text-gray-500">Adding keywords or tags is important to help
                                             others
-                                            discover your research easily. 🔍 Keywords act like labels, summarizing what
+                                            discover your research easily. 🔍 Keywords act like labels, summarizing
+                                            what
                                             your
-                                            document is about. 🏷️ They make it simpler for researchers and readers to
+                                            document is about. 🏷️ They make it simpler for researchers and readers
+                                            to
                                             find
                                             content related to specific topics. 📚 Think of them as the key 🔑 to
                                             unlocking
                                             your
-                                            research's visibility and making it accessible to a wider audience.</small>
+                                            research's visibility and making it accessible to a wider
+                                            audience.</small>
                                         <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
                                             <div class="">
                                                 <input class="w-full rounded-md border border-gray-400 p-2 text-sm"
@@ -364,9 +447,11 @@
                             <div class="flex flex-col gap-2">
                                 <label class="text-sm font-semibold" for="recommended_citation">
                                     Recommended citation</label>
-                                <small class="text-gray-600">This is auto generated based on the collected data from
+                                <small class="text-gray-600">This is auto generated based on the collected data
+                                    from
                                     your
-                                    inputs. You can change it to your desire recommended citation, but highly require to
+                                    inputs. You can change it to your desire recommended citation, but highly
+                                    require to
                                     use
                                     proper bibliography format.</small>
                                 <button wire:click.prevent="citationAPA_generator">Generate</button>
@@ -449,7 +534,8 @@
                                     </div>
                                     <div class="col-span-2 md:col-span-1">
                                         <h2 class="font-extrabold uppercase">Degree name</h2>
-                                        <p class="text-sm font-semibold text-gray-600">{{ $bachelor_degree_value }}
+                                        <p class="text-sm font-semibold text-gray-600">
+                                            {{ $bachelor_degree_value }}
                                         </p>
                                     </div>
                                     <div class="col-span-2">
@@ -515,7 +601,14 @@
                                     <div class="col-span-2 flex flex-col gap-1">
                                         <h2 class="font-extrabold uppercase">Upload your file
                                             here</h2>
-                                        <label for="uploadFile"
+                                        <div wire:click='uploadPdfFileBox'
+                                            class="w-full rounded-lg bg-primary-color px-1 py-2 text-center text-white hover:cursor-pointer">
+                                            Upload
+                                        </div>
+                                        @error('user_upload')
+                                            <small class="text-red-500">{{ $message }}</small>
+                                        @enderror
+                                        {{-- <label for="uploadFile"
                                             class="w-full rounded-lg bg-primary-color px-1 py-2 text-center text-white hover:cursor-pointer">Upload
                                             <input type="file" wire:model.live="user_upload" id="uploadFile"
                                                 class="" hidden accept="application/pdf">
@@ -526,7 +619,7 @@
                                             @error('user_upload')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -536,7 +629,7 @@
 
                 <div class="flex justify-end gap-2 px-8 py-4">
                     @if ($currentTab == 1)
-                        <a href="{{ url()->previous() }}"
+                        <a href="{{ route('edit-profile', 'tab4') }}"
                             class="lg:1/12 w-1/2 rounded-md border border-gray-700 p-1 text-center duration-300 ease-in-out hover:bg-gray-600 hover:text-white md:w-1/4"
                             type="button" wire:click="changeTab({{ intval($currentTab) - 1 }})">Cancel</a>
                     @else
