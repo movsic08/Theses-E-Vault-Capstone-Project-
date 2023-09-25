@@ -179,10 +179,190 @@
         </div>
     @endif
 
-    @if ($addUserButton)
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm">
-            <section class="h-fit w-fit rounded-lg bg-white p-6 drop-shadow-xl">
-                <h2>add uiser box</h2>
+    @if (!$addUserButton)
+        <div class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm">
+            <section
+                class="{{ $completeInfo == false ? 'w-fit' : 'lg:w-[25rem]' }} mt-[5rem] h-fit rounded-lg bg-white p-2 drop-shadow-xl">
+                <div class="relative flex items-center justify-center">
+                    <h2>Add new users</h2>
+                    <svg wire:click='showAddUserBox' class="absolute right-0 top-1 h-4 cursor-pointer text-red-500"
+                        fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM8.693 7.808a.626.626 0 1 0-.885.885L11.116 12l-3.308 3.307a.626.626 0 1 0 .885.885L12 12.884l3.307 3.308a.627.627 0 0 0 .885-.885L12.884 12l3.308-3.307a.627.627 0 0 0-.885-.885L12 11.116 8.693 7.808Z">
+                        </path>
+                    </svg>
+                </div>
+                <form action="">
+                    <div class="">
+                        <label for="userLevel">User level:</label>
+                        <select wire:model.live='userLevel' name="" id="">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                            <option value="superAdmin">Super admin</option>
+                        </select>
+                    </div>
+                    <div>
+                        @if ($userLevel == 'user')
+                            <div class="flex flex-col gap-2 md:flex-row">
+                                <div class="w-full">
+                                    <div class="flex flex-col">
+                                        <label class="font-medium" for="username">Username</label>
+                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                            type="text" name="username" id="username" placeholder="ezname902"
+                                            value="{{ old('username') }}">
+                                        @error('username')
+                                            <span class="w-full text-xs text-red-700">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="font-medium" for="email">Email</label>
+                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                            type="email" name="email" id="email"
+                                            placeholder="user@psu.edu.ph" value="{{ old('email') }}">
+                                        @error('email')
+                                            <span class="w-full text-xs text-red-700">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="font-medium" for="password">Password</label>
+                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                            type="password" name="password" id="password">
+                                        @error('password')
+                                            <span class="w-full text-xs text-red-700">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="font-medium" for="password_confirmation">Confirm
+                                            Password</label>
+                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                            type="password" name="password_confirmation" id="password_confirmation">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="font-medium" for="confirm_password">Account role</label>
+                                        <select name="role_id" id="account-role"
+                                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                            <option value="student">Student</option>
+                                            <option value="faculty">Faculty Member</option>
+                                        </select>
+                                        @error('role_id')
+                                            <span class="w-full text-xs text-red-700">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label for="completeInfo">Complete user information</label>
+                                        <input type="checkbox" wire:model.live='completeInfo' id="completeInfo">
+                                    </div>
+                                    @if (!$completeInfo)
+                                        <input
+                                            class="cursor-pointer rounded-md bg-blue-950 p-2 font-medium text-white duration-200 hover:bg-blue-800"
+                                            type="submit" value="Create">
+                                    @endif
+                                </div>
+                                {{-- @if ($completeInfo) --}}
+                                <div class="flex w-full flex-col">
+                                    <div class="">
+                                        <div class="flex flex-col">
+                                            <div class="flex flex-row gap-2">
+                                                <div>
+                                                    <label class="font-medium" for="email">First Name</label>
+                                                    <input
+                                                        class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                                        type="text" name="email" id="email">
+                                                    @error('email')
+                                                        <span class="w-full text-xs text-red-700">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div>
+                                                    <label class="font-medium" for="email">Last Name</label>
+                                                    <input
+                                                        class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                                        type="text" name="email" id="email">
+                                                    @error('email')
+                                                        <span class="w-full text-xs text-red-700">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="flex w-full flex-col">
+                                                <label class="font-medium" for="email">Phone number</label>
+                                                <input
+                                                    class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                                    type="text" name="email" id="email">
+                                                @error('email')
+                                                    <span class="w-full text-xs text-red-700">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <label for="accountRole">Account Role:
+                                                <select wire:model.live='accountRole' name="" id="">
+                                                    <option value="student">Student</option>
+                                                    <option value="facultyMember">Faculty Member</option>
+                                                </select>
+                                            </label>
+                                            <div class="flex flex-col gap-2">
+                                                <label class="font-medium" for="email">Student ID</label>
+                                                <input
+                                                    class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                                    type="text" name="email" id="email">
+                                                @error('email')
+                                                    <span class="w-full text-xs text-red-700">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="flex w-full flex-col gap-2">
+                                                <label class="font-medium" for="email">Bachelor Degree</label>
+                                                <input
+                                                    class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                                    type="text" name="email" id="email">
+                                                @error('email')
+                                                    <span class="w-full text-xs text-red-700">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <label class="font-medium" for="email">Address</label>
+                                                <input
+                                                    class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                                    type="text" name="email" id="email">
+                                                @error('email')
+                                                    <span class="w-full text-xs text-red-700">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input
+                                        class="w-fit cursor-pointer rounded-md bg-blue-950 p-2 font-medium text-white duration-200 hover:bg-blue-800"
+                                        type="submit" value="Create">
+                                </div>
+                                {{-- @endif --}}
+                            </div>
+                        @elseif ($userLevel == 'admin')
+                            <div>
+                                <h2>admin</h2>
+                            </div>
+                        @elseif ($userLevel == 'superAdmin')
+                            <div>
+                                <h2>super admin</h2>
+                            </div>
+                        @endif
+                    </div>
+                </form>
             </section>
         </div>
     @endif

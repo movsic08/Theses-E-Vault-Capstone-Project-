@@ -43,7 +43,11 @@ class Boomarks extends Component {
         $this->bookmarkLists = BookmarkList::where( 'user_id', auth()->id() )->get();
         // $this->documentLists = DocuPost::where( 'reference', $this->bookmarkLists->reference )
         // ->where( 'docu_post_id', $this->bookmarkLists->docu_post_id );
-        // dd( $this->documentLists );
+        // dd( $this->bookmarkLists );
+        $references = $this->bookmarkLists->pluck( 'reference' )->toArray();
+
+        // Retrieve DocuPost data where the 'reference' matches any value in the $references array
+        $this->documentLists = DocuPost::whereIn( 'reference', $references )->get();
         return view( 'livewire.boomarks' )
         ->layout( 'layout.app' );
     }

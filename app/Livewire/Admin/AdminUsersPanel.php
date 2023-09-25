@@ -240,6 +240,10 @@ class AdminUsersPanel extends Component {
         $this->addUserButton = ! $this->addUserButton;
     }
 
+    public $userLevel = 'user',
+    $accountRole = 'student',
+    $completeInfo = false;
+
     public function render() {
         $this->degreeLists = BachelorDegree::latest()
         ->get();

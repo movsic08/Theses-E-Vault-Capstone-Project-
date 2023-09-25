@@ -1,11 +1,11 @@
 <div class="container">
-    <script>
+    {{-- <script>
         document.addEventListener('livewire:load', function() {
             Livewire.on('formSubmitted', function() {
                 location.reload(); // Refresh the entire page
             });
         });
-    </script>
+    </script> --}}
     <x-session_flash />
     @section('title', 'Search ' . $query)
     <form wire:submit='searchNewDocu'>
@@ -98,7 +98,8 @@
                                     <img class="h-4 rounded-full object-cover"
                                         src="{{ asset('assets/default_profile.png') }}" alt="profile">
                                     <span class="text-sm">
-                                        {{ $userData->first_name }} {{ $userData->last_name }}
+                                        {{-- {{ $userData->first_name }} {{ $userData->last_name }} --}}
+                                        {{ $resultsItem->author_1 }}
                                     </span>
                                     <span class="ml-1 text-sm">
                                         {{ $resultsItem->author_2 }}

@@ -77,7 +77,7 @@
                         </a>
                     </div>
                     <a wire:navigate href="{{ route('view-document', ['reference' => $bookmarkedItem->reference]) }}"
-                        class="font-semibold text-primary-color">{{ $docuPost->title }}</a>
+                        class="font-semibold text-primary-color">{{ $documentLists->title }}</a>
                 </div>
             @endforeach
         </section>

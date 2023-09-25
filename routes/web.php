@@ -67,14 +67,14 @@ Route::middleware(['auth', 'user'])->group(function () {
 
 
 //no account needed
-Route::middleware(['user', 'guest'])->group( function (){
+// Route::middleware(['user', 'guest'])->group( function (){
     Route::get('/home', [HomeController::class, 'show'])->name('home');
     Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('view-document');
     Route::get('/search',  [SearchController::class, 'viewBasicSearch'])->name('user-search');
     Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
     Route::get('/search/result/{search?}', DocuSearchResult::class)->name('search-result-page');
     Route::get('/catalogue', [CatalogueController::class, 'mainView'])->name('user-catalogue');
-});
+// });
     
 
 //admin routes
