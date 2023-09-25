@@ -14,4 +14,9 @@ class DocuPost extends Model {
     public function bookmarkList() {
         return $this->hasMany( BookmarkList::class, 'post_id', 'reference' );
     }
+
+    // public function scopeSearch( $query, $value ) {
+    //     $query->where( 'title', 'like', '%{$value}%' );
+    // }
+
 }

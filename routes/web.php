@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OtpAuthController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use App\Livewire\Admin\AdminUsersPanel;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\DocuPostPanel;
 use App\Livewire\Boomarks;
+use App\Livewire\DocuSearchResult;
 use App\Livewire\ProfileEditTab;
 use App\Livewire\EditProfile;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
@@ -55,23 +58,24 @@ Route::middleware(['auth', 'user'])->group(function () {
         return view('pages.user.messages');
     })->name('user-messages');
     
-    Route::get('/search', function () {
-        return view('pages.user.search');
-    })->name('user-search');
 
     Route::get('/bookmark', Boomarks::class)->name('user-bookmark');
 
-    Route::get('/catalogue', function () {
-        return view('pages.user.catalogue');
-    })->name('user-catalogue');
+
 });
 
 
 
 //no account needed
+Route::middleware(['user', 'guest'])->group( function (){
     Route::get('/home', [HomeController::class, 'show'])->name('home');
     Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('view-document');
-
+    Route::get('/search',  [SearchController::class, 'viewBasicSearch'])->name('user-search');
+    Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
+    Route::get('/search/result/{search?}', DocuSearchResult::class)->name('search-result-page');
+    Route::get('/catalogue', [CatalogueController::class, 'mainView'])->name('user-catalogue');
+});
+    
 
 //admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

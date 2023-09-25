@@ -1,70 +1,71 @@
-<section class="md:gradient-bg-light sticky top-0 z-30 bg-slate-100 bg-opacity-70 backdrop-blur md:px-7 md:py-1 lg:px-7">
-    <div
-        class="container top-0 flex w-full items-center justify-between px-7 py-2 text-base font-semibold text-blue-950 md:px-2">
-        @php
-            $currentHour = now()->format('g');
-            
-            if ($currentHour >= 5 && $currentHour < 12) {
-                $greeting = 'afternoon';
-            } elseif ($currentHour >= 12 && $currentHour < 18) {
-                $greeting = 'evening';
-            } else {
-                $greeting = 'morning';
-            }
-        @endphp
-        <h1 class="">Good {{ $greeting }},
-            @auth
-                @if (empty(auth()->user()->first_name))
-                    {{ auth()->user()->username }}
-                @else
-                    {{ auth()->user()->first_name }}!
-                @endif
-            @endauth
-            @guest
-                Guest!
-            @endguest
-        </h1>
-        <div class="flex flex-row items-center justify-center">
-            @auth
-                @if (empty(auth()->user()->student_id))
-                    <h1 class="hidden md:block">User!</h1>
-                @else
-                    <h1 class="hidden md:block"> {{ auth()->user()->student_id }}</h1>
-                    @if (auth()->user()->profile_picture)
-                        <img class="h-7 w-7 rounded-full object-cover md:mx-2"
-                            src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture">
+<section class="md:gradient-bg-light sticky top-0 z-30 bg-slate-100 bg-opacity-70 py-2 backdrop-blur md:py-0">
+    <div class="container text-base font-semibold text-blue-950">
+        <div class="flex w-full items-center justify-between md:p-2">
+            @php
+                $currentHour = now()->format('g');
+                
+                if ($currentHour >= 5 && $currentHour < 12) {
+                    $greeting = 'afternoon';
+                } elseif ($currentHour >= 12 && $currentHour < 18) {
+                    $greeting = 'evening';
+                } else {
+                    $greeting = 'morning';
+                }
+            @endphp
+            <h1 class="">Good {{ $greeting }},
+                @auth
+                    @if (empty(auth()->user()->first_name))
+                        {{ auth()->user()->username }}
                     @else
-                        <img class="h-7 w-7 rounded-full object-cover md:mx-2"
-                            src="{{ asset('assets/default_profile.png') }}" alt="Default Profile Picture">
+                        {{ auth()->user()->first_name }}!
                     @endif
-                @endif
-            @endauth
+                @endauth
+                @guest
+                    Guest!
+                @endguest
+            </h1>
+            <div class="flex flex-row items-center justify-center">
+                @auth
+                    @if (empty(auth()->user()->student_id))
+                        <h1 class="hidden md:block">User!</h1>
+                    @else
+                        <h1 class="hidden md:block"> {{ auth()->user()->student_id }}</h1>
+                        @if (auth()->user()->profile_picture)
+                            <img class="h-7 w-7 rounded-full object-cover md:mx-2"
+                                src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture">
+                        @else
+                            <img class="h-7 w-7 rounded-full object-cover md:mx-2"
+                                src="{{ asset('assets/default_profile.png') }}" alt="Default Profile Picture">
+                        @endif
+                    @endif
+                @endauth
 
-            @guest
-                <div class="flex items-center justify-center gap-2">
-                    <a class="rounded-md bg-primary-color p-1 px-2 text-sm text-white duration-300 hover:bg-blue-900"
-                        href="{{ route('login') }}">
-                        Login
-                    </a>
-                    <a class="rounded-md border border-solid border-primary-color bg-slate-100 p-1 px-2 text-sm text-primary-color duration-300 hover:bg-primary-color hover:text-white"
-                        href="{{ route('register') }}">
-                        Signup
-                    </a>
-                </div>
-            @endguest
+                @guest
+                    <div class="flex items-center justify-center gap-2">
+                        <a class="rounded-md bg-primary-color p-1 px-2 text-sm text-white duration-300 hover:bg-blue-900"
+                            href="{{ route('login') }}">
+                            Login
+                        </a>
+                        <a class="rounded-md border border-solid border-primary-color bg-slate-100 p-1 px-2 text-sm text-primary-color duration-300 hover:bg-primary-color hover:text-white"
+                            href="{{ route('register') }}">
+                            Signup
+                        </a>
+                    </div>
+                @endguest
 
-            <button id="left-btn" class="ml-2 md:hidden">
-                <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M4 6h16v2H4V6Zm4 5h12v2H8v-2Zm5 5h7v2h-7v-2Z"></path>
-                </svg>
-            </button>
-            <button id="menu-hide-btn" class="ml-2 hidden md:hidden">
-                <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242-1.414-1.414Z">
-                    </path>
-                </svg>
-            </button>
+                <button id="left-btn" class="ml-2 md:hidden">
+                    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16v2H4V6Zm4 5h12v2H8v-2Zm5 5h7v2h-7v-2Z"></path>
+                    </svg>
+                </button>
+                <button id="menu-hide-btn" class="ml-2 hidden md:hidden">
+                    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242-1.414-1.414Z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
     {{-- mobile version --}}
@@ -221,6 +222,4 @@
 
         </div>
     </div>
-
-
 </section>

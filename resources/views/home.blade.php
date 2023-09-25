@@ -97,7 +97,6 @@
                                     </svg>
                                 </div>
                             </div>
-
                             <div class="my-1 ml-4 line-clamp-4 font-light lg:line-clamp-3">
                                 {{ $docuData->abstract_or_summary }}
                             </div>

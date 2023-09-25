@@ -19,7 +19,7 @@ class DocuPostSeeder extends Seeder {
             $dateOfApproval = $faker->dateTimeBetween( '2023-01-01', '2023-12-31' )->format( 'Y-m-d' );
 
             DB::table( 'docu_posts' )->insert( [
-                'user_id' => $faker->numberBetween( 1, 10 ),
+                'user_id' => $faker->numberBetween( 1, 11 ),
                 'reference' => $faker->unique()->regexify( '[A-Za-z0-9]{12}' ),
                 'course' => $faker->randomElement( [ 'Bachelor of Science in Information Technology', 'Bachelor of Science in Mechanical Engineering ', 'Bachelor of Science in Computer Science', 'Bachelor of Science in Nursing', 'Bachelor of Science in Psychology', 'Master of Arts in History' ] ),
                 'title' => $faker->sentence( 20 ),
@@ -35,14 +35,14 @@ class DocuPostSeeder extends Seeder {
                 'panel_member_3' => $faker->optional()->name,
                 'panel_member_4' => $faker->optional()->name,
                 'abstract_or_summary' => $faker->realText( rand( 600, 900 ) ),
-                'keyword_1' => $faker->word,
-                'keyword_2' => $faker->word,
-                'keyword_3' => $faker->word,
-                'keyword_4' => $faker->word,
-                'keyword_5' => $faker->optional()->word,
-                'keyword_6' => $faker->optional()->word,
-                'keyword_7' => $faker->optional()->word,
-                'keyword_8' => $faker->optional()->word,
+                'keyword_1' => $faker->realText( 10 ),
+                'keyword_2' => $faker->realText( 10 ),
+                'keyword_3' => $faker->realText( 10 ),
+                'keyword_4' => $faker->realText( 10 ),
+                'keyword_5' => $faker->optional()->realText( 10 ),
+                'keyword_6' => $faker->optional()->realText( 10 ),
+                'keyword_7' => $faker->optional()->realText( 10 ),
+                'keyword_8' => $faker->optional()->realText( 10 ),
                 'citation_count' => 0, // Default to 0 citations
                 'view_count' => null, // You can set a default value here if needed
                 'recommended_citation' => $faker->sentence,

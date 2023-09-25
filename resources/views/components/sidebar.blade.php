@@ -98,20 +98,9 @@
                 class="{{ request()->routeIs('user-catalogue') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                 <a wire:navigate href="{{ route('user-catalogue') }}" class="flex items-center">
                     <div class="relative">
-                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 33 28">
-                            <g clip-path="url(#clip0_549_3071)">
-                                <path
-                                    d="M30.7188 0.28125C26.0958 0.301667 22.6615 0.9375 20.175 2.03708C18.32 2.85813 17.5938 3.47792 17.5938 5.58083V27.625C20.436 25.0613 22.9575 24.3438 32.9062 24.3438V0.28125H30.7188Z"
-                                    fill="#3D4448" />
-                                <path
-                                    d="M2.28125 0.28125C6.90417 0.301667 10.3385 0.9375 12.825 2.03708C14.68 2.85813 15.4062 3.47792 15.4062 5.58083V27.625C12.564 25.0613 10.0425 24.3438 0.09375 24.3438V0.28125H2.28125Z"
-                                    fill="#3D4448" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_549_3071">
-                                    <rect width="33" height="28" fill="white" />
-                                </clipPath>
-                            </defs>
+                        <svg width="33" height="28" fill="currentColor" viewBox="0 0 33 28">
+                            <path d="M2 6s1.5-2 5-2 5 2 5 2v14s-1.5-1-5-1-5 1-5 1V6z"></path>
+                            <path d="M12 6s1.5-2 5-2 5 2 5 2v14s-1.5-1-5-1-5 1-5 1V6z"></path>
                         </svg>
                     </div>
                     <p class="hideName block pl-2 md:hidden">Catalogue</p>

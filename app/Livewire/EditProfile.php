@@ -59,7 +59,9 @@ class EditProfile extends Component {
 
     public function changeProfile() {
         if ( $this->profile_picture ) {
-            $this->validate();
+            $this->validate( [
+                'profile_picture'=> 'image|max:4024',
+            ] );
             $extension = $this->profile_picture->getClientOriginalExtension();
             $currentDate = date( 'MjY' );
             $customFileName = $this->user->last_name.'-'.$this->user->first_name.$currentDate.'.'.$extension;

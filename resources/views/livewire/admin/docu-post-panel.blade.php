@@ -24,10 +24,65 @@
     <div class="px-4">
         <div class="my-3 flex justify-between">
             <h2>List of Uploaded Documents</h2>
-            <button>Add new document</button>
+            <a wire:navigate href="{{ route('upload-document-form') }}"
+                class="rounded-lg bg-primary-color p-2 text-sm font-bold text-white">Add new document</a>
         </div>
         <div class="mb-8 rounded-2xl bg-white px-5 py-2 drop-shadow-md">
-            <h1>Sub enu area</h1>
+            <div class="mb-2 flex w-full items-center justify-between">
+                <div>
+                    <label for="default-search"
+                        class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input wire:model.live.debounce.500ms='search' type="search" id="default-search"
+                            placeholder="Search title"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <label for="">Status</label>
+                    <select id="countries"
+                        class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                        <option value="5">All</option>
+                        <option value="0">Pending</option>
+                        <option value="1">Approved</option>
+                        <option value="2">Deleted</option>
+                        <option value="3">Discarded</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="">Date</label>
+                    <input class="rounded-lg border border-gray-500" type="date" name="" id="">
+                </div>
+                <div class="flex items-center">
+                    <label for="">Type</label>
+                    <select id="countries" wire:model.live='selectedDocumentType'
+                        class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                        <option value="All">All</option>
+                        @foreach ($documentTypes as $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="flex items-center">
+                    <label for="countpage">Items</label>
+                    <select id="countpage" wire:model.live='paginateCount'
+                        class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
             <div class="custom-scrollbar overflow-x-auto">
                 <div class="max-h-[35rem]">
                     <table class="min-w-full">
@@ -59,7 +114,7 @@
                         </thead>
                         <div class="overflow-y-auto overflow-x-hidden">
                             <tbody class="w-full text-gray-500">
-                                @foreach ($listOfDucoPost as $itemPost)
+                                @foreach ($listOfDocuPost as $itemPost)
                                     <tr>
                                         <td class="whitespace-normal px-6 py-2">
                                             <a
@@ -141,7 +196,7 @@
                     </table>
                     <div
                         class="sticky bottom-0 right-0 flex w-full items-center justify-center bg-white bg-opacity-25 backdrop-blur">
-                        {{ $listOfDucoPost->links() }}
+                        {{ $listOfDocuPost->links() }}
                     </div>
                 </div>
             </div>

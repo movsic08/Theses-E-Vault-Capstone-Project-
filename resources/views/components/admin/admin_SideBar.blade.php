@@ -60,8 +60,8 @@
             </div>
             {{-- add documents --}}
             <div
-                class="{{ request()->routeIs('upload-document-form') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                <a wire:navigate href="{{ route('upload-document-form') }}" class="flex items-center">
+                class="{{ request()->routeIs('admin-docu-post-panel') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                <a wire:navigate href="{{ route('admin-docu-post-panel') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd"

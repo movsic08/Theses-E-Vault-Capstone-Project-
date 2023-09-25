@@ -10,7 +10,7 @@ class DocuPostPanel extends Component {
     use WithPagination;
 
     public function mount () {
-
+        $this->documentTypes = DocuPost::distinct()->pluck( 'document_type' );
     }
 
     public $showDeleteConfirmation = false;
@@ -42,12 +42,36 @@ class DocuPostPanel extends Component {
         $this->showDeleteDocuPostBox = false;
     }
 
+    public $paginateCount = 10;
+    public $search, $docuTypeQuery, $listOfDucoPost, $documentTypes ;
+    public $selectedDocumentType = 'All';
+
     public function render() {
-        $listOfDucoPost = DocuPost::paginate( 10 );
+
+        $listOfDocuPost = DocuPost::latest();
+
+        if ( $this->selectedDocumentType !== 'All' ) {
+            $listOfDocuPost->where( 'document_type', $this->selectedDocumentType );
+        }
+        $listOfDocuPost->where( 'title', 'like', '%' . $this->search . '%' );
+
+        $listOfDocuPost = $listOfDocuPost->paginate( $this->paginateCount );
 
         return view( 'livewire.admin.docu-post-panel' )
-        ->with( compact( 'listOfDucoPost' ) )
+        ->with( compact( 'listOfDocuPost' ) )
         ->layout( 'layout.admin' );
     }
+
+    // public function render() {
+
+    //     // $listOfDucoPost = DocuPost::latest()
+    //     // // ->where( 'title', 'like', '%' . $this->search . '%' )
+    //     // // ->orWhere( 'document_type', 'like', '%' . $this->docuTypeQuery . '%' )
+    //     // ->paginate( $this->paginateCount );
+
+    //     // return view( 'livewire.admin.docu-post-panel' )
+    //     // ->with( compact( 'listOfDucoPost' ) )
+    //     // ->layout( 'layout.admin' );
+    // }
 
 }
