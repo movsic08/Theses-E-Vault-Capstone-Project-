@@ -35,8 +35,7 @@
                         </div>
                         <div>
                             <h1 class="font-bold text-blue-500">{{ $itemDegree }}</h1>
-                            <p class="text-gray-500">Theses submitted to the Bachelor of Science in Hospitality
-                                Management
+                            <p class="text-gray-500">Theses submitted to the {{ $itemDegree }}
                             </p>
                         </div>
                     </div>

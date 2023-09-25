@@ -179,6 +179,14 @@
         </div>
     @endif
 
+    @if ($addUserButton)
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm">
+            <section class="h-fit w-fit rounded-lg bg-white p-6 drop-shadow-xl">
+                <h2>add uiser box</h2>
+            </section>
+        </div>
+    @endif
+
 
     {{-- content of admin user panel --}}
     <x-session_flash />
@@ -201,7 +209,8 @@
                     <div wire:click='openNewDepartmentBox'
                         class="cursor-pointer rounded-lg border border-primary-color p-1 px-3 text-primary-color">
                         Departments</div>
-                    <div class="cursor-pointer rounded-lg bg-primary-color p-1 px-3 text-white">Add user</div>
+                    <div wire:click='showAddUserBox'
+                        class="cursor-pointer rounded-lg bg-primary-color p-1 px-3 text-white">Add user</div>
                 </div>
             </div>
             <div class="mb-8 rounded-2xl bg-white px-5 py-2 drop-shadow-md">

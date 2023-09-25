@@ -177,25 +177,6 @@ class AdminUsersPanel extends Component {
         }
     }
 
-    // public function deleteUser() {
-    //     $user = User::find( $this->selectedData );
-
-    //     if ( !$user ) {
-    //         request()->session()->flash( 'error', 'User not found.' );
-    //     } else {
-    //         $deleteUserResult = $user->delete();
-
-    //         if ( $deleteUserResult ) {
-    //             request()->session()->flash( 'success', 'User deleted.' );
-    //         } else {
-    //             request()->session()->flash( 'error', 'Something went wrong in deleting the user, contact developer.' );
-    //         }
-    //     }
-    //     $this->showDeleteConfirmation = false;
-    //     $rowId = $this->selectedUserId;
-    //     $this->closeRowMenu( $rowId );
-    // }
-
     public function deleteUser() {
         // Find users by their IDs
         $users = User::find( $this->selectedData );
@@ -209,10 +190,18 @@ class AdminUsersPanel extends Component {
 
         // Loop through the found users and delete them
         foreach ( $users as $user ) {
-            if ( $user->delete() ) {
-                request()->session()->flash( 'success', 'User deleted successfully.' );
+            $userDataToBeCheck = User::find( $user );
+            return dd( $userDataToBeCheck );
+            if ( $userDataToBeCheck->is_admin == 1 ) {
+                request()->session()->flash( 'error', 'The use is admin, cannot proceed' );
+                return;
             } else {
-                request()->session()->flash( 'error', 'Failed to delete the user. Please contact the developer.' );
+                $deleteResult = $user->delete() ;
+                if ( $deleteResult ) {
+                    request()->session()->flash( 'success', 'User deleted successfully.' );
+                } else {
+                    request()->session()->flash( 'error', 'Failed to delete the user. Please contact the developer.' );
+                }
             }
         }
 
@@ -243,6 +232,12 @@ class AdminUsersPanel extends Component {
         $this->showDeleteConfirmation = false;
         $rowId = $this->selectedUserId;
         $this->closeRowMenu( $rowId );
+    }
+
+    public $addUserButton = false;
+
+    public function showAddUserBox() {
+        $this->addUserButton = ! $this->addUserButton;
     }
 
     public function render() {
