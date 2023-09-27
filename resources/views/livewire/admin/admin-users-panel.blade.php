@@ -96,7 +96,7 @@
                             value="Clear">
                     </div>
                 </form>
-                <div class="max-h-60 overflow-y-auto">
+                <div class="max-h-60 overflow-y-hidden">
                     <table class="min-w-full">
                         <thead>
                             <tr>
@@ -159,8 +159,9 @@
         </div>
     @endif
     @if ($showDeleteConfirmation)
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm">
-            <section class="h-fit w-fit rounded-lg bg-white p-6 drop-shadow-xl">
+        <div
+            class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-gray-300 bg-opacity-25 backdrop-blur-sm">
+            <section class="mt-[10rem] h-fit w-fit rounded-lg bg-white p-6 drop-shadow-xl">
                 <h2>Are you sure you want to delete this user?</h2>
                 <div class="flex w-full items-center justify-center">
                     <img class="h-14 rounded-full" src="{{ asset('assets/default_profile.png') }}" alt="DP">
@@ -182,20 +183,23 @@
     @if (!$addUserButton)
         <div class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm">
             <section
-                class="{{ $completeInfo == false ? 'w-fit' : 'lg:w-[25rem]' }} mt-[5rem] h-fit rounded-lg bg-white p-2 drop-shadow-xl">
+                class="{{ $completeInfo ? 'w-fit' : 'lg:w-[25rem]' }} mt-[5rem] h-fit rounded-lg bg-white p-2 drop-shadow-xl">
                 <div class="relative flex items-center justify-center">
-                    <h2>Add new users</h2>
-                    <svg wire:click='showAddUserBox' class="absolute right-0 top-1 h-4 cursor-pointer text-red-500"
-                        fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <h2 class="text-sm font-semibold text-gray-800 md:text-lg">Add new user</h2>
+                    <svg wire:click='showAddUserBox'
+                        class="absolute right-0 top-1 h-4 cursor-pointer text-red-500 md:h-6" fill="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM8.693 7.808a.626.626 0 1 0-.885.885L11.116 12l-3.308 3.307a.626.626 0 1 0 .885.885L12 12.884l3.307 3.308a.627.627 0 0 0 .885-.885L12.884 12l3.308-3.307a.627.627 0 0 0-.885-.885L12 11.116 8.693 7.808Z">
                         </path>
                     </svg>
                 </div>
-                <form action="">
-                    <div class="">
-                        <label for="userLevel">User level:</label>
-                        <select wire:model.live='userLevel' name="" id="">
+                <form wire:submit.prevent='addNewUser'>
+                    <div class="px-2">
+                        <x-label-input for='useLevel'>User level:</x-label-input>
+                        <select wire:model.live='userLevel'
+                            class="block h-9 w-full rounded-md border border-gray-300 bg-white px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            id="userLevel">
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                             <option value="superAdmin">Super admin</option>
@@ -204,51 +208,52 @@
                     <div>
                         @if ($userLevel == 'user')
                             <div class="flex flex-col gap-2 md:flex-row">
-                                <div class="w-full">
-                                    <div class="flex flex-col">
-                                        <label class="font-medium" for="username">Username</label>
-                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                            type="text" name="username" id="username" placeholder="ezname902"
-                                            value="{{ old('username') }}">
-                                        @error('username')
+                                <div class="w-full p-2">
+                                    <div class="flex flex-col gap-1">
+                                        <x-label-input for='username'>Username</x-label-input>
+                                        <x-input-field id="username" wire:model.live='usernameInput'
+                                            type='text' />
+                                        @error('usernameInput')
                                             <span class="w-full text-xs text-red-700">
                                                 {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="flex flex-col">
-                                        <label class="font-medium" for="email">Email</label>
-                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                            type="email" name="email" id="email"
-                                            placeholder="user@psu.edu.ph" value="{{ old('email') }}">
-                                        @error('email')
+                                    <div class="mt-2 flex flex-col gap-1">
+                                        <x-label-input for='emailInp'>Email</x-label-input>
+                                        <x-input-field id="emailInp" type='email' wire:model.live='emailInput' />
+                                        @error('emailInput')
                                             <span class="w-full text-xs text-red-700">
                                                 {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="flex flex-col">
-                                        <label class="font-medium" for="password">Password</label>
-                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                            type="password" name="password" id="password">
+                                    <div class="mt-2 flex flex-col gap-1">
+                                        <x-label-input for='password'>Password</x-label-input>
+                                        <x-input-field id="password" type='password' wire:model.live='password'
+                                            name='password' />
                                         @error('password')
                                             <span class="w-full text-xs text-red-700">
                                                 {{ $message }}
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="flex flex-col">
-                                        <label class="font-medium" for="password_confirmation">Confirm
-                                            Password</label>
-                                        <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                            type="password" name="password_confirmation" id="password_confirmation">
+                                    <div class="mt-2 flex flex-col gap-1">
+                                        <x-label-input for='password_confirmation'>Confirm password</x-label-input>
+                                        <x-input-field id="password_confirmation" type='password'
+                                            wire:model.live='password_confirmation' />
+                                        @error('password_confirmation')
+                                            <span class="w-full text-xs text-red-700">
+                                                {{ $message }}
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <div class="flex flex-col">
-                                        <label class="font-medium" for="confirm_password">Account role</label>
-                                        <select name="role_id" id="account-role"
-                                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                            <option value="student">Student</option>
-                                            <option value="faculty">Faculty Member</option>
+                                    <div class="mt-2 flex flex-col gap-1">
+                                        <x-label-input for='accRole'>Account role</x-label-input>
+                                        <select wire:model.live='accRole' id="account-role"
+                                            class="block h-9 w-full rounded-md border border-gray-300 bg-white px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                            <option value="1">Student</option>
+                                            <option value="2">Faculty Member</option>
                                         </select>
                                         @error('role_id')
                                             <span class="w-full text-xs text-red-700">
@@ -256,101 +261,96 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div>
-                                        <label for="completeInfo">Complete user information</label>
+                                    <div class="mt-2">
+                                        <x-label-input for='completeInfo'>Complete user information </x-label-input>
                                         <input type="checkbox" wire:model.live='completeInfo' id="completeInfo">
                                     </div>
                                     @if (!$completeInfo)
-                                        <input
-                                            class="cursor-pointer rounded-md bg-blue-950 p-2 font-medium text-white duration-200 hover:bg-blue-800"
-                                            type="submit" value="Create">
+                                        <div class="flex w-full items-center justify-end">
+                                            <input
+                                                class="cursor-pointer rounded-md bg-blue-950 p-2 font-medium text-white duration-200 hover:bg-blue-800"
+                                                type="submit" value="Create">
+                                        </div>
                                     @endif
                                 </div>
-                                {{-- @if ($completeInfo) --}}
-                                <div class="flex w-full flex-col">
-                                    <div class="">
-                                        <div class="flex flex-col">
-                                            <div class="flex flex-row gap-2">
-                                                <div>
-                                                    <label class="font-medium" for="email">First Name</label>
-                                                    <input
-                                                        class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                                        type="text" name="email" id="email">
-                                                    @error('email')
-                                                        <span class="w-full text-xs text-red-700">
-                                                            {{ $message }}
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                                <div>
-                                                    <label class="font-medium" for="email">Last Name</label>
-                                                    <input
-                                                        class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                                        type="text" name="email" id="email">
-                                                    @error('email')
-                                                        <span class="w-full text-xs text-red-700">
-                                                            {{ $message }}
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="flex w-full flex-col">
-                                                <label class="font-medium" for="email">Phone number</label>
-                                                <input
-                                                    class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                                    type="text" name="email" id="email">
-                                                @error('email')
+                                @if ($completeInfo)
+                                    <div class="flex w-full flex-col p-2">
+                                        <div class="flex flex-row gap-2">
+                                            <div class="flex flex-col gap-1">
+                                                <x-label-input for='firstName'>First name</x-label-input>
+                                                <x-input-field id="firstName" wire:model.live='fnameInput'
+                                                    type='text' />
+                                                @error('fnameInput')
                                                     <span class="w-full text-xs text-red-700">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <label for="accountRole">Account Role:
-                                                <select wire:model.live='accountRole' name="" id="">
-                                                    <option value="student">Student</option>
-                                                    <option value="facultyMember">Faculty Member</option>
-                                                </select>
-                                            </label>
-                                            <div class="flex flex-col gap-2">
-                                                <label class="font-medium" for="email">Student ID</label>
-                                                <input
-                                                    class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                                    type="text" name="email" id="email">
-                                                @error('email')
-                                                    <span class="w-full text-xs text-red-700">
-                                                        {{ $message }}
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="flex w-full flex-col gap-2">
-                                                <label class="font-medium" for="email">Bachelor Degree</label>
-                                                <input
-                                                    class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                                    type="text" name="email" id="email">
-                                                @error('email')
-                                                    <span class="w-full text-xs text-red-700">
-                                                        {{ $message }}
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="flex flex-col">
-                                                <label class="font-medium" for="email">Address</label>
-                                                <input
-                                                    class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                                    type="text" name="email" id="email">
-                                                @error('email')
+                                            <div class="flex flex-col gap-1">
+                                                <x-label-input for='lastName'>Last name</x-label-input>
+                                                <x-input-field id="lastName" wire:model.live='lnameInput'
+                                                    type='text' />
+                                                @error('lnameInput')
                                                     <span class="w-full text-xs text-red-700">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="mt-2 flex w-full flex-col gap-1">
+                                            <x-label-input for='phoneNumber'>Phone number</x-label-input>
+                                            <x-input-field id="phoneNumber" wire:model.live='phoneNum'
+                                                type='text' />
+                                            @error('phoneNum')
+                                                <span class="w-full text-xs text-red-700">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2 flex flex-col gap-1">
+                                            <x-label-input
+                                                for='id-user'>{{ $accRole == '1' ? 'Student' : 'Faculty' }}
+                                                ID</x-label-input>
+                                            <x-input-field id="id-user" wire:model.live='idNumber'
+                                                type='text' />
+                                            @error('idNumber')
+                                                <span class="w-full text-xs text-red-700">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2 flex w-full flex-col gap-1">
+                                            <x-label-input for='degreeCourse'>Bachelor Degree</x-label-input>
+                                            <select wire:model.live='degreeName'
+                                                class="block h-9 w-full rounded-md border border-gray-300 bg-white px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                id="userLevel">
+                                                <option selected value="a">Select degree course</option>
+                                                @foreach ($degreeLists as $degreeListsItem)
+                                                    <option class="w-full" value="{{ $degreeListsItem->id }}">
+                                                        {{ $degreeListsItem->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('degreeName')
+                                                <span class="w-full text-xs text-red-700">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2 flex flex-col gap-1">
+                                            <x-label-input for='address'>Address</x-label-input>
+                                            <x-input-field id="address" wire:model.live='addressInput' type='text' />
+                                            @error('addressInput')
+                                                <span class="w-full text-xs text-red-700">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mt-2 flex w-full items-center justify-end">
+                                            <x-submit-button type='submit' value='Create' class="" />
+                                        </div>
                                     </div>
-                                    <input
-                                        class="w-fit cursor-pointer rounded-md bg-blue-950 p-2 font-medium text-white duration-200 hover:bg-blue-800"
-                                        type="submit" value="Create">
-                                </div>
-                                {{-- @endif --}}
+                                @endif
                             </div>
                         @elseif ($userLevel == 'admin')
                             <div>
@@ -428,7 +428,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="h-[33rem] max-h-[33rem] font-medium text-gray-600">
+                        <tbody class="font-medium text-gray-600">
                             @foreach ($currentListData as $currentListDataValue)
                                 {{-- <livewire:components.user-table-rows :currentListDataValue="$currentListDataValue" :key="$currentListDataValue->id" /> --}}
                                 <tr class="">

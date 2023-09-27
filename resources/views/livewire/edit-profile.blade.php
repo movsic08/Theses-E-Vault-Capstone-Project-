@@ -683,7 +683,9 @@
                                             fill="#C7C7C7" />
                                     </svg>
                                 </div>
-                                <p>Account information is incomplete, fill out the needed information and verify account
+                                <p>Account information is incomplete, fill out the needed information <a
+                                        href="{{ route('edit-profile', 'tab1') }}" wire:navigate
+                                        class="font-bold text-primary-color underline">here</a> and verify account
                                     to upload files.</p>
                             </div>
                         @else

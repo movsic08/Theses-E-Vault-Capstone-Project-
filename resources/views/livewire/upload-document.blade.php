@@ -27,12 +27,12 @@
     @if ($showUploadPdfBox)
         <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm"
             x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true; progress = 0"
-            x-on:livewire-upload-finish="uploading = false; progress = 0"
+            x-on:livewire-upload-finish="uploading = false; $wire.set('uploaded', true)"
             x-on:livewire-upload-error="uploading = false; progress = 0"
             x-on:livewire-upload-progress="progress = $event.detail.progress">
             <div class="mx-3 w-5/6 rounded-xl bg-white text-center text-gray-600 drop-shadow-lg md:w-3/6 lg:w-5/12">
                 <div class="relative rounded-t-xl bg-primary-color px-10 py-3 font-semibold text-white">
-                    <svg wire:click='uploadPdfFileBox' class="absolute right-6 top-4 h-8 text-red-500"
+                    <svg wire:click='uploadPdfFileBox' class="absolute right-6 top-3 h-8 text-red-500"
                         fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM8.693 7.808a.626.626 0 1 0-.885.885L11.116 12l-3.308 3.307a.626.626 0 1 0 .885.885L12 12.884l3.307 3.308a.627.627 0 0 0 .885-.885L12.884 12l3.308-3.307a.627.627 0 0 0-.885-.885L12 11.116 8.693 7.808Z">
@@ -53,15 +53,16 @@
                         @enderror
                     </div>
                     <div x-show="uploading" x-cloak>
-                        <div class="h-2 overflow-hidden rounded-full bg-gray-200">
-                            <div class="h-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500"
-                                :style="'width: ' + progress + '%'"></div>
+                        <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                            <div class="h-2.5 rounded-full bg-blue-600" :style="'width: ' + progress + '%'"></div>
                         </div>
                         <div class="mt-2" x-cloak>Uploading...</div>
                     </div>
-                    <div x-show="!uploading && progress === 100">
-                        Upload complete!
-                    </div>
+                    @if ($uploaded)
+                        <div class="font-medium text-primary-color">
+                            File upload completed!
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

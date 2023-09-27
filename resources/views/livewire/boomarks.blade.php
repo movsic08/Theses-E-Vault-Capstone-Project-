@@ -76,12 +76,26 @@
                             </svg>
                         </a>
                     </div>
-                    <a wire:navigate href="{{ route('view-document', ['reference' => $bookmarkedItem->reference]) }}"
-                        class="font-semibold text-primary-color">{{ $documentLists->title }}</a>
+                    @if ($docuPost)
+                        <a wire:navigate
+                            href="{{ route('view-document', ['reference' => $bookmarkedItem->reference]) }}"
+                            class="font-semibold text-primary-color">{{ $docuPost->title }}</a>
+                    @else
+                        <span class="text-red-500">Document is deleted, try contacting administrator.</span>
+                    @endif
                 </div>
             @endforeach
         </section>
     @endif
+    <svg id="visual" viewBox="0 0 900 600" width="900" height="600" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+        <path
+            d="M0 37L10 42C20 47 40 57 60 63C80 69 100 71 120 68C140 65 160 57 180 56C200 55 220 61 240 66C260 71 280 75 300 73C320 71 340 63 360 64C380 65 400 75 420 79C440 83 460 81 480 73C500 65 520 51 540 48C560 45 580 53 600 57C620 61 640 61 660 59C680 57 700 53 720 55C740 57 760 65 780 62C800 59 820 45 840 42C860 39 880 47 890 51L900 55L900 0L890 0C880 0 860 0 840 0C820 0 800 0 780 0C760 0 740 0 720 0C700 0 680 0 660 0C640 0 620 0 600 0C580 0 560 0 540 0C520 0 500 0 480 0C460 0 440 0 420 0C400 0 380 0 360 0C340 0 320 0 300 0C280 0 260 0 240 0C220 0 200 0 180 0C160 0 140 0 120 0C100 0 80 0 60 0C40 0 20 0 10 0L0 0Z"
+            fill="#6198ff">
+            <animate attributeName="transform" attributeType="XML" type="translate" from="0 0" to="900 0"
+                begin="0s" dur="5s" repeatCount="indefinite" />
+        </path>
+    </svg>
 
 </div>
 </div>

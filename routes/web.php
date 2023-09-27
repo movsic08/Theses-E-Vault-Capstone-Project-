@@ -64,6 +64,10 @@ Route::middleware(['auth', 'user'])->group(function () {
 
 });
 
+Route::get('/pdf-viewer', function(){
+    return view('pdf');
+});
+
 
 
 //no account needed

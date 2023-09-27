@@ -86,7 +86,7 @@
             <div class="custom-scrollbar overflow-x-auto">
                 <div class="max-h-[35rem]">
                     <table class="min-w-full">
-                        <thead class="sticky top-0 bg-white bg-opacity-25 backdrop-blur">
+                        <thead class="sticky top-0 bg-white bg-opacity-50 backdrop-blur">
                             <tr>
                                 <th class="px-6 py-2 text-left font-bold text-gray-700">
                                     Title
@@ -195,7 +195,7 @@
 
                     </table>
                     <div
-                        class="sticky bottom-0 right-0 flex w-full items-center justify-center bg-white bg-opacity-25 backdrop-blur">
+                        class="sticky bottom-0 right-0 flex w-full items-center justify-center bg-white bg-opacity-50 backdrop-blur">
                         {{ $listOfDocuPost->links() }}
                     </div>
                 </div>

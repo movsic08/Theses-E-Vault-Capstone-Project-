@@ -33,8 +33,8 @@ class UserController extends Controller {
         }
 
         $user = User::create( $validated );
-        event( new NewUserCreated( $user ) );
         auth()->login( $user );
+        // $this->dispatch( 'user-created', $user );
         return redirect()->route( 'index' )->with( 'message', 'Creating new account success, finish setup you account' );
     }
 
