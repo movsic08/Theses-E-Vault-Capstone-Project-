@@ -5,11 +5,18 @@ namespace App\Livewire\Admin;
 use App\Models\BachelorDegree;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
+// #[ Lazy ]
+
 class AdminUsersPanel extends Component {
+
+    public function placeholder() {
+        return view( 'livewire.placeholder.admin-users-skeleton' )->layout( 'layout.admin' );
+    }
 
     public $currentListData, $currentQuery, $degreeLists;
 
@@ -36,6 +43,7 @@ class AdminUsersPanel extends Component {
         $this->currentQuery = $query;
         $this->loadUserList( $query );
     }
+    public $defaultData = null;
 
     private function loadUserList( $query ) {
         switch ( $query ) {
@@ -312,6 +320,18 @@ class AdminUsersPanel extends Component {
         'degreeName.integer' => 'Please select their degree course',
     ] ;
 
+    public function resetFields() {
+        $this->usernameInput = null;
+        $this->emailInput = null;
+        $this->password = null;
+        $this->password_confirmation = null;
+        $this->fnameInput = null;
+        $this->lnameInput = null;
+        $this->phoneNum = null;
+        $this->idNumber = null;
+        $this->addressInput = null;
+    }
+
     public function addNewUser() {
         // dd( $this->accRole );
         // dd( $this->currentQuery );
@@ -322,6 +342,7 @@ class AdminUsersPanel extends Component {
                 'email' => $validatedData[ 'emailInput' ],
                 'password' =>Hash::make( $validatedData[ 'password' ] ),
                 'role_id' => $validatedData[ 'accRole' ],
+                'is_admin' => ( $this->userLevel == 'admin' ) ? true : false,
             ] );
             if ( $userCreateCheck ) {
                 session()->flash( 'success', 'Create success!' );
@@ -346,6 +367,7 @@ class AdminUsersPanel extends Component {
                 'address' => $validateDateCompleteInfo[ 'addressInput' ],
                 'student_id' => ( $this->accRole == 1 ) ? $validateDateCompleteInfo[ 'idNumber' ] : null,
                 'staff_id' => ( $this->accRole == 2 ) ? $validateDateCompleteInfo[ 'idNumber' ] : null,
+                'is_verified' => ( $this->userLevel == 'admin' ) ? true : false,
             ] );
             if ( $userCreateCheck ) {
                 session()->flash( 'success', 'created' );
@@ -354,6 +376,8 @@ class AdminUsersPanel extends Component {
                 session()->flash( 'invalid', 'Creatinon failed' );
             }
         }
+        $this->resetFields();
+        $this->addUserButton = false;
 
         // $datatest =  $this->validate( $this->userRule1 );
         // dd( $datatest );
@@ -369,5 +393,11 @@ class AdminUsersPanel extends Component {
         $this->degreeLists = BachelorDegree::latest()
         ->get();
         return view( 'livewire.admin.admin-users-panel' )->layout( 'layout.admin' );
+    }
+
+    public function loadUserDataList() {
+        // sleep( 3 );
+        $this->defaultData = 2;
+
     }
 }

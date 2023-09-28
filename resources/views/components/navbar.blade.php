@@ -2,16 +2,25 @@
     <div class="container text-base font-semibold text-blue-950">
         <div class="flex w-full items-center justify-between md:p-2">
             @php
-                $currentHour = now()->format('g');
+                $timezone = request()->header('timezone');
+                
+                if (!empty($timezone)) {
+                    config(['app.timezone' => $timezone]);
+                }
+                
+                $currentHour = now()
+                    ->setTimezone(config('app.timezone'))
+                    ->format('g');
                 
                 if ($currentHour >= 5 && $currentHour < 12) {
-                    $greeting = 'afternoon';
+                    $greeting = 'morning';
                 } elseif ($currentHour >= 12 && $currentHour < 18) {
                     $greeting = 'evening';
                 } else {
-                    $greeting = 'morning';
+                    $greeting = 'afternoon';
                 }
             @endphp
+
             <h1 class="">Good {{ $greeting }},
                 @auth
                     @if (empty(auth()->user()->first_name))
