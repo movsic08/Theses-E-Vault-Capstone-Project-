@@ -46,6 +46,20 @@ class DocuPostPanel extends Component {
     public $search, $docuTypeQuery, $listOfDucoPost, $documentTypes ;
     public $selectedDocumentType = 'All';
 
+    public $showViewDocuPostBox = false;
+
+    public function toggleViewDocuBox() {
+        $this->showViewDocuPostBox = ! $this->showViewDocuPostBox;
+        $this->selectedIdToView = null;
+    }
+
+    public $dataItem;
+
+    public function viewDocuPost( $id ) {
+        $this->showViewDocuPostBox = true;
+        $this->dataItem = DocuPost::find( $id );
+    }
+
     public function render() {
 
         $listOfDocuPost = DocuPost::latest();
@@ -61,17 +75,5 @@ class DocuPostPanel extends Component {
         ->with( compact( 'listOfDocuPost' ) )
         ->layout( 'layout.admin' );
     }
-
-    // public function render() {
-
-    //     // $listOfDucoPost = DocuPost::latest()
-    //     // // ->where( 'title', 'like', '%' . $this->search . '%' )
-    //     // // ->orWhere( 'document_type', 'like', '%' . $this->docuTypeQuery . '%' )
-    //     // ->paginate( $this->paginateCount );
-
-    //     // return view( 'livewire.admin.docu-post-panel' )
-    //     // ->with( compact( 'listOfDucoPost' ) )
-    //     // ->layout( 'layout.admin' );
-    // }
 
 }

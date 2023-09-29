@@ -1,8 +1,7 @@
 <div class="mb-10">
-    {{-- @php
-        dd($parameter);
-        $data->user_id;
-    @endphp --}}
+
+
+
     <x-session_flash />
     <div class="container w-full">
         <div class="my-2 flex w-full items-center justify-between">
