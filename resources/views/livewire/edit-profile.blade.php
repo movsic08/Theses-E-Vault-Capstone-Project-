@@ -102,7 +102,10 @@
                             class="w-full rounded-md bg-gray-600 p-1 text-white duration-200 ease-in hover:bg-gray-700">
                             Cancel
                         </button>
-                        <button wire:click="deletemyAccount" id="confirmBTN"
+                        <button
+                            @if ($confirmationInput !== 'DELETE') @else
+                         wire:click="deletemyAccount" @endif
+                            id="confirmBTN"
                             class="{{ $confirmationInput === 'DELETE' ? 'bg-red-700 hover:bg-red-900' : 'bg-red-400' }} w-full rounded-md p-1 text-white"
                             @if ($confirmationInput !== 'DELETE' || !$confirmationInput) disabled @endif>
                             Yes, Delete it

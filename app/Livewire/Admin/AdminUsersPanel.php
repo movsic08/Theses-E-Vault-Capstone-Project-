@@ -383,11 +383,9 @@ class AdminUsersPanel extends Component {
         // dd( $datatest );
     }
 
-    #[ On( 'user-created' ) ]
-
-    public function updateLists( $user = null ) {
-
-    }
+    // #[ On( 'user-created' ) ]
+    // public function updateLists( $user = null ) {
+    // }
 
     public function render() {
         $this->degreeLists = BachelorDegree::latest()
@@ -398,6 +396,5 @@ class AdminUsersPanel extends Component {
     public function loadUserDataList() {
         // sleep( 3 );
         $this->defaultData = 2;
-
     }
 }

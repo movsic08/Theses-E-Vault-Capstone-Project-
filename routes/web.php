@@ -11,6 +11,7 @@ use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\DocuPostPanel;
 use App\Livewire\Boomarks;
 use App\Livewire\DocuSearchResult;
+use App\Livewire\Home;
 use App\Livewire\ProfileEditTab;
 use App\Livewire\EditProfile;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
@@ -73,6 +74,7 @@ Route::get('/pdf-viewer', function(){
 //no account needed
 // Route::middleware(['user', 'guest'])->group( function (){
     Route::get('/home', [HomeController::class, 'show'])->name('home');
+    Route::get('/home-component', Home::class)->name('home-component');
     Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('view-document');
     Route::get('/search',  [SearchController::class, 'viewBasicSearch'])->name('user-search');
     Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');

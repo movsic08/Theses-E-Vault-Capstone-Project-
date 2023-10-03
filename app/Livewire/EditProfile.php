@@ -86,7 +86,7 @@ class EditProfile extends Component {
         $this->validate( [
             'first_name' => [ 'required', 'min:2' ],
             'last_name' => [ 'required', 'min:2' ],
-            'phone_no' => [ 'required', 'min:11', 'max:11', 'regex:/^09\d{9}$/' ],
+            'phone_no' => [ 'required', 'min:11', 'max:11', 'regex:/^09\d{9}$/', 'unique:users,phone_no' ],
             'student_id' => [ 'required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/' ],
             'username' => [ 'required', 'min:2' ],
             'address' => [ 'required', 'min:5' ],

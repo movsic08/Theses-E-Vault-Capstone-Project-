@@ -52,7 +52,7 @@
     </style>
 </head>
 
-<body class="gradient-bg-light custom-scrollbar m-0 flex p-0 font-poppins dark:bg-primary-color">
+<body class="gradient-bg-light custom-scrollbar m-0 flex scroll-smooth p-0 font-poppins dark:bg-primary-color">
     {{-- sidebar --}}
     <x-sidebar />
 
