@@ -180,7 +180,7 @@
                     <div class="rounded-t-lg py-2 text-center">
                         <strong>Latest research works</strong>
                     </div>
-                    <div class="custom-scrollbar h-full overflow-y-auto py-2 md:h-[15rem] lg:h-[18rem]">
+                    <div class="h-full py-2 md:h-[15rem] lg:h-[18rem]">
                         <div class="flex h-full flex-col gap-2">
                             @if ($latestDocuPostData == null || count($latestDocuPostData) === 0)
                                 <section
@@ -208,15 +208,17 @@
                                     </div>
                                 </section>
                             @else
-                                @foreach ($latestDocuPostData as $itemLatest)
-                                    <div class="px-2">
-                                        <a href=""
-                                            class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
-                                        <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
-                                            class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
-                                        </a>
-                                    </div>
-                                @endforeach
+                                <div class="custom-scrollbar h-full overflow-y-auto">
+                                    @foreach ($latestDocuPostData as $itemLatest)
+                                        <div class="px-2">
+                                            <a href=""
+                                                class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
+                                            <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
+                                                class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
                             @endif
                         </div>
                     </div>

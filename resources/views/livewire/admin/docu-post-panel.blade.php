@@ -262,7 +262,7 @@
                 class="rounded-lg bg-primary-color p-2 text-sm font-bold text-white">Add new document</a>
         </div>
         <div class="mb-8 rounded-2xl bg-white px-5 py-2 drop-shadow-md">
-            <div class="mb-2 flex w-full flex-col items-center justify-between md:flex-row">
+            <div class="mb-2 flex w-full flex-col items-center justify-between py-2 md:flex-row">
                 <div>
                     <label for="default-search"
                         class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">Search</label>

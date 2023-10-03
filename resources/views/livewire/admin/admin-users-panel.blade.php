@@ -366,7 +366,7 @@
     <div class="px-4">
         <h1 class="font-black text-primary-color">Accounts</h1>
         <section class="">
-            <div class="my-2 flex justify-between">
+            <div class="my-2 flex flex-col justify-between gap-2 md:flex-row">
                 <div class="flex gap-6 text-xs text-primary-color lg:text-base">
                     <button wire:click='switchToAllUsersData'
                         class="{{ $currentQuery == 'allUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">All
@@ -387,10 +387,10 @@
                 </div>
             </div>
             <div class="mb-8 rounded-2xl bg-white px-5 py-2 drop-shadow-md">
-                <div class="flex w-full items-center justify-between">
+                <div class="flex w-full items-center justify-between py-2">
                     <div class="flex items-center">
                         <x-label-input class="mr-2">Items</x-label-input>
-                        <select id="countpage" wire:model.live='paginateCount'
+                        <select id="countpage"
                             class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -399,6 +399,43 @@
                             <option value="40">40</option>
                             <option value="50">50</option>
                         </select>
+                    </div>
+                    <div class="flex items-center">
+                        <x-label-input class="mr-2">Role</x-label-input>
+                        <select id="countpage"
+                            class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                            <option selected value="all">All</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                            <option value="super-admin">Super admin</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <x-label-input class="mr-2">Program</x-label-input>
+                        <select id="countpage"
+                            class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                            <option selected value="all">All</option>
+                            <option value="faculty">Faculty</option>
+                            @foreach ($degreeLists as $degreeListsItem)
+                                <option value="{{ $degreeListsItem->id }}">{{ $degreeListsItem->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <x-label-input class="mr-2">Date</x-label-input>
+                        <div class="relative max-w-sm">
+                            <label for="datePicker"
+                                class="absolute inset-y-0 left-0 flex cursor-pointer items-center pl-3.5">
+                                <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                </svg>
+                            </label>
+                            <input id="datePicker" type="date"
+                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                placeholder="Select date">
+                        </div>
                     </div>
                 </div>
                 <div class="custom-scrollbar overflow-x-auto">
@@ -451,25 +488,27 @@
                                                             : asset('assets/default_profile.png') }}"
                                                         alt="profile" srcset="">
                                                     @if (!empty($currentListDataValue->first_name) && !empty($currentListDataValue->last_name))
-                                                        <span>
+                                                        <span class="text-sm md:text-base">
                                                             {{ $currentListDataValue->first_name }}
                                                             {{ $currentListDataValue->last_name }}
                                                         </span>
                                                     @else
-                                                        <span class="text-red-600"><strong>No Info</strong></span>
+                                                        <span class="text-sm text-red-600 md:text-base"><strong>No
+                                                                Info</strong></span>
                                                     @endif
                                                 </div>
                                             </td>
                                             <td class="whitespace-nowrap px-2 py-3">
                                                 @if (!empty($currentListDataValue->student_id))
-                                                    <span>
+                                                    <span class="text-sm md:text-base">
                                                         {{ $currentListDataValue->student_id }}
                                                     </span>
                                                 @else
-                                                    <span class="text-red-600"><strong>No Info</strong></span>
+                                                    <span class="text-sm text-red-600 md:text-base"><strong>No
+                                                            Info</strong></span>
                                                 @endif
                                             </td>
-                                            <td class="whitespace-normal px-2 py-3">
+                                            <td class="whitespace-normal px-2 py-3 text-sm md:text-base">
                                                 @if ($currentListDataValue->is_admin == 1)
                                                     <span>Admin</span>
                                                 @else
@@ -480,7 +519,7 @@
                                                     @endif
                                                 @endif
                                             </td>
-                                            <td class="whitespace-normal px-2 py-3">
+                                            <td class="whitespace-normal px-2 py-3 text-sm md:text-base">
                                                 @php
                                                     $bachelorDegree = \App\Models\BachelorDegree::find($currentListDataValue->bachelor_degree);
                                                 @endphp
@@ -498,11 +537,11 @@
                                                     @endif
                                                 @endif
                                             </td>
-                                            <td class="whitespace-normal px-2 py-3">
+                                            <td class="whitespace-normal px-2 py-3 text-sm md:text-base">
                                                 {{ \Carbon\Carbon::parse($currentListDataValue->created_at)->format('M d Y') }}
                                             </td>
                                             <td class="w-fit text-center">
-                                                <div class="flex w-full items-center uppercase">
+                                                <div class="flex w-full items-center text-sm uppercase md:text-base">
                                                     @if ($currentListDataValue->is_verified == 0)
                                                         <div
                                                             class="flex w-full flex-row items-center gap-2 rounded-lg bg-yellow-700 px-2 py-1 pl-4 text-white">
@@ -527,7 +566,7 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td class="relative whitespace-normal px-2 py-3">
+                                            <td class="relative whitespace-normal px-2 py-3 text-sm md:text-base">
                                                 @if ($rowMenuStates[$currentListDataValue->id] ?? false)
                                                     <div
                                                         class="absolute -left-[4.7rem] bottom-[0.4rem] space-y-1 rounded-lg border border-gray-300 bg-white bg-opacity-70 p-2 font-semibold text-primary-color drop-shadow-md backdrop-blur-sm">
