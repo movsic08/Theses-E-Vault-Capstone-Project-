@@ -14,15 +14,18 @@ class DocuPostPanel extends Component {
     }
 
     public $showDeleteConfirmation = false;
-    public $selectedPostId;
+    public $selectedPostId, $selectedPostIdTtitle;
 
     public function showboxDelete( $docuId ) {
         $this->selectedPostId = $docuId;
         $this->showDeleteConfirmation = ! $this->showDeleteConfirmation;
+        $itemSelected_data = DocuPost::find( $docuId );
+        $this->selectedPostIdTtitle = $itemSelected_data->title;
     }
 
     public function deleteDocuPost() {
         $is_deleted = DocuPost::find( $this->selectedPostId )->delete();
+
         if ( $is_deleted ) {
             request()->session()->flash( 'success', 'Document deleted successfully.' );
         } else {

@@ -63,13 +63,10 @@
                             <div class="relative flex flex-col">
                                 <div class="">
                                     <div class="mr-6 flex">
-                                        <h2 class="text-[1rem] font-medium text-primary-color">Lorem, ipsum dolor sit
-                                            amet consectetur
-                                            adipisicing
-                                            elit. Aspernatur,
-                                            distinctio
-                                            dolore,
-                                            voluptates eius porro delectus sint non,</h2>
+                                        <a href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
+                                            target="_blank" class="text-[1rem] font-medium text-primary-color">
+                                            {{ $docuData->title }}
+                                        </a>
                                     </div>
                                     <svg class="absolute right-0 top-2 max-h-[1.3rem] min-h-[1.3rem] min-w-[1.3rem] max-w-[1.3rem] cursor-pointer"
                                         wire:click='boomarkItem({{ $docuData->id }})' xmlns="http://www.w3.org/2000/svg"

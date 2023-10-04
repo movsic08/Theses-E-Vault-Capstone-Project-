@@ -16,7 +16,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: white;
+  /* background: ; */
   /* color of the tracking area */
 }
 

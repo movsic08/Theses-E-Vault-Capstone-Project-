@@ -8,12 +8,12 @@
                 class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg md:w-3/5 lg:w-4/12">
                 <h2><strong>Are you sure you want to delete your uploaded document?</strong></h2>
                 <form action="" wire:submit="deleteDocuPostYes">
-                    {{ $selectedPostId }}
-                    <div class="flex w-full flex-col items-center justify-center gap-2 md:flex-row">
+                    <span class="px-2 py-2 text-sm">{{ $selectedPostIdTtitle }}</span>
+                    <div class="mt-2 flex w-full flex-col items-center justify-center gap-2 md:flex-row">
                         <div class="w-full cursor-pointer rounded-md border border-red-700 bg-white p-2 text-center duration-200 hover:bg-red-100"
                             wire:click="showboxDelete({{ $selectedPostId }})">Close</div>
                         <div wire:click='deleteDocuPost'
-                            class="w-full rounded-md bg-red-700 p-2 text-white duration-300 ease-in-out hover:bg-red-900">
+                            class="w-full cursor-pointer rounded-md bg-red-700 p-2 text-white duration-300 ease-in-out hover:bg-red-900">
                             Yes</div>
                     </div>
                 </form>

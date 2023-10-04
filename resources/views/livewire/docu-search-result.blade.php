@@ -38,7 +38,7 @@
                 <h2>LOADING>>></h2>
             </div>
             {{-- data result box  --}}
-            <section class="w-full" wire:loading.remove>
+            <section class="w-full" wire:loading.remove wire:target='searchNewDocu'>
                 @if (!$results->isEmpty())
                     <div class="flex w-full flex-col gap-3">
                         @foreach ($results as $resultsItem)
