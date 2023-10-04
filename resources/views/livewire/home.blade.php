@@ -46,7 +46,7 @@
                     </div>
                 </section>
             @endif
-            <div class="md:container">
+            <div class="lg:container">
                 <div class="mt-2 space-y-6">
 
                     @foreach ($docuPostData as $docuData)
@@ -166,6 +166,9 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="mb-4 flex h-fit w-full items-center justify-center whitespace-nowrap pb-2">
+                        {{ $docuPostData->links() }}
+                    </div>
                 </div>
             </div>
 
@@ -224,7 +227,7 @@
                     <div class="py-2 text-center">
                         <strong>Latest Posts</strong>
                     </div>
-                    <div class="custom-scrollbar h-full overflow-y-auto py-2 md:h-[15rem] lg:h-[18rem]">
+                    <div class="custom-scrollbar mb-2 h-full overflow-y-auto py-2 md:h-[15rem] lg:h-[18rem]">
                         <div class="flex h-full flex-col gap-2">
                             @if ($latestDocuPostData == null)
                                 <section

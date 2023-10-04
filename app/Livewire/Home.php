@@ -5,9 +5,11 @@ namespace App\Livewire;
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Home extends Component {
-    public  $docuPostData, $bachelorDegree, $latestDocuPostData;
+    use WithPagination;
+    public $bachelorDegree, $latestDocuPostData;
     public $skeletonData = null;
 
     public function boomarkItem( $id ) {
@@ -19,10 +21,12 @@ class Home extends Component {
     }
 
     public function render() {
-        $this->docuPostData = DocuPost::orderBy( 'created_at', 'desc' )->get();
+        $docuPostData = DocuPost::orderBy( 'created_at', 'desc' )->paginate( 10 );
         $this->bachelorDegree = BachelorDegree::all();
         $this->latestDocuPostData = DocuPost::latest()->take( 5 )->get();
-        return view( 'livewire.home' )->layout( 'layout.app' );
+        return view( 'livewire.home', [
+            'docuPostData' => $docuPostData
+        ] )->layout( 'layout.app' );
     }
 
 }

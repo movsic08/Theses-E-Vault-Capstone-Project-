@@ -6,7 +6,7 @@
     <section class="grid grid-cols-5 gap-4 text-primary-color md:container">
         {{-- 1st div (Scrollable) --}}
         <div class="col-span-5 flex flex-col gap-4 lg:col-span-3">
-            <div class="md:container">
+            <div class="lg:container">
                 <div class="mt-2 flex flex-col space-y-6">
                     <div class="flex items-start bg-white p-4 drop-shadow-lg md:rounded-3xl">
                         <div class="mr-2 hidden h-12 w-12 flex-grow md:block">
