@@ -38,7 +38,7 @@ Route::get('/sidebar', function () {
 Route::post('/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
 Route::post('/login/process', [UserController::class, 'loginProcess'])->name('login-process');
-Route::get('/profile/{username?}' , [UserController::class, 'viewUser'])->name('user.profile');
+Route::get('/profile/{username?}' , [UserController::class, 'viewUser'])->name('user-profile');
 
 // only autehnticated user
 Route::middleware(['auth', 'user'])->group(function () {

@@ -140,8 +140,12 @@ class UserController extends Controller {
     }
 
     public function viewUser ( $username ) {
+        // dd( $username );
 
-        $checkedAccount = User::where( 'username', $username )->first();
+        $checkedAccount = User::where( 'username', $username )
+        ->orWhere( 'id', $username )
+        ->first();
+
         if ( $checkedAccount == ! null ) {
             $currentUserId = $checkedAccount->id;
             $fullName = $checkedAccount->first_name. ' '. $checkedAccount->last_name;

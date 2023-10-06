@@ -119,19 +119,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-2 line-clamp-3 text-gray-800 md:line-clamp-4 lg:line-clamp-5">
-                                    This research analysis was conducted to examine the influence of gamified
-                                    loyalty
-                                    programs on customer satisfaction and purchase intention among Shopee users in
-                                    Metro
-                                    Manila, with intrinsic motivation as a moderating variable, and its indirect
-                                    impact
-                                    on customer loyalty. Data was collected from a minimum of 200 respondents
-                                    Manila, with intrinsic motivation as a moderating variable, and its indirect
-                                    impact
-                                    on customer loyalty. Data was collected from a minimum of 200 respondents
-                                    Manila, with intrinsic motivation as a moderating variable, and its indirect
-                                    impact
-                                    on customer loyalty. Data was collected from a minimum of 200 respondents
+                                    {{ $docuData->abstract_or_summary }}
                                 </p>
                                 <div class="mt-2 flex">
                                     <div class="flex flex-wrap gap-1 leading-tight text-gray-800">
@@ -148,10 +136,15 @@
                                                 d="M8.12493 12.5C8.95374 12.5001 9.74865 12.171 10.3348 11.5851C10.9209 10.9991 11.2503 10.2043 11.2505 9.37552C11.2506 8.54672 10.9215 7.75181 10.3355 7.16566C9.74958 6.57951 8.95478 6.25014 8.12598 6.25C7.29717 6.25 6.50232 6.57924 5.91627 7.16529C5.33022 7.75134 5.00098 8.5462 5.00098 9.375C5.00098 10.2038 5.33022 10.9987 5.91627 11.5847C6.50232 12.1708 7.29613 12.5 8.12493 12.5Z"
                                                 fill="" />
                                         </svg>
-                                        <span class="whitespace-nowrap">Elmer Tirao</span>
-                                        <span class="whitespace-nowrap">John Ruiz Melando</span>
-                                        <span class="whitespace-nowrap">Jose Rizal</span>
-                                        <span class="whitespace-nowrap">Martin Fernandez</span>
+                                        <a target="_blank"
+                                            href="{{ route('user-profile', ['username' => $docuData->id]) }}"
+                                            class="mr-2 whitespace-nowrap">{{ $docuData->author_1 }}</a>
+                                        <a target="_blank" href="#" class="mr-2 whitespace-nowrap">
+                                            {{ $docuData->author_2 }} </a>
+                                        <a target="_blank" href="#" class="mr-2 whitespace-nowrap">
+                                            {{ $docuData->author_3 }}</a>
+                                        <a target="_blank" href="#" class="mr-2 whitespace-nowrap">
+                                            {{ $docuData->author_4 }}</a>
                                     </div>
                                 </div>
                                 <div class="mt-2 flex justify-between">
