@@ -138,4 +138,25 @@ class UserController extends Controller {
 
     }
 
+    public function viewUser ( $username ) {
+
+        // dd( $username );
+        $checkedAccount = User::where( 'username', $username )->first();
+        if ( $checkedAccount == ! null ) {
+            $currentUserId = $checkedAccount->id;
+        } else {
+            $currentUserId = '';
+        }
+
+        $fullName = $checkedAccount->first_name. ' '. $checkedAccount->last_name;
+
+        // dd( $fullName );
+        return view( 'user_pages.profile',  [
+            'currentUserId' => $currentUserId,
+            'checkedAccount' => $checkedAccount,
+            'fullName' => $fullName,
+        ] );
+
+    }
+
 }

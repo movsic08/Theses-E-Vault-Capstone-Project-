@@ -42,9 +42,7 @@ Route::post('/login/process', [UserController::class, 'loginProcess'])->name('lo
 // only autehnticated user
 Route::middleware(['auth', 'user'])->group(function () {
 
-    Route::get('/profile', function () {
-        return view('user_pages.profile');
-    })->name('user.profile');
+    Route::get('/profile/{username?}' , [UserController::class, 'viewUser'])->name('user.profile');
     Route::get('/tabtester', ProfileEditTab::class);
 
     Route::get('profile/edit/{activeTab?}',EditProfile::class )->name('edit-profile');

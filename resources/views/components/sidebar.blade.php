@@ -123,8 +123,9 @@
                 </div>
                 {{-- user --}}
                 <div
-                    class="{{ request()->routeIs('user.profile') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a wire:navigate href="{{ route('user.profile') }}" class="flex items-center">
+                    class="{{ request()->routeIs('user.profile') && request()->route('username') === auth()->user()->username ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a wire:navigate href="{{ route('user.profile', ['username' => auth()->user()->username]) }}"
+                        class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
