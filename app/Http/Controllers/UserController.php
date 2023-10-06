@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NewUserCreated;
 use App\Models\BachelorDegree;
+use App\Models\DocuPost;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -140,21 +141,23 @@ class UserController extends Controller {
 
     public function viewUser ( $username ) {
 
-        // dd( $username );
         $checkedAccount = User::where( 'username', $username )->first();
         if ( $checkedAccount == ! null ) {
             $currentUserId = $checkedAccount->id;
+            $fullName = $checkedAccount->first_name. ' '. $checkedAccount->last_name;
         } else {
             $currentUserId = '';
+            $fullName = '';
         }
 
-        $fullName = $checkedAccount->first_name. ' '. $checkedAccount->last_name;
+        $docuPostOfUser  = DocuPost::where( 'user_id', $checkedAccount->id )->get();
 
-        // dd( $fullName );
+        // dd( $docuPostOfUser );
         return view( 'user_pages.profile',  [
             'currentUserId' => $currentUserId,
             'checkedAccount' => $checkedAccount,
             'fullName' => $fullName,
+            'docuPostOfUser' => $docuPostOfUser,
         ] );
 
     }
