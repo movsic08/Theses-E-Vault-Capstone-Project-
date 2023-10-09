@@ -474,7 +474,7 @@
                             </thead>
                             <tbody wire:init='loadUserDataList' class="font-medium text-gray-600">
                                 @if (!is_null($defaultData))
-                                    @foreach ($currentListData as $currentListDataValue)
+                                    @foreach ($data as $currentListDataValue)
                                         {{-- <livewire:components.user-table-rows :currentListDataValue="$currentListDataValue" :key="$currentListDataValue->id" /> --}}
                                         <tr class="">
                                             <td class="whitespace-normal px-2 py-3">

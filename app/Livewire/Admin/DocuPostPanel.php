@@ -46,7 +46,7 @@ class DocuPostPanel extends Component {
     }
 
     public $paginateCount = 10;
-    public $search, $docuTypeQuery, $listOfDucoPost, $documentTypes ;
+    public $search, $docuTypeQuery, $listOfDucoPost, $documentTypes, $statusType = '5' ;
     public $selectedDocumentType = 'All';
 
     public $showViewDocuPostBox = false;
@@ -72,10 +72,15 @@ class DocuPostPanel extends Component {
         }
         $listOfDocuPost->where( 'title', 'like', '%' . $this->search . '%' );
 
+        if ( $this->statusType !== '5' ) {
+            $listOfDocuPost->where( 'status', $this->statusType );
+        }
+
         $listOfDocuPost = $listOfDocuPost->paginate( $this->paginateCount );
 
-        return view( 'livewire.admin.docu-post-panel' )
-        ->with( compact( 'listOfDocuPost' ) )
+        return view( 'livewire.admin.docu-post-panel', [
+            'listOfDocuPost'=> $listOfDocuPost
+        ] )
         ->layout( 'layout.admin' );
     }
 

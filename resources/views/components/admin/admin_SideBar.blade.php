@@ -16,7 +16,7 @@
             </div>
             {{-- home --}}
             <div
-                class="{{ request()->routeIs('admin-home') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                class="{{ request()->routeIs('admin-home') ? 'bg-slate-200  ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="{{ route('admin-home') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -30,7 +30,7 @@
             </div>
             {{-- users --}}
             <div
-                class="{{ request()->routeIs('admin-users-panel') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                class="{{ request()->routeIs('admin-users-panel') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="{{ route('admin-users-panel') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -48,7 +48,7 @@
             </div>
             {{-- analyics --}}
             <div
-                class="{{ request()->routeIs('admin-analytics') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                class="{{ request()->routeIs('admin-analytics') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="{{ route('admin-analytics') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -60,7 +60,7 @@
             </div>
             {{-- add documents --}}
             <div
-                class="{{ request()->routeIs('admin-docu-post-panel') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                class="{{ request()->routeIs('admin-docu-post-panel') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="{{ route('admin-docu-post-panel') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@
             </div>
             {{-- List of books --}}
             <div
-                class="{{ request()->routeIs('admin-list-of-books') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                class="{{ request()->routeIs('admin-list-of-books') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="{{ route('admin-list-of-books') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -93,7 +93,7 @@
             <div class="text-sm font-semibold">
                 {{-- notification --}}
                 <div id="sample"
-                    class="div-container {{ request()->routeIs('admin-notification') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    class="div-container {{ request()->routeIs('admin-notification') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 mb-2 flex items-center justify-between rounded-xl p-1 px-3 py-2.5 duration-500">
                     <a wire:navigate href="{{ route('admin-notification') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@
                 </div>
                 {{-- message area --}}
                 <div
-                    class="{{ request()->routeIs('admin-chats') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    class="{{ request()->routeIs('admin-chats') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 flex flex-row items-center justify-between rounded-xl p-1 px-3 py-2.5 duration-500">
                     <a wire:navigate href="{{ route('admin-chats') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@
     {{-- Setting --}}
     <div>
         <div class="text-sm font-semibold">
-            <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+            <div class="mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
@@ -154,7 +154,7 @@
                 </a>
             </div>
             <div
-                class="{{ request()->routeIs('admin-help-and-support') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                class="{{ request()->routeIs('admin-help-and-support') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="{{ route('admin-help-and-support') }}" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
@@ -169,7 +169,7 @@
             </div>
 
             @auth
-                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                <div class="mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                     <form action="{{ route('user.logout') }}" method="POST">
                         @csrf
                         <button class="flex items-center" type="submit">

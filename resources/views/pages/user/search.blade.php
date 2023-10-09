@@ -3,8 +3,8 @@
         <link href="{{ asset('css/users/basic-search.css') }}" rel="stylesheet">
     @endpush
     @section('title', 'Search')
-    <section class="container flex items-center justify-center">
-        <div class="flex flex-col items-center md:p-2">
+    <section class="container">
+        <div class="flex flex-col items-center justify-center md:p-2">
             <h2
                 class="text-md mx-[4rem] mt-7 text-center font-extrabold text-primary-color dark:text-white md:text-[1.3rem] lg:text-[1.6rem]">
                 UNLOCKING

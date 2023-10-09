@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    @section('title', 'Profile')
+    @section('title', $fullName)
     {{-- @dd(auth()->user()) --}}
     <div class="container">
         <x-session_flash />
@@ -10,7 +10,7 @@
             <div class="mb-12 mt-6 rounded-2xl bg-slate-50 p-4 py-8 drop-shadow-md md:mx-2 md:px-[6rem] lg:mx-24">
                 <div
                     class="flex h-full w-full flex-col justify-between rounded-sm border border-slate-200 bg-white drop-shadow-sm md:flex-row">
-                    <div class="flex flex-grow items-center justify-center pt-4 md:w-[25%] md:pt-0">
+                    <div class="flex flex-grow items-center justify-center pt-4 md:w-[30%] md:pt-0">
                         <img class="h-[10rem] w-[10rem] rounded-full object-cover md:h-full md:w-full md:rounded-none"
                             src="{{ $checkedAccount->profile_picture ? asset('storage/' . $checkedAccount->profile_picture) : asset('assets/default_profile.png') }}"
                             alt="UserProfile">

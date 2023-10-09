@@ -241,7 +241,7 @@
                             <span>First and last name missing</span>
                         </p>
                     @else
-                        <h3 class="font-semibold">
+                        <h3 class="text-xl font-bold text-gray-800">
                             {{ $user->first_name }} {{ $user->last_name }}
                         </h3>
                     @endif
@@ -317,6 +317,16 @@
                         @endif
                     @endif
                 </div>
+                <div class="flex flex-col md:flex-row">
+                    <p class="font-bold text-gray-700">Bio</p>
+                    @if ($user->bio == null)
+                        <p class="text-red-500 md:ml-[4.9rem]">Bio is empty.</p>
+                    @else
+                        <p class="whitespace-normal text-gray-500 md:pl-[4.9rem]">
+                            {{ $user->bio }}
+                        </p>
+                    @endif
+                </div>
             </div>
             <div class="flex gap-3">
                 <div
@@ -351,7 +361,7 @@
             <div>
                 @if ($activeTab === 'tab1') {{-- tab for general --}}
                     <form wire:submit="editProfile">
-                        <div class="tab-content flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white px-6 py-4 text-gray-600 drop-shadow-lg md:gap-1 lg:h-[30rem]"
+                        <div class="tab-content flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white px-6 py-4 text-gray-600 drop-shadow-lg md:gap-1 lg:min-h-[30rem]"
                             id="tab-1">
                             <div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
                                 <div class="flex w-full flex-col md:mb-0 md:w-1/2">
@@ -373,10 +383,10 @@
                             </div>
                             <div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
                                 <div class="flex w-full flex-col md:w-1/2">
-                                    <label class="text-sm font-semibold" for="email">Email address</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="email"
-                                        wire:model.live="email" id="email" value="{{ $user->email }}" />
-                                    @error('email')
+                                    <label class="text-sm font-semibold" for="usernames">Username</label>
+                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                        wire:model.live="username" id="usernames" value="{{ $user->username }}" />
+                                    @error('username')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -390,7 +400,7 @@
                                 </div>
                             </div>
                             <div class="flex w-full flex-col gap-0 md:flex-row md:gap-4">
-                                <div class="flex w-full flex-col md:w-1/2">
+                                <div class="flex w-full flex-col">
                                     <label class="text-sm font-semibold" for="studentID">Student ID</label>
                                     <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
                                         wire:model.live="student_id" id="studentID"
@@ -399,16 +409,8 @@
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="flex w-full flex-col md:w-1/2">
-                                    <label class="text-sm font-semibold" for="usernames">Username</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                        wire:model.live="username" id="usernames" value="{{ $user->username }}" />
-                                    @error('username')
-                                        <small class="text-red-500">{{ $message }}</small>
-                                    @enderror
-                                </div>
                             </div>
-                            <div class="w-full">
+                            <div class="flex w-full flex-col">
                                 <label class="text-sm font-semibold" for="bachelor_degree">Bachelor Degree</label>
                                 <select wire:model.live="bachelor_degree_input" id="bachelor-degree"
                                     class="w-full rounded-md border border-gray-400 p-2 text-sm">
@@ -438,7 +440,6 @@
                                     <small class="text-red-500">{{ $message }}</small>
                                 @enderror
                             </div>
-
                             <div class="flex w-full flex-col">
                                 <label class="text-sm font-semibold" for="address">Address</label>
                                 <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
@@ -447,61 +448,25 @@
                                     <small class="text-red-500">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
-                                <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                    type="submit" wire:loading.attr="disabled">
-                                    Save
-                                </button>
-                                <button
-                                    class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                                    Cancel
-                                </button>
-                                <div wire:loading>
-                                    <!-- Show loading spinner while the action is being processed -->
+                            <div class="flex w-full flex-col">
+                                <x-label-input for='bio'>Bio</x-label-input>
+                                <textarea class="rounded-md border border-gray-400 p-2 text-sm" type="text" wire:model.live="bio"
+                                    rows="4" id="abstract_or_summary" id="bio" placeholder="About you"></textarea>
+                                @error('bio')
+                                    <small class="text-red-500">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="flex w-full flex-row items-center gap-2">
+                                <div wire:loading wire:target='editProfile'>
                                     <div
                                         class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
                                         <div class="h-4 w-4 animate-spin rounded-full border-t-2 border-primary-color">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </form>
-                @elseif ($activeTab === 'tab2')
-                    {{-- tab for security --}}
-                    <div
-                        class="flex max-h-fit min-h-[26.5rem] w-full flex-col gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:h-[30rem]">
-                        <form wire:submit="changePassword" wire:loading.class="loading">
-                            <section class="flex flex-col gap-2">
-                                <div class="flex w-full flex-col">
-                                    <label class="text-sm font-semibold" for="currentPassword">Current
-                                        password</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
-                                        wire:model.live="current_password" id="currentPassword" />
-                                    @error('current_password')
-                                        <small class="text-red-500">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="flex w-full flex-col">
-                                    <label class="text-sm font-semibold" for="password">New password</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
-                                        wire:model.live="password" id="password" />
-                                    @error('password')
-                                        <small class="text-red-500">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="flex w-full flex-col">
-                                    <label class="text-sm font-semibold" for="password_confirmation">Confirm
-                                        password</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
-                                        wire:model.live="password_confirmation" id="password_confirmation" />
-                                    @error('password_confirmation')
-                                        <small class="text-red-500">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
+                                <div class="mt-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
                                     <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                        wire:click.prevent="changePassword" wire:loading.attr="disabled">
+                                        type="submit" wire:loading.attr="disabled">
                                         Save
                                     </button>
                                     <button
@@ -509,29 +474,81 @@
                                         Cancel
                                     </button>
                                 </div>
+                            </div>
+                        </div>
+                    </form>
+                @elseif ($activeTab === 'tab2')
+                    {{-- tab for security --}}
+                    <form wire:submit="changePassword" wire:loading.class="loading">
+                        <div
+                            class="flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:max-h-[30rem]">
+                            <div class="flex w-full flex-col">
+                                <label class="text-sm font-semibold" for="currentPassword">Current
+                                    password</label>
+                                <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
+                                    wire:model.live="current_password" id="currentPassword" />
+                                @error('current_password')
+                                    <small class="text-red-500">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="flex w-full flex-col">
+                                <label class="text-sm font-semibold" for="password">New password</label>
+                                <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
+                                    wire:model.live="password" id="password" />
+                                @error('password')
+                                    <small class="text-red-500">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="flex w-full flex-col">
+                                <label class="text-sm font-semibold" for="password_confirmation">Confirm
+                                    password</label>
+                                <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
+                                    wire:model.live="password_confirmation" id="password_confirmation" />
+                                @error('password_confirmation')
+                                    <small class="text-red-500">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="flex w-full flex-row items-center gap-2">
+                                <div wire:loading wire:target='changePassword'>
+                                    <div
+                                        class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
+                                        <div class="h-4 w-4 animate-spin rounded-full border-t-2 border-primary-color">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
+                                    <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
+                                        type="submit" wire:loading.attr="disabled">
+                                        Save
+                                    </button>
+                                    <button
+                                        class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                            <section class="flex flex-col gap-2">
+                                <h2 class="font-bold">Delete Account</h2>
+                                <p class="text-sm">
+                                    Once your account is deleted, all of its resources
+                                    and data will be permanently deleted. hBefore
+                                    deleting your account, please download any data or
+                                    information that you wish to retain.
+                                </p>
+                                <div class="my-2 w-full">
+                                    <span id="deleteButton" wire:click="showdelBox"
+                                        class="w-full cursor-pointer rounded-md bg-red-600 p-2 font-semi-bold text-white duration-200 ease-in hover:bg-red-800 md:w-1/3 lg:w-1/2">Delete
+                                        account</span>
+                                </div>
                             </section>
-                        </form>
-                        <section class="flex flex-col gap-2">
-                            <h2 class="font-bold">Delete Account</h2>
-                            <p class="text-sm">
-                                Once your account is deleted, all of its resources
-                                and data will be permanently deleted. hBefore
-                                deleting your account, please download any data or
-                                information that you wish to retain.
-                            </p>
-                            <a class="w-full">
-                                <span id="deleteButton" wire:click="showdelBox"
-                                    class="w-full cursor-pointer rounded-md bg-red-600 p-2 font-semi-bold text-white duration-200 ease-in hover:bg-red-800 md:w-1/3 lg:w-1/2">Delete
-                                    account</span>
-                            </a>
-                        </section>
-                    </div>
+                        </div>
+                    </form>
                 @elseif ($activeTab === 'tab3')
                     <div
-                        class="flex min-h-[26.5rem] w-full flex-col gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:h-[30rem]">
-                        <h2>Link your social media account.</h2>
+                        class="flex min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:min-h-[30rem]">
                         <section>
-                            <form wire:submit="addUrl" class="flex flex-col gap-2">
+                            <h2 class="mb-2">Link your social media account.</h2>
+                            <form wire:submit="addUrl" class="flex flex-col gap-2 md:gap-4">
                                 <div class="flex w-full flex-col">
                                     <label class="text-sm font-semibold" for="fb_url">Facebook account URL</label>
                                     <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
@@ -548,21 +565,31 @@
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
-                                    <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                        wire:loading.attr="disabled">
-                                        Save
-                                    </button>
-                                    <button
-                                        class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                                        Cancel
-                                    </button>
+                                <div class="flex w-full flex-row items-center gap-2">
+                                    <div wire:loading wire:target='addUrl'>
+                                        <div
+                                            class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
+                                            <div
+                                                class="h-4 w-4 animate-spin rounded-full border-t-2 border-primary-color">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
+                                        <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
+                                            type="submit" wire:loading.attr="disabled">
+                                            Save
+                                        </button>
+                                        <button
+                                            class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
 
                         </section>
                         <section>
-                            <h2>Account Verification</h2>
+                            <h2 class="mb-2">Account Verification</h2>
                             <form wire:submit="verifyMyEmail">
                                 <div class="flex h-fit items-center justify-center">
                                     @php
@@ -622,23 +649,22 @@
                                     @endif
 
                                 </div>
-                                <div class="flex w-full flex-col">
+                                <div class="mt-2 flex w-full flex-col">
                                     <label class="text-sm font-semibold" for="verifyEmail">Institutional Email</label>
                                     @if (auth()->user()->is_verified == false)
                                         <small>To verify your account, you need to use your institutional
                                             account.</small>
                                     @endif
                                     <input
-                                        class="{{ auth()->user()->is_verified ? 'text-gray-400' : '' }} /> rounded-md border border-gray-400 p-2 text-sm"
+                                        class="{{ auth()->user()->is_verified ? 'text-gray-400' : '' }} my-2 rounded-md border border-gray-400 p-2 text-sm"
                                         type="email" wire:model.live="verifyEmail" id="email"
                                         {{ auth()->user()->is_verified || $areTheyEmpty ? 'disabled' : '' }} />
                                     @error('verifyEmail')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
-                                    <div wire:loading>
-                                        <!-- Show loading spinner while the action is being processed -->
+                                <div class="my-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
+                                    <div wire:loading wire:target='verifyMyEmail'>
                                         <div
                                             class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
                                             <div
@@ -741,6 +767,28 @@
                                                                     <div
                                                                         class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-green-700 px-2 py-1 text-white">
                                                                         <span class="px-1"> Approved </span>
+                                                                        <svg class="h-4" viewBox="0 0 21 21"
+                                                                            fill="none">
+                                                                            <path
+                                                                                d="M20.0827 10.5003C20.0827 13.042 19.073 15.4795 17.2758 17.2768C15.4786 19.074 13.041 20.0837 10.4993 20.0837C7.95769 20.0837 5.52013 19.074 3.72291 17.2768C1.92569 15.4795 0.916016 13.042 0.916016 10.5003C0.916016 7.95867 1.92569 5.52111 3.72291 3.72389C5.52013 1.92666 7.95769 0.916992 10.4993 0.916992C13.041 0.916992 15.4786 1.92666 17.2758 3.72389C19.073 5.52111 20.0827 7.95867 20.0827 10.5003ZM15.3274 6.87112C15.2419 6.78576 15.1401 6.71853 15.028 6.67346C14.9159 6.62839 14.7958 6.6064 14.6751 6.60882C14.5543 6.61123 14.4352 6.638 14.325 6.68752C14.2148 6.73703 14.1157 6.80828 14.0337 6.89699L9.8726 12.1975L7.3656 9.68958C7.19645 9.52489 6.96926 9.43343 6.73319 9.43501C6.49711 9.43659 6.27116 9.53106 6.10423 9.698C5.9373 9.86493 5.84282 10.0909 5.84124 10.327C5.83967 10.563 5.93112 10.7902 6.09581 10.9594L9.26597 14.1305C9.35151 14.2154 9.45323 14.2822 9.56509 14.327C9.67696 14.3719 9.79668 14.3938 9.91716 14.3914C10.0376 14.3891 10.1564 14.3626 10.2665 14.3135C10.3765 14.2644 10.4756 14.1937 10.5578 14.1056L15.3399 8.12845C15.503 7.95892 15.5932 7.73221 15.591 7.49696C15.5889 7.26171 15.4946 7.03667 15.3284 6.87016H15.3265L15.3274 6.87112Z"
+                                                                                fill="white" />
+                                                                        </svg>
+                                                                    </div>
+                                                                @elseif($docuPost->status == 2)
+                                                                    <div
+                                                                        class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-yellow-700 px-2 py-1 text-white">
+                                                                        <span class="px-1">Attention</span>
+                                                                        <svg class="h-4" viewBox="0 0 21 21"
+                                                                            fill="none">
+                                                                            <path
+                                                                                d="M20.0827 10.5003C20.0827 13.042 19.073 15.4795 17.2758 17.2768C15.4786 19.074 13.041 20.0837 10.4993 20.0837C7.95769 20.0837 5.52013 19.074 3.72291 17.2768C1.92569 15.4795 0.916016 13.042 0.916016 10.5003C0.916016 7.95867 1.92569 5.52111 3.72291 3.72389C5.52013 1.92666 7.95769 0.916992 10.4993 0.916992C13.041 0.916992 15.4786 1.92666 17.2758 3.72389C19.073 5.52111 20.0827 7.95867 20.0827 10.5003ZM15.3274 6.87112C15.2419 6.78576 15.1401 6.71853 15.028 6.67346C14.9159 6.62839 14.7958 6.6064 14.6751 6.60882C14.5543 6.61123 14.4352 6.638 14.325 6.68752C14.2148 6.73703 14.1157 6.80828 14.0337 6.89699L9.8726 12.1975L7.3656 9.68958C7.19645 9.52489 6.96926 9.43343 6.73319 9.43501C6.49711 9.43659 6.27116 9.53106 6.10423 9.698C5.9373 9.86493 5.84282 10.0909 5.84124 10.327C5.83967 10.563 5.93112 10.7902 6.09581 10.9594L9.26597 14.1305C9.35151 14.2154 9.45323 14.2822 9.56509 14.327C9.67696 14.3719 9.79668 14.3938 9.91716 14.3914C10.0376 14.3891 10.1564 14.3626 10.2665 14.3135C10.3765 14.2644 10.4756 14.1937 10.5578 14.1056L15.3399 8.12845C15.503 7.95892 15.5932 7.73221 15.591 7.49696C15.5889 7.26171 15.4946 7.03667 15.3284 6.87016H15.3265L15.3274 6.87112Z"
+                                                                                fill="white" />
+                                                                        </svg>
+                                                                    </div>
+                                                                @elseif($docuPost->status == 3)
+                                                                    <div
+                                                                        class="flex w-fit flex-row-reverse items-center justify-center rounded-md bg-yellow-700 px-2 py-1 text-white">
+                                                                        <span class="px-1">Out of span</span>
                                                                         <svg class="h-4" viewBox="0 0 21 21"
                                                                             fill="none">
                                                                             <path

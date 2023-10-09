@@ -9,21 +9,15 @@ use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 // #[ Lazy ]
 
 class AdminUsersPanel extends Component {
+    use WithPagination;
 
     public function placeholder() {
         return view( 'livewire.placeholder.admin-users-skeleton' )->layout( 'layout.admin' );
-    }
-
-    public $currentListData, $currentQuery, $degreeLists;
-
-    public function mount() {
-        $this->currentQuery = 'allUsers';
-        return $this->currentListData = User::latest()
-        ->get();
     }
 
     public function switchToVerifiedUsersData() {
@@ -383,14 +377,21 @@ class AdminUsersPanel extends Component {
         // dd( $datatest );
     }
 
-    // #[ On( 'user-created' ) ]
-    // public function updateLists( $user = null ) {
-    // }
+    public $currentListData, $currentQuery, $degreeLists, $data;
+
+    public function mount() {
+        $this->currentQuery = 'allUsers';
+        $this->currentListData = $list = User::latest()
+        ->get();
+        $this->data = $list;
+    }
 
     public function render() {
-        $this->degreeLists = BachelorDegree::latest()
-        ->get();
-        return view( 'livewire.admin.admin-users-panel' )->layout( 'layout.admin' );
+        $this->degreeLists = BachelorDegree::latest()->get();
+
+        return view( 'livewire.admin.admin-users-panel', [
+            'data' => $this->data
+        ] )->layout( 'layout.admin' );
     }
 
     public function loadUserDataList() {

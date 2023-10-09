@@ -6,7 +6,7 @@
             class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
             <div
                 class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg md:w-3/5 lg:w-4/12">
-                <h2><strong>Are you sure you want to delete your uploaded document?</strong></h2>
+                <h2><strong>Are you sure you want to delete this uploaded document?</strong></h2>
                 <form action="" wire:submit="deleteDocuPostYes">
                     <span class="px-2 py-2 text-sm">{{ $selectedPostIdTtitle }}</span>
                     <div class="mt-2 flex w-full flex-col items-center justify-center gap-2 md:flex-row">
@@ -262,7 +262,7 @@
                 class="rounded-lg bg-primary-color p-2 text-sm font-bold text-white">Add new document</a>
         </div>
         <div class="mb-8 rounded-2xl bg-white px-5 py-2 drop-shadow-md">
-            <div class="mb-2 flex w-full flex-col items-center justify-between py-2 md:flex-row">
+            <div class="mb-2 flex w-full flex-col items-center justify-between px-4 py-2 md:flex-row">
                 <div>
                     <label for="default-search"
                         class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">Search</label>
@@ -280,24 +280,26 @@
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <label for="">Status</label>
-                    <select id="countries"
-                        class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                    <x-label-input for="status">Status</x-label-input>
+                    <select id="status" wire:model.live='statusType'
+                        class="ml-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         <option value="5">All</option>
                         <option value="0">Pending</option>
                         <option value="1">Approved</option>
-                        <option value="2">Deleted</option>
-                        <option value="3">Discarded</option>
+                        <option value="2">For revision</option>
+                        <option value="3">Deleted</option>
+                        <option value="4">Discarded</option>
                     </select>
                 </div>
-                <div>
-                    <label for="">Date</label>
-                    <input class="rounded-lg border border-gray-500" type="date" name="" id="">
+                {{ $statusType }}
+                <div class="flex items-center">
+                    <x-label-input for="Date">Date</x-label-input>
+                    <x-input-field class="ml-2" type="date" name="" id="Date" />
                 </div>
                 <div class="flex items-center">
-                    <label for="">Type</label>
-                    <select id="countries" wire:model.live='selectedDocumentType'
-                        class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                    <x-label-input for="type">Type</x-label-input>
+                    <select id="type" wire:model.live='selectedDocumentType'
+                        class="ml-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         <option value="All">All</option>
                         @foreach ($documentTypes as $item)
                             <option value="{{ $item }}">{{ $item }}</option>
@@ -305,9 +307,9 @@
                     </select>
                 </div>
                 <div class="flex items-center">
-                    <label for="countpage">Items</label>
+                    <x-label-input for="countpage">Items</x-label-input>
                     <select id="countpage" wire:model.live='paginateCount'
-                        class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                        class="ml-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         <option value="10">10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
@@ -376,13 +378,18 @@
                                                 </div>
                                             @elseif ($itemPost->status == 2)
                                                 <div
-                                                    class="w-full rounded-md bg-red-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
-                                                    deleted
+                                                    class="w-full rounded-md bg-yellow-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    For revision
                                                 </div>
                                             @elseif ($itemPost->status == 3)
                                                 <div
                                                     class="w-full rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
-                                                    revision
+                                                    Out of span
+                                                </div>
+                                            @else
+                                                <div
+                                                    class="w-full rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    Deleted by admin
                                                 </div>
                                             @endif
                                         </td>

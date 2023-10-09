@@ -1,8 +1,10 @@
 $(document).ready(function () {
-    var sidebarBtn = $("#sidebarBtn");
-    var sidebarNav = $("#sidebar-nav");
-    var optionNames = $(".hideName");
-    var mobileMenu = $("#mobileMenu");
+    const sidebarBtn = $("#sidebarBtn");
+    const sidebarNav = $("#sidebar-nav");
+    const optionNames = $(".hideName");
+    const mobileMenu = $("#mobileMenu");
+    const removeJustifyCenter = $(".remover-expanded");
+    const removeItemsCenter = $(".items-center-remover ");
     var isExpanded = false; // Initialize the flag to indicate collapsed state
 
     //mobile version nav
@@ -24,14 +26,20 @@ $(document).ready(function () {
                 transition: "transform 2s",
             });
             optionNames.fadeOut(400);
-            sidebarNav.animate({ width: "3.5rem" }, 800);
+            sidebarNav.animate({ width: "4rem" }, 800);
+            sidebarNav.removeClass("items-center");
+            sidebarNav.animate({ "align-items": "center" }, 800);
         } else {
             sidebarBtn.css({
                 transform: "rotate(180deg)",
                 transition: "transform 2s",
             });
-            sidebarNav.animate({ width: "10rem" }, 400, function () {});
-            optionNames.fadeIn(1300);
+
+            sidebarNav.animate({ width: "10rem" }, 800, function () {});
+            optionNames.fadeIn(400);
+            sidebarNav.removeClass("items-center");
+            sidebarNav.toggleClass("items-start");
+            // removeItemsCenter.removeClass("items-center");
         }
         isExpanded = !isExpanded; // Toggle the flag value
     });

@@ -54,23 +54,24 @@
 
 <body class="gradient-bg-light custom-scrollbar m-0 flex scroll-smooth p-0 font-poppins dark:bg-primary-color">
     {{-- sidebar --}}
-    <x-sidebar />
+    {{-- <x-sidebar /> --}}
+    <livewire:components.app-side-bar>
 
-    <div class="flex w-full max-w-full flex-col">
-        {{-- navbar --}}
-        <x-navbar />
+        <div class="flex w-full max-w-full flex-col">
+            {{-- navbar --}}
+            <x-navbar />
 
-        {{-- contents --}}
-        {{-- @yield('content') --}}
-        {{ $slot }}
-        {{-- <section class="container flex h-screen items-center justify-center">
+            {{-- contents --}}
+            {{-- @yield('content') --}}
+            {{ $slot }}
+            {{-- <section class="container flex h-screen items-center justify-center">
             <div class="">
                 <h2 class="bg-blue-900 p-20 text-white">Content for the first section</h2>
             </div>
         </section> --}}
 
-    </div>
-    @livewireScripts
+        </div>
+        @livewireScripts
 
 </body>
 

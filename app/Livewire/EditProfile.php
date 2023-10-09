@@ -20,11 +20,12 @@ class EditProfile extends Component {
     use WithFileUploads;
     public $bachelor_degree_data, $user;
     public $facebook_url, $ms_url, $verifyEmail;
-    public $first_name, $last_name, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '1', $bachelor_degree,  $address, $profile_picture;
+    public $first_name, $last_name, $bio, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '1', $bachelor_degree,  $address, $profile_picture;
 
     public function mount() {
         $this->user = Auth::user();
         $this->first_name = $this->user->first_name;
+        $this->bio = $this->user->bio;
         $this->last_name = $this->user->last_name;
         $this->email = $this->user->email;
         $this->phone_no = $this->user->phone_no;
@@ -39,9 +40,6 @@ class EditProfile extends Component {
         $this->bachelor_degree_data = BachelorDegree::all();
     }
 
-    // public function loadDocuPost() {
-    //     $this->
-    // }
     public $uploadProfileBox = false;
 
     public function showProfileUpload() {
@@ -86,9 +84,10 @@ class EditProfile extends Component {
         $this->validate( [
             'first_name' => [ 'required', 'min:2' ],
             'last_name' => [ 'required', 'min:2' ],
-            'phone_no' => [ 'required', 'min:11', 'max:11', 'regex:/^09\d{9}$/', 'unique:users,phone_no' ],
+            'phone_no' => [ 'required', 'min:11', 'max:11', 'regex:/^09\d{9}$/', ( $this->phone_no == $this->user->phone_no ) ? '': 'unique:users,phone_no' ],
             'student_id' => [ 'required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/' ],
             'username' => [ 'required', 'min:2' ],
+            'bio' => [ 'required', 'min:2' ],
             'address' => [ 'required', 'min:5' ],
             'bachelor_degree_input' => [ 'required' ],
             'email' => 'required|email|unique:users,email,' . Auth::id(),
@@ -96,6 +95,7 @@ class EditProfile extends Component {
             'bacbachelor_degree_input.required' => 'Please select your bachelor degree',
             'student_id.regex' => 'The student ID must be in the format "XX-AC-XXXX".',
             'phone_no.regex' => 'The phone number must start with "09" and have 11 digits.',
+            'phone_no.unique' => 'The phone number has already been taken.',
         ] );
 
         // dd( $this->bachelor_degree_input );
@@ -104,6 +104,7 @@ class EditProfile extends Component {
             'first_name' => ucfirst( $this->first_name ),
             'last_name' =>ucfirst( $this->last_name ),
             'email' => $this->email,
+            'bio' => $this->bio,
             'phone_no' => $this->phone_no,
             'student_id' => $this->student_id,
             'username' => $this->username,
@@ -118,6 +119,8 @@ class EditProfile extends Component {
         $this->first_name = $this->user->first_name;
         $this->last_name = $this->user->last_name;
         $this->email = $this->user->email;
+        $this->bio = $this->user->bio;
+        $this->email = $this->user->email;
         $this->phone_no = $this->user->phone_no;
         $this->student_id = $this->user->student_id;
         $this->username = $this->user->username;
@@ -125,7 +128,7 @@ class EditProfile extends Component {
         $this->bachelor_degree  = $this->user->bachelor_degree;
     }
 
-    public $activeTab = 'tab1';
+    public $activeTab = 'tab3';
 
     public function setActiveTab( $tab ) {
         $this->activeTab = $tab;

@@ -28,7 +28,7 @@ class UploadDocument extends Component {
     }
     public $uploaded = false;
 
-    public $currentTab = 3;
+    public $currentTab = 1;
 
     public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4;
     public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload,  $pdf_path;
@@ -97,23 +97,28 @@ class UploadDocument extends Component {
     public $authorAPA;
 
     public function citationAPA_generator() {
+        $authors = [];
+
+        if ( !empty( $this->author1 ) ) {
+            $authors[] = $this->convertAuthorName( $this->author1 );
+        }
         if ( !empty( $this->author2 ) ) {
-            $this->authorAPA = $this->convertAuthorName( $this->author1 ). ', ' . $this->convertAuthorName( $this->author2 );
+            $authors[] = $this->convertAuthorName( $this->author2 );
         }
-        if ( !empty( $this->author2 ) && !empty( $this->author3 ) ) {
-            $this->authorAPA = $this->convertAuthorName( $this->author1 ). ', ' . $this->convertAuthorName( $this->author2 ). ', ' . $this->convertAuthorName( $this->author3 );
+        if ( !empty( $this->author3 ) ) {
+            $authors[] = $this->convertAuthorName( $this->author3 );
         }
-        if ( !empty( $this->author2 ) && !empty( $this->author3 ) && !empty( $this->author4 ) ) {
-            $this->authorAPA = $this->convertAuthorName( $this->author1 ). ', ' . $this->convertAuthorName( $this->author2 ). ', ' . $this->convertAuthorName( $this->author3 ). ', ' . $this->convertAuthorName( $this->author4 );
-        } else {
-            $this->authorAPA  = $this->convertAuthorName( $this->author1 );
+        if ( !empty( $this->author4 ) ) {
+            $authors[] = $this->convertAuthorName( $this->author4 );
         }
+
+        $authorAPA = implode( ', ', $authors );
 
         $publicationLocation = 'Pangasinan State University - AC';
         $retrieveURL = 'http::/ThesisKiosk.app/documents/982734';
 
         $year = date( 'Y', strtotime( $this->date_of_approval ) );
-        $this->recommended_citation = $this->authorAPA. '('.$year.'). '. $this->title.'. '. $this->document_type.'. '.$publicationLocation.'. '.$retrieveURL;
+        $this->recommended_citation = $authorAPA . ' (' . $year . '). ' . $this->title . '. ' . $this->document_type . '. ' . $publicationLocation . '. ' . $retrieveURL;
     }
 
     public function convertAuthorName( $name ) {
