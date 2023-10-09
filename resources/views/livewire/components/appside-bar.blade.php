@@ -1,25 +1,29 @@
-<div class="hidden md:block">
+<div class="relative hidden md:block">
     <script src="{{ asset('js/sideBar.js') }}"></script>
-    <nav id="sidebar-nav" x-data='{ isExpanded: false }'
-        class="sticky bottom-0 left-0 top-0 z-50 flex h-screen w-[4rem] flex-col items-center justify-between rounded-r-xl bg-white p-2 drop-shadow-2xl lg:p-3">
+    <div class="sticky top-0 z-50">
+        <button id="sidebarBtn" class="absolute -right-4 top-4 hidden text-gray-600 md:block">
+            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                    d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-4.375 9.375a.625.625 0 1 0 0 1.25h7.241l-2.684 2.682a.627.627 0 0 0 .886.885l3.75-3.75a.625.625 0 0 0 0-.885l-3.75-3.75a.626.626 0 1 0-.886.886l2.684 2.682H7.625Z">
+                </path>
+            </svg>
+        </button>
+    </div>
+    <nav id="sidebar-nav"
+        class="sticky bottom-0 left-0 top-0 z-40 flex h-screen w-[4rem] flex-col items-center justify-between rounded-r-xl bg-white p-2 drop-shadow-2xl lg:p-3">
         {{-- app name and logo --}}
-        <section class="">
-            <a wire:navigate href="{{ route('index') }}"
-                class="remover-expanded mb-3 flex items-center justify-center py-1">
-                <img class="h-8 w-8" src="{{ asset('icons/logo.svg') }}" alt="logo" srcset="">
-                <p class="hideName block pl-2 md:hidden">Thesis Kiosk</p>
+        <section class="items-center-remover flex flex-col">
+            <a wire:navigate href="{{ route('index') }}" class="relative flex p-2">
+                <div class="relative w-fit">
+                    <img class="max-h-[2rem] min-h-[2rem] min-w-[2rem] max-w-[2rem]" src="{{ asset('icons/logo.svg') }}"
+                        alt="logo" srcset="">
+                </div>
+                <p class="hideName block pl-2 text-sm md:hidden">Thesis Kiosk</p>
             </a>
-            <button @click="isExpanded = !isExpanded" id="sidebarBtn"
-                class="absolute -right-4 top-4 z-40 hidden text-gray-600 md:block">
-                <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-4.375 9.375a.625.625 0 1 0 0 1.25h7.241l-2.684 2.682a.627.627 0 0 0 .886.885l3.75-3.75a.625.625 0 0 0 0-.885l-3.75-3.75a.626.626 0 1 0-.886.886l2.684 2.682H7.625Z">
-                    </path>
-                </svg>
-            </button>
+
             {{-- main features  --}}
             {{-- notifction --}}
-            <div class="items-center-remover flex flex-col gap-2 pt-2">
+            <div class="items-center-remover flex flex-col items-center gap-3 pt-2">
                 @auth
                     <a wire:navigate href="{{ route('user-notification') }}"
                         class="{{ request()->routeIs('user-notification') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
@@ -122,9 +126,10 @@
             </div>
         </section>
         {{-- lower --}}
-        <section class="flex flex-col items-center gap-5">
-            <a href="" class="flex items-center">
-                <div class="relative">
+        <div class="items-center-remover flex flex-col gap-3 pt-2">
+            <a wire:navigate href=""
+                class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
+                <div class="relative w-fit">
                     <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -132,10 +137,11 @@
                         </path>
                     </svg>
                 </div>
-                <p class="hideName block pl-2 md:hidden">Dark mode</p>
+                <p class="hideName block pl-2 md:hidden">Dark</p>
             </a>
-            <a href="" class="flex items-center">
-                <div class="relative">
+            <a wire:navigate href="{{ route('help-and-support') }}"
+                class="{{ request()->routeIs('help-and-support') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
+                <div class="relative w-fit">
                     <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -146,21 +152,22 @@
                 <p class="hideName block pl-2 md:hidden">Help</p>
             </a>
             @auth
-                <form action="{{ route('user.logout') }}" method="POST">
+                {{-- logout --}}
+                <form action="{{ route('user.logout') }}" method="POST"
+                    class="flex cursor-pointer rounded-xl p-2 duration-500 ease-in-out hover:bg-slate-300">
                     @csrf
-                    <button class="flex items-center" type="submit">
-                        <div class="relative">
-                            <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1Zm14.242-.97-8-2A1 1 0 0 0 10 3v18a.999.999 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97ZM15 12.188a1 1 0 0 1-2 0v-.377a1 1 0 1 1 2 0v.377Z">
-                                </path>
-                            </svg>
-                        </div>
-                        <p class="hideName block pl-2 md:hidden">Logout</p>
-                    </button>
+                    <button class="flex items-center" type="submit"> </button>
+                    <div class="relative">
+                        <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1Zm14.242-.97-8-2A1 1 0 0 0 10 3v18a.999.999 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97ZM15 12.188a1 1 0 0 1-2 0v-.377a1 1 0 1 1 2 0v.377Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p class="hideName block pl-2 md:hidden">Logout</p>
 
                 </form>
             @endauth
-        </section>
+        </div>
     </nav>
 </div>

@@ -1,100 +1,211 @@
-<x-app-layout>
-    @push('styles')
-        <link href="{{ asset('css/users/basic-search.css') }}" rel="stylesheet">
-    @endpush
-    @section('title', 'Search')
-    <section class="container flex items-center justify-center">
-        <div class="flex flex-col items-center md:p-2">
-            <h2
-                class="text-md mx-[4rem] mt-7 text-center font-extrabold text-primary-color dark:text-white md:text-[1.3rem] lg:text-[1.6rem]">
-                UNLOCKING
-                ACADEMIC
-                INSIGHTS:
-                EXPLORE
-                THE
-                REALM OF
-                RESEARCH
-                WORKS,
-                THESES, CAPSTONE, AND FEASIBILITY STUDIES</h2>
-            <div class="my-4 flex flex-col gap-2 md:gap-4">
-                <form action="{{ route('basic-search') }}" method="GET">
-                    @csrf
-                    <div class="flex items-center justify-center" for="search-docu">
-                        <input
-                            class="h-8 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-lg focus:border-gray-400 focus:outline-none md:h-10 md:w-[27rem] lg:w-[62.8rem]"
-                            type="search" id="search-docu" name="search_docu" placeholder="Search">
-                        <button type="submit"
-                            class="custom-blue-via flex h-[2rem] w-[2.5rem] items-center justify-center rounded-r-full p-2 drop-shadow-lg md:h-[2.4rem] md:w-[4rem]">
-                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43 37" fill="none">
-                                <path
-                                    d="M18.1262 27.7507C21.184 27.7501 24.1537 26.834 26.5624 25.1483L34.1356 31.9255L36.5716 29.7456L28.9984 22.9684C30.8831 20.8126 31.9074 18.1544 31.9081 15.4173C31.9081 8.61703 25.7252 3.08398 18.1262 3.08398C10.5271 3.08398 4.34418 8.61703 4.34418 15.4173C4.34418 22.2176 10.5271 27.7507 18.1262 27.7507ZM18.1262 6.16732C23.8267 6.16732 28.4626 10.3159 28.4626 15.4173C28.4626 20.5187 23.8267 24.6673 18.1262 24.6673C12.4256 24.6673 7.78967 20.5187 7.78967 15.4173C7.78967 10.3159 12.4256 6.16732 18.1262 6.16732Z"
-                                    fill="white" />
-                            </svg>
-                        </button>
+ <section class="relative grid grid-flow-row-dense grid-cols-4 gap-3 text-primary-color">
+     {{-- 1st div --}}
+     <div class="col-span-4 lg:col-span-3">
+         <div class="flex flex-col gap-3 rounded-lg bg-white px-7 py-4 drop-shadow-lg">
+             <div>
+                 <p class="font-extrabold">TITLE</p>
+                 <p class="text-gray-600">{{ $data->title }}
+                 </p>
+             </div>
+             <div class="flex w-full flex-col md:flex-row">
+                 <div class="flex w-full flex-col gap-3 md:w-2/5">
+                     <div>
+                         <p class="font-extrabold">DATE OF PUBLICATION</p>
+                         <p class="text-gray-600">
+                             {{ \Carbon\Carbon::parse($data->date_of_approval)->format('F d, Y') }}</p>
+                     </div>
+                     <div>
+                         <p class="font-extrabold">DEGREE NAME</p>
+                         <p class="text-gray-600">{{ $data->course }} </p>
+                     </div>
+                     <div>
+                         <p class="font-extrabold">DOCUMENT TYPE</p>
+                         <p class="text-gray-600">{{ $data->document_type }}</p>
+                     </div>
+                     <div>
+                         <p class="font-extrabold">FORMAT</p>
+                         <p class="text-gray-600">{{ $data->format }}
+                         </p>
+                     </div>
+                     <div>
+                         <p class="font-extrabold">LANGUAGE</p>
+                         <p class="text-gray-600">{{ $data->language }}
+                         </p>
+                     </div>
+                 </div>
+                 <div class="w-full md:w-3/5">
+                     <div>
+                         <p class="font-extrabold">KEYWORDS/ TAGS</p>
+                         <p class="text-gray-600">
+                             <a class="bg-gray-100 px-1 hover:text-blue-600"
+                                 href="{{ route('search-result-page', $data->keyword_1) }}" target="_blank"
+                                 rel="noopener noreferrer">{{ $data->keyword_1 }};</a>
+                             <a class="bg-gray-100 px-1 hover:text-blue-600"
+                                 href="{{ route('search-result-page', $data->keyword_2) }}" target="_blank"
+                                 rel="noopener noreferrer">{{ $data->keyword_2 }};</a>
+                             <a class="bg-gray-100 px-1 hover:text-blue-600"
+                                 href="{{ route('search-result-page', $data->keyword_3) }}" target="_blank"
+                                 rel="noopener noreferrer">{{ $data->keyword_3 }};</a>
+                             <a class="bg-gray-100 px-1 hover:text-blue-600"
+                                 href="{{ route('search-result-page', $data->keyword_4) }}" target="_blank"
+                                 rel="noopener noreferrer">{{ $data->keyword_4 }};</a>
+                             @if (!empty($data->keyword_5))
+                                 <a class="bg-gray-100 px-1 hover:text-blue-600"
+                                     href="{{ route('search-result-page', $data->keyword_5) }}" target="_blank"
+                                     rel="noopener noreferrer">{{ $data->keyword_5 }};</a>
+                             @elseif(!empty($data->keyword_6))
+                                 <a class="bg-gray-100 px-1 hover:text-blue-600"
+                                     href="{{ route('search-result-page', $data->keyword_6) }}" target="_blank"
+                                     rel="noopener noreferrer">{{ $data->keyword_6 }};</a>
+                             @endif
+                         </p>
+                     </div>
+                     <div>
+                         <p class="font-extrabold">TITLE</p>
+                         <p class="break-words text-gray-600">{{ $data->title }}</p>
+                     </div>
+                 </div>
+             </div>
+             <div>
+                 <p class="font-extrabold">ABSTRACT/ SUMMARY</p>
+                 <p class="text-gray-600">{{ $data->abstract_or_summary }}</p>
+             </div>
+         </div>
+     </div>
+     {{-- comment form --}}
+     <div class="hidden lg:col-span-3 lg:block">
+         <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
+             <form action="">
+                 <div class="flex w-full items-center justify-center gap-2">
+                     <textarea class="w-full rounded-lg border-2 border-primary-color bg-gray-100 p-2" name=""
+                         placeholder="What's on your mind?" id="autoresizing"></textarea>
+                     <script type="text/javascript">
+                         $('#autoresizing').on('input', function() {
+                             this.style.height = 'auto';
+
+                             this.style.height =
+                                 (this.scrollHeight) + 'px';
+                         });
+                     </script>
+                     <input class="w-fit rounded-lg bg-primary-color p-2 text-white" type="submit" value="Comment">
+                 </div>
+
+             </form>
+         </div>
+     </div>
+     {{-- 2nd div --}}
+     <div
+         class="col-span-4 flex h-fit flex-col-reverse gap-4 lg:sticky lg:left-auto lg:right-14 lg:top-[92px] lg:col-span-1 lg:flex-col">
+         <div class="grid grid-cols-4 gap-4">
+             {{-- 1st div --}}
+             <div class="col-span-2 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4">
+                 <div>
+                     <p class="font-extrabold">File</p>
+                     <div class="flex items-center justify-center">
+                         <div class="-ml-2 hidden lg:block">
+                             <svg class="h-14" viewBox="0 0 107 107" fill="none">
+                                 <path
+                                     d="M40.2455 77.1689C40.9945 76.7275 41.8149 76.2995 42.7021 75.8938C41.9538 77.0135 41.1503 78.0952 40.2946 79.135C38.7966 80.9407 37.633 81.8992 36.8973 82.1979C36.8365 82.2231 36.7739 82.244 36.7101 82.2603C36.6568 82.186 36.6106 82.1069 36.5719 82.024C36.2732 81.44 36.2821 80.8693 36.7859 80.1025C37.3521 79.2197 38.4934 78.2077 40.2455 77.1689ZM53.3798 68.3593C52.7467 68.493 52.1136 68.6268 51.4761 68.7739C52.4212 66.9281 53.3129 65.0556 54.1511 63.1564C54.9982 64.7257 55.9077 66.2549 56.8796 67.7485C55.7204 67.9179 54.5479 68.123 53.3798 68.3593ZM66.8885 73.3793C66.0575 72.7092 65.2794 71.9758 64.5613 71.1858C65.7829 71.2126 66.8841 71.3062 67.8382 71.4756C69.5323 71.7832 70.3304 72.2648 70.6068 72.5947C70.696 72.6838 70.745 72.8087 70.7495 72.938C70.7306 73.3153 70.6204 73.6825 70.4285 74.008C70.3199 74.2675 70.1464 74.4947 69.9247 74.6678C69.814 74.7359 69.6835 74.7642 69.5546 74.748C69.0731 74.7347 68.1725 74.3958 66.8885 73.3793ZM54.9848 47.9891C54.7708 49.2954 54.4052 50.7934 53.9148 52.4252C53.7346 51.8144 53.577 51.1973 53.4422 50.575C53.032 48.6846 52.9741 47.2045 53.1925 46.1746C53.3976 45.2294 53.781 44.8505 54.2447 44.6588C54.4917 44.5516 54.7531 44.481 55.0205 44.4492C55.1365 44.7893 55.1938 45.1466 55.1899 45.5058C55.2042 46.3398 55.1355 47.1732 54.9848 47.9936V47.9891Z"
+                                     fill="#041A32" />
+                                 <path fill-rule="evenodd" clip-rule="evenodd"
+                                     d="M32.1004 10.6992H60.4197C61.8381 10.7005 63.198 11.2649 64.2004 12.2686L84.031 32.0992C84.5285 32.5961 84.9232 33.1861 85.1924 33.8356C85.4617 34.4851 85.6003 35.1813 85.6004 35.8843V85.5992C85.6004 88.437 84.4731 91.1586 82.4664 93.1653C80.4598 95.1719 77.7382 96.2992 74.9004 96.2992H32.1004C29.2626 96.2992 26.541 95.1719 24.5343 93.1653C22.5277 91.1586 21.4004 88.437 21.4004 85.5992V21.3992C21.4004 18.5614 22.5277 15.8398 24.5343 13.8332C26.541 11.8265 29.2626 10.6992 32.1004 10.6992ZM61.5254 18.7242V29.4242C61.5254 30.8431 62.089 32.2039 63.0924 33.2072C64.0957 34.2106 65.4565 34.7742 66.8754 34.7742H77.5754L61.5254 18.7242ZM32.9831 83.8248C33.4646 84.7878 34.2136 85.6616 35.3238 86.0674C36.3411 86.4089 37.4501 86.3515 38.4268 85.9068C40.1298 85.2113 41.824 83.5751 43.3844 81.7026C45.1678 79.5537 47.0403 76.7405 48.8459 73.6197C52.3365 72.5858 55.9108 71.8593 59.528 71.4485C61.133 73.4993 62.7915 75.2648 64.3965 76.531C65.8946 77.708 67.6244 78.6888 69.3943 78.7601C70.3573 78.8092 71.3114 78.5551 72.1228 78.0245C72.9425 77.4663 73.597 76.6979 74.0176 75.7998C74.4991 74.8324 74.7934 73.8203 74.7533 72.786C74.7187 71.7689 74.3417 70.7933 73.6833 70.0173C72.4795 68.5728 70.4955 67.8773 68.5473 67.5296C66.1849 67.1636 63.7881 67.0739 61.405 67.2621C59.3927 64.4175 57.6381 61.3992 56.162 58.2429C57.4995 54.7119 58.5026 51.3726 58.944 48.6441C59.1391 47.5601 59.2257 46.4594 59.2026 45.3583C59.1966 44.3595 58.9649 43.3749 58.5249 42.4782C58.2706 41.9836 57.9094 41.5518 57.4676 41.2141C57.0257 40.8764 56.5143 40.6411 55.9703 40.5255C54.8914 40.2981 53.7768 40.5255 52.7603 40.9401C50.7407 41.7426 49.6751 43.4546 49.2739 45.3405C48.8816 47.1595 49.0599 49.2772 49.5191 51.4216C49.9917 53.5928 50.7942 55.9558 51.8196 58.3499C50.177 62.4355 48.28 66.4142 46.1397 70.2626C43.3815 71.1297 40.7229 72.2864 38.2083 73.7133C36.2288 74.8903 34.4678 76.2813 33.4111 77.922C32.2876 79.6652 31.9399 81.7428 32.9831 83.8248Z"
+                                     fill="#041A32" />
+                             </svg>
+                         </div>
+                         <div class="flex w-full flex-col gap-2">
+                             <div class="w-full">
+                                 <button wire:click="toggleBookmark"
+                                     class="block w-full rounded-md bg-amber-800 p-1 text-center text-white duration-200 ease-in-out hover:bg-amber-700"
+                                     href="">
+                                     @if ($isBookmarked)
+                                         Bookmarked
+                                     @else
+                                         Bookmark
+                                     @endif
+                                 </button>
+                             </div>
+                             <div class="w-full">
+                                 <a class="block w-full rounded-md bg-orange-500 p-1 text-center text-white duration-200 ease-in-out hover:bg-orange-400"
+                                     href="">View</a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             {{-- 2nd div --}}
+             <div class="col-span-2 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4">
+                 <h2 class="text-right font-medium text-primary-color">Number of Citation</h2>
+                 <div class="flex items-center">
+                     <svg class="h-9 w-10 rounded-md bg-blue-600 p-1" viewBox="0 0 46 46" fill="none">
+                         <path
+                             d="M41.3996 21.4672C41.3996 30.3605 33.1618 37.5672 22.9996 37.5672C21.1788 37.571 19.3637 37.3353 17.6023 36.8657C16.2606 37.5461 13.1748 38.8514 7.98636 39.7024C7.52636 39.7771 7.17561 39.2999 7.35769 38.8705C8.17228 36.9481 8.90828 34.3855 9.12869 32.0472C6.31119 29.222 4.59961 25.519 4.59961 21.4672C4.59961 12.5796 12.8413 5.36719 22.9996 5.36719C33.1618 5.36719 41.3996 12.5777 41.3996 21.4672ZM21.1462 18.6305C20.9948 18.4046 20.82 18.1951 20.6249 18.0057C20.3175 17.6883 19.9509 17.4343 19.5458 17.2582L19.5266 17.2505C18.9821 16.9971 18.3887 16.8663 17.7882 16.8672C15.584 16.8672 13.8015 18.5845 13.8015 20.7024C13.8015 22.8184 15.584 24.5358 17.7882 24.5358C18.5779 24.5358 19.3119 24.3154 19.9291 23.9359C19.6148 24.8309 19.0321 25.7854 18.0661 26.7419C17.9752 26.8308 17.9035 26.9374 17.8553 27.055C17.8072 27.1727 17.7836 27.299 17.7862 27.4262C17.7887 27.5533 17.8172 27.6786 17.87 27.7942C17.9227 27.9099 17.9986 28.0136 18.0929 28.0989C18.2868 28.2754 18.5407 28.3714 18.8028 28.3671C19.065 28.3628 19.3156 28.2586 19.5036 28.0759C22.5722 25.0207 22.6546 21.7317 21.6694 19.5524C21.5241 19.2301 21.3489 18.9202 21.1462 18.6305ZM29.8996 23.9359C29.5872 24.8309 29.0026 25.7854 28.0366 26.7419C27.9456 26.8308 27.8738 26.9374 27.8256 27.0552C27.7775 27.173 27.754 27.2994 27.7567 27.4266C27.7594 27.5538 27.7882 27.6791 27.8413 27.7947C27.8944 27.9104 27.9706 28.0139 28.0654 28.0989C28.2589 28.2753 28.5125 28.3712 28.7743 28.3669C29.0361 28.3626 29.2865 28.2585 29.4741 28.0759C32.5427 25.0207 32.6251 21.7317 31.6399 19.5524C31.4946 19.2301 31.3195 18.9221 31.1167 18.6324C30.9653 18.4059 30.7906 18.1958 30.5954 18.0057C30.2881 17.6882 29.9215 17.4342 29.5163 17.2582L29.4971 17.2505C28.9532 16.9974 28.3605 16.8665 27.7606 16.8672C25.5603 16.8672 23.7739 18.5845 23.7739 20.7024C23.7739 22.8184 25.5603 24.5358 27.7606 24.5358C28.5167 24.5381 29.2585 24.3304 29.9034 23.9359H29.8996Z"
+                             fill="white" />
+                     </svg>
+                     <div class="flex w-full items-center justify-center">
+                         <h2 class="mx-2 text-2xl font-bold">{{ $data->citation_count }}</h2>
+                     </div>
+                 </div>
+                 <div>
+                     <h2>Generate key</h2>
+                 </div>
+             </div>
+         </div>
+         <div class="flex flex-col gap-2 overflow-y-auto rounded-lg bg-white p-4 drop-shadow-lg">
+             <div>
+                 <p class="font-extrabold">ADVISOR</p>
+                 <p class="text-gray-600">{{ $data->advisor }}</p>
+             </div>
+             <div>
+                 <p class="font-extrabold">DEFENSE PANEL CHAIR</p>
+                 <p class="text-gray-600">{{ $data->panel_chair }}</p>
+             </div>
+             <div>
+                 <p class="font-extrabold">DEFENSE PANEL MEMBER </p>
+                 <p class="text-gray-600">{{ $data->panel_member_1 }}</p>
+                 @if (!empty($data->panel_member_2))
+                     <p class="text-gray-600">{{ $data->panel_member_2 }}</p>
+                 @endif
+                 @if (!empty($data->panel_member_3))
+                     <p class="text-gray-600">{{ $data->panel_member_3 }}</p>
+                 @endif
+                 @if (!empty($data->panel_member_4))
+                     <p class="text-gray-600">{{ $data->panel_member_4 }}</p>
+                 @endif
+             </div>
+             <div>
+                 <p class="font-extrabold">AUTHORS</p>
+                 <p class="text-gray-600">{{ $data->author_1 }}</p>
+                 @if (!empty($data->author_2))
+                     <p class="text-gray-600">{{ $data->author_2 }}</p>
+                 @endif
+                 @if (!empty($data->author_3))
+                     <p class="text-gray-600">{{ $data->author_3 }}</p>
+                 @endif
+                 @if (!empty($data->author_4))
+                     <p class="text-gray-600">{{ $data->author_4 }}</p>
+                 @endif
+             </div>
+         </div>
+     </div>
+ </section>
+ <section class="mt-4 grid grid-cols-4">
+     {{-- <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
+                <form action="">
+                    <div class="flex w-full items-center justify-center gap-2">
+                        <textarea class="w-full rounded-lg border-2 border-primary-color bg-gray-100 p-2" name=""
+                            placeholder="What's on your mind?" id="autoresizing"></textarea>
+                        <script type="text/javascript">
+                            $('#autoresizing').on('input', function() {
+                                this.style.height = 'auto';
+
+                                this.style.height =
+                                    (this.scrollHeight) + 'px';
+                            });
+                        </script>
+                        <input class="w-fit rounded-lg bg-primary-color p-2 text-white" type="submit"
+                            value="Comment">
                     </div>
+
                 </form>
-                <a href=""
-                    class="w-fit rounded-md bg-blue-500 px-2 py-1 text-white duration-200 ease-in-out hover:bg-blue-700">Advanced
-                    search</a>
-            </div>
-            <div class="mt-2 w-full">
-                <div
-                    class="custom-scrollbar h-[20rem] space-y-2 overflow-y-auto rounded-3xl bg-white bg-opacity-50 p-2 drop-shadow-xl backdrop-blur-sm md:mx-[9.5rem] md:h-[28rem] md:w-[35rem] lg:h-fit lg:w-fit">
-                    @foreach ($latestDocu as $item)
-                        <div class="flex items-center pb-2">
-                            <div class="flex items-center justify-center">
-                                <svg class="mr-1 h-8 md:mr-3 md:h-12" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 46 46" fill="none">
-                                    <path
-                                        d="M17.3017 33.1758C17.6237 32.986 17.9764 32.802 18.3578 32.6276C18.0361 33.109 17.6907 33.574 17.3228 34.021C16.6788 34.7973 16.1786 35.2094 15.8623 35.3378C15.8362 35.3486 15.8093 35.3576 15.7818 35.3646C15.7589 35.3327 15.739 35.2987 15.7224 35.263C15.594 35.012 15.5978 34.7666 15.8144 34.437C16.0578 34.0575 16.5485 33.6224 17.3017 33.1758ZM22.9482 29.3885C22.6761 29.446 22.4039 29.5035 22.1298 29.5667C22.5362 28.7732 22.9195 27.9682 23.2798 27.1517C23.644 27.8264 24.035 28.4838 24.4528 29.1259C23.9545 29.1987 23.4504 29.2869 22.9482 29.3885ZM28.7557 31.5466C28.3985 31.2585 28.064 30.9432 27.7552 30.6036C28.2804 30.6151 28.7538 30.6554 29.164 30.7282C29.8923 30.8605 30.2354 31.0675 30.3542 31.2093C30.3926 31.2476 30.4137 31.3013 30.4156 31.3569C30.4074 31.5191 30.3601 31.677 30.2776 31.8169C30.2309 31.9284 30.1563 32.0261 30.061 32.1005C30.0134 32.1298 29.9573 32.142 29.9019 32.135C29.6949 32.1293 29.3077 31.9836 28.7557 31.5466ZM23.6382 20.6312C23.5462 21.1928 23.3891 21.8368 23.1782 22.5383C23.1008 22.2757 23.033 22.0104 22.9751 21.7429C22.7987 20.9302 22.7738 20.2939 22.8677 19.8511C22.9559 19.4448 23.1207 19.2819 23.3201 19.1995C23.4263 19.1534 23.5386 19.1231 23.6536 19.1094C23.7035 19.2556 23.7281 19.4092 23.7264 19.5636C23.7326 19.9222 23.703 20.2804 23.6382 20.6331V20.6312Z"
-                                        fill="#BABABA" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M13.8 4.59961H25.9747C26.5845 4.60015 27.1691 4.84282 27.6 5.27428L36.1253 13.7996C36.3392 14.0132 36.5089 14.2669 36.6246 14.5461C36.7404 14.8253 36.8 15.1246 36.8 15.4269V36.7996C36.8 38.0196 36.3154 39.1896 35.4527 40.0523C34.59 40.915 33.42 41.3996 32.2 41.3996H13.8C12.58 41.3996 11.41 40.915 10.5473 40.0523C9.68465 39.1896 9.20001 38.0196 9.20001 36.7996V9.19961C9.20001 7.97961 9.68465 6.80959 10.5473 5.94692C11.41 5.08425 12.58 4.59961 13.8 4.59961ZM26.45 8.04961V12.6496C26.45 13.2596 26.6923 13.8446 27.1237 14.276C27.555 14.7073 28.14 14.9496 28.75 14.9496H33.35L26.45 8.04961ZM14.1795 36.0368C14.3865 36.4508 14.7085 36.8264 15.1858 37.0009C15.6231 37.1477 16.0999 37.123 16.5198 36.9319C17.2519 36.6329 17.9803 35.9294 18.6511 35.1244C19.4178 34.2006 20.2228 32.9912 20.999 31.6495C22.4996 31.2051 24.0363 30.8927 25.5913 30.7161C26.2813 31.5978 26.9943 32.3568 27.6843 32.9011C28.3283 33.4071 29.072 33.8288 29.8329 33.8594C30.2469 33.8805 30.6571 33.7713 31.0059 33.5432C31.3583 33.3032 31.6397 32.9729 31.8205 32.5868C32.0275 32.1709 32.154 31.7358 32.1368 31.2911C32.1219 30.8539 31.9598 30.4345 31.6768 30.1009C31.1593 29.4799 30.3063 29.1809 29.4688 29.0314C28.4532 28.874 27.4228 28.8354 26.3983 28.9164C25.5332 27.6935 24.7788 26.3958 24.1443 25.0389C24.7193 23.5209 25.1505 22.0854 25.3403 20.9124C25.4241 20.4464 25.4614 19.9732 25.4514 19.4998C25.4488 19.0704 25.3492 18.6471 25.1601 18.2616C25.0508 18.049 24.8955 17.8634 24.7055 17.7182C24.5156 17.573 24.2957 17.4718 24.0618 17.4221C23.598 17.3244 23.1188 17.4221 22.6818 17.6004C21.8136 17.9454 21.3555 18.6814 21.183 19.4921C21.0143 20.2741 21.091 21.1845 21.2884 22.1064C21.4916 23.0399 21.8366 24.0557 22.2774 25.0849C21.5713 26.8414 20.7557 28.5519 19.8356 30.2063C18.6498 30.5791 17.5069 31.0763 16.4258 31.6898C15.5748 32.1958 14.8178 32.7938 14.3635 33.4991C13.8805 34.2485 13.731 35.1417 14.1795 36.0368Z"
-                                        fill="#BABABA" />
-                                </svg>
-                            </div>
-                            <a wire:navigate href="{{ route('view-document', ['reference' => $item->reference]) }}"
-                                class="text-sm md:text-base">
-                                {{ $item->title }}
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <svg class="svg-bg -z-10 h-full w-full dark:bg-primary-color" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1600 900"
-        preserveAspectRatio="xMidYMax slice">
-        <defs>
-            <linearGradient id="bg">
-                <stop offset="0%" style="stop-color:rgba(130, 158, 249, 0.244)"></stop>
-                <stop offset="50%" style="stop-color:rgba(76, 189, 255, 0.456)"></stop>
-                <stop offset="100%" style="stop-color:rgba(115, 209, 72, 0.337)"></stop>
-            </linearGradient>
-            <path id="wave" fill="url(#bg)"
-                d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
-	s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z" />
-        </defs>
-        <g>
-            <use xlink:href='#wave' opacity=".3">
-                <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="10s"
-                    calcMode="spline" values="270 230; -334 180; 270 230" keyTimes="0; .5; 1"
-                    keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0" repeatCount="indefinite" />
-            </use>
-            <use xlink:href='#wave' opacity=".6">
-                <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="8s"
-                    calcMode="spline" values="-270 230;243 220;-270 230" keyTimes="0; .6; 1"
-                    keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0" repeatCount="indefinite" />
-            </use>
-            <use xlink:href='#wave' opacty=".9">
-                <animateTransform attributeName="transform" attributeType="XML" type="translate" dur="6s"
-                    calcMode="spline" values="0 230;-140 200;0 230" keyTimes="0; .4; 1"
-                    keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0" repeatCount="indefinite" />
-            </use>
-        </g>
-    </svg>
-
-    </div>
-</x-app-layout>
+            </div> --}}
+ </section>

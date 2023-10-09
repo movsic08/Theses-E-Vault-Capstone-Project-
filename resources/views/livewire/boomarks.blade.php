@@ -34,7 +34,7 @@
         </section>
     @else
         <div class="md:container">
-            <section class="flex flex-col gap-4">
+            <section class="flex flex-col gap-4 lg:mx-[8rem]">
                 @foreach ($bookmarkLists as $bookmarkedItem)
                     @php
                         $docuPost = \App\Models\DocuPost::where('reference', $bookmarkedItem->reference)

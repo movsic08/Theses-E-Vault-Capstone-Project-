@@ -2,23 +2,17 @@
     <div class="container text-base font-semibold text-blue-950">
         <div class="flex w-full items-center justify-between md:p-2">
             @php
-                $timezone = request()->header('timezone');
                 
-                if (!empty($timezone)) {
-                    config(['app.timezone' => $timezone]);
-                }
-                
-                $currentHour = now()
-                    ->setTimezone(config('app.timezone'))
-                    ->format('g');
+                $currentHour = now()->hour; // Get the current hour of the day
                 
                 if ($currentHour >= 5 && $currentHour < 12) {
                     $greeting = 'morning';
-                } elseif ($currentHour >= 12 && $currentHour < 18) {
-                    $greeting = 'evening';
+                } elseif ($currentHour >= 12 && $currentHour < 17) {
+                    $greeting = 'afternoon'; // Changed the upper limit to 17 (5 PM) for afternoon
                 } else {
-                    $greeting = 'afternoon';
+                    $greeting = 'evening'; // For hours from 17 (5 PM) onwards
                 }
+                
             @endphp
 
             <h1 class="">Good {{ $greeting }},

@@ -37,6 +37,9 @@ Route::get('/sidebar', function () {
 
 Route::post('/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
+Route::get('/help-and-suport', function(){
+    // return 404;
+})->name('help-and-support');
 Route::post('/login/process', [UserController::class, 'loginProcess'])->name('login-process');
 Route::get('/profile/{username?}' , [UserController::class, 'viewUser'])->name('user-profile');
 

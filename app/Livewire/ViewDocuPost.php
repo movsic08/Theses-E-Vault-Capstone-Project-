@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use App\Models\BookmarkList;
 use App\Models\DocuPost;
+use App\Models\DocuPostComment;
+use App\Models\User;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class ViewDocuPost extends Component {
@@ -69,7 +72,30 @@ class ViewDocuPost extends Component {
         }
     }
 
+    #[ Rule( 'required|min:1' ) ]
+    public $comment = '';
+
+    public function createDocuPostComment() {
+        $this->validate();
+
+        $checkIfSuccess =  DocuPostComment::create( [
+            'post_id' =>  $this->data->id,
+            'user_id' => $this->authenticatedUser->id,
+            'comment_content' =>  $this->comment
+        ] );
+        if ( $checkIfSuccess ) {
+            request()->session()->flash( 'success', 'Comment craeted' );
+
+        } else {
+            request()->session()->flash( 'warning', 'Comment failed' );
+        }
+        $this->dispatch( '$refresh' );
+        return $this->comment = '';
+
+    }
+
     public function render() {
+        $comments = DocuPostComment::where( 'post_id', $this->data->id )->latest()->get();
 
         if ( auth()->check() ) {
             $idAdmin = auth()->user()->is_admin;
@@ -78,6 +104,9 @@ class ViewDocuPost extends Component {
         }
         $this->checkBookmark();
         $layout = $idAdmin ? 'layout.admin' : 'layout.app';
-        return view( 'livewire.view-docu-post' )->layout( $layout );
+        return view( 'livewire.view-docu-post', [
+            'comments' => $comments,
+
+        ] )->layout( $layout );
     }
 }
