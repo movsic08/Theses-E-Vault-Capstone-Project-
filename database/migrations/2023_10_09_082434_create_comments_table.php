@@ -17,6 +17,7 @@ return new class extends Migration
         $table->unsignedBigInteger('user_id');
         $table->unsignedBigInteger('parent_id')->nullable();
         $table->text('comment_content');
+        $table->unsignedBigInteger('status')->default(0);
         $table->timestamps();
     });
     }

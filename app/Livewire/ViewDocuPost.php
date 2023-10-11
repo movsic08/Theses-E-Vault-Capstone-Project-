@@ -37,6 +37,46 @@ class ViewDocuPost extends Component {
         }
     }
 
+    public function deleteComment( $id ) {
+        $isDeleted = DocuPostComment::where( 'id', $id )
+        ->where( 'user_id', auth()->user()->id )
+        ->delete();
+        if ( !$isDeleted ) {
+            request()->session()->flash( 'error', 'Deleting comment failed, contact developer!' );
+        }
+        return;
+    }
+    public $editingCommentId = null;
+    public $editedComment = '';
+
+    public function editComment( $commentId ) {
+        $this->editingCommentId = $commentId;
+        $this->editedComment = $this->findComment( $commentId )->comment_content;
+    }
+
+    public function updateComment( $commentId ) {
+        $this->validate( [
+            'editedComment' => 'required',
+        ], [
+            'editedComment.required' => 'You cannot update an empty comment.'
+        ] );
+
+        $comment = $this->findComment( $commentId );
+        $comment->comment_content = $this->editedComment;
+        $comment->save();
+
+        $this->cancelEditing();
+    }
+    protected function findComment( $commentId ) {
+        return DocuPostComment::find( $commentId );
+
+    }
+
+    public function cancelEditing() {
+        $this->editingCommentId = null;
+        $this->editedComment = '';
+    }
+
     public function toggleBookmark() {
         if ( !auth()->check() ) {
             request()->session()->flash( 'message', 'You need to sign in first' );
@@ -77,21 +117,36 @@ class ViewDocuPost extends Component {
 
     public function createDocuPostComment() {
         $this->validate();
-
-        $checkIfSuccess =  DocuPostComment::create( [
-            'post_id' =>  $this->data->id,
-            'user_id' => $this->authenticatedUser->id,
-            'comment_content' =>  $this->comment
-        ] );
-        if ( $checkIfSuccess ) {
-            request()->session()->flash( 'success', 'Comment craeted' );
-
+        if ( !auth()->check() ) {
+            request()->session()->flash( 'message', 'You need to sign in first' );
         } else {
-            request()->session()->flash( 'warning', 'Comment failed' );
-        }
-        $this->dispatch( '$refresh' );
-        return $this->comment = '';
+            $checkInfoData = empty( $this->authenticatedUser->last_name && $this->authenticatedUser->first_name && $this->authenticatedUser->last_name &&
+            $this->authenticatedUser->address &&
+            $this->authenticatedUser->phone_no &&
+            $this->authenticatedUser->student_id &&
+            $this->authenticatedUser->bachelor_degree );
+            if ( $checkInfoData ) {
+                request()->session()->flash( 'message', 'Account information details are incomplete, fill out now here.' );
+            } else {
+                if ( $this->authenticatedUser->is_verified == 0 ) {
+                    request()->session()->flash( 'message', 'Ve rify your account now, to enjoy the full features for free.' );
+                } else {
+                    $checkIfSuccess =  DocuPostComment::create( [
+                        'post_id' =>  $this->data->id,
+                        'user_id' => $this->authenticatedUser->id,
+                        'comment_content' =>  $this->comment
+                    ] );
+                    if ( $checkIfSuccess ) {
+                        request()->session()->flash( 'success', 'Comment created' );
 
+                    } else {
+                        request()->session()->flash( 'warning', 'Comment failed' );
+                    }
+                    $this->dispatch( '$refresh' );
+                    return $this->comment = '';
+                }
+            }
+        }
     }
 
     public function render() {
