@@ -12,19 +12,21 @@
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
   /* width of the entire scrollbar */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  /* background: ; */
+  /* background: yellow;
+  margin-left: 10px;
+  margin-right: 10px; */
   /* color of the tracking area */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: #9e9b9c;
-  /* color of the scroll thumb */
+
   border-radius: 20px;
-  /* roundness of the scroll thumb */
   border: 3px solid #9e9b9c;
-  /* creates padding around scroll thumb */
 }

@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 {{-- comment form --}}
-                <div class="hidden gap-3 lg:col-span-3 lg:flex lg:flex-col">
+                <div class="sticky hidden gap-3 lg:col-span-3 lg:flex lg:flex-col">
                     <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
                         <form wire:submit.prevent='createDocuPostComment'>
                             <div class="flex w-full items-center justify-center gap-2">
@@ -133,82 +133,89 @@
                             $fullname = $commentAuthorDetails->first_name . ' ' . $commentAuthorDetails->last_name;
 
                         @endphp
-                        <div class="rounded-xl bg-white px-4 py-2 drop-shadow-md" wire:poll.10s="$refresh">
-                            <div class="flex w-full">
-                                <img src="{{ empty($commentAuthorDetails->profile_picture) ? asset('assets/default_profile.png') : asset('storage/' . $commentAuthorDetails->profile_picture) }}"
-                                    class="mr-2 h-8 w-8 rounded-full object-cover" alt="user profile" srcset="">
-                                <div class="w-full">
-                                    <div class="flex w-full flex-col leading-tight">
-                                        <div class="flex w-full justify-between">
-                                            <strong>{{ $fullname }}</strong>
-                                            <section class="flex gap-1">
-                                                <div class="flex items-center gap-1">
-                                                    @if ($commentsItem->created_at != $commentsItem->updated_at)
-                                                        <small class="text-xs">Edited</small>
-                                                        <div class="h-1 w-1 rounded-full bg-slate-700"></div>
+                        <div class="container">
+                            <div class="rounded-xl bg-white px-4 py-2 drop-shadow-md" wire:poll.10s="$refresh">
+                                <div class="flex w-full">
+                                    <img src="{{ empty($commentAuthorDetails->profile_picture) ? asset('assets/default_profile.png') : asset('storage/' . $commentAuthorDetails->profile_picture) }}"
+                                        class="mr-2 h-8 w-8 rounded-full object-cover" alt="user profile"
+                                        srcset="">
+                                    <div class="w-full">
+                                        <div class="flex w-full flex-col leading-tight">
+                                            <div class="flex w-full justify-between">
+                                                <strong>{{ $fullname }}</strong>
+                                                <section class="flex gap-1">
+                                                    <div class="flex items-center gap-1">
+                                                        @if ($commentsItem->created_at != $commentsItem->updated_at)
+                                                            <small class="text-xs">Edited</small>
+                                                            <div class="h-1 w-1 rounded-full bg-slate-700"></div>
+                                                        @endif
+                                                    </div>
+                                                    @if ($commentAuthorDetails->role_id == 1)
+                                                        <span class="font-medium">Student</span>
+                                                    @elseif($commentAuthorDetails->role_id == 1)
+                                                        <span class="font-medium">Faculty</span>
+                                                    @else
+                                                        <span class="font-medium">ERROR!</span>
                                                     @endif
-                                                </div>
-                                                @if ($commentAuthorDetails->role_id == 1)
-                                                    <span>Student</span>
-                                                @elseif($commentAuthorDetails->role_id == 1)
-                                                    <span>Faculty</span>
-                                                @else
-                                                    <span>ERROR!</span>
-                                                @endif
-                                            </section>
-                                        </div>
-                                        <div class="flex gap-2">
-                                            @php
-                                                $commentorInfo = \App\Models\User::find($commentsItem->user_id);
-                                                $bachelorDegree = \App\Models\BachelorDegree::find($commentorInfo->bachelor_degree);
-                                            @endphp
-                                            <small>{{ Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
-                                            <small>{{ $bachelorDegree->degree_name }}</small>
-                                        </div>
+                                                </section>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                @php
+                                                    $commentorInfo = \App\Models\User::find($commentsItem->user_id);
+                                                    $bachelorDegree = \App\Models\BachelorDegree::find($commentorInfo->bachelor_degree);
+                                                @endphp
+                                                <small>{{ Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
+                                                <small>{{ $bachelorDegree->degree_name }}</small>
+                                            </div>
 
-                                    </div>
-                                    <div class="my-2 w-full rounded-md py-1">
-                                        @if ($editingCommentId === $commentsItem->id)
-                                            <section class="flex w-full flex-row items-start gap-2">
-                                                <div class="w-full">
-                                                    <x-input-field wire:model="editedComment" type="text"
-                                                        class="w-full" />
-                                                    @error('editedComment')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <button
-                                                    class="h-9 w-fit rounded-md bg-blue-700 px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-primary-color"
-                                                    wire:click="updateComment({{ $commentsItem->id }})">Save</button>
-                                                <button
-                                                    class="h-9 w-fit rounded-md bg-blue-700 px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-primary-color"
-                                                    wire:click="cancelEditing">Cancel</button>
-                                            </section>
-                                        @else
-                                            <p class="">{{ $commentsItem->comment_content }}</p>
-                                        @endif
-                                    </div>
-                                    <div class="flex w-full justify-start">
-                                        <ul class="flex gap-2 text-xs">
-                                            @if ($commentsItem->user_id === auth()->user()->id)
-                                                <li wire:click='editComment({{ $commentsItem->id }})'
-                                                    class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                                    Edit</li>
-                                                <li wire:click='deleteComment({{ $commentsItem->id }})'
-                                                    class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                                    Delete</li>
+                                        </div>
+                                        <div class="my-2 w-full rounded-md py-1">
+                                            @if ($editingCommentId === $commentsItem->id)
+                                                <section class="flex w-full flex-row items-start gap-2">
+                                                    <div class="w-full">
+                                                        <x-input-field wire:model="editedComment" type="text"
+                                                            class="w-full" />
+                                                        @error('editedComment')
+                                                            <small class="text-red-500">{{ $message }}</small>
+                                                        @enderror
+                                                    </div>
+                                                    <button
+                                                        class="h-9 w-fit rounded-md bg-blue-700 px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-primary-color"
+                                                        wire:click="updateComment({{ $commentsItem->id }})">Save</button>
+                                                    <button
+                                                        class="h-9 w-fit rounded-md bg-blue-700 px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-primary-color"
+                                                        wire:click="cancelEditing">Cancel</button>
+                                                </section>
+                                            @else
+                                                <p class="">{{ $commentsItem->comment_content }}</p>
                                             @endif
-                                            <li
-                                                class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                                Reply</li>
-                                            <li
-                                                class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                                Report</li>
-                                        </ul>
+                                        </div>
+                                        <div class="flex w-full justify-start">
+                                            <ul class="flex gap-2 text-xs">
+                                                @if (auth()->check())
+                                                    @if ($commentsItem->user_id === auth()->user()->id)
+                                                        <li wire:click='editComment({{ $commentsItem->id }})'
+                                                            class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
+                                                            Edit
+                                                        </li>
+                                                        <li wire:click='deleteComment({{ $commentsItem->id }})'
+                                                            class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
+                                                            Delete
+                                                        </li>
+                                                    @endif
+                                                    <li
+                                                        class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
+                                                        Reply</li>
+                                                    <li
+                                                        class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
+                                                        Report</li>
+                                                @endif
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     @endforeach
                 </div>
