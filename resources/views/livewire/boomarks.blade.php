@@ -51,7 +51,7 @@
                                 <span class="text-red-500">Document is deleted, try contacting administrator.</span>
                             @endif
                         </div>
-                        <div class="ml-6 mr-3 flex flex-col items-center gap-2 md:flex-row">
+                        <div class="ml-4 mr-3 flex flex-col items-center gap-1 md:flex-row lg:ml-6 lg:gap-2">
                             <button
                                 class="h-fit rounded-lg bg-blue-800 p-2 text-white duration-200 ease-in-out hover:bg-blue-900">
                                 <svg class="h-5" viewBox="0 0 34 34" fill="none">

@@ -68,19 +68,24 @@
                                             {{ $docuData->title }}
                                         </a>
                                     </div>
-                                    <svg class="absolute right-0 top-2 max-h-[1.3rem] min-h-[1.3rem] min-w-[1.3rem] max-w-[1.3rem] cursor-pointer"
-                                        wire:click='boomarkItem({{ $docuData->id }})' xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 23 32" fill="none">
-                                        <g clip-path="url(#clip0_1607_1378)">
+                                    @php
+                                        $checkBookmark = \App\Models\BookmarkList::where('user_id', auth()->id())
+                                            ->where('docu_post_id', $docuData->id)
+                                            ->count();
+                                    @endphp
+                                    <i>{{ $bookmarkItemChecker }}</i>
+                                    <svg class="absolute right-0 top-0 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700"
+                                        wire:click="bookmarkItem({{ $docuData->id }}, '{{ $docuData->reference }}')"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        @if ($checkBookmark > 0)
                                             <path
-                                                d="M21.3438 31.8082C21.0763 31.8087 20.8179 31.708 20.6175 31.5252L11.5 23.1598L2.3825 31.5267C2.22467 31.6714 2.02966 31.7658 1.82098 31.7987C1.61231 31.8315 1.39889 31.8013 1.20648 31.7117C1.01407 31.6221 0.850892 31.4769 0.736624 31.2937C0.622356 31.1105 0.561885 30.8971 0.562505 30.6792V4.71144C0.563663 3.51406 1.02497 2.36606 1.84519 1.51938C2.66541 0.672697 3.77754 0.196508 4.9375 0.195312H18.0625C19.2225 0.196508 20.3346 0.672697 21.1548 1.51938C21.975 2.36606 22.4363 3.51406 22.4375 4.71144V30.6792C22.4375 30.9786 22.3223 31.2658 22.1171 31.4775C21.912 31.6893 21.6338 31.8082 21.3438 31.8082Z"
-                                                fill="#3D4448" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_1607_1378">
-                                                <rect width="23" height="32" fill="white" />
-                                            </clipPath>
-                                        </defs>
+                                                d="M4.8 4.8V21a.6.6 0 0 0 .888.527L12 18.083l6.312 3.444A.6.6 0 0 0 19.2 21V4.8a2.4 2.4 0 0 0-2.4-2.4H7.2a2.4 2.4 0 0 0-2.4 2.4Z">
+                                            </path>
+                                        @else
+                                            <path
+                                                d="M4.8 4.8a2.4 2.4 0 0 1 2.4-2.4h9.6a2.4 2.4 0 0 1 2.4 2.4V21a.601.601 0 0 1-.933.5L12 18.122 5.732 21.5A.6.6 0 0 1 4.8 21V4.8Zm2.4-1.2A1.2 1.2 0 0 0 6 4.8v15.08l5.668-2.979a.599.599 0 0 1 .664 0L18 19.88V4.8a1.2 1.2 0 0 0-1.2-1.2H7.2Z">
+                                            </path>
+                                        @endif
                                     </svg>
                                 </div>
                                 <div class="mt-2 flex">

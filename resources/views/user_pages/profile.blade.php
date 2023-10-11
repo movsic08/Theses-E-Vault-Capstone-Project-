@@ -23,14 +23,14 @@
                                 {{ '@' . $checkedAccount->username }}</h2>
                         </div>
                         <div class="flex w-full justify-center md:justify-normal">
+                            @php
+                                $bachelorDegree = \App\Models\BachelorDegree::find($checkedAccount->bachelor_degree);
+                            @endphp
                             <h1
-                                class="mt-4 w-fit rounded-md bg-blue-300 px-2 py-1 text-center text-xs font-semibold text-blue-800 md:text-base">
-                                Bachelor of
-                                Science in
-                                Information
-                                Technology</h1>
+                                class="mt-4 w-fit rounded-md bg-blue-300 px-3 py-1 text-center text-xs font-semibold text-blue-800 md:text-base">
+                                {{ $bachelorDegree->name }}</h1>
                         </div>
-                        <h2 class="mt-1 text-center font-semibold md:text-left">3rd year - Block B</h2>
+                        {{-- <h2 class="mt-1 text-center font-semibold md:text-left">3rd year - Block B</h2> --}}
                         <div class="mt-2 flex w-full items-center justify-end">
                             @if (auth()->check())
                                 @if (auth()->user()->id === $currentUserId)

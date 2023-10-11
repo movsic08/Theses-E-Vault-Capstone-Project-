@@ -153,19 +153,19 @@
             </a>
             @auth
                 {{-- logout --}}
-                <form action="{{ route('user.logout') }}" method="POST"
-                    class="flex cursor-pointer rounded-xl p-2 duration-500 ease-in-out hover:bg-slate-300">
+                <form action="{{ route('user.logout') }}"
+                    class="flex cursor-pointer rounded-xl p-2 duration-500 ease-in-out hover:bg-slate-300" method="POST">
                     @csrf
-                    <button class="flex items-center" type="submit"> </button>
-                    <div class="relative">
-                        <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1Zm14.242-.97-8-2A1 1 0 0 0 10 3v18a.999.999 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97ZM15 12.188a1 1 0 0 1-2 0v-.377a1 1 0 1 1 2 0v.377Z">
-                            </path>
-                        </svg>
-                    </div>
-                    <p class="hideName block pl-2 md:hidden">Logout</p>
-
+                    <button type="submit">
+                        <div class="relative">
+                            <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1Zm14.242-.97-8-2A1 1 0 0 0 10 3v18a.999.999 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97ZM15 12.188a1 1 0 0 1-2 0v-.377a1 1 0 1 1 2 0v.377Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <p class="hideName block pl-2 md:hidden">LogOut</p>
+                    </button>
                 </form>
             @endauth
         </div>
