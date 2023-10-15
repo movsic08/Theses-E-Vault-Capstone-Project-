@@ -116,7 +116,7 @@ class ViewDocuPost extends Component {
     public $comment = '';
 
     public function createDocuPostComment() {
-        $this->validate();
+        $this->validateOnly( 'comment' );
         if ( !auth()->check() ) {
             request()->session()->flash( 'message', 'You need to sign in first' );
         } else {
@@ -149,8 +149,133 @@ class ViewDocuPost extends Component {
         }
     }
 
+    public $showReplyBox = false, $targetReply = null, $replyingTo, $currentReplyingID;
+
+    public function toggleReplyBox( $commentId, $commentMainAuthor ) {
+        $this->showReplyBox = true;
+        $this->targetReply = $commentId;
+        $mainAuthorDetails = User::where( 'id', $commentMainAuthor )->first();
+
+        if ( $mainAuthorDetails ) {
+            $fullName = $mainAuthorDetails->first_name . ' ' . $mainAuthorDetails->last_name;
+            $this->replyingTo = $fullName;
+            $this->currentReplyingID = $commentMainAuthor;
+        } else {
+            $this->replyingTo = 'user';
+        }
+
+    }
+
+    public $showReplyingBox = false, $targetMainIDForReplyingReply;
+
+    public function toggleReplyToRepliedBox( $commentId, $commentMainAuthor, $mainCommentId ) {
+
+        $this->targetReply = $commentId;
+        $this->showReplyingBox = !$this->showReplyingBox ;
+        $mainAuthorDetails = User::where( 'id', $commentMainAuthor )->first();
+
+        if ( $mainAuthorDetails ) {
+            $fullName = $mainAuthorDetails->first_name . ' ' . $mainAuthorDetails->last_name;
+            $this->replyingTo = $fullName;
+            $this->targetMainIDForReplyingReply = $commentMainAuthor;
+        } else {
+            $this->replyingTo = 'user';
+        }
+
+    }
+
+    #[ Rule( 'required|min:1', message: 'Reply should not be empty.' ) ]
+    public $replyCommentContent = '';
+
+    public function createReply() {
+        $this->validateOnly( 'replyCommentContent' );
+        if ( !auth()->check() ) {
+            request()->session()->flash( 'message', 'You need to sign in first' );
+        } else {
+            $checkInfoData = empty( $this->authenticatedUser->last_name && $this->authenticatedUser->first_name && $this->authenticatedUser->last_name &&
+            $this->authenticatedUser->address &&
+            $this->authenticatedUser->phone_no &&
+            $this->authenticatedUser->student_id &&
+            $this->authenticatedUser->bachelor_degree );
+            if ( $checkInfoData ) {
+                request()->session()->flash( 'message', 'Account information details are incomplete, fill out now here.' );
+            } else {
+                if ( $this->authenticatedUser->is_verified == 0 ) {
+                    request()->session()->flash( 'message', 'Ve rify your account now, to enjoy the full features for free.' );
+                } else {
+                    // dd( $this->data->id, $this->targetReply, $this->authenticatedUser->id, $this->replyCommentContent );
+                    $checkIfSuccess =  DocuPostComment::create( [
+                        'post_id' =>  $this->data->id,
+                        'parent_id' =>  $this->targetReply,
+                        'user_id' => $this->authenticatedUser->id,
+                        'comment_content' =>  $this->replyCommentContent
+                    ] );
+                    if ( $checkIfSuccess ) {
+                        request()->session()->flash( 'success', 'Comment created' );
+
+                    } else {
+                        request()->session()->flash( 'warning', 'Comment failed' );
+                    }
+                    $this->dispatch( '$refresh' );
+                    $this->showReplyBox = false;
+                    return $this->comment = '';
+                }
+            }
+        }
+    }
+
+    // public function createReplyToReplies() {
+    //     $this->validateOnly( 'replyCommentContent' );
+    //     if ( !auth()->check() ) {
+    //         request()->session()->flash( 'message', 'You need to sign in first' );
+    //     } else {
+    //         $checkInfoData = empty( $this->authenticatedUser->last_name && $this->authenticatedUser->first_name && $this->authenticatedUser->last_name &&
+    //         $this->authenticatedUser->address &&
+    //         $this->authenticatedUser->phone_no &&
+    //         $this->authenticatedUser->student_id &&
+    //         $this->authenticatedUser->bachelor_degree );
+    //         if ( $checkInfoData ) {
+    //             request()->session()->flash( 'message', 'Account information details are incomplete, fill out now here.' );
+    //         } else {
+    //             if ( $this->authenticatedUser->is_verified == 0 ) {
+    //                 request()->session()->flash( 'message', 'Ve rify your account now, to enjoy the full features for free.' );
+    //             } else {
+    //                 // dd( $this->data->id, $this->targetReply, $this->authenticatedUser->id, $this->replyCommentContent );
+    //                 $checkIfSuccess =  DocuPostComment::create( [
+    //                     'post_id' =>  $this->data->id,
+    //                     'parent_id' =>  $this->targetReply,
+    //                     'user_id' => $this->authenticatedUser->id,
+    //                     'comment_content' =>  $this->replyCommentContent
+    // ] );
+    //                 if ( $checkIfSuccess ) {
+    //                     request()->session()->flash( 'success', 'Comment created' );
+
+    //                 } else {
+    //                     request()->session()->flash( 'warning', 'Comment failed' );
+    //                 }
+    //                 $this->dispatch( '$refresh' );
+    //                 $this->showReplyBox = false;
+    //                 return $this->comment = '';
+    //             }
+    //         }
+    //     }
+    // }
+
     public function render() {
-        $comments = DocuPostComment::where( 'post_id', $this->data->id )->latest()->get();
+        $comments = DocuPostComment::where( 'post_id', $this->data->id )
+        ->where( 'parent_id', null )
+        ->where( 'reply_parent_author', null )
+        ->latest()->get();
+        $replyComments = DocuPostComment::where( 'post_id', $this->data->id )
+        ->whereNotNull( 'parent_id' )
+        ->where( 'reply_parent_author', null )
+        ->orderBy( 'created_at', 'desc' )
+        ->get();
+        $repliesToReplyComments = DocuPostComment::where( 'post_id', $this->data->id )
+        ->whereNotNull( 'parent_id' )
+        ->whereNotNull( 'reply_parent_author' )
+        ->orderBy( 'created_at', 'desc' )
+        ->get();
 
         if ( auth()->check() ) {
             $idAdmin = auth()->user()->is_admin;
@@ -161,7 +286,8 @@ class ViewDocuPost extends Component {
         $layout = $idAdmin ? 'layout.admin' : 'layout.app';
         return view( 'livewire.view-docu-post', [
             'comments' => $comments,
-
+            'replyComments' => $replyComments,
+            'repliesToReplyComments' => $repliesToReplyComments,
         ] )->layout( $layout );
     }
 }
