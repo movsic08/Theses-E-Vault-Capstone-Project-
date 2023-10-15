@@ -152,7 +152,8 @@ class ViewDocuPost extends Component {
     public $showReplyBox = false, $targetReply = null, $replyingTo, $currentReplyingID;
 
     public function toggleReplyBox( $commentId, $commentMainAuthor ) {
-        $this->showReplyBox = true;
+        // dd( $commentMainAuthor );
+        $this->showReplyBox = true ;
         $this->targetReply = $commentId;
         $mainAuthorDetails = User::where( 'id', $commentMainAuthor )->first();
 
@@ -166,39 +167,10 @@ class ViewDocuPost extends Component {
 
     }
 
-    public $showReplyingBox = false, $targetMainIDForReplyingReply, $mainCOmmentAUthor;
-
-    public function toggleReplyToRepliedBox( $parentCommentID, $mainAuthorCOmment ) {
-        $this->showReplyingBox = ! $this->showReplyingBox;
-        $this->targetReply = $parentCommentID;
-        $this->mainCOmmentAUthor = $mainAuthorCOmment;
-        $mainAuthorDetails = User::where( 'id', $mainAuthorCOmment )->first();
-        if ( $mainAuthorDetails ) {
-            $fullName = $mainAuthorDetails->first_name . ' ' . $mainAuthorDetails->last_name;
-            $this->replyingTo = $fullName;
-        } else {
-            $this->replyingTo = 'user';
-        }
-    }
-
-    public $targetReplies;
-
-    public function toggleReplyToRepliesOfReplyBox( $targetID,  $parentCommentID, $mainAuthorCOmment ) {
-        // dd( $targetID );
-        $this->showReplyingBox = ! $this->showReplyingBox;
-        $this->targetReplies = $targetID;
-        $this->mainCOmmentAUthor = $mainAuthorCOmment;
-        $mainAuthorDetails = User::where( 'id', $mainAuthorCOmment )->first();
-        if ( $mainAuthorDetails ) {
-            $fullName = $mainAuthorDetails->first_name . ' ' . $mainAuthorDetails->last_name;
-            $this->replyingTo = $fullName;
-        } else {
-            $this->replyingTo = 'user';
-        }
-    }
-
     #[ Rule( 'required|min:1', message: 'Reply should not be empty.' ) ]
     public $replyCommentContent = '';
+    #[ Rule( 'required|min:1', message: 'You\'re about to reply a replied comment. It should not be empty.' ) ]
+    public $replyOfRepliedCommentContent = '';
 
     public function createReply() {
         $this->validateOnly( 'replyCommentContent' );
@@ -221,7 +193,8 @@ class ViewDocuPost extends Component {
                         'post_id' =>  $this->data->id,
                         'parent_id' =>  $this->targetReply,
                         'user_id' => $this->authenticatedUser->id,
-                        'comment_content' =>  $this->replyCommentContent
+                        'comment_content' =>  $this->replyCommentContent,
+                        'reply_parent_author' => $this->currentReplyingID,
                     ] );
                     if ( $checkIfSuccess ) {
                         request()->session()->flash( 'success', 'Comment created' );
@@ -237,29 +210,14 @@ class ViewDocuPost extends Component {
         }
     }
 
-    public function createReplyToReplies() {
-        $this->validateOnly( 'replyCommentContent' );
-        if ( !auth()->check() ) {
-            request()->session()->flash( 'message', 'You need to sign in first' );
-        } else {
-            $checkInfoData = empty( $this->authenticatedUser->last_name && $this->authenticatedUser->first_name && $this->authenticatedUser->last_name &&
-            $this->authenticatedUser->address &&
-            $this->authenticatedUser->phone_no &&
-            $this->authenticatedUser->student_id &&
-            $this->authenticatedUser->bachelor_degree );
-            if ( $checkInfoData ) {
-                request()->session()->flash( 'message', 'Account information details are incomplete, fill out now here.' );
-            } else {
-                if ( $this->authenticatedUser->is_verified == 0 ) {
-                    request()->session()->flash( 'message', 'Ve rify your account now, to enjoy the full features for free.' );
-                } else {
-                    // dd( $this->data->id, $this->targetReply, $this->authenticatedUser->id, $this->replyCommentContent );
-                    $checkIfSuccess =  DocuPostComment::create( [
+    public function createRepliesOfReply() {
+        $this->validateOnly( 'replyOfRepliedCommentContent' );
+        $checkIfSuccess =  DocuPostComment::create( [
                         'post_id' =>  $this->data->id,
-                        'parent_id' =>  $this->targetReply,
+                        'parent_id' =>  $this->parentIDCommentValue,
                         'user_id' => $this->authenticatedUser->id,
-                        'reply_parent_author' => $this->mainCOmmentAUthor,
-                        'comment_content' => $this->replyCommentContent
+                        'comment_content' =>  $this->replyOfRepliedCommentContent,
+                        'reply_parent_author' => $this->parentCommentUserId,
                     ] );
                     if ( $checkIfSuccess ) {
                         request()->session()->flash( 'success', 'Comment created' );
@@ -268,17 +226,26 @@ class ViewDocuPost extends Component {
                         request()->session()->flash( 'warning', 'Comment failed' );
                     }
                     $this->dispatch( '$refresh' );
-                    $this->showReplyingBox = false;
-                    return $this->replyCommentContent = '';
-                }
-            }
+                    $this->replyBoxOfReplies = false;
+                    return $this->replyOfRepliedCommentContent = '';
+    }
+
+    public $replyBoxOfReplies = false, $replyingIDtarget, $replyingToReplyName, $parentCommentUserId, $parentIDCommentValue;
+
+    public function toggleReplyBoxFromReplies( $replyingIdOfComment, $UserIdOfComment, $parenIDOfComment ) {
+        $this->parentIDCommentValue = $parenIDOfComment;
+        //  dd( $this->parentIDCommentValue );
+        $this->parentCommentUserId = $UserIdOfComment;
+        $this->replyingIDtarget = $replyingIdOfComment;
+        $this->replyBoxOfReplies = true;
+        $findUserID = DocuPostComment::where( 'id', $replyingIdOfComment )->first();
+        $nameOfComment = $findUserID->user_id;
+        $namingTheAuthor = User::where( 'id', $nameOfComment )->first();
+        if ( $findUserID ) {
+            $this->replyingToReplyName = $namingTheAuthor->first_name. ' '.$namingTheAuthor->last_name;
+        } else {
+            $this->replyingToReplyName = 'user';
         }
-        // dd(
-        //     'postID- '.$this->data->id,
-        //     'userID- '.$this->authenticatedUser->id,
-        //     'Parent ID- '.$this->targetReply,
-        //     'MainAuthorComment- '.$this->mainCOmmentAUthor
-        // );
     }
 
     public function render() {
@@ -288,15 +255,8 @@ class ViewDocuPost extends Component {
         ->latest()->get();
         $replyComments = DocuPostComment::where( 'post_id', $this->data->id )
         ->whereNotNull( 'parent_id' )
-        ->where( 'reply_parent_author', null )
-        ->orderBy( 'created_at', 'desc' )
+        ->orderBy( 'created_at' )
         ->get();
-        $repliesToReplyComments = DocuPostComment::where( 'post_id', $this->data->id )
-        ->whereNotNull( 'parent_id' )
-        ->whereNotNull( 'reply_parent_author' )
-        ->orderBy( 'created_at', 'desc' )
-        ->get();
-        // dd( $repliesToReplyComments );
 
         if ( auth()->check() ) {
             $idAdmin = auth()->user()->is_admin;
@@ -308,7 +268,7 @@ class ViewDocuPost extends Component {
         return view( 'livewire.view-docu-post', [
             'comments' => $comments,
             'replyComments' => $replyComments,
-            'repliesToReplyComments' => $repliesToReplyComments,
+            // 'repliesToReplyComments' => $repliesToReplyComments,
         ] )->layout( $layout );
     }
 }
