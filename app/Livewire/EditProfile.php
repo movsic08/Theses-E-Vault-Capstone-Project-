@@ -16,14 +16,16 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class EditProfile extends Component {
+class EditProfile extends Component
+{
     use WithPagination;
     use WithFileUploads;
     public $bachelor_degree_data, $user;
     public $facebook_url, $ms_url, $verifyEmail;
-    public $first_name, $last_name, $bio, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '1', $bachelor_degree,  $address, $profile_picture;
+    public $first_name, $last_name, $bio, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '1', $bachelor_degree, $address, $profile_picture;
 
-    public function mount() {
+    public function mount()
+    {
         $this->user = Auth::user();
         $this->first_name = $this->user->first_name;
         $this->bio = $this->user->bio;
@@ -36,74 +38,79 @@ class EditProfile extends Component {
         $this->facebook_url = $this->user->facebook_url;
         $this->ms_url = $this->user->ms_url;
         $this->verifyEmail = $this->user->email;
-        $bachelorDegree = BachelorDegree::find( $this->user->bachelor_degree );
+        $bachelorDegree = BachelorDegree::find($this->user->bachelor_degree);
         $this->bachelorDegreeName = $bachelorDegree ? $bachelorDegree->name : null;
         $this->bachelor_degree_data = BachelorDegree::all();
     }
 
     public $uploadProfileBox = false;
 
-    public function showProfileUpload() {
-        $this->uploadProfileBox = !  $this->uploadProfileBox;
-        if ( $this->uploadProfileBox ==  false ) {
-            $this->reset( $this->profile_picture );
+    public function showProfileUpload()
+    {
+        $this->uploadProfileBox = !$this->uploadProfileBox;
+        if ($this->uploadProfileBox == false) {
+            $this->reset($this->profile_picture);
         }
     }
 
-    public function updatedProfilePicture() {
-        $this->validate( [
+    public function updatedProfilePicture()
+    {
+        $this->validate([
             'profile_picture' => 'image|max:4024',
-        ] );
+        ]);
     }
 
-    public function changeProfile() {
-        if ( $this->profile_picture ) {
-            $this->validate( [
-                'profile_picture'=> 'image|max:4024',
-            ] );
+    public function changeProfile()
+    {
+        if ($this->profile_picture) {
+            $this->validate([
+                'profile_picture' => 'image|max:4024',
+            ]);
             $extension = $this->profile_picture->getClientOriginalExtension();
-            $currentDate = date( 'MjY' );
-            $customFileName = $this->user->last_name.'-'.$this->user->first_name.$currentDate.'.'.$extension;
+            $currentDate = date('MjY');
+            $customFileName = $this->user->last_name . '-' . $this->user->first_name . $currentDate . '.' . $extension;
             // $imagePath = $this->profile_picture->storeAs( 'profile_pictures', $customFileName, 'public' );
-            $imagePath = $this->profile_picture->storeAs( 'profile_pictures', $customFileName, 'public' );
-            Auth::user()->update( [ 'profile_picture' => $imagePath ] );
+            $imagePath = $this->profile_picture->storeAs('profile_pictures', $customFileName, 'public');
+            Auth::user()->update(['profile_picture' => $imagePath]);
 
-            $this->dispatch( 'profilePictureUpdated' );
-            request()->session()->flash( 'message', 'Profile picture changed successfully.' );
+            $this->dispatch('profilePictureUpdated');
+            request()->session()->flash('message', 'Profile picture changed successfully.');
         } else {
-            request()->session()->flash( 'message', 'There is problem uploading your image, try again.' );
+            request()->session()->flash('message', 'There is problem uploading your image, try again.');
         }
         $this->uploadProfileBox = false;
     }
-    protected $listeners = [ 'profilePictureUpdated' => 'refreshProfilePicture' ];
+    protected $listeners = ['profilePictureUpdated' => 'refreshProfilePicture'];
 
-    public function refreshProfilePicture() {
+    public function refreshProfilePicture()
+    {
         $this->user->refresh();
     }
 
-    public function editProfile() {
-        $this->validate( [
-            'first_name' => [ 'required', 'min:2' ],
-            'last_name' => [ 'required', 'min:2' ],
-            'phone_no' => [ 'required', 'min:11', 'max:11', 'regex:/^09\d{9}$/', ( $this->phone_no == $this->user->phone_no ) ? '': 'unique:users,phone_no' ],
-            'student_id' => [ 'required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/' ],
-            'username' => [ 'required', 'min:2' ],
-            'bio' => [ 'required', 'min:2' ],
-            'address' => [ 'required', 'min:5' ],
-            'bachelor_degree_input' => [ 'required' ],
+    public function editProfile()
+    {
+        $this->validate([
+            'first_name' => ['required', 'min:2'],
+            'last_name' => ['required', 'min:2'],
+            'phone_no' => ['required', 'min:11', 'max:11', 'regex:/^09\d{9}$/', ($this->phone_no == $this->user->phone_no) ? '' : 'unique:users,phone_no'],
+            'student_id' => ['required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/'],
+            'username' => ['required', 'min:2'],
+            'bio' => ['required', 'min:2'],
+            'address' => ['required', 'min:5'],
+            'bachelor_degree_input' => ['required'],
             'email' => 'required|email|unique:users,email,' . Auth::id(),
         ], [
             'bacbachelor_degree_input.required' => 'Please select your bachelor degree',
             'student_id.regex' => 'The student ID must be in the format "XX-AC-XXXX".',
             'phone_no.regex' => 'The phone number must start with "09" and have 11 digits.',
             'phone_no.unique' => 'The phone number has already been taken.',
-        ] );
+        ]);
 
         // dd( $this->bachelor_degree_input );
 
-        Auth::user()->update( [
-            'first_name' => ucfirst( $this->first_name ),
-            'last_name' =>ucfirst( $this->last_name ),
+        Auth::user()->update([
+            'first_name' => ucfirst($this->first_name),
+            'last_name' => ucfirst($this->last_name),
             'email' => $this->email,
             'bio' => $this->bio,
             'phone_no' => $this->phone_no,
@@ -111,9 +118,9 @@ class EditProfile extends Component {
             'username' => $this->username,
             'address' => $this->address,
             'bachelor_degree' => $this->bachelor_degree_input,
-        ] );
+        ]);
 
-        session()->flash( 'message', 'Edit profile success!' );
+        session()->flash('message', 'Edit profile success!');
 
         $this->user->refresh();
         // Refresh the user model
@@ -126,180 +133,201 @@ class EditProfile extends Component {
         $this->student_id = $this->user->student_id;
         $this->username = $this->user->username;
         $this->address = $this->user->address;
-        $this->bachelor_degree  = $this->user->bachelor_degree;
+        $this->bachelor_degree = $this->user->bachelor_degree;
     }
 
     public $activeTab = 'tab3';
 
-    public function setActiveTab( $tab ) {
+    public function setActiveTab($tab)
+    {
         $this->activeTab = $tab;
     }
 
     public $showDeleteBox = false;
     public $confirmationInput = '';
 
-    public function showdelBox() {
+    public function showdelBox()
+    {
         $this->showDeleteBox = !$this->showDeleteBox;
         $this->confirmationInput = '';
         // Reset input field
     }
     public $current_password, $password, $password_confirmation;
 
-    public function changePassword() {
-        $this->validate( [
-            'current_password' => 'required',
-            'password' => [ 'required', 'min:8', 'confirmed', 'different:current_password' ],
-        ],
-        [
-            'password.confirmed' =>'Password is not match!',
-        ] );
+    public function changePassword()
+    {
+        $this->validate(
+            [
+                'current_password' => 'required',
+                'password' => ['required', 'min:8', 'confirmed', 'different:current_password'],
+            ],
+            [
+                'password.confirmed' => 'Password is not match!',
+            ]
+        );
 
         $user = Auth::user();
-        if ( Hash::check( $this->current_password, $user->password ) ) {
-            $user->update( [
-                'password' => Hash::make( $this->password ),
-            ] );
-            session()->flash( 'message', 'Password changed successfully.' );
+        if (Hash::check($this->current_password, $user->password)) {
+            $user->update([
+                'password' => Hash::make($this->password),
+            ]);
+            session()->flash('message', 'Password changed successfully.');
         } else {
-            session()->flash( 'message', 'Incorrect old password.' );
+            session()->flash('message', 'Incorrect old password.');
         }
-        $this->reset( [ 'current_password', 'password', 'password_confirmation' ] );
+        $this->reset(['current_password', 'password', 'password_confirmation']);
 
     }
 
     public $showDeleteConfirmation = false;
 
-    public function toggleDeleteConfirmation() {
-        $this->showDeleteConfirmation = ! $this->showDeleteConfirmation;
+    public function toggleDeleteConfirmation()
+    {
+        $this->showDeleteConfirmation = !$this->showDeleteConfirmation;
     }
 
-    public function deletemyAccount() {
+    public function deletemyAccount()
+    {
         Auth::user()->delete();
-        return redirect()->route( 'home' )->with( 'message', 'Your account deleted successfully.' );
+        return redirect()->route('home')->with('message', 'Your account deleted successfully.');
     }
 
-    public function addUrl() {
-        $this->validate( [
+    public function addUrl()
+    {
+        $this->validate([
             'facebook_url' => 'required',
             'ms_url' => 'required',
         ], [
             'facebook_url.required' => 'Please provide your Faceboook URL',
             'ms_url.required' => 'Please provide your Microsoft account URL',
-        ] );
+        ]);
 
-        if ( ( empty( auth()->user()->facebook_url ) || empty( auth()->user()->ms_url ) ) ) {
-            Auth::user()->update( [
+        if ((empty(auth()->user()->facebook_url) || empty(auth()->user()->ms_url))) {
+            Auth::user()->update([
                 'facebook_url' => $this->facebook_url,
                 'ms_url' => $this->ms_url,
-            ] );
-            session()->flash( 'message', 'Adding social media success' );
+            ]);
+            session()->flash('message', 'Adding social media success');
         } else {
-            Auth::user()->update( [
+            Auth::user()->update([
                 'facebook_url' => $this->facebook_url,
                 'ms_url' => $this->ms_url,
-            ] );
+            ]);
 
-            session()->flash( 'message', 'Edit Social media links success!' );
+            session()->flash('message', 'Edit Social media links success!');
         }
     }
 
     public $enterOtpBox = false;
 
-    public function verifyMyEmail() {
-        $this->validate( [
-            'verifyEmail' => [ 'required', 'email', 'regex:/^[A-Za-z0-9._%+-]+@psu\.edu\.ph$/i' ],
+    public function verifyMyEmail()
+    {
+        $this->validate([
+            'verifyEmail' => ['required', 'email', 'regex:/^[A-Za-z0-9._%+-]+@psu\.edu\.ph$/i'],
         ], [
             'verifyEmail.regex' => 'Use your institutional account to verify your account.',
-        ] );
+        ]);
 
         $email = $this->verifyEmail;
         $user = auth()->user();
 
-        $todayRequests = OtpRequestHistory::where( 'user_id', $user->id )
-        ->whereDate( 'request_date', now() )
-        ->first();
+        $todayRequests = OtpRequestHistory::where('user_id', $user->id)
+            ->whereDate('request_date', now())
+            ->first();
 
-        if ( !$todayRequests ) {
-            OtpRequestHistory::create( [
+        if (!$todayRequests) {
+            OtpRequestHistory::create([
                 'user_id' => $user->id,
                 'request_date' => now(),
                 'request_count' => 1,
-            ] );
+            ]);
         } else {
             // Increment the request count if history exists
-            $todayRequests->increment( 'request_count' );
-            if ( $todayRequests->request_count >= 3 ) {
-                return $this->addError( 'verifyEmail', 'You have reached the OTP request limit for today. Try again tomorrow.' );
+            $todayRequests->increment('request_count');
+            if ($todayRequests->request_count >= 3) {
+                return $this->addError('verifyEmail', 'You have reached the OTP request limit for today. Try again tomorrow.');
             }
         }
 
-        $existingOTP = VerificationCode::where( 'email', $email )
-        ->where( 'expire_at', '>', now() )
-        ->first();
+        $existingOTP = VerificationCode::where('email', $email)
+            ->where('expire_at', '>', now())
+            ->first();
 
-        if ( !$existingOTP ) {
-            $generatedOTP  = strtoupper( Str::random( 6 ) );
+        if (!$existingOTP) {
+            $generatedOTP = strtoupper(Str::random(6));
 
-            VerificationCode::create( [
-                'user_id' =>auth()->id(),
+            VerificationCode::create([
+                'user_id' => auth()->id(),
                 'email' => $email,
                 'otp' => $generatedOTP,
-                'expire_at' => now()->addMinutes( 2 ),
-            ] );
+                'expire_at' => now()->addMinutes(2),
+            ]);
 
-            Mail::to( $email )->send( new OtpEmail( $generatedOTP ) );
+            Mail::to($email)->send(new OtpEmail($generatedOTP));
             $this->enterOtpBox = true;
             // return dd( $test );
         } else {
             $this->enterOtpBox = true;
-            $this->addError( 'alreadySent', ' The OTP is already sent to you, check your inbox now.' );
+            $this->addError('alreadySent', ' The OTP is already sent to you, check your inbox now.');
         }
 
     }
 
-    public function closeOtpBox() {
+    public function closeOtpBox()
+    {
         $this->enterOtpBox = false;
     }
     public $input1, $input2, $input3, $input4, $input5, $input6;
 
-    public function checkOtpInput() {
-        $this->validate( [
+    public function checkOtpInput()
+    {
+        $this->validate([
             'input1' => 'required',
             'input2' => 'required',
             'input3' => 'required',
             'input4' => 'required',
             'input5' => 'required',
             'input6' => 'required',
-        ] );
+        ]);
 
-        $compiledInput = $this->input1.$this->input2.$this->input3.$this->input4.$this->input5.$this->input6;
+        $compiledInput = $this->input1 . $this->input2 . $this->input3 . $this->input4 . $this->input5 . $this->input6;
         $email = $this->verifyEmail;
-        $is_existingOtp = VerificationCode::where( 'email', $email )
-        ->where( 'otp', $compiledInput )
-        ->first();
+        $is_existingOtp = VerificationCode::where('email', $email)
+            ->where('otp', $compiledInput)
+            ->first();
 
-        if ( $is_existingOtp ) {
-            if ( $is_existingOtp->expire_at < now() ) {
-                $this->addError( 'validateOtp', 'The OTP is already expired, request a new one.' );
+        if ($is_existingOtp) {
+            if ($is_existingOtp->expire_at < now()) {
+                $this->addError('validateOtp', 'The OTP is already expired, request a new one.');
             } else {
-                Auth::user()->update( [
+                Auth::user()->update([
                     'email' => $email,
                     'is_verified' => true,
-                ] );
+                ]);
+
+                Notification::create([
+                    'user_id' => auth()->user()->id,
+                    'header_message' => 'Account Verified',
+                    'content_message' => 'Thank you for verifying your account. 🎉 You are now granted full access to all the features of the system. 🚀',
+                    'link' => route('home'),
+                    'category' => 'system',
+                ]);
+                $this->dispatch('new-notification');
 
                 $this->enterOtpBox = false;
                 $this->verifiedBox = true;
-                session()->flash( 'message', 'Account verified successfully.' );
+                session()->flash('message', 'Account verified successfully.');
             }
         } else {
-            $this->addError( 'validateOtp', 'The OTP you entered is invalid.' );
+            $this->addError('validateOtp', 'The OTP you entered is invalid.');
         }
         //end of nested else if
     }
 
     public $verifiedBox = false;
 
-    public function closeVerifiedBox() {
+    public function closeVerifiedBox()
+    {
         $this->verifiedBox = false;
         $this->enterOtpBox = false;
     }
@@ -307,7 +335,8 @@ class EditProfile extends Component {
     public $showDeleteDocuPostBox = false;
     public $docuPostID, $postitle, $userPostID;
 
-    public function deletePost( $id, $postTitle, $userPostID ) {
+    public function deletePost($id, $postTitle, $userPostID)
+    {
         $this->showDeleteDocuPostBox = true;
         $this->docuPostID = $id;
         $this->postitle = $postTitle;
@@ -316,65 +345,68 @@ class EditProfile extends Component {
 
     public $deletedPostTitle, $deletedPostID;
 
-    public function deleteDocuPostYes() {
-        if ( $this->userPostID == auth()->user()->id ) {
-            $docu_post_delete = DocuPost::find( $this->docuPostID )->delete();
-            if ( $docu_post_delete ) {
-                session()->flash( 'message', 'Post deleted successfully.' );
+    public function deleteDocuPostYes()
+    {
+        if ($this->userPostID == auth()->user()->id) {
+            $docu_post_delete = DocuPost::find($this->docuPostID)->delete();
+            if ($docu_post_delete) {
+                session()->flash('message', 'Post deleted successfully.');
             } else {
-                session()->flash( 'message', "Post is not found, can't proceed in deletion." );
+                session()->flash('message', "Post is not found, can't proceed in deletion.");
             }
         } else {
-            session()->flash( 'message', 'You are not authorized for this, contact administrator.' );
+            session()->flash('message', 'You are not authorized for this, contact administrator.');
         }
         $this->showDeleteDocuPostBox = false;
     }
 
-    public function closeDeletePostBox() {
+    public function closeDeletePostBox()
+    {
         $this->showDeleteDocuPostBox = false;
     }
 
-    public function createNotificationForActivation() {
+    public function boot()
+    {
         // Check if the required user fields are not empty
         if (
-            !empty( auth()->user()->first_name ) &&
-            !empty( auth()->user()->last_name ) &&
-            !empty( auth()->user()->bachelor_degree )
+            !empty(auth()->user()->first_name) &&
+            !empty(auth()->user()->last_name) &&
+            !empty(auth()->user()->bachelor_degree)
         ) {
             // Check if a notification with the same header message already exists
-            $existingNotification = Notification::where( 'user_id', auth()->user()->id )
-            ->where( 'header_message', 'Verify account' )
-            ->first();
+            $existingNotification = Notification::where('user_id', auth()->user()->id)
+                ->where('header_message', 'Verify account')
+                ->first();
             // Use first() to retrieve the first matching notification
 
-            if ( !$existingNotification ) {
+            if (!$existingNotification) {
                 // If the notification doesn't exist, create a new one
-            $createNotification = Notification::create([
-                'user_id' => auth()->user()->id,
-                'header_message' => 'Verify account',
-                'content_message' => 'Use your PSU email to verify your account now.',
-                'link' => route('edit-profile', ['activeTab' => 'tab3']),
-                'category' => 'system',
-            ]);
+                $createNotification = Notification::create([
+                    'user_id' => auth()->user()->id,
+                    'header_message' => 'Verify account',
+                    'content_message' => 'Use your PSU email to verify your account now.',
+                    'link' => route('edit-profile', ['activeTab' => 'tab3']),
+                    'category' => 'system',
+                ]);
 
-            if (!$createNotification) {
-                return 'Creating a notification failed';
+                if (!$createNotification) {
+                    return 'Creating a notification failed';
+                }
+
+                // Dispatch a new-notification event (assuming this is the correct usage)
+                $this->dispatch('new-notification');
             }
-
-            // Dispatch a new-notification event (assuming this is the correct usage)
-            $this->dispatch('new-notification');
         }
     }
-}
 
 
-    public function render() {
-        $docu_posts = DocuPost::where( 'user_id', auth()->id() )->paginate( 3 );
-        $this->createNotificationForActivation();
+    public function render()
+    {
+        $docu_posts = DocuPost::where('user_id', auth()->id())->paginate(3);
 
-        return view( 'livewire.edit-profile', [
+        return view('livewire.edit-profile', [
             'docu_posts' => $docu_posts
-        ] )->layout( 'layout.app' );
-            }
+        ])->layout('layout.app');
+    }
 
-        }
+}

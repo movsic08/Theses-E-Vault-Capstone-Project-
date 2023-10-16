@@ -3,23 +3,25 @@
 namespace App\Livewire\Components;
 
 use App\Models\Notification;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
-class AppsideBar extends Component {
-    public function render() {
+class AppsideBar extends Component
+{
+    #[On('notification-read')]
+    public function render()
+    {
+        $numberOfNotification = 0; // Initialize the variable with a default value
 
-        $numberOfNotification = 0;
-        // Default value for the number of notifications
-
-        if ( auth()->check() ) {
-            // Check if the user is authenticated
-            $numberOfNotification = Notification::where( 'user_id', auth()->user()->id )
-            ->where( 'is_read', 0 )
-            ->count();
+        if (auth()->check()) {
+            $numberOfNotification = Notification::where('user_id', auth()->user()->id)
+                ->where('is_read', 0)
+                ->count();
         }
 
-        return view( 'livewire.components.appside-bar', [
-            'numberOfNotification' => $numberOfNotification,
-        ] );
+        return view('livewire.components.appside-bar', [
+            'numberOfNotification' => $numberOfNotification
+        ]);
     }
+
 }

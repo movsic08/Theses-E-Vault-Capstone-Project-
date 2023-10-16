@@ -10,10 +10,10 @@ class Notifications extends Component {
 
     public function clickedNotification( $id ) {
         Notification::where( 'id', $id )->update( [ 'is_read' => 1 ] );
+        $this->dispatch( 'notificationClicked' );
     }
 
     #[ On( 'new-notification' ) ]
-
     public function updateCount() {
 
     }
