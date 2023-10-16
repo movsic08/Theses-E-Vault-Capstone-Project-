@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NewUserCreated;
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,8 +36,21 @@ class UserController extends Controller {
 
         $user = User::create( $validated );
         auth()->login( $user );
-        // $this->dispatch( 'user-created', $user );
-        return redirect()->route( 'index' )->with( 'message', 'Creating new account success, finish setup you account' );
+
+        $notificationNewAccount = Notification::create( [
+            'user_id' => auth()->user()->id,
+            'header_message' => 'Complete acount information',
+            'content_message' => 'Click here to complete your account information.',
+            'link' =>  route( 'edit-profile', [ 'activeTab' => 'tab1' ] ),
+            'category' => 'system',
+        ] );
+
+        if ( $notificationNewAccount ) {
+            return redirect()->route( 'home' )->with( 'message', 'Creating new account success, finish setup you account' );
+        } else {
+            return 'Account created but notification is not. Contact admin.';
+        }
+
     }
 
     //logout

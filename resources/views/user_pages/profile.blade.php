@@ -25,10 +25,15 @@
                         <div class="flex w-full justify-center md:justify-normal">
                             @php
                                 $bachelorDegree = \App\Models\BachelorDegree::find($checkedAccount->bachelor_degree);
+                                if (empty($bachelorDegree)) {
+                                    $yourCourse = 'User doesn\'t have completed his/her profile. ';
+                                } else {
+                                    $yourCourse = $bachelorDegree->name;
+                                }
                             @endphp
                             <h1
                                 class="mt-4 w-fit rounded-md bg-blue-300 px-3 py-1 text-center text-xs font-semibold text-blue-800 md:text-base">
-                                {{ $bachelorDegree->name }}</h1>
+                                {{ $yourCourse }}</h1>
                         </div>
                         {{-- <h2 class="mt-1 text-center font-semibold md:text-left">3rd year - Block B</h2> --}}
                         <div class="mt-2 flex w-full items-center justify-end">

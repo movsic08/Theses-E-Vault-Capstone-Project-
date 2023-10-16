@@ -34,10 +34,12 @@
                                     d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22Zm7-7.414V10c0-3.217-2.185-5.927-5.145-6.742A1.99 1.99 0 0 0 12 2a1.99 1.99 0 0 0-1.855 1.258C7.185 4.074 5 6.783 5 10v4.586l-1.707 1.707A.996.996 0 0 0 3 17v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a.996.996 0 0 0-.293-.707L19 14.586Z">
                                 </path>
                             </svg>
-                            <div
-                                class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
-                                <p class="text-[8px]">1</p>
-                            </div>
+                            @if ($numberOfNotification > 0)
+                                <div
+                                    class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
+                                    <p class="text-[8px]">{{ $numberOfNotification }}</p>
+                                </div>
+                            @endif
                         </div>
                         <p class="hideName block pl-2 md:hidden">Notification</p>
                     </a>
@@ -164,8 +166,8 @@
                                 </path>
                             </svg>
                         </div>
-                        <p class="hideName block pl-2 md:hidden">LogOut</p>
                     </button>
+                    <p class="hideName block pl-2 md:hidden">LogOut</p>
                 </form>
             @endauth
         </div>

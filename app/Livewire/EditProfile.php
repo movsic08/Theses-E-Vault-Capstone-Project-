@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Mail\OtpEmail;
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
+use App\Models\Notification;
 use App\Models\OtpRequestHistory;
 use App\Models\VerificationCode;
 use Illuminate\Support\Facades\Hash;
@@ -333,12 +334,47 @@ class EditProfile extends Component {
         $this->showDeleteDocuPostBox = false;
     }
 
+    public function createNotificationForActivation() {
+        // Check if the required user fields are not empty
+        if (
+            !empty( auth()->user()->first_name ) &&
+            !empty( auth()->user()->last_name ) &&
+            !empty( auth()->user()->bachelor_degree )
+        ) {
+            // Check if a notification with the same header message already exists
+            $existingNotification = Notification::where( 'user_id', auth()->user()->id )
+            ->where( 'header_message', 'Verify account' )
+            ->first();
+            // Use first() to retrieve the first matching notification
+
+            if ( !$existingNotification ) {
+                // If the notification doesn't exist, create a new one
+            $createNotification = Notification::create([
+                'user_id' => auth()->user()->id,
+                'header_message' => 'Verify account',
+                'content_message' => 'Use your PSU email to verify your account now.',
+                'link' => route('edit-profile', ['activeTab' => 'tab3']),
+                'category' => 'system',
+            ]);
+
+            if (!$createNotification) {
+                return 'Creating a notification failed';
+            }
+
+            // Dispatch a new-notification event (assuming this is the correct usage)
+            $this->dispatch('new-notification');
+        }
+    }
+}
+
+
     public function render() {
         $docu_posts = DocuPost::where( 'user_id', auth()->id() )->paginate( 3 );
+        $this->createNotificationForActivation();
 
         return view( 'livewire.edit-profile', [
             'docu_posts' => $docu_posts
         ] )->layout( 'layout.app' );
-    }
+            }
 
-}
+        }

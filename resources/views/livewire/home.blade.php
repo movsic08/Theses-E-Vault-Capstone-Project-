@@ -152,14 +152,40 @@
                                             {{ $docuData->author_4 }}</a>
                                     </div>
                                 </div>
-                                <div class="mt-2 flex justify-between">
+                                <div class="mt-2 flex items-center justify-between">
                                     <div class="flex flex-col-reverse gap-1 md:flex-row">
-                                        <div class="w-fit rounded-md bg-blue-800 p-1 text-white">Capstone</div>
-                                        <div class="w-fit rounded-md bg-blue-800 p-1 text-white">Bachelor of
-                                            Science in
-                                            Information Technology</div>
+                                        @php
+                                            //condition for re color in course
+                                            if ($docuData->course == 'masters of arts in history') {
+                                                $bgColorCourse = ' text-orange-800 bg-orange-200';
+                                            } else {
+                                                $bgColorCourse = ' text-primary-color bg-blue-200';
+                                            }
+
+                                            //condition for re color in document type
+                                            if (strtolower($docuData->document_type) === 'feasib') {
+                                                $bgColorDT = ' text-orange-800 bg-orange-200';
+                                            } elseif (strtolower($docuData->document_type) === 'research') {
+                                                $bgColorDT = ' text-emerald-800 bg-emerald-200';
+                                            } elseif (strtolower($docuData->document_type) === 'thesis') {
+                                                $bgColorDT = ' text-violet-800 bg-violet-200';
+                                            } elseif (strtolower($docuData->document_type) === 'dissertation') {
+                                                $bgColorDT = ' text-red-800 bg-red-200';
+                                            } else {
+                                                $bgColorDT = ' text-primary-color bg-blue-200';
+                                            }
+
+                                        @endphp
+                                        <div
+                                            class="{{ $bgColorDT }} h-fit w-fit rounded-md px-1 py-0.5 text-sm md:px-2">
+                                            {{ $docuData->document_type }}
+                                        </div>
+                                        <div
+                                            class="{{ $bgColorCourse }} h-fit w-fit rounded-md px-1 py-0.5 text-sm md:px-2">
+                                            {{ $docuData->course }}
+                                        </div>
                                     </div>
-                                    <span>Jan 08, 2023</span>
+                                    <span class="text-sm font-semibold">Jan 08, 2023</span>
                                 </div>
                             </div>
                         </div>
