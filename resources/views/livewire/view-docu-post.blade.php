@@ -137,10 +137,17 @@
                                             @endif
                                         </button>
                                     </div>
+                                    {{-- <strong>{{ dump($data->document_file_url) }}</strong> --}}
+                                    @php
+                                        $pdfFile = $data->document_file_url;
+                                    @endphp
+
                                     <div class="w-full">
                                         <a class="block w-full rounded-md bg-orange-500 p-1 text-center text-white duration-200 ease-in-out hover:bg-orange-400"
-                                            href="">View</a>
+                                            href="{{ route('view-pdf', ['pdfFile' => $pdfFile]) }}"
+                                            target="_blank">View</a>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

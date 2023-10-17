@@ -37,11 +37,11 @@ Route::get('/sidebar', function () {
 
 Route::post('/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
-Route::get('/help-and-suport', function(){
+Route::get('/help-and-suport', function () {
     // return 404;
 })->name('help-and-support');
 Route::post('/login/process', [UserController::class, 'loginProcess'])->name('login-process');
-Route::get('/profile/{username?}' , [UserController::class, 'viewUser'])->name('user-profile');
+Route::get('/profile/{username?}', [UserController::class, 'viewUser'])->name('user-profile');
 
 // only autehnticated user
 Route::middleware(['auth', 'user'])->group(function () {
@@ -49,41 +49,46 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('/tabtester', ProfileEditTab::class);
 
-    Route::get('profile/edit/{activeTab?}',EditProfile::class )->name('edit-profile');
+    Route::get('profile/edit/{activeTab?}', EditProfile::class)->name('edit-profile');
     Route::get('/upload-document', UploadDocument::class)->name('user-upload-document-form');
 
 
-    Route::get('/notification', function(){
+    Route::get('/notification', function () {
         return view('pages.user.notification');
     })->name('user-notification');
 
     Route::get('/messages', function () {
         return view('pages.user.messages');
     })->name('user-messages');
-    
+
 
     Route::get('/bookmark', Boomarks::class)->name('user-bookmark');
 
 
 });
 
-Route::get('/pdf-viewer', function(){
-    return view('pdf');
-});
+// Route::get('/view-pdf{?pdfFile}', function () {
+//     return view('pdf');
+// })->name('view-pdf');
+
+Route::get('/view-pdf/{pdfFile}', function ($pdfFile) {
+    return view('pdf', ['pdfFile' => $pdfFile]);
+})->name('view-pdf')->where('pdfFile', '.*');
+
 
 
 
 //no account needed
 // Route::middleware(['user', 'guest'])->group( function (){
-    Route::get('/home', [HomeController::class, 'show'])->name('home');
-    Route::get('/home-component', Home::class)->name('home-component');
-    Route::get('/document/{reference?}', ViewDocuPost::class)->name('view-document');
-    Route::get('/search',  [SearchController::class, 'viewBasicSearch'])->name('user-search');
-    Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
-    Route::get('/search/result/{search?}', DocuSearchResult::class)->name('search-result-page');
-    Route::get('/catalogue', [CatalogueController::class, 'mainView'])->name('user-catalogue');
+Route::get('/home', [HomeController::class, 'show'])->name('home');
+Route::get('/home-component', Home::class)->name('home-component');
+Route::get('/document/{reference?}', ViewDocuPost::class)->name('view-document');
+Route::get('/search', [SearchController::class, 'viewBasicSearch'])->name('user-search');
+Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
+Route::get('/search/result/{search?}', DocuSearchResult::class)->name('search-result-page');
+Route::get('/catalogue', [CatalogueController::class, 'mainView'])->name('user-catalogue');
 // });
-    
+
 
 //admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
@@ -95,16 +100,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Route::post('/list/add-user', [UserController::class, 'addNewUser'])->name('addNewUser');
 
     //designing
-    Route::get('/home', Dashboard::class)->name('admin-home');  
+    Route::get('/home', Dashboard::class)->name('admin-home');
     Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('admin-view-document');
 
-    Route::get('/users-panel', AdminUsersPanel:: class)->name('admin-users-panel');
+    Route::get('/users-panel', AdminUsersPanel::class)->name('admin-users-panel');
     Route::get('/documents-list-panel', DocuPostPanel::class)->name('admin-docu-post-panel');
 
     Route::get('/analytics', function () {
         return view('pages.admin.analytics');
     })->name('admin-analytics');
-    
+
     Route::get('/chats', function () {
         return view('pages.admin.chats');
     })->name('admin-chats');
@@ -113,15 +118,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         return view('pages.admin.help-and-support');
     })->name('admin-help-and-support');
 
-     Route::get('/list-of-books', function () {
+    Route::get('/list-of-books', function () {
         return view('pages.admin.list-of-books');
     })->name('admin-list-of-books');
 
-     Route::get('/notification', function () {
+    Route::get('/notification', function () {
         return view('pages.admin.notification');
     })->name('admin-notification');
 
-     Route::get('/users', function () {
+    Route::get('/users', function () {
         return view('pages.admin.users');
     })->name('admin-users');
 
@@ -134,7 +139,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/signup', [UserController::class, 'register'])->name('register');
 });
 
-Route::get('/sample', function(){
+Route::get('/sample', function () {
     return view('tester');
 });
 
@@ -143,7 +148,7 @@ Route::get('/sample', function(){
 
 Route::get('/otp', [OtpAuthController::class, 'showForm']);
 Route::post('/sentOtp', [OtpAuthController::class, 'sendOtp'])->name('sendOtp');
-Route::post('/verifyOTP', function(){
+Route::post('/verifyOTP', function () {
     return view('verifyOtp');
-} )->name('verifyOTP');
+})->name('verifyOTP');
 Route::post('verifying', [OtpAuthController::class, 'checkOTP'])->name('verifyInputOTP');

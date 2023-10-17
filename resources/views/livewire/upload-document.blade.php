@@ -76,6 +76,12 @@
         </div>
     @endif
 
+    @if ($is_Success)
+        <div>
+            <h2>Fille added.</h2>
+        </div>
+    @endif
+
 
     <div class="container">
         <div class="md:px-6">
@@ -173,8 +179,8 @@
                                             </div>
                                             <div class="flex flex-col md:w-1/2">
                                                 <x-label-input for='format'>Format</x-label-input>
-                                                <x-input-field type="text" wire:model.live="format"
-                                                    id="format" placeholder="Eg. Electronic" />
+                                                <x-input-field type="text" wire:model.live="format" id="format"
+                                                    placeholder="Eg. Electronic" />
                                                 @error('format')
                                                     <small class="text-red-500">{{ $message }}</small>
                                                 @enderror
@@ -627,11 +633,11 @@
                         @endif
                         @php
                             $errorsTab1 = $errors->has('title') || $errors->has('format') || $errors->has('document_type') || $errors->has('language') || $errors->has('panel_chair') || $errors->has('advisor') || $errors->has('panel_member1') || $errors->has('panel_member2') || $errors->has('panel_member3') || $errors->has('panel_member4');
-                            
+
                             $errorsTab2 = $errors->has('abstract_or_summary') || $errors->has('keyword1') || $errors->has('keyword2') || $errors->has('keyword3') || $errors->has('keyword4') || $errors->has('keyword5') || $errors->has('keyword6') || $errors->has('recommended_citation');
-                            
+
                             $errorsTab3 = $errors->has('user_upload');
-                            
+
                         @endphp
                         @if ($currentTab < 3)
                             <button

@@ -119,10 +119,15 @@
                  @if ($replyCommentsItem->parent_id == $commentsItem->id)
                      <div class="ml-12 mt-2 rounded-xl bg-white px-4 py-2 drop-shadow-md" wire:poll.10s="$refresh">
                          @php
-                             $commentMainAuthorID = App\Models\User::where('id', $replyCommentsItem->user_id)->first();
-                             $fullNameOfMainComment = $commentMainAuthorID->first_name . ' ' . $commentMainAuthorID->last_name;
+                             $commentMainAuthorID = App\Models\User::find($replyCommentsItem->user_id);
 
+                             if ($commentMainAuthorID) {
+                                 $fullNameOfMainComment = $commentMainAuthorID->first_name . ' ' . $commentMainAuthorID->last_name;
+                             } else {
+                                 $fullNameOfMainComment = 'User'; // or any other default value
+                             }
                          @endphp
+
                          <div class="flex w-full">
                              <img src="{{ empty($commentMainAuthorID->profile_picture) ? asset('assets/default_profile.png') : asset('storage/' . $commentMainAuthorID->profile_picture) }}"
                                  class="mr-2 h-8 w-8 rounded-full object-cover" alt="user profile" srcset="">
@@ -149,24 +154,39 @@
                                                      <div class="h-1 w-1 rounded-full bg-slate-700"></div>
                                                  @endif
                                              </div>
-                                             @if ($commentMainAuthorID->role_id == 1)
-                                                 <span class="font-medium">Student</span>
-                                             @elseif($commentMainAuthorID->role_id == 1)
-                                                 <span class="font-medium">Faculty</span>
+                                             @if ($commentMainAuthorID)
+                                                 @if ($commentMainAuthorID->role_id == 1)
+                                                     <span class="font-medium">Student</span>
+                                                 @elseif ($commentMainAuthorID->role_id == 2)
+                                                     <span class="font-medium">Faculty</span>
+                                                 @else
+                                                     <span class="font-medium">ERROR!</span>
+                                                 @endif
                                              @else
-                                                 <span class="font-medium">ERROR!</span>
+                                                 <span class="font-medium">Deleted user</span>
                                              @endif
+
                                          </section>
                                      </div>
                                      <div class="flex gap-2">
                                          @php
                                              $commentorInfo = \App\Models\User::find($replyCommentsItem->user_id);
-                                             $bachelorDegree = \App\Models\BachelorDegree::find($commentorInfo->bachelor_degree);
-                                             // $commentDate = Carbon\Carbon::parse($commentAuthorDetails->created_at)->setTimezone('Asia/Manila');
-                                             // $timeAgo = $commentDate->diffForHumans();
+
+                                             if ($commentorInfo) {
+                                                 $bachelorDegree = \App\Models\BachelorDegree::find($commentorInfo->bachelor_degree);
+
+                                                 if ($bachelorDegree) {
+                                                     $degreeName = $bachelorDegree->degree_name;
+                                                 } else {
+                                                     $degreeName = 'Unknown Degree';
+                                                 }
+                                             } else {
+                                                 $degreeName = 'Unknown User';
+                                             }
                                          @endphp
+
                                          <small>{{ \Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
-                                         <small>{{ $bachelorDegree->degree_name }}</small>
+                                         <small>{{ $degreeName }}</small>
                                      </div>
 
                                  </div>

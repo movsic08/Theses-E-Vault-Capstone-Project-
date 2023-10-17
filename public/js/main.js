@@ -1,126 +1,105 @@
 class Main {
-    // URL to the PDF file
-    url = "storage/PDF_uploads/Tirao-2023-09-20-KnIi5MV6UcjG.pdf";
-    // Static properties to store PDF information
-    static pdfDoc = null;
-    static pageNum = 1;
-    static numPages = 0;
-
     constructor() {
-        // Configuration options for PDF.js viewer
-        this.pdfjsConfig = {
-            viewer: {
-                textLayer: true, // Enable text layer for text selection and copying
-            },
-        };
+        const pdfDataElement = document.getElementById("pdfData");
+        const filePath = pdfDataElement.getAttribute("data-file-path");
 
-        // Initialize PDF.js with the updated configuration
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js"; // Set the path to the PDF.js worker script
+        this.url = filePath;
+        this.pageNum = 1;
+        this.numPages = 0;
 
-        // Fetch and display the initial PDF data
-        this.getData(Main.pageNum);
-        Main.updatePageNumberInput();
+        this.canvas = document.querySelector("#pdfArea");
+        this.ctx = this.canvas.getContext("2d");
+        this.scale = 1.5;
+
+        this.loadPdf();
+        this.setupEventListeners();
     }
 
-    getData(pageNum) {
-        // Fetch the PDF document
-        pdfjsLib.getDocument(this.url).promise.then((res) => {
-            console.log(res);
-            Main.pdfDoc = res;
-            Main.numPages = Main.pdfDoc.numPages;
-            document.getElementById("totalPages").textContent = Main.numPages;
-            Main.renderPage(pageNum);
-        });
+    async loadPdf() {
+        try {
+            const pdfDoc = await pdfjsLib.getDocument(this.url).promise;
+            this.pdfDoc = pdfDoc;
+            this.numPages = pdfDoc.numPages;
+            document.getElementById("totalPages").textContent = this.numPages;
+            this.renderPage(this.pageNum);
+        } catch (error) {
+            console.error("Error loading PDF:", error);
+        }
     }
 
-    // Render a specific page of the PDF
-    static renderPage(num) {
-        let canvas = document.querySelector("#pdfArea");
-        let ctx = canvas.getContext("2d");
-
-        Main.pdfDoc.getPage(num).then((pageResponse) => {
-            // Get the dimensions of the PDF page in points (1 point = 1/72 inch)
-            const pageWidth = pageResponse.view[2];
-            const pageHeight = pageResponse.view[3];
-
-            // Calculate the canvas size based on the page size
-            canvas.width = pageWidth;
-            canvas.height = pageHeight;
-
-            const renderCtx = {
-                canvasContext: ctx,
-                viewport: pageResponse.getViewport({ scale: 1.0 }),
+    async renderPage(num) {
+        try {
+            const page = await this.pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: this.scale });
+            this.canvas.height = viewport.height;
+            this.canvas.width = viewport.width;
+            const renderContext = {
+                canvasContext: this.ctx,
+                viewport,
             };
-
-            pageResponse.render(renderCtx);
-        });
+            await page.render(renderContext);
+        } catch (error) {
+            console.error("Error rendering page:", error);
+        }
     }
 
-    // Show the next page of the PDF
-    static showNextPage() {
-        if (Main.pageNum >= Main.numPages) {
+    showNextPage() {
+        if (this.pageNum >= this.numPages) {
             return;
         }
-        Main.pageNum++;
-        Main.reRenderCanvas();
-        Main.updatePageNumberInputValue();
+        this.pageNum++;
+        this.renderPage(this.pageNum);
+        this.updatePageNumberInputValue();
+        this.resetScrollPosition();
     }
 
-    // Show the previous page of the PDF
-    static showPrevPage() {
-        if (Main.pageNum <= 1) {
+    showPrevPage() {
+        if (this.pageNum <= 1) {
             return;
         }
-        Main.pageNum--;
-        Main.reRenderCanvas();
-        Main.updatePageNumberInputValue();
+        this.pageNum--;
+        this.renderPage(this.pageNum);
+        this.updatePageNumberInputValue();
+        this.resetScrollPosition();
     }
 
-    // Delayed re-rendering of the canvas
-    static reRenderCanvas() {
-        setTimeout(() => {
-            Main.renderPage(Main.pageNum);
-        }, 500);
-    }
-
-    // Update the page number input field
-    static updatePageNumberInput() {
+    updatePageNumberInputValue() {
         const pageNumberInput = document.querySelector("#pageNumberInput");
-        pageNumberInput.value = Main.pageNum;
-        pageNumberInput.addEventListener("change", function () {
-            let newPageNum = parseInt(this.value, 10);
-            if (newPageNum >= 1 && newPageNum <= Main.numPages) {
-                Main.pageNum = newPageNum;
-                Main.reRenderCanvas();
-                resetScrollPosition();
-            } else {
-                // Invalid input, reset to the current page number
-                this.value = Main.pageNum;
-            }
-        });
+        pageNumberInput.value = this.pageNum;
     }
 
-    // Update the page number input field value
-    static updatePageNumberInputValue() {
+    setupEventListeners() {
+        const nextPageBtn = document.querySelector("#nextPageBtn");
+        const prevPageBtn = document.querySelector("#prevPageBtn");
+
+        nextPageBtn.addEventListener("click", () => this.showNextPage());
+        prevPageBtn.addEventListener("click", () => this.showPrevPage());
+
         const pageNumberInput = document.querySelector("#pageNumberInput");
-        pageNumberInput.value = Main.pageNum;
+        pageNumberInput.addEventListener("change", () =>
+            this.handlePageNumberInput()
+        );
+    }
+
+    handlePageNumberInput() {
+        const pageNumberInput = document.querySelector("#pageNumberInput");
+        let newPageNum = parseInt(pageNumberInput.value, 10);
+        if (newPageNum >= 1 && newPageNum <= this.numPages) {
+            this.pageNum = newPageNum;
+            this.renderPage(this.pageNum);
+            this.updatePageNumberInputValue();
+            this.resetScrollPosition();
+        } else {
+            // Invalid input, reset to the current page number
+            pageNumberInput.value = this.pageNum;
+        }
+    }
+
+    resetScrollPosition() {
+        const scrollableCanvas = document.querySelector(".scrollable-canvas");
+        scrollableCanvas.scrollTop = 0;
     }
 }
-
-// Function to reset the scroll position to the beginning
-function resetScrollPosition() {
-    const scrollableCanvas = document.querySelector(".scrollable-canvas");
-    scrollableCanvas.scrollTop = 0;
-}
-
-// Attach the resetScrollPosition function to the Next and Prev buttons
-document
-    .querySelector("#nextPageBtn")
-    .addEventListener("click", resetScrollPosition);
-document
-    .querySelector("#prevPageBtn")
-    .addEventListener("click", resetScrollPosition);
 
 // Create an instance of the Main class
-let main = new Main();
+const main = new Main();

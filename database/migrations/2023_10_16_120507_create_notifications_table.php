@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('notifications', function (Blueprint $table) {
@@ -16,6 +15,7 @@ return new class extends Migration
             $table->text('content_message');
             $table->string('link');
             $table->boolean('is_read')->default(false);
+            $table->mediumText('category');
             $table->timestamps();
         });
     }

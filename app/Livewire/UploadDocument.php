@@ -10,18 +10,20 @@ use App\Models\BachelorDegree;
 use Livewire\WithFileUploads;
 use setasign\Fpdi\Fpdi;
 
-class UploadDocument extends Component {
+class UploadDocument extends Component
+{
     use WithFileUploads;
     public $user, $bachelor_degree_value, $author1;
 
-    public function mount() {
+    public function mount()
+    {
         $this->user = Auth::user();
         $this->document_type = 'Capstone';
 
-        if ( $this->user->is_admin ) {
+        if ($this->user->is_admin) {
             $this->bachelor_degree_value = '';
         } else {
-            $bachelor_degree_int = BachelorDegree::find( $this->user->bachelor_degree );
+            $bachelor_degree_int = BachelorDegree::find($this->user->bachelor_degree);
             $this->bachelor_degree_value = $bachelor_degree_int->name;
             $this->author1 = $this->user->first_name . ' ' . $this->user->last_name;
         }
@@ -31,7 +33,7 @@ class UploadDocument extends Component {
     public $currentTab = 1;
 
     public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4;
-    public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload,  $pdf_path;
+    public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload, $pdf_path;
 
     protected $tab1Rules = [
         'title' => 'required|min:3',
@@ -62,71 +64,76 @@ class UploadDocument extends Component {
         'user_upload' => 'required|file',
     ];
 
-    public function changeTab( $tab ) {
+    public function changeTab($tab)
+    {
         // Manually validate the fields based on the current tab
-        if ( $this->currentTab == 1 ) {
-            $this->validate( $this->tab1Rules );
-        } elseif ( $this->currentTab == 2 ) {
-            $this->validate( $this->tab2Rules );
-        } elseif ( $this->currentTab == 3 ) {
-            $this->validate( $this->tab3Rules );
+        if ($this->currentTab == 1) {
+            $this->validate($this->tab1Rules);
+        } elseif ($this->currentTab == 2) {
+            $this->validate($this->tab2Rules);
+        } elseif ($this->currentTab == 3) {
+            $this->validate($this->tab3Rules);
         }
 
         // Change the tab if there are no validation errors
         $this->currentTab = $tab;
     }
 
-    public function updated( $propertyName ) {
+    public function updated($propertyName)
+    {
         // Determine the tab and validate the current property accordingly
-        if ( $this->currentTab == 1 ) {
-            $this->validateOnly( $propertyName, $this->tab1Rules );
-        } elseif ( $this->currentTab == 2 ) {
-            $this->validateOnly( $propertyName, $this->tab2Rules );
-        } elseif ( $this->currentTab == 3 ) {
-            $this->validateOnly( $propertyName, $this->tab3Rules );
+        if ($this->currentTab == 1) {
+            $this->validateOnly($propertyName, $this->tab1Rules);
+        } elseif ($this->currentTab == 2) {
+            $this->validateOnly($propertyName, $this->tab2Rules);
+        } elseif ($this->currentTab == 3) {
+            $this->validateOnly($propertyName, $this->tab3Rules);
         }
     }
 
-    public function incrementProgress() {
+    public function incrementProgress()
+    {
         $this->progressPercent += 4;
 
         // Emit a Livewire event to update the progress bar in the JavaScript
-        $this->dispatch( 'updateProgressBar', $this->progressPercent );
+        $this->dispatch('updateProgressBar', $this->progressPercent);
     }
 
     public $authorAPA;
 
-    public function citationAPA_generator() {
+    public function citationAPA_generator()
+    {
         $authors = [];
 
-        if ( !empty( $this->author1 ) ) {
-            $authors[] = $this->convertAuthorName( $this->author1 );
+        if (!empty($this->author1)) {
+            $authors[] = $this->convertAuthorName($this->author1);
         }
-        if ( !empty( $this->author2 ) ) {
-            $authors[] = $this->convertAuthorName( $this->author2 );
+        if (!empty($this->author2)) {
+            $authors[] = $this->convertAuthorName($this->author2);
         }
-        if ( !empty( $this->author3 ) ) {
-            $authors[] = $this->convertAuthorName( $this->author3 );
+        if (!empty($this->author3)) {
+            $authors[] = $this->convertAuthorName($this->author3);
         }
-        if ( !empty( $this->author4 ) ) {
-            $authors[] = $this->convertAuthorName( $this->author4 );
+        if (!empty($this->author4)) {
+            $authors[] = $this->convertAuthorName($this->author4);
         }
 
-        $authorAPA = implode( ', ', $authors );
+        $authorAPA = implode(', ', $authors);
 
         $publicationLocation = 'Pangasinan State University - AC';
         $retrieveURL = 'http::/ThesisKiosk.app/documents/982734';
 
-        $year = date( 'Y', strtotime( $this->date_of_approval ) );
+        $year = date('Y', strtotime($this->date_of_approval));
         $this->recommended_citation = $authorAPA . ' (' . $year . '). ' . $this->title . '. ' . $this->document_type . '. ' . $publicationLocation . '. ' . $retrieveURL;
     }
 
-    public function convertAuthorName( $name ) {
-        $fullName = explode( ' ', $name );
-        if ( count( $fullName ) >= 2 ) {
+    public function convertAuthorName($name)
+    {
+        $fullName = explode(' ', $name);
+        if (count($fullName) >= 2) {
 
-            $lastName = ucfirst( array_pop( $fullName ) );
-            $firstNameInitial = ucfirst( strtoupper( substr( $fullName[ 0 ], 0, 1 ) ) );
+            $lastName = ucfirst(array_pop($fullName));
+            $firstNameInitial = ucfirst(strtoupper(substr($fullName[0], 0, 1)));
 
             // Format the name as 'LastName Initial.'
 
@@ -137,13 +144,15 @@ class UploadDocument extends Component {
     public $showProgressBox = false;
     public $progressPercent = 0;
     public $progressInfo = '';
-    public  $is_Success = false;
+    public $is_Success = false;
 
-    public function closeShowProgressBox() {
+    public function closeShowProgressBox()
+    {
         $this->showProgressBox = false;
     }
 
-    public function uploadDocument() {
+    public function uploadDocument()
+    {
 
         $rules = array_merge(
             $this->tab1Rules,
@@ -151,26 +160,27 @@ class UploadDocument extends Component {
             $this->tab3Rules
         );
 
-        $checkMe = $this->validate( $rules );
-        if ( $checkMe ) {
+        $checkMe = $this->validate($rules);
+        if ($checkMe) {
             $this->createNewDocuPostEntry();
         } else {
-            session()->flash( 'message', 'missing entry' );
+            session()->flash('message', 'missing entry');
         }
 
     }
     public $rulesDone, $validationDone, $creatingDone, $successUploading;
     public $docuReference;
 
-    public function createNewDocuPostEntry() {
+    public function createNewDocuPostEntry()
+    {
         $this->showProgressBox = true;
 
         do {
-            $this->docuReference = Str::random( 12 );
+            $this->docuReference = Str::random(12);
         }
-        while( DocuPost::where( 'reference', $this->docuReference )->exists() );
-        $currentDate = now()->format( 'Y-m-d' );
-        $customFileName = $this->user->last_name.'-'.$currentDate.'-'.$this->docuReference.'.pdf';
+        while (DocuPost::where('reference', $this->docuReference)->exists());
+        $currentDate = now()->format('Y-m-d');
+        $customFileName = $this->docuReference . '-' . $this->title . '-' . $currentDate . '.pdf';
 
         $inputsOfDocu = [
             'user_id' => $this->user->id,
@@ -205,62 +215,65 @@ class UploadDocument extends Component {
             'document_file_url' => $this->pdf_path,
         ];
 
-        DocuPost::create( $inputsOfDocu );
-        if ( $this->user_upload ) {
-            $this->pdf_path = $this->user_upload->storeAs( 'PDF_uploads', $customFileName, 'public' );
+        DocuPost::create($inputsOfDocu);
+        if ($this->user_upload) {
+            $this->pdf_path = $this->user_upload->storeAs('PDF_uploads', $customFileName, 'public');
 
-            $filePath = 'storage/' .$this->pdf_path;
+            $filePath = 'storage/' . $this->pdf_path;
             $text_image = 'storage/watermark/watermark.png';
 
             // Set source PDF file
             $pdf = new Fpdi();
-            if ( file_exists( $filePath ) ) {
-                $pagecount = $pdf->setSourceFile( $filePath );
+            if (file_exists($filePath)) {
+                $pagecount = $pdf->setSourceFile($filePath);
             } else {
                 return;
                 // Handle PDF not found as per your requirement
             }
 
             // Add watermark image to PDF pages
-            for ( $i = 1; $i <= $pagecount; $i++ ) {
-                $tpl = $pdf->importPage( $i );
-                $size = $pdf->getTemplateSize( $tpl );
-                $pdf->AddPage( 'P', array( $size[ 'width' ], $size[ 'height' ] ) );
+            for ($i = 1; $i <= $pagecount; $i++) {
+                $tpl = $pdf->importPage($i);
+                $size = $pdf->getTemplateSize($tpl);
+                $pdf->AddPage('P', array($size['width'], $size['height']));
                 // Add a page with the same size
 
                 // Import the page content before the watermark
-                $pdf->useTemplate( $tpl );
+                $pdf->useTemplate($tpl);
 
                 // Put the watermark
-                $pdf->Image( $text_image, 0, 0, $size[ 'width' ], $size[ 'height' ], 'png' );
+                $pdf->Image($text_image, 0, 0, $size['width'], $size['height'], 'png');
             }
 
             $existingFilePath = $filePath;
             // Generate the new PDF content
-            $newPdfContent = $pdf->Output( '', 'S' );
+            $newPdfContent = $pdf->Output('', 'S');
             // 'S' stands for string output
             // Replace the existing PDF file with the new content
-            file_put_contents( $existingFilePath, $newPdfContent );
+            file_put_contents($existingFilePath, $newPdfContent);
         }
 
         $this->progressInfo = 'Success';
         $this->is_Success = true;
+
     }
 
     public $showUploadPdfBox = false;
 
-    public function uploadPdfFileBox() {
-        $this->showUploadPdfBox = ! $this->showUploadPdfBox;
+    public function uploadPdfFileBox()
+    {
+        $this->showUploadPdfBox = !$this->showUploadPdfBox;
     }
 
-    public function render() {
-        if ( auth()->check() ) {
+    public function render()
+    {
+        if (auth()->check()) {
             $idAdmin = auth()->user()->is_admin;
         } else {
             $idAdmin = false;
         }
 
         $layout = $idAdmin ? 'layout.admin' : 'layout.app';
-        return view( 'livewire.upload-document' )->layout( $layout );
+        return view('livewire.upload-document')->layout($layout);
     }
 }

@@ -19,7 +19,7 @@
                         <div class="leading-tight">
                             <h1 class="text-center text-[2rem] font-black text-gray-800 md:text-left md:text-[4rem]">
                                 {{ $fullName }}</h1>
-                            <h2 class="text-center font-semibold md:-mt-4 md:text-left">
+                            <h2 class="text-center font-semibold md:text-left">
                                 {{ '@' . $checkedAccount->username }}</h2>
                         </div>
                         <div class="flex w-full justify-center md:justify-normal">

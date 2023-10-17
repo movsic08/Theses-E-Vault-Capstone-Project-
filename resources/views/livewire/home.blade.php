@@ -185,7 +185,8 @@
                                             {{ $docuData->course }}
                                         </div>
                                     </div>
-                                    <span class="text-sm font-semibold">Jan 08, 2023</span>
+                                    <span
+                                        class="text-sm font-semibold">{{ \Carbon\Carbon::parse($docuData->created_at)->format('M d, Y') }}</span>
                                 </div>
                             </div>
                         </div>
