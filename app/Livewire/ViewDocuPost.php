@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\BookmarkList;
+use Illuminate\Support\Str;
 use App\Models\DocuPost;
 use App\Models\DocuPostComment;
+use App\Models\PdfKey;
 use App\Models\User;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -268,6 +270,39 @@ class ViewDocuPost extends Component
             $this->replyingToReplyName = 'Unknown Comment';
         }
 
+    }
+
+    public $InputPDFKey = 'Generate key';
+
+    public function generatePDFKey($id)
+    {
+        $isKeyIsGEnerated = PdfKey::where('docu_post_id', $id)->exists();
+        if ($isKeyIsGEnerated) {
+            PdfKey::where('docu_post_id', $id)->delete();
+            $this->keyGenerator($id);
+        } else {
+            $this->keyGenerator($id);
+        }
+        // dd('end of code');
+    }
+
+    protected function keyGenerator($id)
+    {
+        do {
+            $secureKey = Str::random(14);
+        } while (PdfKey::where('keys', $secureKey)->exists());
+
+        $createKey = PdfKey::create([
+            'docu_post_id' => $id,
+            'keys' => $secureKey,
+        ]);
+
+        if ($createKey) {
+            $this->InputPDFKey = $secureKey;
+            return request()->session()->flash('success', 'Key generated success, you can use it now');
+        } else {
+            return request()->session()->flash('warning', 'Error generating Keys, contact IT Administrator.');
+        }
     }
 
     public function render()

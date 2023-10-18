@@ -51,7 +51,12 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('profile/edit/{activeTab?}', EditProfile::class)->name('edit-profile');
     Route::get('/upload-document', UploadDocument::class)->name('user-upload-document-form');
-
+    Route::get('/view-pdf/{title}/{pdfFile}', function ($title, $pdfFile) {
+        return view('pdf', [
+            'pdfFile' => $pdfFile,
+            'titleOfDocu' => $title,
+        ]);
+    })->name('view-pdf')->where('pdfFile', '.*');
 
     Route::get('/notification', function () {
         return view('pages.user.notification');
@@ -71,9 +76,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 //     return view('pdf');
 // })->name('view-pdf');
 
-Route::get('/view-pdf/{pdfFile}', function ($pdfFile) {
-    return view('pdf', ['pdfFile' => $pdfFile]);
-})->name('view-pdf')->where('pdfFile', '.*');
+
 
 
 
