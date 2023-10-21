@@ -181,34 +181,44 @@ class AdminUsersPanel extends Component {
 
     public $rowMenuStates = [];
 
-    public function toggleRowMenu( $rowId ) {
-        if ( isset( $this->rowMenuStates[ $rowId ] ) ) {
-            $this->rowMenuStates[ $rowId ] = !$this->rowMenuStates[ $rowId ];
-        } else {
-            $this->rowMenuStates[ $rowId ] = true;
-        }
-    }
+    // public function toggleRowMenu( $rowId ) {
+    //     if ( isset( $this->rowMenuStates[ $rowId ] ) ) {
+    //         $this->rowMenuStates[ $rowId ] = !$this->rowMenuStates[ $rowId ];
+    //     } else {
+    //         $this->rowMenuStates[ $rowId ] = true;
+    //     }
+    // }
 
     public $selectedUserId, $selectedUserEmail;
     public $showDeleteConfirmation = false;
     public $selectedData = '';
+    public function showDeleteBoxUser($id){
+        $user = User::find($id);
 
-    public function showDeleteBoxUser( $userId ) {
-        $user = User::find( $userId );
-
-        if ( !$user ) {
-            request()->session()->flash( 'error', 'User not found.' );
-        } else {
-            $this->selectedData = $user;
-            $this->selectedUserId = $userId;
-            $this->showDeleteConfirmation = true;
-        }
+            if ( !$user ) {
+                request()->session()->flash( 'error', 'User not found.' );
+            } else {
+                $this->selectedData = $user;
+                $this->selectedUserId = $id;
+                $this->showDeleteConfirmation = true;
+            }
     }
 
+
+    // public function showDeleteBoxUser( $userId ) {
+    //     $user = User::find( $userId );
+
+    //     if ( !$user ) {
+    //         request()->session()->flash( 'error', 'User not found.' );
+    //     } else {
+    //         $this->selectedData = $user;
+    //         $this->selectedUserId = $userId;
+    //         $this->showDeleteConfirmation = true;
+    //     }
+    // }
+
     public function closeRowMenu( $rowId ) {
-        if ( isset( $this->rowMenuStates[ $rowId ] ) ) {
-            $this->rowMenuStates[ $rowId ] = false;
-        }
+       $this->showDeleteConfirmation = false;
     }
 
     public function deleteUser() {

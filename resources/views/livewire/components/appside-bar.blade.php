@@ -10,7 +10,7 @@
         </button>
     </div>
     <nav id="sidebar-nav"
-        class="sticky bottom-0 left-0 top-0 z-40 flex h-screen w-[4rem] flex-col items-center justify-between rounded-r-xl bg-white p-2 drop-shadow-xl lg:p-3">
+        class="sticky bottom-0 left-0 top-0 z-40 flex h-screen w-[4rem] flex-col items-center justify-between rounded-r-xl bg-white p-2 font-medium text-gray-700 drop-shadow-xl lg:p-3">
         {{-- app name and logo --}}
         <section class="items-center-remover flex flex-col">
             <a wire:navigate href="{{ route('index') }}" class="relative flex p-2">
@@ -18,7 +18,7 @@
                     <img class="max-h-[2rem] min-h-[2rem] min-w-[2rem] max-w-[2rem]" src="{{ asset('icons/logo.svg') }}"
                         alt="logo" srcset="">
                 </div>
-                <p class="hideName block pl-2 text-sm md:hidden">Thesis Kiosk</p>
+                <p class="hideName block pl-2 text-xs md:hidden">Thesis Kiosk</p>
             </a>
 
             {{-- main features  --}}

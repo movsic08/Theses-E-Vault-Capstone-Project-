@@ -289,7 +289,7 @@ class ViewDocuPost extends Component
     protected function keyGenerator($id)
     {
         do {
-            $secureKey = Str::random(14);
+            $secureKey = Str::random(18);
         } while (PdfKey::where('keys', $secureKey)->exists());
 
         $createKey = PdfKey::create([

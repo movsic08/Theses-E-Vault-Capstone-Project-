@@ -180,42 +180,7 @@ class UploadDocument extends Component
         }
         while (DocuPost::where('reference', $this->docuReference)->exists());
         $currentDate = now()->format('Y-m-d');
-        $customFileName = $this->docuReference . '-' . $this->title . '-' . $currentDate . '.pdf';
-
-        $inputsOfDocu = [
-            'user_id' => $this->user->id,
-            'reference' => $this->docuReference,
-            'title' => $this->title,
-            'format' => $this->format,
-            'course' => $this->bachelor_degree_value,
-            'document_type' => $this->document_type,
-            'date_of_approval' => $this->date_of_approval,
-            'physical_description' => $this->physical_description,
-            'language' => $this->language,
-            'panel_chair' => $this->panel_chair,
-            'advisor' => $this->advisor,
-            'panel_member_1' => $this->panel_member1,
-            'panel_member_2' => $this->panel_member2,
-            'panel_member_3' => $this->panel_member3,
-            'panel_member_4' => $this->panel_member4,
-            'abstract_or_summary' => $this->abstract_or_summary,
-            'author_1' => $this->author1,
-            'author_2' => $this->author2,
-            'author_3' => $this->author3,
-            'author_4' => $this->author4,
-            'keyword_1' => $this->keyword1,
-            'keyword_2' => $this->keyword2,
-            'keyword_3' => $this->keyword3,
-            'keyword_4' => $this->keyword4,
-            'keyword_5' => $this->keyword5,
-            'keyword_6' => $this->keyword6,
-            'keyword_7' => $this->keyword7,
-            'keyword_8' => $this->keyword8,
-            'recommended_citation' => $this->recommended_citation,
-            'document_file_url' => $this->pdf_path,
-        ];
-
-        DocuPost::create($inputsOfDocu);
+        $customFileName = $this->title . '-' . $this->docuReference . '-' . $currentDate . '.pdf';
         if ($this->user_upload) {
             $this->pdf_path = $this->user_upload->storeAs('PDF_uploads', $customFileName, 'public');
 
@@ -252,6 +217,42 @@ class UploadDocument extends Component
             // Replace the existing PDF file with the new content
             file_put_contents($existingFilePath, $newPdfContent);
         }
+
+        $inputsOfDocu = [
+            'user_id' => $this->user->id,
+            'reference' => $this->docuReference,
+            'title' => $this->title,
+            'format' => $this->format,
+            'course' => $this->bachelor_degree_value,
+            'document_type' => $this->document_type,
+            'date_of_approval' => $this->date_of_approval,
+            'physical_description' => $this->physical_description,
+            'language' => $this->language,
+            'panel_chair' => $this->panel_chair,
+            'advisor' => $this->advisor,
+            'panel_member_1' => $this->panel_member1,
+            'panel_member_2' => $this->panel_member2,
+            'panel_member_3' => $this->panel_member3,
+            'panel_member_4' => $this->panel_member4,
+            'abstract_or_summary' => $this->abstract_or_summary,
+            'author_1' => $this->author1,
+            'author_2' => $this->author2,
+            'author_3' => $this->author3,
+            'author_4' => $this->author4,
+            'keyword_1' => $this->keyword1,
+            'keyword_2' => $this->keyword2,
+            'keyword_3' => $this->keyword3,
+            'keyword_4' => $this->keyword4,
+            'keyword_5' => $this->keyword5,
+            'keyword_6' => $this->keyword6,
+            'keyword_7' => $this->keyword7,
+            'keyword_8' => $this->keyword8,
+            'recommended_citation' => $this->recommended_citation,
+            'document_file_url' => $this->pdf_path,
+        ];
+
+        DocuPost::create($inputsOfDocu);
+
 
         $this->progressInfo = 'Success';
         $this->is_Success = true;

@@ -73,6 +73,7 @@
         </div>
         @livewireScripts
 
+
 </body>
 
 </html>

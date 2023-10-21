@@ -1,14 +1,40 @@
 <div>
+    <x-session_flash />
+    <h2>C6qZxyPet4ZtM9Xics</h2>
     @if ($PDFlocked)
         <div class="w-full">
             <div class="flex w-full items-center justify-center">
-                <div class="rounded-md bg-white p-4 drop-shadow-lg">
-                    <h2>PDF IS LOCKED</h2>
+                <div class="w-[20rem] rounded-md bg-white p-4 drop-shadow-lg">
+                    <h2 class="md:text2xl text-center text-lg font-extrabold text-primary-color">PDF IS LOCKED</h2>
+                    <div class="my-1 rounded-md border border-blue-300 bg-blue-100 p-2 text-blue-950">
+                        <p class="text-xs font-light">If you don't have know where to find the generated key for you,
+                            you can find
+                            it in the view
+                            document page. Just click on generate key and paste it here to unlock</p>
+                    </div>
+                    <form action="" wire:submit.prevent='unlockPDFForm'>
+                        <x-label-input>Enter the generated key</x-label-input>
+                        <x-input-field wire:model.live='key_input' placeholder='Key here' />
+                        @error('key_input')
+                            <small class="text-red-500">{{ $message }}</small>
+                            <br>
+                        @enderror
+
+                        <input type="submit" value="Enter"
+                            class="mt-1 w-fit cursor-pointer rounded-md bg-blue-700 px-2 py-1 text-white duration-500 ease-in-out hover:bg-primary-color">
+                    </form>
                 </div>
             </div>
         </div>
-    @else
-        <div id="pdfData" data-file-path="{{ asset('storage/' . $pdfFile) }}"></div>
+    @endif
+
+    <section>
+        @php
+            $pdfFileDecrpted = \Illuminate\Support\Facades\Crypt::decrypt($pdfFile);
+        @endphp
+        <strong>{{ $pdfFileDecrpted }}</strong>
+        {{-- <strong>sample: {{ $sample }}</strong> --}}
+        <div id="pdfData" data-file-path="{{ asset('storage/' . $pdfFileDecrpted) }}"></div>
         <div class="container relative">
             <div class="" style="height: 100%; width: 100%;">
                 {{-- sticky top --}}
@@ -23,7 +49,7 @@
                                 class="h-9 w-12 rounded-md border-2 bg-slate-100 px-2 text-center focus:outline-blue-950"
                                 min="1" inputmode="numeric">
                             <span class="mx-1">/</span>
-                            <span id="totalPages" class="m-2">10</span>
+                            <span id="totalPages" class="m-2">0</span>
                         </div>
                         {{-- drop down --}}
                         <div x-data="{ isOpen: false, selectedOption: 'Fit to Width' }" class="relative inline-block text-left">
@@ -93,60 +119,14 @@
             }
         </style>
 
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
         <script src="{{ asset('js/main.js') }}"></script>
-        {{-- <script>
-            $(document).ready(function() {
-                // Function to change the image size based on the selected option
-                function changeImageSize(size) {
-                    const img = document.getElementById('pdfArea');
-                    const naturalWidth = img.naturalWidth;
-                    const naturalHeight = img.naturalHeight;
-                    if (img) {
-                        if (size === 'fitToPage') {
-                            img.style.height = '100%';
-                            img.style.width = 'auto';
-                        } else if (size === 'fitToWidth') {
-                            img.style.height = 'auto';
-                            img.style.width = '100%';
-                        } else if (size === 'zoom50') {
-                            img.style.height = (naturalHeight - (naturalHeight * .25)) + 'px';
-                            img.style.width = (naturalWidth - (naturalWidth * .25)) + 'px';
-                        } else if (size === 'zoom75') {
-                            img.style.height = (naturalHeight * 1.16) + 'px';
-                            img.style.width = (naturalWidth * 1.16) + 'px';
-                        } else if (size === 'zoom100') {
-                            img.style.height = (naturalHeight * 1.32) + 'px';
-                            img.style.width = (naturalWidth * 1.32) + 'px';
-                        } else if (size === 'zoom150') {
-                            img.style.height = (naturalHeight * 1.48) + 'px';
-                            img.style.width = (naturalWidth * 1.48) + 'px';
-                        } else if (size === 'zoom200') {
-                            img.style.height = (naturalHeight * 1.64) + 'px';
-                            img.style.width = (naturalWidth * 1.64) + 'px';
-                        } else if (size === 'zoom300') {
-                            img.style.height = (naturalHeight * 1.80) + 'px';
-                            img.style.width = (naturalWidth * 1.80) + 'px';
-                        } else if (size === 'zoom400') {
-                            img.style.height = (naturalHeight * 2) + 'px';
-                            img.style.width = (naturalWidth * 2) + 'px';
-                        } else {
-                            img.style.height = size;
-                            img.style.width = 'auto';
-                        }
-                    }
-                }
 
-                // Handle dropdown item click events
-                $('.dropdown-item').on('click', function(e) {
-                    e.preventDefault();
-                    const selectedSize = $(this).attr('id');
-                    changeImageSize(selectedSize);
-                });
-
-
-            });
-        </script> --}}
         <script>
             $(document).ready(function() {
                 // Set initial zoom level and limits
@@ -229,5 +209,6 @@
                 });
             });
         </script>
-    @endif
+        {{-- @endif --}}
+    </section>
 </div>

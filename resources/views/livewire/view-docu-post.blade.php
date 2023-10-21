@@ -31,11 +31,8 @@
             {{-- 1st div --}}
             <div class="col-span-4 flex flex-col gap-3 lg:col-span-3">
                 <div class="flex flex-col gap-3 rounded-lg bg-white px-7 py-4 drop-shadow-lg">
-                    <div>
-                        <p class="font-extrabold">TITLE</p>
-                        <p class="text-gray-600">{{ $data->title }}
-                        </p>
-                    </div>
+                    <p class="text-2xl font-extrabold text-primary-color">{{ $data->title }}
+                    </p>
                     <div class="flex w-full flex-col md:flex-row">
                         <div class="flex w-full flex-col gap-3 md:w-2/5">
                             <div>
@@ -147,10 +144,15 @@
                                     @endphp
 
                                     <div class="w-full">
+                                        @php
+                                            $file = \Illuminate\Support\Facades\Crypt::encrypt($pdfFile);
+                                            $docuPostID = \Illuminate\Support\Facades\Crypt::encrypt($data->id);
+                                        @endphp
                                         <a class="block w-full rounded-md bg-orange-500 p-1 text-center text-white duration-200 ease-in-out hover:bg-orange-400"
                                             href="{{ route('view-pdf', [
                                                 'title' => $data->title,
-                                                'pdfFile' => $pdfFile,
+                                                'pdfFile' => $file,
+                                                'docuPostID' => $docuPostID,
                                             ]) }}"
                                             target="_blank">View</a>
                                     </div>

@@ -93,7 +93,7 @@ class EditProfile extends Component
             'first_name' => ['required', 'min:2'],
             'last_name' => ['required', 'min:2'],
             'phone_no' => ['required', 'min:11', 'max:11', 'regex:/^09\d{9}$/', ($this->phone_no == $this->user->phone_no) ? '' : 'unique:users,phone_no'],
-            'student_id' => ['required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/'],
+            'student_id' => ['required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/', ($this->student_id == $this->user->student_id) ? '' : 'unique:users,student_id'],
             'username' => ['required', 'min:2'],
             'bio' => ['required', 'min:2'],
             'address' => ['required', 'min:5'],
@@ -102,8 +102,9 @@ class EditProfile extends Component
         ], [
             'bacbachelor_degree_input.required' => 'Please select your bachelor degree',
             'student_id.regex' => 'The student ID must be in the format "XX-AC-XXXX".',
-            'phone_no.regex' => 'The phone number must start with "09" and have 11 digits.',
-            'phone_no.unique' => 'The phone number has already been taken.',
+            'phone_no.regex' => 'This phone number must start with "09" and have 11 digits.',
+            'phone_no.unique' => 'This phone number has already been taken.',
+            'student_id.unique' => 'This student ID has already been taken, if you think this is mistaken contact admin.',
         ]);
 
         // dd( $this->bachelor_degree_input );

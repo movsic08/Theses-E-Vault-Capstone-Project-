@@ -51,10 +51,11 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('profile/edit/{activeTab?}', EditProfile::class)->name('edit-profile');
     Route::get('/upload-document', UploadDocument::class)->name('user-upload-document-form');
-    Route::get('/view-pdf/{title}/{pdfFile}', function ($title, $pdfFile) {
+    Route::get('/view-pdf/{title}/{pdfFile}/{docuPostID}', function ($title, $pdfFile, $docuPostID) {
         return view('pdf', [
             'pdfFile' => $pdfFile,
             'titleOfDocu' => $title,
+            'docuPostID' => $docuPostID,
         ]);
     })->name('view-pdf')->where('pdfFile', '.*');
 
