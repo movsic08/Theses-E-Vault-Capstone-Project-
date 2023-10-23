@@ -1,6 +1,10 @@
-<div class="relative hidden md:block">
+<div class="relative hidden md:block" wire:ignore>
     <script src="{{ asset('js/sideBar.js') }}"></script>
     <div class="sticky top-0 z-50">
+        {{-- <script>
+            var isExpanded = {{ $isExpanded }};
+        </script>
+        <strong>{{ $isExpanded }}</strong> --}}
         <button id="sidebarBtn" class="absolute -right-4 top-4 hidden text-gray-600 md:block">
             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                 <path
@@ -10,7 +14,7 @@
         </button>
     </div>
     <nav id="sidebar-nav"
-        class="sticky bottom-0 left-0 top-0 z-40 flex h-screen w-[4rem] flex-col items-center justify-between rounded-r-xl bg-white p-2 font-medium text-gray-700 drop-shadow-xl lg:p-3">
+        class="sticky bottom-0 left-0 top-0 z-40 flex h-screen flex-col items-center justify-between rounded-r-xl bg-white p-2 font-medium text-gray-700 drop-shadow-xl lg:p-3">
         {{-- app name and logo --}}
         <section class="items-center-remover flex flex-col">
             <a wire:navigate href="{{ route('index') }}" class="relative flex p-2">
@@ -23,7 +27,7 @@
 
             {{-- main features  --}}
             {{-- notifction --}}
-            <div class="items-center-remover flex flex-col items-center gap-3 pt-2">
+            <div class="items-center-remover flex flex-col items-center gap-3 pt-2 text-sm">
                 @auth
                     <a wire:navigate href="{{ route('user-notification') }}"
                         class="{{ request()->routeIs('user-notification') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
@@ -128,7 +132,7 @@
             </div>
         </section>
         {{-- lower --}}
-        <div class="items-center-remover flex flex-col gap-3 pt-2">
+        <div class="items-center-remover flex flex-col gap-3 pt-2 text-sm">
             <a wire:navigate href=""
                 class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
                 <div class="relative w-fit">

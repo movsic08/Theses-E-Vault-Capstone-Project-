@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\BorrowersLogbook;
 use App\Models\DocuPost;
 use App\Models\PdfKey;
 use Illuminate\Support\Facades\Crypt;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
@@ -43,13 +45,32 @@ class PdfViewerSecurity extends Component
                     // part
                     // dd('no probs');
                     $docu_post_id_decrypted = Crypt::decrypt($this->docuPostID);
+
                     $checkPDFKey = PdfKey::where('keys', $this->key_input)
                         ->where('docu_post_id', $docu_post_id_decrypted)
                         ->first();
+
                     if ($checkPDFKey) {
-                        // $this->pdfFileDecrpted = Crypt::decrypt($this->pdfFile);
+                        $this->pdfFileDecrpted = Crypt::decrypt($this->pdfFile);
                         $this->PDFlocked = false;
                         $this->unlockPDF = true;
+                        $this->pdfViewerContent = '<section id="pdf_viewer_content">Your dynamic content here</section>';
+                        $this->dispatch('refreshSection')->self();
+                        $findDocuData = DocuPost::where('id', $docu_post_id_decrypted)->first();
+                        if ($findDocuData == null) {
+                            return request()->session()->flash('error', 'Document not found, contact admin.');
+                        }
+                        $borrowerFullName = $this->authenticatedUser->first_name . ' ' . $this->authenticatedUser->last_name;
+                        $createBorrowersLog = BorrowersLogbook::create([
+                            'name' => $borrowerFullName,
+                            'title' => $findDocuData->title,
+                            'author' => $findDocuData->author_1,
+                            'reference' => $findDocuData->reference,
+                            'category' => $findDocuData->document_type
+                        ]);
+                        if ($createBorrowersLog) {
+                            return request()->session()->flash('message', 'logbook created');
+                        }
                         return request()->session()->flash('message', 'PDF is unlock.');
                         // catalog log book
 
@@ -60,6 +81,13 @@ class PdfViewerSecurity extends Component
             }
         }
     }
+    public $pdfViewerContent;
+
+    // #[On('refreshSection')]
+    // public function narinig()
+    // {
+    //     dd('ito ay dispatcher hhehe');
+    // }
 
     public function render()
     {

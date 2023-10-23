@@ -77,8 +77,22 @@
     @endif
 
     @if ($is_Success)
-        <div>
-            <h2>Fille added.</h2>
+        <div
+            class="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="flex w-full flex-col items-center rounded-md bg-white p-4 md:w-[40%] lg:w-[30%]">
+                    <h1 class="text-center text-xl font-semibold text-primary-color">File is uploaded</h1>
+                    <p
+                        class="mx-4 my-2 rounded-md border border-blue-400 bg-blue-100 p-1 text-sm font-light md:mx-6 lg:mx-8">
+                        Admin will
+                        review
+                        your uploaded documents, you may return back to
+                        your profile now.</p>
+                    <a href="{{ route('edit-profile', ['activeTab' => 'tab4']) }}"
+                        class="mt-2 rounded-md bg-blue-800 px-2 py-1 font-medium text-white duration-300 ease-in-out hover:bg-primary-color">Return
+                        to profile</a>
+                </div>
+            </div>
         </div>
     @endif
 
