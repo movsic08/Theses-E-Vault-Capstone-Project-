@@ -135,6 +135,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     })->name('admin-users');
 
     Route::get('/upload-document', UploadDocument::class)->name('upload-document-form');
+    Route::get('/view-pdf/{title?}/{pdfFile?}/{docuPostID?}', function ($title = null, $pdfFile = null, $docuPostID = null) {
+        // dd('title:' . $title, 'pdffile:' . $pdfFile);
+        return view('pdf', [
+            'pdfFile' => $pdfFile,
+            'titleOfDocu' => $title,
+            'docuPostID' => $docuPostID,
+        ]);
+    })->name('view-pdf-admin')->where('pdfFile', '.*');
 });
 
 

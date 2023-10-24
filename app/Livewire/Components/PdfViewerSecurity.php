@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class PdfViewerSecurity extends Component
 {
-    public $pdfFile, $docuPostID, $pdfFileDecrpted, $titleOfDocu, $authenticatedUser, $PDFlocked = true;
+    public $pdfFile, $docuPostID, $pdfFileDecrpted, $titleOfDocu, $authenticatedUser, $PDFlocked;
     public function mount()
     {
         $this->authenticatedUser = auth()->user();
@@ -22,6 +22,19 @@ class PdfViewerSecurity extends Component
     public $key_input = '';
 
     public $unlockPDF = false;
+    public function boot()
+    {
+        if (auth()->user()->is_admin == 1) {
+
+            $this->PDFlocked = false;
+            $this->unlockPDF = true;
+            request()->session()->flash('message', 'admin');
+
+        } else {
+            $this->PDFlocked = true;
+            request()->session()->flash('message', 'not admin');
+        }
+    }
 
     public function unlockPDFForm()
     {
