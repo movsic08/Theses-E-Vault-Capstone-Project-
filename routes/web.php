@@ -107,7 +107,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/home', Dashboard::class)->name('admin-home');
     Route::get('/view-document/{reference?}', ViewDocuPost::class)->name('admin-view-document');
 
-    Route::get('/users-panel', AdminUsersPanel::class)->name('admin-users-panel');
+    // Route::get('/users-panel', AdminUsersPanel::class)->name('admin-users-panel');
+    Route::get('/users-panel', function () {
+        return view('pages.admin.users-panel');
+    })->name('admin-users-panel');
     Route::get('/documents-list-panel', DocuPostPanel::class)->name('admin-docu-post-panel');
 
     Route::get('/analytics', function () {

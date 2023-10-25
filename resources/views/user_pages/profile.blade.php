@@ -24,11 +24,10 @@
                         </div>
                         <div class="flex w-full justify-center md:justify-normal">
                             @php
-                                $bachelorDegree = \App\Models\BachelorDegree::find($checkedAccount->bachelor_degree);
-                                if (empty($bachelorDegree)) {
+                                if (empty($checkedAccount->bachelor_degree)) {
                                     $yourCourse = 'User doesn\'t have completed his/her profile. ';
                                 } else {
-                                    $yourCourse = $bachelorDegree->name;
+                                    $yourCourse = $checkedAccount->bachelor_degree;
                                 }
                             @endphp
                             <h1

@@ -23,8 +23,7 @@ class UploadDocument extends Component
         if ($this->user->is_admin) {
             $this->bachelor_degree_value = '';
         } else {
-            $bachelor_degree_int = BachelorDegree::find($this->user->bachelor_degree);
-            $this->bachelor_degree_value = $bachelor_degree_int->name;
+            $this->bachelor_degree_value = $this->user->bachelor_degree;
             $this->author1 = $this->user->first_name . ' ' . $this->user->last_name;
         }
     }

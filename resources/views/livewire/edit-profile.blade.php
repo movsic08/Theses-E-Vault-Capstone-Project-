@@ -302,19 +302,9 @@
                             Bachelor degree is empty.
                         </p>
                     @else
-                        @php
-                            $bachelorDegree = \App\Models\BachelorDegree::find($user->bachelor_degree);
-                            
-                        @endphp
-                        @if ($bachelorDegree)
-                            <p class="whitespace-normal text-gray-500 md:pl-7">
-                                {{ $bachelorDegree->name }}
-                            </p>
-                        @else
-                            <p class="text-red-500 md:ml-7">
-                                Bachelor degree not found.
-                            </p>
-                        @endif
+                        <p class="whitespace-normal text-gray-500 md:pl-7">
+                            {{ $user->bachelor_degree }}
+                        </p>
                     @endif
                 </div>
                 <div class="flex flex-col md:flex-row">
@@ -416,23 +406,15 @@
                                     class="w-full rounded-md border border-gray-400 p-2 text-sm">
                                     @if ($user->bachelor_degree == null)
                                         @foreach ($bachelor_degree_data as $degree)
-                                            <option class="text-sm" value="{{ $degree->id }}">
+                                            <option class="text-sm" value="{{ $degree->name }}">
                                                 {{ $degree->name }}
                                             </option>
                                         @endforeach
                                     @else
-                                        @php
-                                            $selectedDegree = \App\Models\BachelorDegree::find($user->bachelor_degree);
-                                        @endphp
-                                        <option value="{{ $user->bachelor_degree }}" selected>
-                                            {{ $selectedDegree->name }}
-                                        </option>
                                         @foreach ($bachelor_degree_data as $degree)
-                                            @if ($degree->id != $user->bachelor_degree)
-                                                <option class="text-sm" value="{{ $degree->id }}">
-                                                    {{ $degree->name }}
-                                                </option>
-                                            @endif
+                                            <option class="text-sm" value="{{ $degree->name }}">
+                                                {{ $degree->name }}
+                                            </option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -450,8 +432,8 @@
                             </div>
                             <div class="flex w-full flex-col">
                                 <x-label-input for='bio'>Bio</x-label-input>
-                                <textarea class="rounded-md border border-gray-400 p-2 text-sm" type="text" wire:model.live="bio"
-                                    rows="4" id="abstract_or_summary" id="bio" placeholder="About you"></textarea>
+                                <textarea class="rounded-md border border-gray-400 p-2 text-sm" type="text" wire:model.live="bio" rows="4"
+                                    id="abstract_or_summary" id="bio" placeholder="About you"></textarea>
                                 @error('bio')
                                     <small class="text-red-500">{{ $message }}</small>
                                 @enderror

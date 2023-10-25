@@ -8,36 +8,46 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
-* @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
-*/
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ */
 
-class UserFactory extends Factory {
+class UserFactory extends Factory
+{
 
     //faker
     protected $model = User::class;
 
-    public function definition() {
+    public function definition()
+    {
         return [
             'email' => $this->faker->unique()->safeEmail,
             'username' => $this->faker->userName,
-            'is_verified' =>$this->faker->numberBetween( 0, 1 ),
+            'is_verified' => $this->faker->numberBetween(0, 1),
             'email_verified_at' => now(),
-            'password' => bcrypt( 'password' ),
+            'password' => bcrypt('password'),
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'student_id' => '21-AC-' . str_pad( $this->faker->randomNumber( 4 ), 4, '0', STR_PAD_LEFT ),
+            'student_id' => '21-AC-' . str_pad($this->faker->randomNumber(4), 4, '0', STR_PAD_LEFT),
             'staff_id' => $this->faker->unique()->randomNumber(),
             'profile_picture' => null,
             'bio' => $this->faker->sentence,
-            'bachelor_degree' => $this->faker->numberBetween( 1, 6 ),
-            'role_id' => $this->faker->numberBetween( 1, 2 ),
-            'remember_token' => Str::random( 10 ),
+            'bachelor_degree' => $this->faker->randomElement($array = array(
+                'Bachelor of Science in Information and Technology',
+                'Bachelor of Science in Mechanical Engineering',
+                'Bachelor of Science in Computer Science ',
+                'Bachelor of Science in Nursing ',
+                'Bachelor of Science in Psychology ',
+                'Master of Arts in History',
+            )
+            ),
+            'role_id' => $this->faker->numberBetween(1, 2),
+            'remember_token' => Str::random(10),
             'created_at' => $this->faker->dateTimeThisDecade(),
             'updated_at' => $this->faker->date(),
         ];
     }
     /**
-    * Define the model's default state.
+     * Define the model's default state.
      *
      * @return array<string, mixed>
      */
@@ -55,11 +65,12 @@ class UserFactory extends Factory {
 
     /**
      * Indicate that the model's email address should be unverified.
-    */
+     */
 
-    public function unverified(): static {
-        return $this->state( fn( array $attributes ) => [
+    public function unverified(): static
+    {
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
-        ] );
+        ]);
     }
 }

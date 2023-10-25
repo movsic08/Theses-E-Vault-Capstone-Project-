@@ -22,9 +22,9 @@ class User extends Authenticatable {
         return $this->belongsTo( Account_role::class, 'role_id' );
     }
 
-    public function bachelorDegree() {
-        return $this->belongsTo( BachelorDegree::class );
-    }
+    // public function bachelorDegree() {
+    //     return $this->belongsTo( BachelorDegree::class );
+    // }
 
     public function bookmarkList() {
         return $this->hasMany( BookmarkList::class, 'user_id' );

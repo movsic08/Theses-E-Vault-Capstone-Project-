@@ -379,14 +379,14 @@
         <section class="">
             <div class="my-2 flex flex-col justify-between gap-2 md:flex-row">
                 <div class="flex gap-6 text-xs text-primary-color lg:text-base">
-                    <button wire:click='switchToAllUsersData'
+                    <button
                         class="{{ $currentQuery == 'allUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">All
                         users</button>
-                    <button wire:click='switchToVerifiedUsersData'
+                    <button
                         class="{{ $currentQuery == 'verifiedUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">Verified</button>
-                    <button wire:click='switchToUnverifiedUsers'
+                    <button
                         class="{{ $currentQuery == 'unverifiedUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">Unverified</button>
-                    <button wire:click='switchToAdminUsers'
+                    <button
                         class="{{ $currentQuery == 'adminUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">Admins</button>
                 </div>
                 <div class="flex gap-4 text-xs lg:text-base">
@@ -485,7 +485,7 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody wire:init='loadUserDataList' class="font-medium text-gray-600">
+                            <tbody class="font-medium text-gray-600">
                                 @if (!is_null($defaultData))
                                     @foreach ($currentListData as $currentListDataValue)
                                         {{-- <livewire:components.user-table-rows :currentListDataValue="$currentListDataValue" :key="$currentListDataValue->id" /> --}}
@@ -623,7 +623,7 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    @for ($i = 0; $i < 6; $i++)
+                                    {{-- @for ($i = 0; $i < 6; $i++)
                                         <div>
                                             <tr class="animate-pulse">
                                                 <td class="whitespace-normal px-2 py-3">
@@ -694,7 +694,7 @@
                                                 </td>
                                             </tr>
                                         </div>
-                                    @endfor
+                                    @endfor --}}
                                 @endif
                             </tbody>
                         </table>

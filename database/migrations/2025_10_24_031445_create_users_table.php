@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->id();
             $table->string('email')->unique();
             $table->string('username')->unique();
-            $table->boolean('is_admin')->default(false); 
-            $table->boolean('is_verified')->default(false); 
+            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('first_name')->nullable();
@@ -29,14 +29,14 @@ return new class extends Migration {
             $table->string('facebook_url')->nullable();
             $table->string('ms_url')->nullable();
             $table->string('bio')->nullable();
-            $table->unsignedBigInteger('bachelor_degree')->nullable();
+            $table->mediumText('bachelor_degree')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
             //relationships
-            $table->foreign('role_id')->references('id')->on('account_roles');
-            $table->foreign('bachelor_degree')->references('id')->on('bachelor_degrees')->nullable();
+            // $table->foreign('role_id')->references('id')->on('account_roles');
+            // $table->foreign('bachelor_degree')->references('id')->on('bachelor_degrees')->nullable();
             // $table->foreign('id')->references('user_id')->on('otp_request_history')->nullable();
             // $table->foreign('id')->references('user_id')->on('bookmark_list')->nullable();
         });

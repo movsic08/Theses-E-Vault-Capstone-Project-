@@ -57,12 +57,22 @@
                              <div class="flex gap-2">
                                  @php
                                      $commentorInfo = \App\Models\User::find($commentsItem->user_id);
-                                     $bachelorDegree = \App\Models\BachelorDegree::find($commentorInfo->bachelor_degree);
+
+                                     $bachelorDegree = \App\Models\BachelorDegree::where('name', $commentorInfo->bachelor_degree)->first();
+
+                                     if ($bachelorDegree) {
+                                         $course = $bachelorDegree->degree_name;
+                                     } else {
+                                         $course = '';
+                                     }
+
                                      // $commentDate = Carbon\Carbon::parse($commentAuthorDetails->created_at)->setTimezone('Asia/Manila');
                                      // $timeAgo = $commentDate->diffForHumans();
+
                                  @endphp
                                  <small>{{ \Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
-                                 <small>{{ $bachelorDegree->degree_name }}</small>
+
+                                 <small>{{ $course }}</small>
                              </div>
 
                          </div>
