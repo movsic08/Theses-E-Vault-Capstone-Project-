@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Components;
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
 use App\Models\User;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -376,14 +377,95 @@ class AdminUsersPanel extends Component
         return $this->dispatch('open-usr');
     }
 
-    public $editUserState = false, $profilePictureOption = false;
-    public function toggleEdit()
+    public $editUserState = false, $profilePictureOption = false, $updatingUserID;
+
+
+
+    public function toggleEdit($updatingUserID)
     {
+        $this->updatingUserID = $user = User::where('id', $updatingUserID)->first();
+        if ($user) {
+            $this->update_studentID = $user->student_id;
+            $this->update_fname = $user->first_name;
+            $this->update_lname = $user->last_name;
+            $this->update_email = $user->email;
+            $this->update_username = $user->username;
+            $this->update_phoneNum = $user->phone_no;
+            $this->update_address = $user->address;
+            $this->update_bio = $user->bio;
+        } else {
+            return request()->session()->flash('error', 'Cannot load this, user might not found. Contact Developer.');
+        }
         $this->editUserState = true;
         $this->profilePictureOption = true;
     }
+    public function toggleEditUser($updatingUserID)
+    {
+        $this->viewUser($updatingUserID);
+        $this->toggleEdit($updatingUserID);
+        return $this->dispatch('open-usr');
+    }
+    public function toggleEditClose()
+    {
+        $this->editUserState = false;
+        $this->profilePictureOption = false;
+    }
 
     public $paginate = 10, $accountRole = 'all', $use_level = "all", $search, $program = "all", $selectedDate;
+    #[Rule('required', 'regex:/^21-(A)(C)-\d{4}$/i', as: 'ID number')]
+    public $update_studentID;
+    #[Rule('required', 'min:1', as: 'first name')]
+    public $update_fname;
+    #[Rule('required', 'min:1', as: 'last name')]
+    public $update_lname;
+    #[Rule('required|email', as: 'email')]
+    public $update_email;
+    #[Rule('required|unique:users,email,')]
+    public $update_username;
+    #[Rule('required|min:11|max:11', as: 'phone number')]
+    public $update_phoneNum;
+    #[Rule('required|min:5', as: 'address')]
+    public $update_address;
+    #[Rule('required|min:2', as: 'bio')]
+    public $update_bio;
+
+    public function updateUserInfo($userId)
+    {
+        $findUser = User::where('id', $userId)->first();
+        if ($findUser) {
+            $this->validateOnly('update_studentID');
+            $this->validateOnly('update_fname');
+            $this->validateOnly('update_lname');
+            $this->validateOnly('update_email');
+            $this->validateOnly('update_username');
+            $this->validateOnly('update_phoneNum');
+            $this->validateOnly('update_address');
+            $this->validateOnly('update_bio');
+
+            $isUpdated = $findUser->update([
+                'first_name' => $this->update_fname,
+                'last_name' => $this->update_lname,
+                'email' => $this->update_email,
+                'username' => $this->update_username,
+                'student_id' => $this->update_studentID,
+                'phone_no' => $this->update_phoneNum,
+                'address' => $this->update_address,
+                'bio' => $this->update_bio,
+            ]);
+
+            if ($isUpdated) {
+                request()->session()->flash('success', 'User updated, success!');
+            } else {
+                return request()->session()->flash('error', 'Cannot update user, contact developer.');
+            }
+
+        } else {
+            return request()->session()->flash('error', 'Cannot retrive user to edit. Contact Devs.');
+        }
+        $this->editUserState = false;
+        $this->profilePictureOption = false;
+        $this->dispatch('close-usr');
+    }
 
     public function render()
     {

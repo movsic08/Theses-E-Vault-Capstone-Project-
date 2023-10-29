@@ -567,7 +567,7 @@
                                                             clip-rule="evenodd"></path>
                                                     </svg>
                                                 </span>
-                                                <span
+                                                <span wire:click='toggleEditUser({{ $currentListDataValue->id }})'
                                                     class="hover: cursor-pointer rounded-md bg-yellow-600 p-1 duration-500 ease-in-out hover:bg-yellow-800">
                                                     <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
                                                         fill="currentColor" viewBox="0 0 24 24"

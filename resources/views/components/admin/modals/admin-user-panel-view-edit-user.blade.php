@@ -4,16 +4,15 @@
     x-transition:enter.duration.400ms x-transition:leave.duration.300ms style="display: none">
     <div class="right-0 top-0 mx-auto md:flex md:items-center md:justify-center">
         <section
-            class="mx-3 h-fit w-fit rounded-lg bg-white drop-shadow-xl md:mx-0 md:mt-[6rem] lg:max-h-[35rem] lg:min-h-[35rem] lg:min-w-[40rem]">
+            class="custom-scrollbar relative mx-3 h-fit w-fit overflow-y-auto rounded-lg bg-white drop-shadow-xl md:mx-0 md:mt-[6rem] lg:max-h-[35rem] lg:min-h-[35rem] lg:min-w-[40rem]">
             @if (isset($currentViewingUser))
                 <div
-                    class="fixed right-0 top-0 z-40 w-full rounded-t-lg bg-white bg-opacity-30 px-6 py-4 text-center text-primary-color backdrop-blur-md">
-                    <strong>Viewing
+                    class="sticky right-0 top-0 z-40 w-full rounded-t-lg bg-opacity-30 px-6 py-4 text-center text-primary-color backdrop-blur-2xl">
+                    <strong>{{ $editUserState ? 'Editing' : 'Viewing' }}
                         {{ $currentViewingUser->first_name == null ? 'User' : $currentViewingUser->first_name }}
                         information</strong>
                 </div>
-                <section
-                    class="custom-scrollbar mt-[10rem] max-h-[34rem] overflow-y-auto pb-2 md:mt-14 md:max-h-[28rem]">
+                <section class="h-full pb-2">
                     <div class="px-6 py-4">
                         <div class="flex flex-col items-center justify-center gap-2 md:flex-row md:justify-normal">
                             <div class="flex gap-3 md:mr-3">
@@ -76,10 +75,10 @@
                     <section class="my-2 flex flex-col gap-4 px-6 py-4">
                         <div class="flex flex-col gap-4 md:flex-row">
                             <div class="flex w-full flex-col gap-1 md:w-1/2">
-                                <x-label-input for='date_of_approval'>First name</x-label-input>
+                                <x-label-input for='update_fname'>First name</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_fname" wire:model.live='update_fname' />
+                                    @error('update_fname')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -89,10 +88,10 @@
                                 @endif
                             </div>
                             <div class="flex w-full flex-col gap-1 md:w-1/2">
-                                <x-label-input for='date_of_approval'>Last name</x-label-input>
+                                <x-label-input for='update_lname'>Last name</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_lname" wire:model.live='update_lname' />
+                                    @error('update_lname')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -104,10 +103,10 @@
                         </div>
                         <div class="flex flex-col gap-4 md:flex-row">
                             <div class="flex w-full flex-col gap-1 md:w-1/2">
-                                <x-label-input for='date_of_approval'>Email</x-label-input>
+                                <x-label-input for='update_email'>Email</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_email" wire:model.live='update_email' />
+                                    @error('update_email')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -117,10 +116,10 @@
                                 @endif
                             </div>
                             <div class="flex w-full flex-col gap-1 md:w-1/2">
-                                <x-label-input for='date_of_approval'>Username</x-label-input>
+                                <x-label-input for='update_Username'>Username</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_Username" wire:model.live='update_username' />
+                                    @error('update_username')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -132,10 +131,10 @@
                         </div>
                         <div class="flex flex-col gap-4 md:flex-row">
                             <div class="flex w-full flex-col gap-1 md:w-1/2">
-                                <x-label-input for='date_of_approval'>Student ID</x-label-input>
+                                <x-label-input for='update_studentID'>Student ID</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_studentID" wire:model.live='update_studentID' />
+                                    @error('update_studentID')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -145,10 +144,10 @@
                                 @endif
                             </div>
                             <div class="flex w-full flex-col gap-1 md:w-1/2">
-                                <x-label-input for='date_of_approval'>Phone number</x-label-input>
+                                <x-label-input for='update_phoneNum'>Phone number</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_phoneNum" wire:model.live='update_phoneNum' />
+                                    @error('update_phoneNum')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -160,10 +159,10 @@
                         </div>
                         <div class="flex flex-col gap-4">
                             <div class="flex w-full flex-col gap-1">
-                                <x-label-input for='date_of_approval'>Address</x-label-input>
+                                <x-label-input for='update_address'>Address</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_address" wire:model.live='update_address' />
+                                    @error('update_address')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -173,10 +172,10 @@
                                 @endif
                             </div>
                             <div class="flex w-full flex-col gap-1">
-                                <x-label-input for='date_of_approval'>Bio</x-label-input>
+                                <x-label-input for='update_bio'>Bio</x-label-input>
                                 @if ($editUserState)
-                                    <x-input-field id="date_of_approval" />
-                                    @error('date_of_approval')
+                                    <x-input-field id="update_bio" wire:model.live='update_bio' />
+                                    @error('update_bio')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 @else
@@ -190,15 +189,15 @@
                     </section>
                 </section>
                 <div
-                    class="fixed bottom-0 right-0 flex w-full justify-end gap-2 rounded-b-lg bg-white bg-opacity-40 px-6 py-2 backdrop-blur-md">
-                    <button
+                    class="sticky bottom-0 right-0 flex w-full justify-end gap-2 rounded-b-lg bg-white bg-opacity-40 px-6 py-2 backdrop-blur-2xl">
+                    <button wire:click='toggleEditClose'
                         class="w-[5rem] rounded-md bg-red-500 p-1 text-white duration-500 ease-in-out hover:bg-red-800"
                         x-on:click=" viewEditUser = false ">Close</button>
                     @if (!$editUserState)
-                        <button wire:click='toggleEdit'
+                        <button wire:click='toggleEdit({{ $currentViewingUser->id }})'
                             class="w-[5rem] rounded-md bg-blue-500 p-1 text-white duration-500 ease-in-out hover:bg-blue-800">Edit</button>
                     @else
-                        <button
+                        <button wire:click='updateUserInfo({{ $currentViewingUser->id }})'
                             class="w-[5rem] rounded-md bg-blue-500 p-1 text-white duration-500 ease-in-out hover:bg-blue-800">Save</button>
                     @endif
 
