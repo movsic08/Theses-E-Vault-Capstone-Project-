@@ -376,10 +376,11 @@ class AdminUsersPanel extends Component
         return $this->dispatch('open-usr');
     }
 
-    public $editUserState = false;
+    public $editUserState = false, $profilePictureOption = false;
     public function toggleEdit()
     {
         $this->editUserState = true;
+        $this->profilePictureOption = true;
     }
 
     public $paginate = 10, $accountRole = 'all', $use_level = "all", $search, $program = "all", $selectedDate;

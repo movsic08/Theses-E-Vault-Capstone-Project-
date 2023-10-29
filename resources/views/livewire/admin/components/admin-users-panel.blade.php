@@ -352,7 +352,7 @@
         <x-admin.modals.admin-user-panel-delete-user :selectedUser='$selectedUser'>
         </x-admin.modals.admin-user-panel-delete-user>
 
-        <x-admin.modals.admin-user-panel-view-edit-user :editUserState="$editUserState" :currentViewingUser='$currentViewingUser'>
+        <x-admin.modals.admin-user-panel-view-edit-user :editUserState="$editUserState" :currentViewingUser='$currentViewingUser' :profilePictureOption='$profilePictureOption'>
         </x-admin.modals.admin-user-panel-view-edit-user>
 
         <x-modals.admin-view-user>

@@ -4,7 +4,7 @@
     x-transition:enter.duration.400ms x-transition:leave.duration.300ms style="display: none">
     <div class="right-0 top-0 mx-auto md:flex md:items-center md:justify-center">
         <section
-            class="h-fit w-fit rounded-lg bg-white drop-shadow-xl md:mt-[6rem] md:max-h-[35rem] md:min-h-[35rem] md:min-w-[40rem]">
+            class="mx-3 h-fit w-fit rounded-lg bg-white drop-shadow-xl md:mx-0 md:mt-[6rem] lg:max-h-[35rem] lg:min-h-[35rem] lg:min-w-[40rem]">
             @if (isset($currentViewingUser))
                 <div
                     class="fixed right-0 top-0 z-40 w-full rounded-t-lg bg-white bg-opacity-30 px-6 py-4 text-center text-primary-color backdrop-blur-md">
@@ -12,7 +12,8 @@
                         {{ $currentViewingUser->first_name == null ? 'User' : $currentViewingUser->first_name }}
                         information</strong>
                 </div>
-                <section class="custom-scrollbar mt-14 max-h-[28rem] overflow-y-auto pb-2">
+                <section
+                    class="custom-scrollbar mt-[10rem] max-h-[34rem] overflow-y-auto pb-2 md:mt-14 md:max-h-[28rem]">
                     <div class="px-6 py-4">
                         <div class="flex flex-col items-center justify-center gap-2 md:flex-row md:justify-normal">
                             <div class="flex gap-3 md:mr-3">
@@ -21,13 +22,13 @@
                                         ? asset('storage/' . $currentViewingUser->profile_picture)
                                         : asset('assets/default_profile.png') }}"
                                     alt="profile" srcset="">
-                                @if (false)
+                                @if ($profilePictureOption)
                                     <div class="flex flex-row gap-2 md:flex-col">
                                         <button
-                                            class="rounded-md bg-blue-500 p-1 font-semibold text-white duration-500 ease-in-out hover:bg-blue-800">Change
+                                            class="h-ft rounded-md bg-blue-500 p-1 font-semibold text-white duration-500 ease-in-out hover:bg-blue-800">Change
                                             Profile</button>
                                         <button
-                                            class="rounded-md bg-red-500 p-1 font-semibold text-white duration-500 ease-in-out hover:bg-red-800">Delete
+                                            class="h-fit rounded-md bg-red-500 p-1 font-semibold text-white duration-500 ease-in-out hover:bg-red-800">Delete
                                             Profiles</button>
                                     </div>
                                 @endif
@@ -36,32 +37,34 @@
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td class="px-2 py-1 text-right font-semibold">Role</td>
+                                            <td class="px-2 py-1 text-right font-semibold text-gray-700">Role</td>
                                             <td class="px-2 py-1 font-medium">
                                                 @if ($currentViewingUser->is_admin == 1)
-                                                    <span class="text-gray-900">Admin</span>
+                                                    <span class="text-gray-500">Admin</span>
                                                 @else
                                                     {{ $currentViewingUser->role_id == 1 ? 'Student' : 'Faculty user' }}
                                                 @endif
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="px-2 py-1 text-right font-semibold">Status</td>
+                                            <td class="px-2 py-1 text-right font-semibold text-gray-700">Status</td>
                                             <td class="px-2 py-1 font-medium">
                                                 @if ($currentViewingUser->is_veried == 1)
-                                                    <span class="text-gray-900">Not verified</span>
+                                                    <span class="text-red-900">Not verified</span>
                                                 @else
                                                     <span class="text-green-700">Verified</span>
                                                 @endif
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="px-2 py-1 text-right font-semibold">Course</td>
-                                            <td class="px-2 py-1">{{ $currentViewingUser->bachelor_degree }}</td>
+                                            <td class="px-2 py-1 text-right font-semibold text-gray-700">Course</td>
+                                            <td class="px-2 py-1 font-medium text-gray-500">
+                                                {{ $currentViewingUser->bachelor_degree }}
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="px-2 py-1 text-right font-semibold">Created at</td>
-                                            <td class="px-2 py-1">
+                                            <td class="px-2 py-1 text-right font-semibold text-gray-700">Created at</td>
+                                            <td class="px-2 py-1 font-medium text-gray-500">
                                                 {{ \Carbon\Carbon::parse($currentViewingUser->created_at)->format('F j, Y') }}
                                             </td>
                                         </tr>
@@ -71,8 +74,8 @@
                         </div>
                     </div>
                     <section class="my-2 flex flex-col gap-4 px-6 py-4">
-                        <div class="flex gap-4">
-                            <div class="flex w-1/2 flex-col gap-1">
+                        <div class="flex flex-col gap-4 md:flex-row">
+                            <div class="flex w-full flex-col gap-1 md:w-1/2">
                                 <x-label-input for='date_of_approval'>First name</x-label-input>
                                 @if ($editUserState)
                                     <x-input-field id="date_of_approval" />
@@ -85,7 +88,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="flex w-1/2 flex-col gap-1">
+                            <div class="flex w-full flex-col gap-1 md:w-1/2">
                                 <x-label-input for='date_of_approval'>Last name</x-label-input>
                                 @if ($editUserState)
                                     <x-input-field id="date_of_approval" />
@@ -99,8 +102,8 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="flex w-1/2 flex-col gap-1">
+                        <div class="flex flex-col gap-4 md:flex-row">
+                            <div class="flex w-full flex-col gap-1 md:w-1/2">
                                 <x-label-input for='date_of_approval'>Email</x-label-input>
                                 @if ($editUserState)
                                     <x-input-field id="date_of_approval" />
@@ -113,7 +116,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="flex w-1/2 flex-col gap-1">
+                            <div class="flex w-full flex-col gap-1 md:w-1/2">
                                 <x-label-input for='date_of_approval'>Username</x-label-input>
                                 @if ($editUserState)
                                     <x-input-field id="date_of_approval" />
@@ -127,8 +130,8 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="flex w-1/2 flex-col gap-1">
+                        <div class="flex flex-col gap-4 md:flex-row">
+                            <div class="flex w-full flex-col gap-1 md:w-1/2">
                                 <x-label-input for='date_of_approval'>Student ID</x-label-input>
                                 @if ($editUserState)
                                     <x-input-field id="date_of_approval" />
@@ -141,7 +144,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="flex w-1/2 flex-col gap-1">
+                            <div class="flex w-full flex-col gap-1 md:w-1/2">
                                 <x-label-input for='date_of_approval'>Phone number</x-label-input>
                                 @if ($editUserState)
                                     <x-input-field id="date_of_approval" />
@@ -191,8 +194,14 @@
                     <button
                         class="w-[5rem] rounded-md bg-red-500 p-1 text-white duration-500 ease-in-out hover:bg-red-800"
                         x-on:click=" viewEditUser = false ">Close</button>
-                    <button wire:click='toggleEdit'
-                        class="w-[5rem] rounded-md bg-blue-500 p-1 text-white duration-500 ease-in-out hover:bg-blue-800">Edit</button>
+                    @if (!$editUserState)
+                        <button wire:click='toggleEdit'
+                            class="w-[5rem] rounded-md bg-blue-500 p-1 text-white duration-500 ease-in-out hover:bg-blue-800">Edit</button>
+                    @else
+                        <button
+                            class="w-[5rem] rounded-md bg-blue-500 p-1 text-white duration-500 ease-in-out hover:bg-blue-800">Save</button>
+                    @endif
+
                 </div>
             @endif
         </section>
