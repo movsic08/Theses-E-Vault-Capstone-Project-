@@ -360,9 +360,26 @@ class AdminUsersPanel extends Component
                 request()->session()->flash('error', 'The user is not deleted, contact Developers.');
             }
         }
-
         $this->selectedUser = '';
-        $this->dispatch('close-del');
+        return $this->dispatch('close-del');
+    }
+
+    public $currentViewingUser;
+    public function viewUser($userid)
+    {
+        $findUser = User::where('id', $userid)->first();
+        if ($findUser) {
+            $this->currentViewingUser = $findUser;
+        } else {
+            return request()->session()->flash('error', 'The user is not deleted, contact Developers.');
+        }
+        return $this->dispatch('open-usr');
+    }
+
+    public $editUserState = false;
+    public function toggleEdit()
+    {
+        $this->editUserState = true;
     }
 
     public $paginate = 10, $accountRole = 'all', $use_level = "all", $search, $program = "all", $selectedDate;

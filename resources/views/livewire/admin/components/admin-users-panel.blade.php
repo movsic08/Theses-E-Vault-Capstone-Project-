@@ -352,6 +352,9 @@
         <x-admin.modals.admin-user-panel-delete-user :selectedUser='$selectedUser'>
         </x-admin.modals.admin-user-panel-delete-user>
 
+        <x-admin.modals.admin-user-panel-view-edit-user :editUserState="$editUserState" :currentViewingUser='$currentViewingUser'>
+        </x-admin.modals.admin-user-panel-view-edit-user>
+
         <x-modals.admin-view-user>
         </x-modals.admin-view-user>
 
@@ -552,7 +555,7 @@
                                         </td>
                                         <td class="whitespace-normal px-4 py-2">
                                             <div class="flex items-center justify-center gap-1">
-                                                <span
+                                                <span wire:click='viewUser({{ $currentListDataValue->id }})'
                                                     class="cursor-pointer rounded-md bg-sky-600 p-1 duration-500 ease-in-out hover:bg-sky-800">
                                                     <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
                                                         fill="currentColor" viewBox="0 0 24 24"

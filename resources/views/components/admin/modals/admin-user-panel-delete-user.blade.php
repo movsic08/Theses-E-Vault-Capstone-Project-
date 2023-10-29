@@ -1,9 +1,9 @@
-  <div class="absolute right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
+  <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
       x-data="{ deleteUserBox: false }" x-show="deleteUserBox" x-on:open-del.window = "deleteUserBox = true"
       x-on:close-del.window = "deleteUserBox = false" x-on:keydown.escape.window = "deleteUserBox = false"
       x-transition:enter.duration.400ms x-transition:leave.duration.300ms style="display: none">
-      <div class="mx-auto">
-          <section class="mt-32 h-fit w-fit rounded-lg bg-white px-6 py-4 drop-shadow-xl">
+      <div class="mx-auto md:flex md:items-center md:justify-center">
+          <section class="h-fit w-fit rounded-lg bg-white px-6 py-4 drop-shadow-xl md:mt-32">
               @if (!empty($selectedUser))
                   <strong class="text-red-500">Are you sure you want to delete this account?</strong>
                   <div>
