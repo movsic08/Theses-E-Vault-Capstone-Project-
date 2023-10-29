@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Components;
 
 use App\Models\BachelorDegree;
+use App\Models\DocuPost;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -75,7 +76,7 @@ class AdminUsersPanel extends Component
             request()->session()->flash('success', 'New department added');
         } else {
             $this->reset('course_acronym', 'degree_name');
-            request()->session()->flash('invalid', 'Adding not success.');
+            request()->session()->flash('error', 'Adding not success.');
         }
 
     }
@@ -154,7 +155,7 @@ class AdminUsersPanel extends Component
     }
     public $currentListDataValue;
 
-    public $rowMenuStates = [];
+    // public $rowMenuStates = [];
 
     // public function toggleRowMenu( $rowId ) {
     //     if ( isset( $this->rowMenuStates[ $rowId ] ) ) {
@@ -164,21 +165,21 @@ class AdminUsersPanel extends Component
     //     }
     // }
 
-    public $selectedUserId, $selectedUserEmail;
-    public $showDeleteConfirmation = false;
-    public $selectedData = '';
-    public function showDeleteBoxUser($id)
-    {
-        $user = User::find($id);
+    // public $selectedUserId, $selectedUserEmail;
+    // public $showDeleteConfirmation = false;
+    // public $selectedData = '';
+    // public function showDeleteBoxUser($id)
+    // {
+    //     $user = User::find($id);
 
-        if (!$user) {
-            request()->session()->flash('error', 'User not found.');
-        } else {
-            $this->selectedData = $user;
-            $this->selectedUserId = $id;
-            $this->showDeleteConfirmation = true;
-        }
-    }
+    //     if (!$user) {
+    //         request()->session()->flash('error', 'User not found.');
+    //     } else {
+    //         $this->selectedData = $user;
+    //         $this->selectedUserId = $id;
+    //         $this->showDeleteConfirmation = true;
+    //     }
+    // }
 
 
     // public function showDeleteBoxUser( $userId ) {
@@ -193,10 +194,10 @@ class AdminUsersPanel extends Component
     //     }
     // }
 
-    public function closeRowMenu($rowId)
-    {
-        $this->showDeleteConfirmation = false;
-    }
+    // public function closeRowMenu($rowId)
+    // {
+    //     $this->showDeleteConfirmation = false;
+    // }
 
 
 
@@ -289,7 +290,7 @@ class AdminUsersPanel extends Component
                 session()->flash('success', 'Create success!');
                 $this->dispatch('userCreated', $this->currentQuery);
             } else {
-                session()->flash('invalid', 'Creating account, failed');
+                session()->flash('error', 'Creating account, failed');
             }
 
         } elseif ($this->completeInfo) {
@@ -314,7 +315,7 @@ class AdminUsersPanel extends Component
                 session()->flash('success', 'created');
                 $this->dispatch('userCreated', $this->currentQuery);
             } else {
-                session()->flash('invalid', 'Creatinon failed');
+                session()->flash('error', 'Creatinon failed');
             }
         }
         $this->resetFields();
@@ -329,7 +330,42 @@ class AdminUsersPanel extends Component
     {
     }
 
-    public $paginate = 10, $accountRole = 'all', $use_level = "all", $search;
+
+    public $selectedUser;
+    public function deleteUserConfirmation($id)
+    {
+        $selectedUserCheck = User::where('id', $id)->first();
+
+        if ($selectedUserCheck == null) {
+            return request()->session()->flash('error', 'The user not found, something went wrong.');
+        } else {
+            $this->selectedUser = $selectedUserCheck;
+            return $this->dispatch('open-del');
+        }
+
+    }
+
+    public function deleteUser($userID)
+    {
+        $userVerification = User::where('id', $userID)->first();
+
+        if (auth()->user()->is_admin == 1 && $userVerification->is_admin == 1) {
+            request()->session()->flash('error', 'You cannot delete your own account');
+        } else {
+            $isDeleted = $userVerification->delete();
+
+            if ($isDeleted) {
+                request()->session()->flash('success', 'User deleted successfully.');
+            } else {
+                request()->session()->flash('error', 'The user is not deleted, contact Developers.');
+            }
+        }
+
+        $this->selectedUser = '';
+        $this->dispatch('close-del');
+    }
+
+    public $paginate = 10, $accountRole = 'all', $use_level = "all", $search, $program = "all", $selectedDate;
 
     public function render()
     {
@@ -337,17 +373,25 @@ class AdminUsersPanel extends Component
             ->get();
         $currentListData = User::latest();
 
+        if (isset($this->search)) {
+            $currentListData = $currentListData->where(function ($query) {
+                $query->where('first_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('last_name', 'like', '%' . $this->search . '%');
+            });
+        }
+
         if ($this->accountRole !== "all") {
-            $currentListData->where('role_id', $this->accountRole);
-
+            $currentListData = $currentListData->where('role_id', $this->accountRole);
         }
-        if ($this->accountRole == "admin") {
-            $currentListData->where('is_admin', 1);
+        // if ($this->accountRole == "admin") {
+        //     $currentListData->where('is_admin', 1);
+        // }
+        if ($this->program != "all") {
+            $currentListData = $currentListData->where('bachelor_degree', $this->program);
         }
-
-        $currentListData->where('first_name', 'like', '%' . $this->search . '%')
-            ->orWhere('last_name', 'like', '%' . $this->search . '%');
-
+        if ($this->selectedDate) {
+            $currentListData = $currentListData->whereDate('created_at', $this->selectedDate);
+        }
 
         $currentListData = $currentListData->paginate($this->paginate);
 
