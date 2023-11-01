@@ -1,49 +1,72 @@
   <div x-data="{ showDocu: false }" x-show="showDocu" x-on:open-docu.window = "showDocu = true"
-      x-on:close-docu.window = "showDocu = false" x-on:keydown.escape.window = "showDocu = false"
-      x-on:click="showDocu = false" x-transition:enter.duration.400ms x-transition:leave.duration.300ms
+      x-on:close-docu.window = "showDocu = false" x-on:keydown.escape.window = "showDocu = false; $wire.cancelEdit()"
+      x-transition:enter.duration.400ms x-transition:leave.duration.300ms
       class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm"
       style="display: none">
       @if (isset($dataItem))
           <section
               class="custom-scrollbar relative mt-[3rem] h-[90%] w-fit overflow-y-auto rounded-lg bg-white drop-shadow-xl md:w-[50%] lg:w-[40%]">
               <div
-                  class="sticky right-0 top-0 -mt-4 flex w-full items-center justify-center bg-white bg-opacity-50 backdrop-blur-xl">
-                  <div class="flex-grow">
-                      <h2 class="my-1 w-fit rounded-md border p-1 text-center">
-                          @if ($dataItem->status == 0)
-                              Pending
-                          @elseif($dataItem->status == 1)
-                              Approved
-                          @elseif($dataItem->status == 2)
-                              For revision
-                          @elseif($dataItem->status == 3)
-                              Outof span
-                          @elseif($dataItem->status == 4)
-                              Deleted by admin
-                          @else
-                              Can't define status, Error
-                          @endif
-                      </h2>
+                  class="sticky right-0 top-0 -mt-4 flex w-full items-center justify-center bg-white bg-opacity-50 py-1 backdrop-blur-xl">
+                  <div class="flex items-center justify-center">
+                      <x-label-input for='' class="mr-1">Status</x-label-input>
+                      @if ($editing)
+                          <x-input-field type=''></x-input-field>
+                      @else
+                          <h2 class="my-1 w-fit rounded-md border p-1 text-center">
+                              @if ($dataItem->status == 0)
+                                  Pending
+                              @elseif($dataItem->status == 1)
+                                  Approved
+                              @elseif($dataItem->status == 2)
+                                  For revision
+                              @elseif($dataItem->status == 3)
+                                  Outof span
+                              @elseif($dataItem->status == 4)
+                                  Deleted by admin
+                              @else
+                                  Can't define status, Error
+                              @endif
+                              approved
+                          </h2>
+                      @endif
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" wire:click='toggleViewDocuBox' class="h-10 cursor-pointer"
-                      viewBox="0 0 46 46" fill="none">
-                      <path
-                          d="M26.0474 23.0038L34.5842 14.4689C34.9744 14.0617 35.1898 13.518 35.1841 12.954C35.1785 12.3901 34.9523 11.8507 34.554 11.4515C34.1558 11.0522 33.617 10.8247 33.0531 10.8176C32.4891 10.8105 31.9449 11.0245 31.5367 11.4137L22.9999 19.9486L14.465 11.4137C14.2642 11.2131 14.0259 11.054 13.7637 10.9455C13.5015 10.837 13.2205 10.7812 12.9367 10.7813C12.6529 10.7813 12.3719 10.8373 12.1098 10.946C11.8476 11.0547 11.6094 11.2139 11.4088 11.4147C11.0037 11.8201 10.7762 12.3698 10.7764 12.9429C10.7765 13.5161 11.0044 14.0657 11.4098 14.4708L19.9447 23.0057L11.4098 31.5406C11.2092 31.7412 11.0501 31.9794 10.9415 32.2415C10.8329 32.5036 10.777 32.7845 10.777 33.0682C10.777 33.3519 10.8329 33.6328 10.9415 33.8949C11.0501 34.157 11.2092 34.3952 11.4098 34.5958C11.6104 34.7964 11.8485 34.9555 12.1107 35.0641C12.3728 35.1727 12.6537 35.2285 12.9374 35.2285C13.2211 35.2285 13.502 35.1727 13.7641 35.0641C14.0262 34.9555 14.2644 34.7964 14.465 34.5958L22.9999 26.059L31.5348 34.5939C31.7354 34.7945 31.9735 34.9536 32.2357 35.0622C32.4978 35.1707 32.7787 35.2266 33.0624 35.2266C33.3461 35.2266 33.627 35.1707 33.8891 35.0622C34.1512 34.9536 34.3894 34.7945 34.59 34.5939C34.7906 34.3933 34.9497 34.1551 35.0583 33.893C35.1668 33.6309 35.2227 33.35 35.2227 33.0663C35.2227 32.7826 35.1668 32.5017 35.0583 32.2396C34.9497 31.9775 34.7906 31.7393 34.59 31.5387L26.0474 23.0038Z"
-                          fill="#B0A6A6" />
-                  </svg>
               </div>
 
-              <div class="px-10 pb-8 pt-5">
-                  <div class="flex items-center">
-                      <h2 class="flex-grow text-[1.2rem] font-bold">
-                          {{ $dataItem->title }}
-                      </h2>
-                  </div>
-                  <span class="rounded-md bg-cyan-200 px-2 py-1 font-semibold text-cyan-900">
-                      {{ $dataItem->course }}
-                  </span>
-                  <div class="mt-4 grid grid-cols-2 gap-6">
-                      <div class="col-span-1 flex flex-grow items-center">
+              <div class="w-full px-10 pb-8 pt-5 text-gray-800">
+                  <section class="flex flex-col gap-1">
+                      @if ($editing)
+                          <x-label-input for='tite' class="mr-1">Title</x-label-input>
+                          <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                          @error('update_title')
+                              <small class="text-red-500">{{ $message }}</small>
+                          @enderror
+                      @else
+                          <span class="flex-grow text-[1.2rem] font-bold">
+                              {{ $dataItem->title }}
+                          </span>
+                      @endif
+
+                      @if ($editing)
+                          <x-label-input for='tite' class="mr-1">Course</x-label-input>
+                          <select id="program" wire:model.live='update_course'
+                              class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                              <option selected value="all">All</option>
+                              @foreach ($degreeLists as $degreeListsItem)
+                                  <option value="{{ $degreeListsItem->name }}">{{ $degreeListsItem->name }}</option>
+                              @endforeach
+                          </select>
+                          @error('update_course')
+                              <small class="text-red-500">{{ $message }}</small>
+                          @enderror
+                      @else
+                          <span class="rounded-md bg-cyan-200 px-2 py-1 font-semibold text-cyan-900">
+                              {{ $dataItem->course }}
+                          </span>
+                      @endif
+                  </section>
+                  <div class="{{ $editing ? 'mt-6' : 'mt-4' }} grid grid-cols-2 gap-6">
+                      <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 36 36" fill="none">
                                   <path
@@ -54,12 +77,21 @@
                                       fill="#4B3D3D" />
                               </svg>
                           </div>
-                          <div class="ml-2">
-                              <h2 class="-mb-2 text-[1rem] font-medium">{{ $dataItem->language }}</h2>
-                              <span class="text-sm font-light text-slate-700">Language</span>
+                          <div class="ml-2 flex flex-col gap-1">
+                              @if ($editing)
+                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                                  @error('update_course')
+                                      <small class="text-red-500">{{ $message }}</small>
+                                  @enderror
+                              @else
+                                  <span class="-mb-2 text-[1rem] font-medium">
+                                      {{ $dataItem->language }}
+                                  </span>
+                              @endif
+                              <span class="text-sm text-slate-700">Language</span>
                           </div>
                       </div>
-                      <div class="col-span-1 flex flex-grow items-center">
+                      <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
                                   <path
@@ -67,14 +99,21 @@
                                       fill="#4B3D3D" />
                               </svg>
                           </div>
-                          <div class="ml-2">
-                              <h2 class="-mb-2 text-[1rem] font-medium">
-                                  {{ \Carbon\Carbon::parse($dataItem->created_at)->format('M d Y') }}
-                              </h2>
-                              <span class="text-sm font-light text-slate-700">Date created</span>
+                          <div class="ml-2 flex flex-col gap-1">
+                              @if ($editing)
+                                  <x-input-field id="title" class="w-full" wire:model.live='update_created' />
+                                  @error('update_created')
+                                      <small class="text-red-500">{{ $message }}</small>
+                                  @enderror
+                              @else
+                                  <span class="-mb-2 text-[1rem] font-medium">
+                                      {{ \Carbon\Carbon::parse($dataItem->created_at)->format('M d Y') }}
+                                  </span>
+                              @endif
+                              <span class="text-sm text-slate-700">Date created</span>
                           </div>
                       </div>
-                      <div class="col-span-1 flex flex-grow items-center">
+                      <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
                                   <path
@@ -82,12 +121,21 @@
                                       fill="#4B3D3D" />
                               </svg>
                           </div>
-                          <div class="ml-2">
-                              <h2 class="-mb-2 text-[1rem] font-medium">{{ $dataItem->physical_description }}</h2>
-                              <span class="text-sm font-light text-slate-700">Physical Description</span>
+                          <div class="ml-2 flex flex-col gap-1">
+                              @if ($editing)
+                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                                  @error('update_course')
+                                      <small class="text-red-500">{{ $message }}</small>
+                                  @enderror
+                              @else
+                                  <span class="-mb-2 text-[1rem] font-medium">
+                                      {{ $dataItem->physical_description }}
+                                  </span>
+                              @endif
+                              <span class="text-sm text-slate-700">Physical Description</span>
                           </div>
                       </div>
-                      <div class="col-span-1 flex flex-grow items-center">
+                      <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
                                   <path
@@ -95,12 +143,21 @@
                                       fill="#4B3D3D" />
                               </svg>
                           </div>
-                          <div class="ml-2">
-                              <h2 class="-mb-2 text-[1rem] font-medium">{{ $dataItem->document_type }}</h2>
-                              <span class="text-sm font-light text-slate-700">Document type</span>
+                          <div class="ml-2 flex flex-col gap-1">
+                              @if ($editing)
+                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                                  @error('update_course')
+                                      <small class="text-red-500">{{ $message }}</small>
+                                  @enderror
+                              @else
+                                  <span class="-mb-2 text-[1rem] font-medium">
+                                      {{ $dataItem->document_type }}
+                                  </span>
+                              @endif
+                              <span class="text-sm text-slate-700">Document type</span>
                           </div>
                       </div>
-                      <div class="col-span-1 flex flex-grow items-center">
+                      <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
                                   <path
@@ -108,14 +165,24 @@
                                       fill="#4B3D3D" />
                               </svg>
                           </div>
-                          <div class="ml-2">
-                              <h2 class="-mb-2 text-[1rem] font-medium">{{ $dataItem->date_of_approval }}</h2>
-                              <span class="text-sm font-light text-slate-700">Date of publish</span>
+                          <div class="ml-2 flex flex-col gap-1">
+                              @if ($editing)
+                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                                  @error('update_course')
+                                      <small class="text-red-500">{{ $message }}</small>
+                                  @enderror
+                              @else
+                                  <span class="-mb-2 text-[1rem] font-medium">
+                                      {{ $dataItem->date_of_approval }}
+                                  </span>
+                              @endif
+                              <span class="text-sm text-slate-700">Date of publish</span>
                           </div>
                       </div>
-                      <div class="col-span-1 flex flex-grow items-center">
+                      <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46"
+                                  fill="none">
                                   <path
                                       d="M26.8335 4.3125C26.9606 4.3125 27.0825 4.36298 27.1723 4.45284C27.2622 4.54271 27.3127 4.66458 27.3127 4.79167V15.6151C27.3127 16.4086 27.9567 17.0526 28.7502 17.0526H37.3752C37.5022 17.0526 37.6241 17.1031 37.714 17.1929C37.8038 17.2828 37.8543 17.4047 37.8543 17.5318V36.4167C37.8543 37.8146 37.299 39.1552 36.3105 40.1437C35.3221 41.1322 33.9814 41.6875 32.5835 41.6875H13.4168C12.0189 41.6875 10.6783 41.1322 9.68979 40.1437C8.70131 39.1552 8.146 37.8146 8.146 36.4167V9.58333C8.146 8.18542 8.70131 6.84476 9.68979 5.85629C10.6783 4.86782 12.0189 4.3125 13.4168 4.3125H26.8335Z"
                                       fill="#4B3D3D" />
@@ -124,9 +191,18 @@
                                       fill="#4B3D3D" />
                               </svg>
                           </div>
-                          <div class="ml-2">
-                              <h2 class="-mb-2 text-[1rem] font-medium">{{ $dataItem->format }}</h2>
-                              <span class="text-sm font-light text-slate-700">Format</span>
+                          <div class="ml-2 flex flex-col gap-1">
+                              @if ($editing)
+                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                                  @error('update_course')
+                                      <small class="text-red-500">{{ $message }}</small>
+                                  @enderror
+                              @else
+                                  <span class="-mb-2 text-[1rem] font-medium">
+                                      {{ $dataItem->format }}
+                                  </span>
+                              @endif
+                              <span class="text-sm text-slate-700">Format</span>
                           </div>
                       </div>
                   </div>
@@ -139,10 +215,19 @@
                                   d="M8 13.25A3.75 3.75 0 0 0 4.25 17v1.188c0 .754.546 1.396 1.29 1.517 4.278.699 8.642.699 12.92 0a1.537 1.537 0 0 0 1.29-1.517V17A3.75 3.75 0 0 0 16 13.25h-.34c-.185 0-.369.03-.544.086l-.866.283a7.251 7.251 0 0 1-4.5 0l-.866-.283a1.752 1.752 0 0 0-.543-.086H8Z">
                               </path>
                           </svg>
-                          <h1 class="font-light text-gray-500">Defense Panel Chair</h1>
+                          <h1 class="text-gray-500">Defense Panel Chair</h1>
                       </div>
                       <div class="col-span-1">
-                          <span class="font-semibold">{{ $dataItem->panel_chair }}</span>
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="font-semibold">
+                                  {{ $dataItem->panel_chair }}
+                              </span>
+                          @endif
                       </div>
                       <div class="col-span-1 flex gap-1">
                           <svg class="h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24"
@@ -152,13 +237,49 @@
                                   d="M8 13.25A3.75 3.75 0 0 0 4.25 17v1.188c0 .754.546 1.396 1.29 1.517 4.278.699 8.642.699 12.92 0a1.537 1.537 0 0 0 1.29-1.517V17A3.75 3.75 0 0 0 16 13.25h-.34c-.185 0-.369.03-.544.086l-.866.283a7.251 7.251 0 0 1-4.5 0l-.866-.283a1.752 1.752 0 0 0-.543-.086H8Z">
                               </path>
                           </svg>
-                          <h1 class="font-light text-gray-500">Defense Panel Member</h1>
+                          <h1 class="text-gray-500">Defense Panel Member</h1>
                       </div>
-                      <div class="col-span-1 flex flex-col gap-1">
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->panel_member_1 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->panel_member_2 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->panel_member_3 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->panel_member_4 }}</span>
+                      <div class="{{ $editing ? 'gap-2' : 'gap-1' }} col-span-1 flex flex-col">
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->panel_member_1 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->panel_member_2 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->panel_member_3 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->panel_member_4 }}
+                              </span>
+                          @endif
                       </div>
                       <div class="col-span-1 flex gap-1">
                           <svg class="h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24"
@@ -170,13 +291,49 @@
                                   d="M15.75 2.824c0-.184.193-.301.336-.186.121.098.23.212.323.342l3.013 4.197c.068.096-.006.22-.124.22H16a.25.25 0 0 1-.25-.25V2.824Z">
                               </path>
                           </svg>
-                          <h1 class="font-light text-gray-500">Author/s</h1>
+                          <h1 class="text-gray-500">Author/s</h1>
                       </div>
-                      <div class="col-span-1 flex flex-col gap-1">
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->author_1 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->author_2 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->author_3 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->author_4 }}</span>
+                      <div class="{{ $editing ? 'gap-2' : 'gap-1' }} col-span-1 flex flex-col">
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->author_1 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->author_2 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->author_3 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->author_4 }}
+                              </span>
+                          @endif
                       </div>
                   </div>
                   <div class="grid grid-cols-2 gap-4 border-b-2 border-gray-400 py-4">
@@ -187,32 +344,116 @@
                                   d="M16.13 3.186a25.028 25.028 0 0 0-8.26 0A2.444 2.444 0 0 0 5.876 5.11a36.89 36.89 0 0 0-.147 13.795l.333 1.86a.732.732 0 0 0 1.224.4l4.024-3.822a1 1 0 0 1 1.378 0l4.023 3.822a.732.732 0 0 0 1.224-.4l.334-1.86a36.89 36.89 0 0 0-.148-13.795 2.444 2.444 0 0 0-1.991-1.925Z">
                               </path>
                           </svg>
-                          <h1 class="font-light text-gray-500">Keyword/s</h1>
+                          <h1 class="text-gray-500">Keyword/s</h1>
                       </div>
-                      <div class="col-span-1 flex flex-col gap-1">
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_1 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_2 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_3 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_4 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_5 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_6 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_7 }}</span>
-                          <span class="whitespace-nowrap font-semibold">{{ $dataItem->keyword_8 }}</span>
+                      <div class="{{ $editing ? 'gap-2' : 'gap-1' }} col-span-1 flex flex-col">
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+                                  keyword
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
+                              @error('update_title')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->keyword_1 }}
+                              </span>
+                          @endif
                       </div>
                   </div>
-                  <div class="col-span-2 mt-6 flex flex-col items-start gap-1">
-                      <div class="flex flex-row gap-1">
+                  <div class="col-span-2 mt-6 flex w-full flex-col items-start gap-1">
+                      <div class="flex w-full flex-row gap-1">
                           <svg class="h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24"
                               xmlns="http://www.w3.org/2000/svg">
                               <path
                                   d="M2 4.917a2.5 2.5 0 0 1 2.5-2.5h15a2.5 2.5 0 0 1 2.5 2.5v10a2.5 2.5 0 0 1-2.5 2.5h-3.125a1.25 1.25 0 0 0-1 .5L13 21.083a1.25 1.25 0 0 1-2 0l-2.375-3.166a1.25 1.25 0 0 0-1-.5H4.5a2.5 2.5 0 0 1-2.5-2.5v-10Zm8.992 3.457a2.113 2.113 0 0 0-.283-.34 1.835 1.835 0 0 0-.586-.405l-.01-.005a2.231 2.231 0 0 0-.945-.207C7.97 7.417 7 8.349 7 9.501c0 1.15.97 2.082 2.168 2.082a2.22 2.22 0 0 0 1.163-.325c-.171.487-.487 1.005-1.012 1.525a.507.507 0 0 0 .013.738.56.56 0 0 0 .768-.013c1.668-1.661 1.713-3.447 1.176-4.632a3.077 3.077 0 0 0-.284-.5v-.002Zm4.758 2.884c-.17.487-.488 1.005-1.012 1.525a.507.507 0 0 0 .014.738.56.56 0 0 0 .767-.013c1.667-1.661 1.712-3.447 1.177-4.632a3.08 3.08 0 0 0-.285-.5 2.114 2.114 0 0 0-.284-.342 1.832 1.832 0 0 0-.586-.405l-.01-.005a2.23 2.23 0 0 0-.944-.207c-1.196 0-2.167.932-2.167 2.084 0 1.15.971 2.082 2.168 2.082a2.22 2.22 0 0 0 1.163-.325h-.001Z">
                               </path>
                           </svg>
-                          <h1 class="font-light text-gray-500">Recommended Citation</h1>
+                          <h1 class="text-gray-500">Recommended Citation</h1>
                       </div>
-                      <p class="font-semibold">
-                          {{ $dataItem->recommended_citation }}
-                      </p>
+                      @if ($editing)
+                          <textarea
+                              class="w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
+                              wire:model.live="recommended_citation" rows="6" id="recommended_citation"></textarea>
+                          @error('update_title')
+                              <small class="text-red-500">{{ $message }}</small>
+                          @enderror
+                      @else
+                          <p class="font-semibold">
+                              {{ $dataItem->recommended_citation }}
+                          </p>
+                      @endif
+
                   </div>
                   <div class="col-span-2 mt-6 flex flex-col items-start gap-1">
                       <div class="flex flex-row gap-1">
@@ -222,11 +463,22 @@
                                   d="M16.8 2.4H7.2a2.4 2.4 0 0 0-2.4 2.4v14.4a2.4 2.4 0 0 0 2.4 2.4h9.6a2.4 2.4 0 0 0 2.4-2.4V4.8a2.4 2.4 0 0 0-2.4-2.4ZM8.4 7.2h7.2a.6.6 0 1 1 0 1.2H8.4a.6.6 0 1 1 0-1.2Zm-.6 3a.6.6 0 0 1 .6-.6h7.2a.6.6 0 1 1 0 1.2H8.4a.6.6 0 0 1-.6-.6Zm.6 1.8h7.2a.6.6 0 1 1 0 1.2H8.4a.6.6 0 1 1 0-1.2Zm0 2.4H12a.6.6 0 1 1 0 1.2H8.4a.6.6 0 1 1 0-1.2Z">
                               </path>
                           </svg>
-                          <h1 class="font-light text-gray-500">Abstract</h1>
+                          <h1 class="text-gray-500">
+                          </h1>
                       </div>
-                      <p class="mx-auto font-semibold">
-                          {{ $dataItem->abstract_or_summary }}
-                      </p>
+                      @if ($editing)
+                          <textarea
+                              class="w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
+                              wire:model.live="recommended_citation" rows="6" id="recommended_citation"></textarea>
+                          @error('update_title')
+                              <small class="text-red-500">{{ $message }}</small>
+                          @enderror
+                      @else
+                          <p class="mx-auto font-semibold">
+                              {{ $dataItem->abstract_or_summary }}
+                          </p>
+                      @endif
+
                       <a href="{{ route('view-pdf-admin', [
                           'title' => $dataItem->title,
                           'pdfFile' => $dataItem->document_file_url,
@@ -237,14 +489,27 @@
                   </div>
               </div>
               <div class="sticky bottom-0 right-0 flex gap-4 bg-white bg-opacity-50 px-10 py-2 backdrop-blur-xl">
-                  <button
-                      class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Edit</button>
+                  @if ($editing)
+                      <button wire:click='cancelEdit()'
+                          class="w-full rounded-md bg-red-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-red-700">
+                          Close
+                      </button>
+                  @else
+                      <button wire:click='toggleEdit({{ $dataItem->id }})'
+                          class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Edit</button>
+                  @endif
                   <button
                       class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">
                       Remark
                   </button>
-                  <button
-                      class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Save</button>
+                  @if ($editing)
+                      <button
+                          class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Save</button>
+                  @else
+                      <button x-on:click="showDocu = false"
+                          class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Close</button>
+                  @endif
+
               </div>
           </section>
       @endif

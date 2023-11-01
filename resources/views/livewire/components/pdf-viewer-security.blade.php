@@ -31,6 +31,7 @@
     @endif
     <section x-data="{ pdfViewer: false }" x-show="pdfViewer" x-on:open-pdf.window="pdfViewer = true" x wire:ignore>
         <div id="pdfData" data-file-path="{{ asset('storage/' . decrypt($this->pdfFile)) }}"></div>
+        {{-- data-file-path="{{ auth()->user()->is_admin == 1 ? asset('storage/' . $this->pdfFile) : asset('storage/' . decrypt($this->pdfFile)) }}"> --}}
         <div class="container relative">
             <div class="" style="height: 100%; width: 100%;">
                 {{-- sticky top --}}

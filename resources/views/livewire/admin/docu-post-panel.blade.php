@@ -22,7 +22,8 @@
     @endif
 
     {{-- @if ($showViewDocuPostBox) --}}
-    <x-admin.modals.admin-view-docu :dataItem="$dataItem"></x-admin.modals.admin-view-docu>
+    <x-admin.modals.admin-view-docu :dataItem="$dataItem" :editing='$editing'
+        :degreeLists='$degreeLists'></x-admin.modals.admin-view-docu>
     {{-- @endif --}}
 
     <div class="md:px-4">
@@ -61,10 +62,11 @@
                         <option value="4">Discarded</option>
                     </select>
                 </div>
-                {{ $statusType }}
+                {{ $sortByDate }}
                 <div class="flex items-center">
                     <x-label-input for="Date">Date</x-label-input>
-                    <x-input-field class="ml-2" type="date" name="" id="Date" />
+                    <x-input-field wire:model.live='sortByDate' class="ml-2" type="date" name=""
+                        id="Date" />
                 </div>
                 <div class="flex items-center">
                     <x-label-input for="type">Type</x-label-input>
@@ -90,7 +92,7 @@
                 </div>
             </div>
             <div class="custom-scrollbar overflow-x-auto">
-                <div class="max-h-[35rem]">
+                <div class="max-h-[33rem]">
                     <table class="min-w-full">
                         <thead class="sticky top-0 bg-white bg-opacity-50 backdrop-blur">
                             <tr>
@@ -165,7 +167,8 @@
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-2">
                                             <div class="flex gap-1">
-                                                <svg class="h-7 cursor-pointer rounded-md bg-blue-600 p-1 text-white duration-200 ease-in-out hover:bg-blue-800"
+                                                <svg wire:click='edit({{ $itemPost->id }})'
+                                                    class="h-7 cursor-pointer rounded-md bg-blue-600 p-1 text-white duration-200 ease-in-out hover:bg-blue-800"
                                                     fill="currentColor" viewBox="0 0 24 24"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path

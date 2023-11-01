@@ -485,8 +485,10 @@ class AdminUsersPanel extends Component
     public function deleteProfilePic($filepath, $userID)
     {
 
-        $isDeleted = Storage::delete($filepath);
-        if ($isDeleted) {
+        if (Storage::disk('public')->exists($filepath)) {
+            // File exists, so delete it
+            Storage::disk('public')->delete($filepath);
+            // request()->session()->flash('success', 'Profile deleted successfully.');
             $userProfile = User::where('id', $userID)->first();
             if ($userProfile) {
                 $userProfile->update(['profile_picture' => null]);
@@ -494,7 +496,6 @@ class AdminUsersPanel extends Component
             } else {
                 request()->session()->flash('error', 'Cannot delete picture Contact Devs.');
             }
-
         } else {
             request()->session()->flash('error', 'Cannot delete picture Contact Devs.');
         }

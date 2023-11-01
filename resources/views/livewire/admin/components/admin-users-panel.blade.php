@@ -482,7 +482,7 @@
                         <div class="overflow-y-auto overflow-x-hidden">
                             <tbody class="w-full text-gray-500">
                                 @foreach ($currentListData as $currentListDataValue)
-                                    <tr class="h-[6rem] min-h-[6rem] border-b border-slate-100">
+                                    <tr class="h-[4rem] min-h-[4rem] border-b border-slate-100">
                                         <td class="whitespace-normal px-6 py-2">
                                             <div class="flex items-center gap-2 whitespace-nowrap">
                                                 <img class="h-5 w-5 rounded-full object-cover"

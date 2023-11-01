@@ -101,26 +101,39 @@
                                                 d="M4.61563 11.7417C4.38152 11.5073 4.25002 11.1896 4.25 10.8583V4.5C3.91848 4.5 3.60054 4.6317 3.36612 4.86612C3.1317 5.10054 3 5.41848 3 5.75V11.4833C3 11.8146 3.13125 12.1323 3.36562 12.3667L12.1156 21.1167C12.35 21.3511 12.668 21.4828 12.9995 21.4828C13.331 21.4828 13.6489 21.3511 13.8833 21.1167L13.9375 21.0625L4.61563 11.7417Z"
                                                 fill="" />
                                         </svg>
+                                        @if (!empty($docuData->keyword_1))
+                                            <a href="#" target="_blank"
+                                                class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                                {{ $docuData->keyword_1 }}
+                                            </a>
+                                        @endif
+
                                         <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">Abseenteism
-                                            Key</a>
+                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                            {{ $docuData->keyword_2 }}</a>
                                         <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">Abseenteism</a>
+                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                            {{ $docuData->keyword_3 }}</a>
                                         <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">Research
-                                            works</a>
+                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                            {{ $docuData->keyword_4 }}
+                                        </a>
                                         <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">Health
-                                            matters</a>
+                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                            {{ $docuData->keyword_5 }}
+                                        </a>
                                         <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">Depression</a>
+                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                            {{ $docuData->keyword_6 }}
+                                        </a>
                                         <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">Money</a>
+                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                            {{ $docuData->keyword_7 }}
+                                        </a>
                                         <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">Grades
-                                            failling</a>
-                                        <a href="#" target="_blank"
-                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-400 hover:text-white">School</a>
+                                            class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300 hover:text-white">
+                                            {{ $docuData->keyword_8 }}
+                                        </a>
                                     </div>
                                 </div>
                                 <p class="mt-2 line-clamp-3 text-gray-800 md:line-clamp-4 lg:line-clamp-5">
