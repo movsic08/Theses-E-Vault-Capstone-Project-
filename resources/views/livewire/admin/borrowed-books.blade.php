@@ -61,11 +61,11 @@
 
 
                 <!-- Table Body -->
-                <tbody class="divide-y divide-gray-200 rounded-lg bg-white">
+                <tbody class="divide-y divide-gray-200 rounded-xl bg-white">
                     @foreach ($borrowerBooksLists as $item)
                         <tr>
                             <td class="whitespace-nowrap px-6 py-4 text-sm font-medium leading-5 text-gray-500">
-                                {{ $item->created_at }}
+                                {{ \Carbon\Carbon::parse($item->created_att)->format('M d Y') }}
                             </td>
                             <td class="px-2 py-4 text-sm leading-5 text-gray-500">
                                 <span class="whitespace-nowrap">
