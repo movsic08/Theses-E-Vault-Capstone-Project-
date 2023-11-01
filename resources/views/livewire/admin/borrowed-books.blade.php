@@ -1,19 +1,29 @@
 <div class="container">
     <div class="px-2">
-        <div class="flex">
-            <div class="bg-blue-300" style="width: fit-content;">
-                <img class="max-h-8" src="{{ asset('assets/PSU_logo.png') }}" alt="psu_logo">
+        <div class="flex items-center justify-center rounded-2xl bg-white px-4 py-2 drop-shadow-md">
+            <div class="" style="width: fit-content;">
+                <img class="max-h-10" src="{{ asset('assets/PSU_logo.png') }}" alt="psu_logo">
             </div>
             <div class="flex-grow text-center">
-                <h1>Borrower's logbook student</h1>
+                <strong class="text-primary-color">Borrower's logbook student</strong>
             </div>
-            <div class="rounded-md bg-green-950 p-2 text-white">Excel</div>
-        </div>
-        <div class="mb-6 mt-2 overflow-x-auto rounded-lg drop-shadow-md">
 
-            <div class="my-2 divide-y divide-gray-200 bg-white">
-                <h2>Hello</h2>
+            <div class="relative flex gap-2">
+                <div wire:loading
+                    class="absolute -left-5 top-3 inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    role="status">
+                    <span
+                        class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                </div>
+                <div class="mr-2 flex items-center">
+                    <x-label-input for="Date">Date</x-label-input>
+                    <x-input-field class="ml-2" wire:model.live='findByDate' type="date" name=""
+                        id="Date" />
+                </div>
+                <div class="rounded-md bg-green-950 p-2 text-white">Excel</div>
             </div>
+        </div>
+        <div class="mb-6 mt-2 rounded-lg drop-shadow-md">
             <table class="min-w-full divide-y rounded-lg">
                 <!-- Table Head -->
                 <thead>

@@ -5,13 +5,16 @@ namespace App\Livewire\Admin\Components;
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class AdminUsersPanel extends Component
 {
     use WithPagination;
+    use WithFileUploads;
 
     // public function placeholder() {
     //     return view( 'livewire.placeholder.admin-users-skeleton' )->layout( 'layout.admin' );
@@ -411,22 +414,31 @@ class AdminUsersPanel extends Component
         $this->profilePictureOption = false;
     }
 
+
     public $paginate = 10, $accountRole = 'all', $use_level = "all", $search, $program = "all", $selectedDate;
     #[Rule('required', 'regex:/^21-(A)(C)-\d{4}$/i', as: 'ID number')]
+
     public $update_studentID;
     #[Rule('required', 'min:1', as: 'first name')]
+
     public $update_fname;
     #[Rule('required', 'min:1', as: 'last name')]
+
     public $update_lname;
     #[Rule('required|email', as: 'email')]
+
     public $update_email;
     #[Rule('required|unique:users,email,')]
+
     public $update_username;
     #[Rule('required|min:11|max:11', as: 'phone number')]
+
     public $update_phoneNum;
     #[Rule('required|min:5', as: 'address')]
+
     public $update_address;
     #[Rule('required|min:2', as: 'bio')]
+
     public $update_bio;
 
     public function updateUserInfo($userId)
@@ -465,6 +477,28 @@ class AdminUsersPanel extends Component
         $this->editUserState = false;
         $this->profilePictureOption = false;
         $this->dispatch('close-usr');
+    }
+
+    #[Rule('nullable|sometimes|file|image|max:1004', as: 'profile picture')]
+    public $update_profile_picture;
+
+    public function deleteProfilePic($filepath, $userID)
+    {
+
+        $isDeleted = Storage::delete($filepath);
+        if ($isDeleted) {
+            $userProfile = User::where('id', $userID)->first();
+            if ($userProfile) {
+                $userProfile->update(['profile_picture' => null]);
+                request()->session()->flash('success', 'Profile deleted success.');
+            } else {
+                request()->session()->flash('error', 'Cannot delete picture Contact Devs.');
+            }
+
+        } else {
+            request()->session()->flash('error', 'Cannot delete picture Contact Devs.');
+        }
+        return $this->profilePictureOption = false;
     }
 
     public function render()

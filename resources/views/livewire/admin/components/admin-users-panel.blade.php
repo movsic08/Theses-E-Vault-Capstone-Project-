@@ -383,7 +383,7 @@
             </div>
 
         </div>
-        <div class="mb-8 rounded-2xl bg-white px-5 py-2 drop-shadow-md">
+        <div class="mb-8 max-w-[85rem] rounded-2xl bg-white px-5 py-2 drop-shadow-md">
             <div class="relative flex w-full flex-col items-center justify-between px-4 py-2 md:flex-row">
                 <div wire:loading wire:target='search,program,accountRole, paginate'
                     class="absolute -left-[0.5rem] top-[1rem] inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -419,7 +419,6 @@
                         </select>
                     </div>
                 </section>
-                {{ $selectedDate }}
                 <div class="flex items-center">
                     <x-label-input for="Date">Date</x-label-input>
                     <x-input-field class="ml-2" wire:model.live='selectedDate' type="date" name=""
@@ -439,7 +438,7 @@
                 <div class="flex items-center">
                     <x-label-input for="countpage">Items</x-label-input>
                     <select id="countpage" wire:model.live='paginate'
-                        class="ml-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                        class="ml-2 w-full rounded-lg border border-gray-300 bg-gray-50 bg-opacity-20 p-2 text-sm text-gray-900 backdrop-blur-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         <option value="10">10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
@@ -450,7 +449,7 @@
                 </div>
             </div>
             <div class="custom-scrollbar overflow-x-auto">
-                <div class="max-w-full lg:max-h-[34.5rem]">
+                <div class="max-w-full lg:max-h-[32rem]">
                     <table class="min-w-full">
                         <thead class="sticky top-0 bg-white bg-opacity-50 backdrop-blur">
                             <tr>
@@ -469,7 +468,7 @@
                                 <th class="px-6 py-2 text-left font-bold text-gray-700">
                                     Date Created
                                 </th>
-                                <th class="px-6 py-2 text-center font-bold text-gray-700">
+                                <th class="px-1 py-2 text-center font-bold text-gray-700">
                                     Status
                                 </th>
                                 <th class="px-6 py-2 text-left font-bold text-gray-700">
@@ -483,7 +482,7 @@
                         <div class="overflow-y-auto overflow-x-hidden">
                             <tbody class="w-full text-gray-500">
                                 @foreach ($currentListData as $currentListDataValue)
-                                    <tr>
+                                    <tr class="h-[6rem] min-h-[6rem] border-b border-slate-100">
                                         <td class="whitespace-normal px-6 py-2">
                                             <div class="flex items-center gap-2 whitespace-nowrap">
                                                 <img class="h-5 w-5 rounded-full object-cover"
@@ -523,13 +522,13 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        <td class="whitespace-normal px-3 py-2 lg:whitespace-nowrap">
+                                        <td class="whitespace-normal px-3 py-2">
                                             {{ $currentListDataValue->bachelor_degree }}
                                         </td>
                                         <td class="whitespace-normal px-6 py-2 lg:whitespace-nowrap">
                                             {{ \Carbon\Carbon::parse($currentListDataValue->created_at)->format('M d Y') }}
                                         </td>
-                                        <td class="flex items-center justify-center whitespace-normal px-2 py-2">
+                                        <td class="whitespace-normal px-1 py-2">
                                             @if ($currentListDataValue->is_verified == 0)
                                                 <div
                                                     class="flex w-fit min-w-[6.6rem] flex-row items-center justify-center gap-1 rounded-xl bg-yellow-700 p-1 text-white">

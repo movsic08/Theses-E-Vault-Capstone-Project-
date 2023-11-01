@@ -1,10 +1,11 @@
 <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
     x-data="{ viewEditUser: false }" x-show="viewEditUser" x-on:open-usr.window="viewEditUser = true"
-    x-on:close-usr.window="viewEditUser = false" x-on:keydown.escape.window="viewEditUser = false"
-    x-transition:enter.duration.400ms x-transition:leave.duration.300ms style="display: none">
+    x-on:close-usr.window="viewEditUser = false; $wire.toggleEditClose()"
+    x-on:keydown.escape.window="viewEditUser = false; $wire.toggleEditClose()" x-transition:enter.duration.400ms
+    x-transition:leave.duration.300ms style="display: none">
     <div class="right-0 top-0 mx-auto md:flex md:items-center md:justify-center">
         <section
-            class="custom-scrollbar relative mx-3 h-fit w-fit overflow-y-auto rounded-lg bg-white drop-shadow-xl md:mx-0 md:mt-[6rem] lg:max-h-[35rem] lg:min-h-[35rem] lg:min-w-[40rem]">
+            class="custom-scrollbar relative mx-3 h-[33.75rem] w-fit overflow-y-auto rounded-lg bg-white drop-shadow-xl md:mx-0 md:mt-[6rem] lg:max-h-[35rem] lg:min-h-[35rem]">
             @if (isset($currentViewingUser))
                 <div
                     class="sticky right-0 top-0 z-40 w-full rounded-t-lg bg-opacity-30 px-6 py-4 text-center text-primary-color backdrop-blur-2xl">
@@ -22,14 +23,13 @@
                                         : asset('assets/default_profile.png') }}"
                                     alt="profile" srcset="">
                                 @if ($profilePictureOption)
-                                    <div class="flex flex-row gap-2 md:flex-col">
+                                    @if (!empty($currentViewingUser->profile_picture))
                                         <button
-                                            class="h-ft rounded-md bg-blue-500 p-1 font-semibold text-white duration-500 ease-in-out hover:bg-blue-800">Change
-                                            Profile</button>
-                                        <button
-                                            class="h-fit rounded-md bg-red-500 p-1 font-semibold text-white duration-500 ease-in-out hover:bg-red-800">Delete
-                                            Profiles</button>
-                                    </div>
+                                            wire:click="deleteProfilePic('{{ $currentViewingUser->profile_picture }}', {{ $currentViewingUser->id }})"
+                                            class="h-fit rounded-md bg-red-500 p-1 font-semibold text-white duration-500 ease-in-out hover:bg-red-800">
+                                            Delete Profile
+                                        </button>
+                                    @endif
                                 @endif
                             </div>
                             <div class="md:ml-6">
