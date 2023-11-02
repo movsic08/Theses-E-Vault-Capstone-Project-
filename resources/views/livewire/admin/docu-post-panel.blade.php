@@ -57,9 +57,9 @@
                         <option value="5">All</option>
                         <option value="0">Pending</option>
                         <option value="1">Approved</option>
-                        <option value="2">For revision</option>
-                        <option value="3">Deleted</option>
-                        <option value="4">Discarded</option>
+                        <option value="2">Disapproved</option>
+                        <option value="3">For revision</option>
+                        <option value="4">Out of span</option>
                     </select>
                 </div>
                 {{ $sortByDate }}
@@ -123,7 +123,7 @@
                         <div class="overflow-y-auto overflow-x-hidden">
                             <tbody class="w-full text-gray-500">
                                 @foreach ($listOfDocuPost as $itemPost)
-                                    <tr>
+                                    <tr class="h-[5.5rem]">
                                         <td class="whitespace-normal px-6 py-2">
                                             <a
                                                 href="{{ route('view-document', [$itemPost->reference]) }}"><strong>{{ $itemPost->title }}</strong></a>
@@ -140,28 +140,33 @@
                                         <td class="whitespace-normal px-6 py-2">
                                             @if ($itemPost->status == 0)
                                                 <div
-                                                    class="w-full rounded-md bg-orange-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-orange-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
                                                     pending
                                                 </div>
                                             @elseif ($itemPost->status == 1)
                                                 <div
-                                                    class="w-full rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
                                                     approved
                                                 </div>
                                             @elseif ($itemPost->status == 2)
                                                 <div
-                                                    class="w-full rounded-md bg-yellow-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
-                                                    For revision
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-yellow-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    Disapproved
                                                 </div>
                                             @elseif ($itemPost->status == 3)
                                                 <div
-                                                    class="w-full rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-red-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    For revision
+                                                </div>
+                                            @elseif ($itemPost->status == 4)
+                                                <div
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
                                                     Out of span
                                                 </div>
                                             @else
                                                 <div
-                                                    class="w-full rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
-                                                    Deleted by admin
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-gray-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+
                                                 </div>
                                             @endif
                                         </td>

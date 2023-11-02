@@ -68,7 +68,8 @@ class Home extends Component
     public function render()
     {
 
-        $docuPostData = DocuPost::inRandomOrder()->paginate(10);
+        $docuPostData = DocuPost::where('status', 1)
+            ->inRandomOrder()->paginate(10);
         $this->bachelorDegree = BachelorDegree::all();
         $this->latestDocuPostData = DocuPost::latest()->take(5)->get();
         return view('livewire.home', [

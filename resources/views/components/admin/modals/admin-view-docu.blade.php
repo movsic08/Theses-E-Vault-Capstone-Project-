@@ -11,7 +11,14 @@
                   <div class="flex items-center justify-center">
                       <x-label-input for='' class="mr-1">Status</x-label-input>
                       @if ($editing)
-                          <x-input-field type=''></x-input-field>
+                          <select id="program" wire:model.live='updating_status'
+                              class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                              <option value="0">Pending</option>
+                              <option value="1">Verified</option>
+                              <option value="2">Disapproved</option>
+                              <option value="3">Commented by admin</option>
+                              <option value="4">Out of span</option>
+                          </select>
                       @else
                           <h2 class="my-1 w-fit rounded-md border p-1 text-center">
                               @if ($dataItem->status == 0)
@@ -37,8 +44,10 @@
                   <section class="flex flex-col gap-1">
                       @if ($editing)
                           <x-label-input for='tite' class="mr-1">Title</x-label-input>
-                          <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                          @error('update_title')
+                          <textarea
+                              class="w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
+                              wire:model.live='updating_title' rows="3" id="title"></textarea>
+                          @error('updating_title')
                               <small class="text-red-500">{{ $message }}</small>
                           @enderror
                       @else
@@ -49,14 +58,13 @@
 
                       @if ($editing)
                           <x-label-input for='tite' class="mr-1">Course</x-label-input>
-                          <select id="program" wire:model.live='update_course'
+                          <select id="program" wire:model.live='updating_course'
                               class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                              <option selected value="all">All</option>
                               @foreach ($degreeLists as $degreeListsItem)
                                   <option value="{{ $degreeListsItem->name }}">{{ $degreeListsItem->name }}</option>
                               @endforeach
                           </select>
-                          @error('update_course')
+                          @error('updating_course')
                               <small class="text-red-500">{{ $message }}</small>
                           @enderror
                       @else
@@ -79,8 +87,8 @@
                           </div>
                           <div class="ml-2 flex flex-col gap-1">
                               @if ($editing)
-                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                                  @error('update_course')
+                                  <x-input-field id="title" class="w-full" wire:model.live='updating_language' />
+                                  @error('updating_language')
                                       <small class="text-red-500">{{ $message }}</small>
                                   @enderror
                               @else
@@ -123,8 +131,9 @@
                           </div>
                           <div class="ml-2 flex flex-col gap-1">
                               @if ($editing)
-                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                                  @error('update_course')
+                                  <x-input-field id="title" class="w-full"
+                                      wire:model.live='updating_physical_description' />
+                                  @error('updating_physical_description')
                                       <small class="text-red-500">{{ $message }}</small>
                                   @enderror
                               @else
@@ -145,8 +154,9 @@
                           </div>
                           <div class="ml-2 flex flex-col gap-1">
                               @if ($editing)
-                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                                  @error('update_course')
+                                  <x-input-field id="title" class="w-full"
+                                      wire:model.live='updating_document_type' />
+                                  @error('updating_document_type')
                                       <small class="text-red-500">{{ $message }}</small>
                                   @enderror
                               @else
@@ -159,7 +169,8 @@
                       </div>
                       <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46"
+                                  fill="none">
                                   <path
                                       d="M12.2189 3.83203C12.5366 3.83203 12.8413 3.95824 13.066 4.18289C13.2906 4.40755 13.4168 4.71224 13.4168 5.02995V6.22786H32.5835V5.02995C32.5835 4.71224 32.7097 4.40755 32.9344 4.18289C33.159 3.95824 33.4637 3.83203 33.7814 3.83203C34.0991 3.83203 34.4038 3.95824 34.6285 4.18289C34.8531 4.40755 34.9793 4.71224 34.9793 5.02995V6.22786H37.3752C38.646 6.22786 39.8648 6.7327 40.7634 7.63131C41.662 8.52992 42.1668 9.7487 42.1668 11.0195V37.3737C42.1668 38.6445 41.662 39.8633 40.7634 40.7619C39.8648 41.6605 38.646 42.1654 37.3752 42.1654H8.62516C7.35433 42.1654 6.13555 41.6605 5.23694 40.7619C4.33833 39.8633 3.8335 38.6445 3.8335 37.3737V11.0195C3.8335 9.7487 4.33833 8.52992 5.23694 7.63131C6.13555 6.7327 7.35433 6.22786 8.62516 6.22786H11.021V5.02995C11.021 4.71224 11.1472 4.40755 11.3719 4.18289C11.5965 3.95824 11.9012 3.83203 12.2189 3.83203ZM36.0661 11.0195H9.93041C9.21166 11.0195 8.62516 11.5562 8.62516 12.2174V14.6133C8.62516 15.2745 9.20975 15.8112 9.93041 15.8112H36.0718C36.7906 15.8112 37.3771 15.2745 37.3771 14.6133V12.2174C37.3771 11.5562 36.7925 11.0195 36.068 11.0195H36.0661ZM29.8369 25.0457C29.9484 24.9343 30.0369 24.8021 30.0973 24.6565C30.1577 24.5109 30.1888 24.3549 30.1889 24.1973C30.189 24.0397 30.158 23.8836 30.0978 23.738C30.0376 23.5923 29.9492 23.46 29.8379 23.3485C29.7265 23.237 29.5942 23.1485 29.4487 23.0881C29.3031 23.0277 29.1471 22.9966 28.9895 22.9965C28.8319 22.9964 28.6758 23.0274 28.5302 23.0876C28.3845 23.1478 28.2522 23.2362 28.1407 23.3475L21.8022 29.6917L19.0576 26.9413C18.8295 26.7308 18.5288 26.6167 18.2185 26.6229C17.9081 26.6291 17.6123 26.7552 17.3928 26.9746C17.1733 27.1941 17.0473 27.49 17.041 27.8003C17.0348 28.1107 17.1489 28.4114 17.3594 28.6394L20.9532 32.2313C21.0645 32.3431 21.1968 32.4319 21.3425 32.4924C21.4882 32.553 21.6444 32.5842 21.8022 32.5842C21.96 32.5842 22.1163 32.553 22.262 32.4924C22.4077 32.4319 22.54 32.3431 22.6513 32.2313L29.8388 25.0438L29.8369 25.0457Z"
                                       fill="#4B3D3D" />
@@ -193,8 +204,8 @@
                           </div>
                           <div class="ml-2 flex flex-col gap-1">
                               @if ($editing)
-                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                                  @error('update_course')
+                                  <x-input-field id="title" class="w-full" wire:model.live='updating_format' />
+                                  @error('updating_format')
                                       <small class="text-red-500">{{ $message }}</small>
                                   @enderror
                               @else
@@ -219,8 +230,8 @@
                       </div>
                       <div class="col-span-1">
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_panel_chair' />
+                              @error('updating_panel_chair')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -241,8 +252,9 @@
                       </div>
                       <div class="{{ $editing ? 'gap-2' : 'gap-1' }} col-span-1 flex flex-col">
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full"
+                                  wire:model.live='updating_panel_member_1' />
+                              @error('updating_panel_member_1')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -251,8 +263,9 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full"
+                                  wire:model.live='updating_panel_member_2' />
+                              @error('updating_panel_member_2')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -261,8 +274,9 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full"
+                                  wire:model.live='updating_panel_member_3' />
+                              @error('updating_panel_member_3')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -271,8 +285,9 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full"
+                                  wire:model.live='updating_panel_member_4' />
+                              @error('updating_panel_member_4')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -295,8 +310,8 @@
                       </div>
                       <div class="{{ $editing ? 'gap-2' : 'gap-1' }} col-span-1 flex flex-col">
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_author_1' />
+                              @error('updating_author_1')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -305,8 +320,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_author_2' />
+                              @error('updating_author_2')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -315,8 +330,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_author_3' />
+                              @error('updating_author_3')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -325,8 +340,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_author_4' />
+                              @error('updating_author_4')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -348,8 +363,8 @@
                       </div>
                       <div class="{{ $editing ? 'gap-2' : 'gap-1' }} col-span-1 flex flex-col">
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_1' />
+                              @error('updating_keyword_1')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -359,8 +374,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_2' />
+                              @error('updating_keyword_2')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -369,8 +384,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_3' />
+                              @error('updating_keyword_3')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -379,8 +394,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_4' />
+                              @error('updating_keyword_4')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -389,8 +404,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_5' />
+                              @error('updating_keyword_5')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -399,8 +414,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_6' />
+                              @error('updating_keyword_6')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -409,8 +424,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_7' />
+                              @error('updating_keyword_7')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -420,8 +435,8 @@
                               </span>
                           @endif
                           @if ($editing)
-                              <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                              @error('update_title')
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_keyword_8' />
+                              @error('updating_keyword_8')
                                   <small class="text-red-500">{{ $message }}</small>
                               @enderror
                           @else
@@ -444,8 +459,8 @@
                       @if ($editing)
                           <textarea
                               class="w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
-                              wire:model.live="recommended_citation" rows="6" id="recommended_citation"></textarea>
-                          @error('update_title')
+                              wire:model.live="updating_recommended_citation" rows="6" id="recommended_citation"></textarea>
+                          @error('updating_recommended_citation')
                               <small class="text-red-500">{{ $message }}</small>
                           @enderror
                       @else
@@ -464,13 +479,14 @@
                               </path>
                           </svg>
                           <h1 class="text-gray-500">
+                              Abstract
                           </h1>
                       </div>
                       @if ($editing)
                           <textarea
-                              class="w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
-                              wire:model.live="recommended_citation" rows="6" id="recommended_citation"></textarea>
-                          @error('update_title')
+                              class="custom-scrollbar w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
+                              wire:model.live="abstract_or_summary" rows="6" id="recommended_citation"></textarea>
+                          @error('abstract_or_summary')
                               <small class="text-red-500">{{ $message }}</small>
                           @enderror
                       @else
