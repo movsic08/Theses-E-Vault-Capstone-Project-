@@ -22,7 +22,7 @@
     @endif
 
     {{-- @if ($showViewDocuPostBox) --}}
-    <x-admin.modals.admin-view-docu :dataItem="$dataItem" :editing='$editing'
+    <x-admin.modals.admin-view-docu :dataItem="$dataItem" :editing='$editing' :editing_course='$editing_course'
         :degreeLists='$degreeLists'></x-admin.modals.admin-view-docu>
     {{-- @endif --}}
 
@@ -34,7 +34,14 @@
         </div>
         <div class="mb-8 rounded-2xl bg-white px-5 py-2 drop-shadow-md">
             <div class="mb-2 flex w-full flex-col items-center justify-between px-4 py-2 md:flex-row">
-                <div>
+                <div class="relative">
+                    <div wire:loading
+                        wire:target='statusType,selectedDocumentType,search,sortByDate,paginateCount, viewDocuPost, edit, showboxDelete'
+                        class="absolute -left-[1.5rem] top-3 z-20 inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        role="status">
+                        <span
+                            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                    </div>
                     <label for="default-search"
                         class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">Search</label>
                     <div class="relative">

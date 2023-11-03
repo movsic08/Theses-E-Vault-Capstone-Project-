@@ -1,7 +1,7 @@
   <div x-data="{ showDocu: false }" x-show="showDocu" x-on:open-docu.window = "showDocu = true"
       x-on:close-docu.window = "showDocu = false" x-on:keydown.escape.window = "showDocu = false; $wire.cancelEdit()"
       x-transition:enter.duration.400ms x-transition:leave.duration.300ms
-      class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm"
+      class="fixed inset-0 z-40 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm"
       style="display: none">
       @if (isset($dataItem))
           <section
@@ -14,7 +14,7 @@
                           <select id="program" wire:model.live='updating_status'
                               class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                               <option value="0">Pending</option>
-                              <option value="1">Verified</option>
+                              <option value="1">Approved</option>
                               <option value="2">Disapproved</option>
                               <option value="3">Commented by admin</option>
                               <option value="4">Out of span</option>
@@ -40,7 +40,30 @@
                   </div>
               </div>
 
-              <div class="w-full px-10 pb-8 pt-5 text-gray-800">
+              <div class="relative w-full px-10 pb-8 pt-5 text-gray-800">
+                  <div wire:loading.delay wire:target="saveEdit"
+                      class="fixed inset-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-300 bg-opacity-50">
+                      <div class="absolute inset-0 flex items-center justify-center">
+                          <div class="mx-auto w-fit rounded-lg bg-white text-center text-gray-600 drop-shadow-lg">
+                              <div class="rounded-t-xl bg-primary-color p-8 px-10 py-3 font-semibold text-white">
+                                  <h1>Processing</h1>
+                              </div>
+                              <div class="flex flex-col gap-2 px-10 pb-8 pt-3">
+                                  <img class="h-10" src="{{ asset('icons/logo.svg') }}" alt="Icon Description">
+                                  <h3 class="text-xs md:text-base">Uploading is on the process, please wait.</h3>
+                                  <div class="flex flex-col items-center justify-center gap-2">
+                                      <div class="h-8 w-8 animate-spin rounded-md border-4 border-t-4 border-blue-500">
+                                      </div>
+                                      <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                                          <div id="progress-bar"
+                                              class="h-2.5 animate-pulse rounded-full bg-primary-color"
+                                              style="width: 100%"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                   <section class="flex flex-col gap-1">
                       @if ($editing)
                           <x-label-input for='tite' class="mr-1">Title</x-label-input>
@@ -55,18 +78,18 @@
                               {{ $dataItem->title }}
                           </span>
                       @endif
-
+                      {{-- {{ $editing_course }} --}}
                       @if ($editing)
+                          {{-- <strong>{{ $editing_course }}</strong> --}}
                           <x-label-input for='tite' class="mr-1">Course</x-label-input>
                           <select id="program" wire:model.live='updating_course'
                               class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                               @foreach ($degreeLists as $degreeListsItem)
-                                  <option value="{{ $degreeListsItem->name }}">{{ $degreeListsItem->name }}</option>
+                                  <option value="{{ $degreeListsItem->name }}" {{-- @if ($updating_course == $degreeListsItem->name) selected @endif --}}>
+                                      {{ $degreeListsItem->name }}
+                                  </option>
                               @endforeach
                           </select>
-                          @error('updating_course')
-                              <small class="text-red-500">{{ $message }}</small>
-                          @enderror
                       @else
                           <span class="rounded-md bg-cyan-200 px-2 py-1 font-semibold text-cyan-900">
                               {{ $dataItem->course }}
@@ -109,8 +132,9 @@
                           </div>
                           <div class="ml-2 flex flex-col gap-1">
                               @if ($editing)
-                                  <x-input-field id="title" class="w-full" wire:model.live='update_created' />
-                                  @error('update_created')
+                                  <x-input-field id="title" class="w-full" disabled
+                                      wire:model.live='updating_created_at' />
+                                  @error('updating_created_at')
                                       <small class="text-red-500">{{ $message }}</small>
                                   @enderror
                               @else
@@ -146,7 +170,8 @@
                       </div>
                       <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46"
+                                  fill="none">
                                   <path
                                       d="M4.6001 35.8789C4.6001 36.7939 4.96358 37.6714 5.61058 38.3184C6.25758 38.9654 7.1351 39.3289 8.0501 39.3289H37.9501C38.8651 39.3289 39.7426 38.9654 40.3896 38.3184C41.0366 37.6714 41.4001 36.7939 41.4001 35.8789V19.7789C41.4001 18.8639 41.0366 17.9864 40.3896 17.3394C39.7426 16.6924 38.8651 16.3289 37.9501 16.3289H8.0501C7.1351 16.3289 6.25758 16.6924 5.61058 17.3394C4.96358 17.9864 4.6001 18.8639 4.6001 19.7789V35.8789ZM9.2001 12.8789C9.2001 13.1839 9.32126 13.4764 9.53692 13.6921C9.75259 13.9077 10.0451 14.0289 10.3501 14.0289H35.6501C35.9551 14.0289 36.2476 13.9077 36.4633 13.6921C36.6789 13.4764 36.8001 13.1839 36.8001 12.8789C36.8001 12.5739 36.6789 12.2814 36.4633 12.0657C36.2476 11.8501 35.9551 11.7289 35.6501 11.7289H10.3501C10.0451 11.7289 9.75259 11.8501 9.53692 12.0657C9.32126 12.2814 9.2001 12.5739 9.2001 12.8789ZM13.8001 8.27891C13.8001 8.58391 13.9213 8.87641 14.1369 9.09208C14.3526 9.30775 14.6451 9.42891 14.9501 9.42891H31.0501C31.3551 9.42891 31.6476 9.30775 31.8633 9.09208C32.0789 8.87641 32.2001 8.58391 32.2001 8.27891C32.2001 7.97391 32.0789 7.6814 31.8633 7.46573C31.6476 7.25007 31.3551 7.12891 31.0501 7.12891H14.9501C14.6451 7.12891 14.3526 7.25007 14.1369 7.46573C13.9213 7.6814 13.8001 7.97391 13.8001 8.27891Z"
                                       fill="#4B3D3D" />
@@ -178,8 +203,9 @@
                           </div>
                           <div class="ml-2 flex flex-col gap-1">
                               @if ($editing)
-                                  <x-input-field id="title" class="w-full" wire:model.live='update_title' />
-                                  @error('update_course')
+                                  <x-input-field id="title" class="w-full"
+                                      wire:model.live='updating_date_of_approval' />
+                                  @error('updating_date_of_approval')
                                       <small class="text-red-500">{{ $message }}</small>
                                   @enderror
                               @else
@@ -485,8 +511,8 @@
                       @if ($editing)
                           <textarea
                               class="custom-scrollbar w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
-                              wire:model.live="abstract_or_summary" rows="6" id="recommended_citation"></textarea>
-                          @error('abstract_or_summary')
+                              wire:model.live="updating_abstract_or_summary" rows="12" id="recommended_citation"></textarea>
+                          @error('updating_abstract_or_summary')
                               <small class="text-red-500">{{ $message }}</small>
                           @enderror
                       @else
@@ -494,14 +520,68 @@
                               {{ $dataItem->abstract_or_summary }}
                           </p>
                       @endif
+                      <div class="col-span-2 mt-6 flex flex-col items-start gap-1">
+                          <div class="flex flex-row gap-1">
+                              <svg class="h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                      d="M9.027 14.91c.168-.099.352-.195.551-.286-.168.25-.348.493-.54.727-.336.404-.597.62-.762.687a.312.312 0 0 1-.042.014.338.338 0 0 1-.031-.053c-.067-.132-.065-.26.048-.432.127-.198.383-.425.776-.658Zm2.946-1.977c-.142.03-.284.06-.427.094a25.2 25.2 0 0 0 .6-1.26c.19.351.394.695.612 1.03-.26.038-.523.083-.785.136Zm3.03 1.127a4.662 4.662 0 0 1-.522-.492c.274.006.521.026.735.065.38.068.559.176.621.25.02.021.031.049.032.077a.524.524 0 0 1-.072.24.368.368 0 0 1-.113.15.128.128 0 0 1-.083.017c-.108-.003-.31-.08-.598-.307Zm-2.67-5.695c-.048.293-.13.629-.24.995a5.82 5.82 0 0 1-.106-.416c-.092-.423-.105-.756-.056-.986.046-.212.132-.298.236-.34a.621.621 0 0 1 .174-.048.71.71 0 0 1 .038.238c.006.146-.008.332-.046.558v-.001Z">
+                                  </path>
+                                  <path fill-rule="evenodd"
+                                      d="M7.2 2.4h9.6a2.4 2.4 0 0 1 2.4 2.4v14.4a2.4 2.4 0 0 1-2.4 2.4H7.2a2.4 2.4 0 0 1-2.4-2.4V4.8a2.4 2.4 0 0 1 2.4-2.4Zm.198 14.002c.108.216.276.412.525.503a.95.95 0 0 0 .696-.036c.382-.156.762-.523 1.112-.944.4-.48.82-1.112 1.225-1.812a13.979 13.979 0 0 1 2.396-.487c.36.46.732.856 1.092 1.14.336.264.724.484 1.121.5.216.011.43-.046.612-.165a1.24 1.24 0 0 0 .425-.499c.108-.217.174-.444.165-.676a1.013 1.013 0 0 0-.24-.621c-.27-.324-.715-.48-1.152-.558a6.91 6.91 0 0 0-1.602-.06 13.146 13.146 0 0 1-1.176-2.023c.3-.792.525-1.541.624-2.153a3.72 3.72 0 0 0 .058-.737 1.487 1.487 0 0 0-.152-.646.841.841 0 0 0-.573-.438c-.242-.051-.492 0-.72.093-.453.18-.692.564-.782.987-.088.408-.048.884.055 1.364.106.487.286 1.017.516 1.554a23.64 23.64 0 0 1-1.274 2.672 9.189 9.189 0 0 0-1.779.774c-.444.264-.839.576-1.076.944-.252.392-.33.857-.096 1.324Z"
+                                      clip-rule="evenodd"></path>
+                              </svg>
+                              <h1 class="text-gray-500">
+                                  Abstract
+                              </h1>
+                          </div>
+                          @if (!empty($dataItem->document_file_url))
+                              <a href="{{ route('view-pdf-admin', [
+                                  'title' => $dataItem->title,
+                                  'pdfFile' => $dataItem->document_file_url,
+                                  //   'docuPostID' => $dataItem->id,
+                              ]) }}"
+                                  target="_blank"
+                                  class="block w-full rounded-md bg-orange-500 p-1 text-center text-white duration-200 ease-in-out hover:bg-orange-400">View
+                                  Document file</a>
+                          @endif
+                          @if (!empty($dataItem->document_file_url))
+                              <button
+                                  wire:click='deleteFile("{{ $dataItem->document_file_url }}", {{ $dataItem->id }})'
+                                  class="h-fit w-fit rounded-md bg-red-500 px-4 py-2 font-medium text-white duration-200 ease-in-out hover:bg-red-700">Delete
+                              </button>
+                          @endif
+                          @if ($editing)
+                              <section x-data="{ uploading: false, progress: 0 }" x-data="{ uploaded: false }"
+                                  x-on:livewire-upload-start="uploading = true; progress = 0"
+                                  x-on:livewire-upload-finish="uploading = false; uploaded = true"
+                                  x-on:livewire-upload-error="uploading = false; progress = 0"
+                                  x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                  <div class="flex gap-2">
 
-                      <a href="{{ route('view-pdf-admin', [
-                          'title' => $dataItem->title,
-                          'pdfFile' => $dataItem->document_file_url,
-                          //   'docuPostID' => $dataItem->id,
-                      ]) }}"
-                          target="_blank" class="rounded-md bg-primary-color p-2 text-white">View
-                          Document file</a>
+                                      <label for="uploadFile"
+                                          class="mb-2 flex h-fit w-fit items-center justify-center rounded-lg bg-primary-color px-4 py-2 text-center text-white hover:cursor-pointer">Upload
+                                          <input type="file" wire:model.live="user_upload" id="uploadFile"
+                                              class="" hidden accept="application/pdf">
+                                      </label>
+                                      <small class="text-gray-600">Please be guided, the required file should be in PDF
+                                          format.</small>
+
+                                  </div>
+                                  <div class="mt-2 text-green-600" x-cloak x-show="uploaded">File uploaded!</div>
+                                  <div class="flex flex-row gap-1">
+                                      <div class="w-full" x-show="uploading" x-cloak>
+                                          <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                                              <div class="h-2.5 rounded-full bg-blue-600"
+                                                  :style="'width: ' + progress + '%'">
+                                              </div>
+                                          </div>
+                                          <div class="mt-2" x-cloak>Uploading...</div>
+                                      </div>
+                                  </div>
+                              </section>
+                          @endif
+                      </div>
                   </div>
               </div>
               <div class="sticky bottom-0 right-0 flex gap-4 bg-white bg-opacity-50 px-10 py-2 backdrop-blur-xl">
@@ -519,7 +599,7 @@
                       Remark
                   </button>
                   @if ($editing)
-                      <button
+                      <button wire:click='saveEdit({{ $dataItem->id }})'
                           class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Save</button>
                   @else
                       <button x-on:click="showDocu = false"
