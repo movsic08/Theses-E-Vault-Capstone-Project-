@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
+use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -146,13 +147,14 @@ class DocuPostPanel extends Component
     #[Rule('required|file', as: 'pdf file')]
     public $user_upload, $updating_reference;
 
-    public $updating_status, $updating_created_at, $updating_course;
+    public $updating_status, $updating_created_at, $updating_course, $userID_updating;
     public $editing_course = 'hii';
 
     public function toggleEdit($postId)
     {
         $currentEditingDocuData = Docupost::where('id', $postId)->first();
         $this->updating_title = $currentEditingDocuData->title;
+        $this->userID_updating = $currentEditingDocuData->user_id;
         $this->updating_status = $currentEditingDocuData->status;
         $this->updating_course = $currentEditingDocuData->course;
         $this->updating_language = $currentEditingDocuData->language;
@@ -231,7 +233,7 @@ class DocuPostPanel extends Component
         $this->validateOnly($this->updating_title);
         $isUpdated = DocuPost::where('id', $id)
             ->update([
-                'status' => $this->updating_status,
+
                 'title' => $this->updating_title,
                 'course' => $this->updating_course,
                 'language' => $this->updating_language,
@@ -262,6 +264,21 @@ class DocuPostPanel extends Component
         if (isset($this->user_upload)) {
             $isUpdated = $isUpdated && DocuPost::where('id', $id)->update(['document_file_url' => $filePathPDF]);
         }
+        $dataCheck = DocuPost::where('id', $id)->first();
+        if ($dataCheck->status != $this->updating_status) {
+            $isUpdated = $isUpdated && DocuPost::where('id', $id)->update(['status' => $this->updating_status,]);
+            if ($this->updating_status == 1) {
+                Notification::create([
+                    'user_id' => $this->userID_updating,
+                    'header_message' => '🎉 Your document has beed approved! 🎉',
+                    'content_message' => 'Congratulations! Your document entitled "' . $this->updating_title . '" has been approved. 📄👍',
+                    'link' => route('view-document', ['reference' => $this->updating_reference]),
+                    'category' => 'docu post',
+                ]);
+            }
+        }
+
+
         if ($isUpdated > 0) {
             request()->session()->flash('success', 'Editing document success.');
         } else {
@@ -271,6 +288,7 @@ class DocuPostPanel extends Component
         return $this->dispatch('close-docu');
 
     }
+
 
     public function deleteFile($link, $id)
     {

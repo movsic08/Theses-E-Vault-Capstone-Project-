@@ -109,10 +109,10 @@
                                 <th class="px-6 py-2 text-left font-bold text-gray-700">
                                     Date
                                 </th>
-                                <th class="px-6 py-2 text-left font-bold text-gray-700">
+                                <th class="px-2 py-2 text-left font-bold text-gray-700">
                                     Uploader
                                 </th>
-                                <th class="px-6 py-2 text-left font-bold text-gray-700">
+                                <th class="px-2 py-2 text-left font-bold text-gray-700">
                                     Type
                                 </th>
                                 <th class="px-6 py-2 text-left font-bold text-gray-700">
@@ -138,10 +138,10 @@
                                         <td class="w-fit whitespace-nowrap px-6 py-2">
                                             {{ \Carbon\Carbon::parse($itemPost->created_at)->format('M d Y') }}
                                         </td>
-                                        <td class="whitespace-nowrap px-6 py-2">
+                                        <td class="whitespace-nowrap px-2 py-2">
                                             {{ $itemPost->author_1 }}
                                         </td>
-                                        <td class="whitespace-normal px-6 py-2">
+                                        <td class="whitespace-normal px-2 py-2">
                                             {{ $itemPost->document_type }}
                                         </td>
                                         <td class="whitespace-normal px-6 py-2">
