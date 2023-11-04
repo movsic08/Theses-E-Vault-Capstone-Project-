@@ -16,9 +16,11 @@ class AdminUsersPanel extends Component
     use WithPagination;
     use WithFileUploads;
 
-    // public function placeholder() {
-    //     return view( 'livewire.placeholder.admin-users-skeleton' )->layout( 'layout.admin' );
-    // }
+    public function placeholder()
+    {
+
+        return view('livewire.placeholder.admin-users-skeleton')->layout('layout.admin');
+    }
 
     public $currentQuery;
 
@@ -159,57 +161,6 @@ class AdminUsersPanel extends Component
     }
     public $currentListDataValue;
 
-    // public $rowMenuStates = [];
-
-    // public function toggleRowMenu( $rowId ) {
-    //     if ( isset( $this->rowMenuStates[ $rowId ] ) ) {
-    //         $this->rowMenuStates[ $rowId ] = !$this->rowMenuStates[ $rowId ];
-    //     } else {
-    //         $this->rowMenuStates[ $rowId ] = true;
-    //     }
-    // }
-
-    // public $selectedUserId, $selectedUserEmail;
-    // public $showDeleteConfirmation = false;
-    // public $selectedData = '';
-    // public function showDeleteBoxUser($id)
-    // {
-    //     $user = User::find($id);
-
-    //     if (!$user) {
-    //         request()->session()->flash('error', 'User not found.');
-    //     } else {
-    //         $this->selectedData = $user;
-    //         $this->selectedUserId = $id;
-    //         $this->showDeleteConfirmation = true;
-    //     }
-    // }
-
-
-    // public function showDeleteBoxUser( $userId ) {
-    //     $user = User::find( $userId );
-
-    //     if ( !$user ) {
-    //         request()->session()->flash( 'error', 'User not found.' );
-    //     } else {
-    //         $this->selectedData = $user;
-    //         $this->selectedUserId = $userId;
-    //         $this->showDeleteConfirmation = true;
-    //     }
-    // }
-
-    // public function closeRowMenu($rowId)
-    // {
-    //     $this->showDeleteConfirmation = false;
-    // }
-
-
-
-    // public function cancelDeleteBoxUser() {
-    //     $this->showDeleteConfirmation = false;
-    //     $rowId = $this->selectedUserId;
-    //     $this->closeRowMenu( $rowId );
-    // }
 
     public $addUserButton = false,
     $accRole = '1';
@@ -279,8 +230,6 @@ class AdminUsersPanel extends Component
 
     public function addNewUser()
     {
-        // dd( $this->accRole );
-        // dd( $this->currentQuery );
         if (!$this->completeInfo) {
             $validatedData = $this->validate($this->userRule1);
             $userCreateCheck = User::create([
@@ -334,7 +283,6 @@ class AdminUsersPanel extends Component
     {
     }
 
-
     public $selectedUser;
     public function deleteUserConfirmation($id)
     {
@@ -360,12 +308,14 @@ class AdminUsersPanel extends Component
 
             if ($isDeleted) {
                 request()->session()->flash('success', 'User deleted successfully.');
+                $this->dispatch('close-del');
             } else {
                 request()->session()->flash('error', 'The user is not deleted, contact Developers.');
+                $this->dispatch('close-del');
             }
         }
         $this->selectedUser = '';
-        return $this->dispatch('close-del');
+        return;
     }
 
     public $currentViewingUser;
@@ -381,7 +331,6 @@ class AdminUsersPanel extends Component
     }
 
     public $editUserState = false, $profilePictureOption = false, $updatingUserID;
-
 
 
     public function toggleEdit($updatingUserID)

@@ -305,6 +305,34 @@ class ViewDocuPost extends Component
         }
     }
 
+    public $reportingCommentData;
+
+    public function showReportBox($commentID)
+    {
+        dd($commentID);
+        $this->reportingCommentData = 'hello';
+        $this->dispatch('open-rep');
+    }
+    public function closeReportBox()
+    {
+        $this->dispatch('close-rep');
+        $this->reportReason = '';
+        return $this->report_other_context = '';
+    }
+
+    public $reportReason, $report_other_context;
+
+
+    public function createReportComment()
+    {
+        if ($this->reportReason === 'other') {
+            $this->validateOnly($this->reportReason);
+        }
+        dd($this->reportReason);
+
+    }
+
+
     public function render()
     {
         $comments = DocuPostComment::where('post_id', $this->data->id)

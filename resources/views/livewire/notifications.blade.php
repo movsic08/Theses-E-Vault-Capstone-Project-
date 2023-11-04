@@ -1,5 +1,5 @@
 <div>
-    <section class="container">
+    <section class="">
         <div class="my-2 w-full">
             <div class="flex flex-col items-center justify-center gap-4">
                 <strong>Notifactions</strong>

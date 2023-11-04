@@ -2,9 +2,9 @@
     <div class="container text-base font-semibold text-blue-950">
         <div class="flex w-full items-center justify-between md:p-2">
             @php
-                
+
                 $currentHour = now()->hour; // Get the current hour of the day
-                
+
                 if ($currentHour >= 5 && $currentHour < 12) {
                     $greeting = 'morning';
                 } elseif ($currentHour >= 12 && $currentHour < 17) {
@@ -12,7 +12,7 @@
                 } else {
                     $greeting = 'evening'; // For hours from 17 (5 PM) onwards
                 }
-                
+
             @endphp
 
             <h1 class="">Good {{ $greeting }},

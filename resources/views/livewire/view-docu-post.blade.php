@@ -1,7 +1,10 @@
-<div class="mb-10">
+<div class="mb-10 overflow-x-hidden">
     @section('title', $data->title)
     <x-session_flash />
-    <div class="container w-full">
+
+    <x-user_modals.report-docu-comment-modal :reportingCommentData='$reportingCommentData'></x-user_modals.report-docu-comment-modal>
+
+    <div class="container">
         <div class="my-2 flex w-full items-center justify-between">
             <h1 class="text-sm font-medium text-primary-color lg:text-base">Document details</h1>
             <h1 class="text-xs font-light text-primary-color lg:text-sm">
@@ -226,7 +229,7 @@
         </section>
         {{-- comment --}}
         <div class="lg:hidden">
-            <section class="mt-4 grid grid-cols-4">
+            <section class="mt-4 flex flex-col gap-2">
                 <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
                     <form action="">
                         <div class="flex w-full items-center justify-center gap-2">
@@ -289,7 +292,7 @@
                                         <li
                                             class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
                                             Reply</li>
-                                        <li
+                                        <li wire:click='showReportBox({{ $commentsItem->id }})'
                                             class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
                                             Report</li>
                                     </ul>

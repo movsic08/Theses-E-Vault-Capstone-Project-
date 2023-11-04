@@ -22,6 +22,17 @@ class Home extends Component
         // dd( $this->authenticatedUser );
     }
 
+    public function render()
+    {
+        $docuPostData = DocuPost::where('status', 1)
+            ->paginate(10);
+        $this->bachelorDegree = BachelorDegree::all();
+        $this->latestDocuPostData = DocuPost::latest()->take(5)->get();
+        return view('livewire.home', [
+            'docuPostData' => $docuPostData
+        ])->layout('layout.app');
+    }
+
     public function bookmarkItem($id, $reference)
     {
         if (!auth()->check()) {
@@ -65,16 +76,6 @@ class Home extends Component
         return view('skeletons.home-data-skeleton');
     }
 
-    public function render()
-    {
 
-        $docuPostData = DocuPost::where('status', 1)
-            ->inRandomOrder()->paginate(10);
-        $this->bachelorDegree = BachelorDegree::all();
-        $this->latestDocuPostData = DocuPost::latest()->take(5)->get();
-        return view('livewire.home', [
-            'docuPostData' => $docuPostData
-        ])->layout('layout.app');
-    }
 
 }
