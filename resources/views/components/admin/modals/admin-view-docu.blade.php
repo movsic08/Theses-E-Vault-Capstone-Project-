@@ -7,7 +7,7 @@
           <section
               class="custom-scrollbar relative mt-[3rem] h-[90%] w-fit overflow-y-auto rounded-lg bg-white drop-shadow-xl md:w-[50%] lg:w-[40%]">
               <div
-                  class="sticky right-0 top-0 -mt-4 flex w-full items-center justify-center bg-white bg-opacity-50 py-1 backdrop-blur-xl">
+                  class="sticky right-0 top-0 z-20 -mt-4 flex w-full items-center justify-center bg-white bg-opacity-50 py-1 backdrop-blur-xl">
                   <div class="flex items-center justify-center">
                       <x-label-input for='' class="mr-1">Status</x-label-input>
                       @if ($editing)
@@ -16,7 +16,7 @@
                               <option value="0">Pending</option>
                               <option value="1">Approved</option>
                               <option value="2">Disapproved</option>
-                              <option value="3">Commented by admin</option>
+                              <option value="3">Revision needed</option>
                               <option value="4">Out of span</option>
                           </select>
                       @else

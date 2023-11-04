@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\DocuPost;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -251,6 +252,13 @@ class UploadDocument extends Component
         ];
 
         DocuPost::create($inputsOfDocu);
+        Notification::create([
+            'user_id' => $this->user->id,
+            'header_message' => '📢 Document Pending Admin Review',
+            'content_message' => 'Dear user, your document with the title "' . $this->title . '" has been successfully uploaded and is now pending admin review. It will be made available to the community once approved. Thank you for your contribution. 📄🔍',
+            'link' => route('edit-profile', ['activeTab' => 'tab4']),
+            'category' => 'docu post',
+        ]);
 
 
         $this->progressInfo = 'Success';

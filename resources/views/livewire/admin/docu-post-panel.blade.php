@@ -24,11 +24,12 @@
     {{-- @if ($showViewDocuPostBox) --}}
     <x-admin.modals.admin-view-docu :dataItem="$dataItem" :editing='$editing' :editing_course='$editing_course'
         :degreeLists='$degreeLists'></x-admin.modals.admin-view-docu>
+    <x-admin.modals.admin-docu-remark :docuData="$docuData" :remarkTitle="$remarkTitle"></x-admin.modals.admin-docu-remark>
     {{-- @endif --}}
 
     <div class="md:px-4">
-        <div class="my-3 flex justify-between">
-            <h2>List of Uploaded Documents</h2>
+        <div class="my-3 flex items-end justify-between">
+            <strong class="text-md text-primary-color">List of Uploaded Documents</strong>
             <a wire:navigate href="{{ route('upload-document-form') }}"
                 class="rounded-lg bg-primary-color p-2 text-sm font-bold text-white">Add new document</a>
         </div>
@@ -36,7 +37,7 @@
             <div class="mb-2 flex w-full flex-col items-center justify-between px-4 py-2 md:flex-row">
                 <div class="relative">
                     <div wire:loading
-                        wire:target='statusType,selectedDocumentType,search,sortByDate,paginateCount, viewDocuPost, edit, showboxDelete'
+                        wire:target='statusType,selectedDocumentType,search,sortByDate,paginateCount, viewDocuPost, edit, showboxDelete, showRemarkBox'
                         class="absolute -left-[1.5rem] top-3 z-20 inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                         role="status">
                         <span
@@ -147,7 +148,7 @@
                                         <td class="whitespace-normal px-6 py-2">
                                             @if ($itemPost->status == 0)
                                                 <div
-                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-orange-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-yellow-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
                                                     pending
                                                 </div>
                                             @elseif ($itemPost->status == 1)
@@ -157,7 +158,7 @@
                                                 </div>
                                             @elseif ($itemPost->status == 2)
                                                 <div
-                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-yellow-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-orange-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
                                                     Disapproved
                                                 </div>
                                             @elseif ($itemPost->status == 3)
@@ -167,7 +168,7 @@
                                                 </div>
                                             @elseif ($itemPost->status == 4)
                                                 <div
-                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-green-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
+                                                    class="flex h-[3rem] w-full items-center justify-center rounded-md bg-gray-500 px-2 py-1 text-center text-sm font-medium uppercase text-white">
                                                     Out of span
                                                 </div>
                                             @else
@@ -204,7 +205,9 @@
                                                         d="M15.36 4.2v1.2h4.2a.6.6 0 0 1 0 1.2h-.645L17.89 19.392a2.4 2.4 0 0 1-2.393 2.208H8.022a2.4 2.4 0 0 1-2.392-2.208L4.606 6.6H3.96a.6.6 0 0 1 0-1.2h4.2V4.2a1.8 1.8 0 0 1 1.8-1.8h3.6a1.8 1.8 0 0 1 1.8 1.8Zm-6 0v1.2h4.8V4.2a.6.6 0 0 0-.6-.6h-3.6a.6.6 0 0 0-.6.6Zm-1.8 4.235.6 10.2a.6.6 0 1 0 1.198-.072l-.6-10.2a.6.6 0 1 0-1.198.072Zm7.836-.633a.6.6 0 0 0-.633.564l-.6 10.2a.6.6 0 0 0 1.197.07l.6-10.2a.6.6 0 0 0-.564-.634ZM11.76 7.8a.6.6 0 0 0-.6.6v10.2a.6.6 0 1 0 1.2 0V8.4a.6.6 0 0 0-.6-.6Z">
                                                     </path>
                                                 </svg>
-                                                <svg class="h-7 cursor-pointer rounded-md bg-yellow-600 p-1 text-white duration-200 ease-in-out hover:bg-yellow-800"
+                                                <svg wire:click='showRemarkBox({{ $itemPost->id }})'
+                                                    x-on:click="show = true"
+                                                    class="h-7 cursor-pointer rounded-md bg-yellow-600 p-1 text-white duration-200 ease-in-out hover:bg-yellow-800"
                                                     fill="currentColor" viewBox="0 0 24 24"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
