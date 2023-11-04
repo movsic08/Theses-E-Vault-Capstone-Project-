@@ -6,19 +6,27 @@
       <div class="container h-full md:w-[40%]">
           @if (isset($reportingCommentData))
               <section x-data="{ selectedStatus: @entangle('reportReason') }"
-                  class="relative mr-0.5 mt-[7rem] flex h-[70%] w-full flex-col gap-2 rounded-lg bg-white drop-shadow-xl">
+                  class="relative mt-[4rem] flex h-[75%] w-full flex-col gap-2 rounded-lg bg-white drop-shadow-xl">
                   <div class="custom-scrollbar h-full overflow-y-auto px-6">
                       <div
                           class="sticky -top-1 right-0 -mx-6 -my-5 flex flex-col items-end gap-1 rounded-t-lg bg-white bg-opacity-25 px-6 py-4 backdrop-blur-md">
                           <strong class="flex w-full items-center justify-center text-primary-color">Report
                               Comment</strong>
+                          @php
+                              $getData = \App\Models\User::where('id', $reportingCommentData->user_id)->first();
+                              if ($getData == null) {
+                                  $fullNameOfReportingUser = 'User';
+                              } else {
+                                  $fullNameOfReportingUser = $getData->first_name . ' ' . $getData->last_name;
+                              }
+                          @endphp
                           <p
                               class="rounded-lg bg-gray-300 bg-opacity-25 p-1 text-sm font-medium text-gray-700 backdrop-blur">
                               You're about to report
-                              <strong> Elmer</strong> 's comment
-                              <i> "ang gwapo
-                                  mo".</i>
+                              <strong> {{ $fullNameOfReportingUser }}</strong> 's comment
+                              <i> "{{ $reportingCommentData->comment_content }}".</i>
                           </p>
+
                       </div>
 
                       <div class="mt-6 flex flex-col gap-2 py-4">
@@ -110,21 +118,31 @@
                                       class="w-full resize-none rounded-md border border-gray-400 p-2 text-sm focus:outline-blue-950 md:resize-y lg:resize-none"
                                       wire:model.live="report_other_context" rows="4" placeholder="Tell us the reason of reporting this comment."
                                       id="otherTextArea"></textarea>
-                                  @error('report_other_context')
-                                      <small class="text-red-500">{{ $message }}</small>
-                                  @enderror
+
                               </div>
+                              @error('report_other_context')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
                           </div>
 
                       </div>
 
                       <div
-                          class="sticky bottom-0 right-0 -mx-6 -my-5 flex justify-end gap-2 rounded-b-lg bg-white bg-opacity-25 p-2 backdrop-blur-md">
-                          <button type="submit" wire:click='closeReportBox'
-                              class="rounded border border-red-500 px-4 py-2 text-red-800 duration-500 ease-linear hover:bg-red-600 hover:text-white">Cancel</button>
-                          <button wire:click.prevent='createReportComment'
-                              class="rounded bg-indigo-500 px-4 py-2 text-white duration-500 ease-linear hover:bg-indigo-900">Submit
-                              Report</button>
+                          class="sticky bottom-0 right-0 -mx-6 -my-5 flex items-center justify-between gap-2 rounded-b-lg bg-white bg-opacity-25 p-2 backdrop-blur-md">
+                          @error('reportReason')
+                              <small class="my-1 hidden whitespace-nowrap text-red-500 lg:block">{{ $message }}</small>
+                          @enderror
+                          <div class="flex w-full flex-col justify-end gap-2 lg:flex-row">
+                              @error('reportReason')
+                                  <small class="my-1 whitespace-nowrap text-red-500 lg:hidden">{{ $message }}</small>
+                              @enderror
+                              <button type="submit" wire:click='closeReportBox'
+                                  class="h-fit rounded border border-red-500 px-4 py-2 text-red-800 duration-500 ease-linear hover:bg-red-600 hover:text-white">Cancel</button>
+                              <button wire:click.prevent='createReportComment({{ $reportingCommentData->id }})'
+                                  class="h-fit rounded bg-indigo-500 px-4 py-2 text-white duration-500 ease-linear hover:bg-indigo-900">
+                                  Report</button>
+                          </div>
+
                       </div>
                   </div>
               </section>

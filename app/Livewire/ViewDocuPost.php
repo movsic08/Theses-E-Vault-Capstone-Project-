@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\BookmarkList;
+use App\Models\ReportedComment;
 use Illuminate\Support\Str;
 use App\Models\DocuPost;
 use App\Models\DocuPostComment;
@@ -309,8 +310,8 @@ class ViewDocuPost extends Component
 
     public function showReportBox($commentID)
     {
-        dd($commentID);
-        $this->reportingCommentData = 'hello';
+        $reportedCommentData = DocuPostComment::where('id', $commentID)->first();
+        $this->reportingCommentData = $reportedCommentData;
         $this->dispatch('open-rep');
     }
     public function closeReportBox()
@@ -319,17 +320,36 @@ class ViewDocuPost extends Component
         $this->reportReason = '';
         return $this->report_other_context = '';
     }
+    #[Rule('required|min:5', message: 'You need to specify the reason of reporting this comment.')]
+    public $report_other_context;
 
-    public $reportReason, $report_other_context;
 
+    #[Rule('required', message: 'Please select a reason.')]
+    public $reportReason;
 
-    public function createReportComment()
+    public function createReportComment($id)
     {
+        $this->validateOnly('reportReason');
         if ($this->reportReason === 'other') {
-            $this->validateOnly($this->reportReason);
+            $this->validateOnly('report_other_context');
         }
-        dd($this->reportReason);
+        $createCommentReport = ReportedComment::create([
+            'docu_post_id' => $this->reportingCommentData->post_id,
+            'reporter_user_id' => auth()->user()->id,
+            'reported_user_id' => $this->reportingCommentData->user_id,
+            'reported_comment_id' => $this->reportingCommentData->id,
+            'report_title' => $this->reportReason,
+            'report_other_context' => $this->report_other_context,
+            'report_status' => 0,
+        ]);
+        $this->closeReportBox();
+        if ($createCommentReport) {
+            request()->session()->flash('success', 'Reported created in database');
+        } else {
+            request()->session()->flash('error', 'Creating report failed, contact devs.');
+        }
 
+        return;
     }
 
 
