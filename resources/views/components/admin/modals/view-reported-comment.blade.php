@@ -9,33 +9,35 @@
                   class="flex w-full items-center justify-center text-primary-color">{{ $resolving ? 'Resolving' : 'Viewing' }}
                   reported
                   comment</strong>
-              @if (isset($currentData))
+              @if ($currentData != null)
                   <div class="my-4">
                       <div class="hehe rounded-xl bg-white px-4 py-2 drop-shadow-md" wire:poll.10s="$refresh">
                           <div class="flex w-full">
                               @php
-                                  $currentComment = \App\Models\DocuPostComment::where('id', $currentData->reported_comment_id)->first();
-                                  if ($currentComment) {
-                                      $currentUser = \App\Models\User::where('id', $currentComment->user_id)->first();
-                                      if ($currentUser) {
-                                          $profileLink = $currentUser->profile_picture;
-                                          $commentorName = $currentUser->first_name . ' ' . $currentUser->last_name;
-                                          $role = $currentUser->role_id == 1 ? 'Student' : 'Faculty';
-                                          $bachelorDegree = \App\Models\BachelorDegree::where('name', $currentUser->bachelor_degree)->first();
-                                          if ($bachelorDegree) {
-                                              $course = $bachelorDegree->degree_name;
+                                  if ($currentData != null) {
+                                      $currentComment = \App\Models\DocuPostComment::where('id', $currentData->reported_comment_id)->first();
+                                      if ($currentComment) {
+                                          $currentUser = \App\Models\User::where('id', $currentComment->user_id)->first();
+                                          if ($currentUser) {
+                                              $profileLink = $currentUser->profile_picture;
+                                              $commentorName = $currentUser->first_name . ' ' . $currentUser->last_name;
+                                              $role = $currentUser->role_id == 1 ? 'Student' : 'Faculty';
+                                              $bachelorDegree = \App\Models\BachelorDegree::where('name', $currentUser->bachelor_degree)->first();
+                                              if ($bachelorDegree) {
+                                                  $course = $bachelorDegree->degree_name;
+                                              } else {
+                                                  $course = '';
+                                              }
                                           } else {
-                                              $course = '';
+                                              $profileLink = null;
+                                              $commentorName = 'User';
+                                              $role = '';
                                           }
                                       } else {
                                           $profileLink = null;
                                           $commentorName = 'User';
                                           $role = '';
                                       }
-                                  } else {
-                                      $profileLink = null;
-                                      $commentorName = 'User';
-                                      $role = '';
                                   }
                               @endphp
                               <img src="{{ $profileLink == null ? asset('assets/default_profile.png') : asset('storage/' . $profileLink) }}"
@@ -64,29 +66,37 @@
                           <x-label-input for="status">Status</x-label-input>
                           <select id="status" wire:model.live='updateStatus'
                               class="ml-2 w-fit rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm capitalize text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                              <option value="0" selected>pending</option>
+                              <option value="0">pending</option>
                               <option value="1">Remove comment</option>
+                              <option class="whitespace-pre" value="2">Delete this report, no violation.</option>
                           </select>
                       </div>
                   @endif
-              @endif
-              <div class="flex w-full flex-col items-center gap-2 font-bold md:flex-row md:justify-end">
-                  <div wire:loading wire:target='closeBox, showResolving'
-                      class="h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                      role="status">
-                      <span
-                          class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-                  </div>
-                  <button wire:click='closeBox'
-                      class="w-full rounded-md border border-red-500 bg-white p-2 text-red-500 duration-500 ease-in-out hover:bg-red-800 hover:text-white md:w-[6rem]">Close</button>
-                  @if ($resolving)
-                      <button
-                          class="w-full rounded-md bg-blue-500 p-2 text-white duration-500 ease-in-out hover:bg-blue-800 md:w-[6rem]">Save</button>
-                  @else
-                      <button wire:click='showResolving'
-                          class="w-full rounded-md bg-yellow-500 p-2 text-white duration-500 ease-in-out hover:bg-yellow-800 md:w-[6rem]">Resolve</button>
+                  @if ($currentData->report_title == 'other')
+                      <x-label-input>Other details by reporter:</x-label-input>
+                      <p class="mb-2 mt-1 rounded-lg bg-blue-100 p-2 text-sm text-blue-600">
+                          {{ $currentData->report_other_context }}
+                      </p>
                   @endif
-              </div>
+
+                  <div class="flex w-full flex-col items-center gap-2 font-bold md:flex-row md:justify-end">
+                      <div wire:loading wire:target='closeBox, showResolving, saveUpdate'
+                          class="h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                          role="status">
+                          <span
+                              class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                      </div>
+                      <button wire:click='closeBox'
+                          class="w-full rounded-md border border-red-500 bg-white p-2 text-red-500 duration-500 ease-in-out hover:bg-red-800 hover:text-white md:w-[6rem]">Close</button>
+                      @if ($resolving)
+                          <button wire:click='saveUpdate({{ $currentData->id }})'
+                              class="w-full rounded-md bg-blue-500 p-2 text-white duration-500 ease-in-out hover:bg-blue-800 md:w-[6rem]">Save</button>
+                      @else
+                          <button wire:click='showResolving({{ $currentData->id }})'
+                              class="w-full rounded-md bg-yellow-500 p-2 text-white duration-500 ease-in-out hover:bg-yellow-800 md:w-[6rem]">Resolve</button>
+                      @endif
+                  </div>
+              @endif
           </section>
       </div>
   </div>

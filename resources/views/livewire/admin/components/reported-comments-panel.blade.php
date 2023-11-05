@@ -1,7 +1,7 @@
 <div>
 
     <x-admin.modals.view-reported-comment :currentData='$currentData' :resolving='$resolving'></x-admin.modals.view-reported-comment>
-    <x-admin.modals.deleting-reported-comment></x-admin.modals.deleting-reported-comment>
+    <x-admin.modals.deleting-reported-comment :delData='$delData'></x-admin.modals.deleting-reported-comment>
 
     <x-session_flash />
     <section class="container">
@@ -11,7 +11,8 @@
 
         <div class="mb-8 mt-3 max-w-[85rem] rounded-2xl bg-white px-5 py-2 drop-shadow-md">
             <div class="relative flex w-full flex-col items-center justify-between px-4 py-2 md:flex-row">
-                <div wire:loading wire:target='search, commentStatus, paginate, selectedDate, category_report, showBox '
+                <div wire:loading
+                    wire:target='search, commentStatus, paginate, selectedDate, category_report, showBox, addMarkReport, showDel '
                     class="absolute -left-[0.5rem] top-[1rem] inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                     role="status">
                     <span
@@ -200,7 +201,7 @@
                                                             clip-rule="evenodd"></path>
                                                     </svg>
                                                 </span>
-                                                <span
+                                                <span wire:click='addMarkReport({{ $item->id }})'
                                                     class="hover: cursor-pointer rounded-md bg-yellow-600 p-1 duration-500 ease-in-out hover:bg-yellow-800">
                                                     <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
                                                         fill="currentColor" viewBox="0 0 24 24"
@@ -213,7 +214,7 @@
                                                             clip-rule="evenodd"></path>
                                                     </svg>
                                                 </span>
-                                                <span
+                                                <span wire:click='showDel({{ $item->id }})'
                                                     class="hover: cursor-pointer rounded-md bg-red-600 p-1 duration-500 ease-in-out hover:bg-red-800">
                                                     <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
                                                         fill="currentColor" viewBox="0 0 24 24"
