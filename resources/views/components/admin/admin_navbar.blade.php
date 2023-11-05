@@ -1,16 +1,19 @@
 <div class="md:gradient-bg-light container sticky top-0 z-30 w-full bg-slate-100 bg-opacity-70 backdrop-blur-md">
     <div class="container flex w-full items-center justify-between p-4 text-base font-semibold text-blue-950">
         @php
-            $currentHour = now()->format('g');
-            
+
+            $currentHour = now()->hour; // Get the current hour of the day
+
             if ($currentHour >= 5 && $currentHour < 12) {
-                $greeting = 'evening';
-            } elseif ($currentHour >= 12 && $currentHour < 18) {
-                $greeting = 'afternoon';
+                $greeting = 'morning';
+            } elseif ($currentHour >= 12 && $currentHour < 17) {
+                $greeting = 'afternoon'; // Changed the upper limit to 17 (5 PM) for afternoon
             } else {
-                $greeting = 'Morning';
+                $greeting = 'evening'; // For hours from 17 (5 PM) onwards
             }
+
         @endphp
+
         <h1 class="">Good {{ $greeting }},
             @auth
                 @if (empty(auth()->user()->first_name))

@@ -4,7 +4,7 @@
         <div class="my-2">
             <h2>Dashboard</h2>
         </div>
-        <div class="grid grid-cols-10 gap-3">
+        <div class="mb-3 grid grid-cols-10 gap-3">
             {{-- 1st div --}}
             <div class="col-span-10 flex h-full flex-col gap-4 md:col-span-5 lg:col-span-2">
                 <div
@@ -82,7 +82,7 @@
             <!-- 2nd div  -->
             <div class="col-span-10 rounded-lg bg-white px-4 py-2 text-gray-600 drop-shadow-lg lg:col-span-6">
                 <div class="flex justify-between">
-                    <h2 class="text-[1.1rem] font-semibold">New created accounts</h2>
+                    <h2 class="text-[1.1rem] font-semibold lg:text-[1.5rem]">New created accounts</h2>
                     <div class="flex gap-2">
                         <div class="flex items-center gap-1">
                             <div class="h-3 w-3 rounded bg-blue-700"></div>
@@ -96,7 +96,7 @@
                 </div>
                 <section class="-z-10 overflow-x-auto whitespace-nowrap">
                     <table class="w-full">
-                        <tbody wire:poll.5000ms="loadDashboard">
+                        <tbody wire:poll.5000ms>
                             @foreach ($latestAccounts as $latestAccountsItem)
                                 <tr class="">
                                     <td>
@@ -130,14 +130,15 @@
 
                 </section>
             </div>
-            <div class="col-span-10 rounded-lg bg-white p-4 text-gray-600 drop-shadow-lg lg:col-span-8">
+            <!-- 3rd div created documents -->
+            <div class="col-span-10 rounded-2xl bg-white p-4 text-gray-600 drop-shadow-lg xl:col-span-8">
                 <a wire:navigate href="{{ route('admin-docu-post-panel') }}"
                     class="font-medium duration-100 ease-in-out hover:font-bold hover:text-primary-color">New uploaded
                     files</a>
                 <section class="">
 
                     <table class="w-full">
-                        <tbody wire:poll.5000ms="loadDashboard">
+                        <tbody wire:poll.5000ms>
                             @foreach ($latestDocuPostData as $latestDocuPostDataItem)
                                 <tr class="">
                                     <td class="whitespace-normal px-6 py-2">
@@ -186,9 +187,38 @@
                 </section>
             </div>
 
+            <div
+                class="col-span-5 flex flex-row items-center justify-between rounded-2xl bg-white p-4 drop-shadow-lg lg:justify-normal xl:col-span-2 xl:flex-col">
+                <div class="h-fit w-fit rounded-2xl bg-red-100 p-2 text-red-700 md:p-3">
+                    <a href="{{ route('admin-reported-comments') }}" class="cursor-pointer">
+                        <svg class="h-4 w-4 md:h-8 md:w-8" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 7h8"></path>
+                            <path d="M7 11h4"></path>
+                            <path
+                                d="M19 3H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3l3.646 3.646a.5.5 0 0 0 .708 0L16 17h3a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z">
+                            </path>
+                        </svg></a>
+                </div>
+                <div class="flex flex-col gap-2 lg:my-2">
+                    <small class="text-xs text-gray-500 md:text-base">Sum of reported comments</small>
+                    <strong
+                        class="text-2xl text-gray-900 md:text-[2rem] lg:text-[3rem]">{{ $reportedComments }}</strong>
+                </div>
+                <div class="">
+                    <div class="relative h-12 w-12 rounded-full lg:h-28 lg:w-28 xl:h-36 xl:w-36">
+                        <div
+                            class="absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-8 border-red-600 md:border-[1.2rem] lg:h-28 lg:w-28 xl:h-36 xl:w-36">
+                        </div>
+                        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-8 border-blue-600 md:border-[1.2rem] lg:h-28 lg:w-28 xl:h-36 xl:w-36"
+                            style=" width: 80%;
+  border-radius: 50%;"></div>
 
-            <div class="col-span-10 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-2">
-                <h2>Hello</h2>
+                    </div>
+
+                </div>
+
             </div>
         </div>
 

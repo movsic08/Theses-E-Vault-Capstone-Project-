@@ -3,11 +3,13 @@
 namespace App\Livewire\Admin;
 
 use App\Models\DocuPost;
+use App\Models\ReportedComment;
 use App\Models\User;
 use Livewire\Component;
 
-class Dashboard extends Component {
-    public $latestAccounts, $userCount, $adminUserCount, $verifiedAccountCount, $uploadFilesCount, $latestDocuPostData;
+class Dashboard extends Component
+{
+    // public $latestAccounts, $userCount, $adminUserCount, $verifiedAccountCount, $uploadFilesCount, $latestDocuPostData;
     // public $pollInterval = 1000;
     // // Refresh every 5 seconds ( adjust as needed )
 
@@ -20,27 +22,38 @@ class Dashboard extends Component {
     //     ->get();
     // }
 
-    public function loadDashboard() {
-        $this->latestAccounts = User::orderBy( 'created_at', 'desc' )
-        ->where( 'is_admin', 0 )
-        ->limit( 5 )
-        ->get();
-        $this->userCount = User::count();
-        $this->adminUserCount = User::where( 'is_admin', 1 )
-        ->count();
-        $this->verifiedAccountCount = User::where( 'is_verified', 1 )
-        ->count();
+    // public function loadDashboard() {
 
-        $this->verifiedAccountCount = User::where( 'is_verified', 1 )
-        ->count();
-        $this->uploadFilesCount = DocuPost::whereIn( 'status', [ 1, 2 ] )
-        ->count();
 
-        $this->latestDocuPostData = DocuPost::latest()->take( 5 )->get();
-    }
+    // }
 
-    public function render() {
-        $this->loadDashboard();
-        return view( 'livewire.admin.dashboard' )->layout( 'layout.admin' );
+    public function render()
+    {
+        // $this->loadDashboard();
+        $latestAccounts = User::orderBy('created_at', 'desc')
+            ->where('is_admin', 0)
+            ->limit(5)
+            ->get();
+        $userCount = User::count();
+        $adminUserCount = User::where('is_admin', 1)
+            ->count();
+        $verifiedAccountCount = User::where('is_verified', 1)
+            ->count();
+
+        $uploadFilesCount = DocuPost::whereIn('status', [1, 2])
+            ->count();
+        $reportedComments = ReportedComment::where('report_status', 0)->count();
+
+        $latestDocuPostData = DocuPost::latest()->take(5)->get();
+
+        return view('livewire.admin.dashboard', [
+            'latestAccounts' => $latestAccounts,
+            'userCount' => $userCount,
+            'adminUserCount' => $adminUserCount,
+            'verifiedAccountCount' => $verifiedAccountCount,
+            'uploadFilesCount' => $uploadFilesCount,
+            'latestDocuPostData' => $latestDocuPostData,
+            'reportedComments' => $reportedComments,
+        ])->layout('layout.admin');
     }
 }

@@ -132,6 +132,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/notification', function () {
         return view('pages.admin.notification');
     })->name('admin-notification');
+    Route::get('/reported-comments', function () {
+        return view('pages.admin.reported_comments');
+    })->name('admin-reported-comments');
 
     Route::get('/users', function () {
         return view('pages.admin.users');

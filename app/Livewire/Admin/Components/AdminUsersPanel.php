@@ -18,7 +18,6 @@ class AdminUsersPanel extends Component
 
     public function placeholder()
     {
-
         return view('livewire.placeholder.admin-users-skeleton')->layout('layout.admin');
     }
 
@@ -451,11 +450,14 @@ class AdminUsersPanel extends Component
         return $this->profilePictureOption = false;
     }
 
+    public $hasData;
     public function render()
     {
+        sleep(1);
         $degreeLists = BachelorDegree::latest()
             ->get();
         $currentListData = User::latest();
+        $this->hasData = 1;
 
         if (isset($this->search)) {
             $currentListData = $currentListData->where(function ($query) {

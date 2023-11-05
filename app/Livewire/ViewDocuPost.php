@@ -277,12 +277,29 @@ class ViewDocuPost extends Component
 
     public function generatePDFKey($id)
     {
-        $isKeyIsGEnerated = PdfKey::where('docu_post_id', $id)->exists();
-        if ($isKeyIsGEnerated) {
-            PdfKey::where('docu_post_id', $id)->delete();
-            $this->keyGenerator($id);
+        if (!auth()->check()) {
+            request()->session()->flash('message', 'You need to sign in first');
         } else {
-            $this->keyGenerator($id);
+            $checkInfoData = empty($this->authenticatedUser->last_name && $this->authenticatedUser->first_name && $this->authenticatedUser->last_name &&
+                $this->authenticatedUser->address &&
+                $this->authenticatedUser->phone_no &&
+                $this->authenticatedUser->student_id &&
+                $this->authenticatedUser->bachelor_degree);
+            if ($checkInfoData) {
+                request()->session()->flash('message', 'Account information details are incomplete, fill out now here.');
+            } else {
+                if ($this->authenticatedUser->is_verified == 0) {
+                    request()->session()->flash('message', 'Ve rify your account now, to enjoy the full features for free.');
+                } else {
+                    $isKeyIsGEnerated = PdfKey::where('docu_post_id', $id)->exists();
+                    if ($isKeyIsGEnerated) {
+                        PdfKey::where('docu_post_id', $id)->delete();
+                        $this->keyGenerator($id);
+                    } else {
+                        $this->keyGenerator($id);
+                    }
+                }
+            }
         }
         // dd('end of code');
     }

@@ -20,4 +20,8 @@ class ReportedComment extends Model
         'report_other_context',
         'report_status',
     ];
+    public function comment()
+    {
+        return $this->belongsTo(DocuPostComment::class, 'reported_comment_id');
+    }
 }

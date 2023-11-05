@@ -75,6 +75,21 @@
                     <p class="hideName block pl-2 text-sm md:hidden">Add docu</p>
                 </a>
             </div>
+            {{-- add documents --}}
+            <div
+                class="{{ request()->routeIs('admin-reported-comments') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
+                <a wire:navigate href="{{ route('admin-reported-comments') }}" class="flex items-center">
+                    <div class="relative">
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M20 2H4c-1.103 0-2 .897-2 2v18l4-4h14c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2Zm-7 13h-2v-2h2v2Zm0-4h-2V5h2v6Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p class="hideName block pl-2 text-sm md:hidden">Add docu</p>
+                </a>
+            </div>
             {{-- List of books --}}
             <div
                 class="{{ request()->routeIs('admin-list-of-books') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">

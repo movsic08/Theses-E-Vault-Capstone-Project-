@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .gradient-bg-light {
   background: linear-gradient(135deg, #E8F5FD 0%, rgba(231, 234, 236, 0.56) 100%);
 }
