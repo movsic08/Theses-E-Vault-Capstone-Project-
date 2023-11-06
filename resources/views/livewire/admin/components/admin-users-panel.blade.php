@@ -199,7 +199,7 @@
                                 <div class="w-full p-2">
                                     <div class="flex flex-col gap-1">
                                         <x-label-input for='username'>Username</x-label-input>
-                                        <x-input-field id="username" wire:model.live='usernameInput'
+                                        <x-input-field class="w-full" id="username" wire:model.live='usernameInput'
                                             type='text' />
                                         @error('usernameInput')
                                             <span class="w-full text-xs text-red-700">
@@ -209,7 +209,8 @@
                                     </div>
                                     <div class="mt-2 flex flex-col gap-1">
                                         <x-label-input for='emailInp'>Email</x-label-input>
-                                        <x-input-field id="emailInp" type='email' wire:model.live='emailInput' />
+                                        <x-input-field class="w-full" id="emailInp" type='email'
+                                            wire:model.live='emailInput' />
                                         @error('emailInput')
                                             <span class="w-full text-xs text-red-700">
                                                 {{ $message }}
@@ -218,8 +219,8 @@
                                     </div>
                                     <div class="mt-2 flex flex-col gap-1">
                                         <x-label-input for='password'>Password</x-label-input>
-                                        <x-input-field id="password" type='password' wire:model.live='password'
-                                            name='password' />
+                                        <x-input-field class="w-full" id="password" type='password'
+                                            wire:model.live='password' name='password' />
                                         @error('password')
                                             <span class="w-full text-xs text-red-700">
                                                 {{ $message }}
@@ -228,7 +229,7 @@
                                     </div>
                                     <div class="mt-2 flex flex-col gap-1">
                                         <x-label-input for='password_confirmation'>Confirm password</x-label-input>
-                                        <x-input-field id="password_confirmation" type='password'
+                                        <x-input-field class="w-full" id="password_confirmation" type='password'
                                             wire:model.live='password_confirmation' />
                                         @error('password_confirmation')
                                             <span class="w-full text-xs text-red-700">
@@ -268,8 +269,8 @@
                                         <div class="flex flex-row gap-2">
                                             <div class="flex flex-col gap-1">
                                                 <x-label-input for='firstName'>First name</x-label-input>
-                                                <x-input-field id="firstName" wire:model.live='fnameInput'
-                                                    type='text' />
+                                                <x-input-field class="w-full" id="firstName"
+                                                    wire:model.live='fnameInput' type='text' />
                                                 @error('fnameInput')
                                                     <span class="w-full text-xs text-red-700">
                                                         {{ $message }}
@@ -278,8 +279,8 @@
                                             </div>
                                             <div class="flex flex-col gap-1">
                                                 <x-label-input for='lastName'>Last name</x-label-input>
-                                                <x-input-field id="lastName" wire:model.live='lnameInput'
-                                                    type='text' />
+                                                <x-input-field class="w-full" id="lastName"
+                                                    wire:model.live='lnameInput' type='text' />
                                                 @error('lnameInput')
                                                     <span class="w-full text-xs text-red-700">
                                                         {{ $message }}
@@ -289,7 +290,7 @@
                                         </div>
                                         <div class="mt-2 flex w-full flex-col gap-1">
                                             <x-label-input for='phoneNumber'>Phone number</x-label-input>
-                                            <x-input-field id="phoneNumber" wire:model.live='phoneNum'
+                                            <x-input-field class="w-full" id="phoneNumber" wire:model.live='phoneNum'
                                                 type='text' />
                                             @error('phoneNum')
                                                 <span class="w-full text-xs text-red-700">
@@ -301,7 +302,7 @@
                                             <x-label-input
                                                 for='id-user'>{{ $accRole == '1' ? 'Student' : 'Faculty' }}
                                                 ID</x-label-input>
-                                            <x-input-field id="id-user" wire:model.live='idNumber'
+                                            <x-input-field class="w-full" id="id-user" wire:model.live='idNumber'
                                                 type='text' />
                                             @error('idNumber')
                                                 <span class="w-full text-xs text-red-700">
@@ -328,8 +329,8 @@
                                         </div>
                                         <div class="mt-2 flex flex-col gap-1">
                                             <x-label-input for='address'>Address</x-label-input>
-                                            <x-input-field id="address" wire:model.live='addressInput'
-                                                type='text' />
+                                            <x-input-field class="w-full" id="address"
+                                                wire:model.live='addressInput' type='text' />
                                             @error('addressInput')
                                                 <span class="w-full text-xs text-red-700">
                                                     {{ $message }}
@@ -385,7 +386,8 @@
         </div>
         <div class="mb-8 max-w-[85rem] rounded-2xl bg-white px-5 py-2 drop-shadow-md">
             <div class="relative flex w-full flex-col items-center justify-between px-4 py-2 md:flex-row">
-                <div wire:loading wire:target='search,program,accountRole, paginate'
+                <div wire:loading
+                    wire:target='search,program,accountRole, paginate, viewUser, toggleEditUser, deleteUserConfirmation  '
                     class="absolute -left-[0.5rem] top-[1rem] inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                     role="status">
                     <span

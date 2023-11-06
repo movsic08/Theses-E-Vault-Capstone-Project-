@@ -154,6 +154,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::get('/signup', [UserController::class, 'register'])->name('register');
+    Route::get('/forgot-password', function () {
+        return view('forgot-password-page');
+    })->name('forgot-pass');
 });
 
 Route::get('/sample', function () {

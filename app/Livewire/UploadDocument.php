@@ -47,8 +47,8 @@ class UploadDocument extends Component
         'bachelor_degree_value' => 'required',
         'panel_member1' => 'required|min:3',
         'panel_member2' => 'required|min:3',
-        'panel_member3' => 'required|min:3',
-        'panel_member4' => 'required|min:3',
+
+
     ];
 
     protected $tab2Rules = [
@@ -121,7 +121,7 @@ class UploadDocument extends Component
         $authorAPA = implode(', ', $authors);
 
         $publicationLocation = 'Pangasinan State University - AC';
-        $retrieveURL = 'http::/ThesisKiosk.app/documents/982734';
+        $retrieveURL = route('view-document', ['reference' => $this->docuReference]);
 
         $year = date('Y', strtotime($this->date_of_approval));
         $this->recommended_citation = $authorAPA . ' (' . $year . '). ' . $this->title . '. ' . $this->document_type . '. ' . $publicationLocation . '. ' . $retrieveURL;
@@ -151,6 +151,13 @@ class UploadDocument extends Component
         $this->showProgressBox = false;
     }
 
+    public function boot()
+    {
+        do {
+            $this->docuReference = Str::random(12);
+        }
+        while (DocuPost::where('reference', $this->docuReference)->exists());
+    }
     public function uploadDocument()
     {
 
@@ -175,10 +182,7 @@ class UploadDocument extends Component
     {
         $this->showProgressBox = true;
 
-        do {
-            $this->docuReference = Str::random(12);
-        }
-        while (DocuPost::where('reference', $this->docuReference)->exists());
+
         $currentDate = now()->format('Y-m-d');
         $customFileName = $this->title . '-' . $this->docuReference . '-' . $currentDate . '.pdf';
         if ($this->user_upload) {

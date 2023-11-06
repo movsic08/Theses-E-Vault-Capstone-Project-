@@ -97,7 +97,9 @@
                     </div>
                     <div>
                         <p class="font-extrabold">ABSTRACT/ SUMMARY</p>
-                        <p class="text-gray-600">{{ $data->abstract_or_summary }}</p>
+                        <p class="text-gray-600">
+                            {!! nl2br(e($data->abstract_or_summary)) !!}
+                        </p>
                     </div>
                 </div>
                 {{-- comment form --}}

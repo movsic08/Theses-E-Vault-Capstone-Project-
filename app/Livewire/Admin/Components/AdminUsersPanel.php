@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Components;
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
