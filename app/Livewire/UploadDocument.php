@@ -266,7 +266,12 @@ class UploadDocument extends Component
 
 
         $this->progressInfo = 'Success';
-        $this->is_Success = true;
+        if (auth()->user()->is_admin) {
+            return redirect()->route('admin-docu-post-panel');
+        } else {
+            $this->is_Success = true;
+        }
+
 
     }
 

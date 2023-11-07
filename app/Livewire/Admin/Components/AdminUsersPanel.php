@@ -70,7 +70,9 @@ class AdminUsersPanel extends Component
 
     public function addDepartment()
     {
-        $this->validate();
+
+        $this->validateOnly('course_acronym');
+        $this->validateOnly('name');
 
         $createResult = BachelorDegree::create([
             'degree_name' => strtoupper($this->course_acronym),

@@ -111,7 +111,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/users-panel', function () {
         return view('pages.admin.users-panel');
     })->name('admin-users-panel');
-    Route::get('/documents-list-panel', DocuPostPanel::class)->name('admin-docu-post-panel');
+    Route::get('/documents-lists-panel', DocuPostPanel::class)->name('admin-docu-post-panel');
 
     Route::get('/analytics', function () {
         return view('pages.admin.analytics');

@@ -160,10 +160,25 @@
                                     <div class="flex w-full flex-col gap-2 md:mt-2 md:flex-row md:gap-4">
                                         <div class="flex flex-col md:w-1/2">
                                             <x-label-input for='bachelor_degree'>Bachelor Degree</x-label-input>
-                                            <x-input-field class="w-full" type="text"
-                                                wire:model.live="bachelor_degree_value"
-                                                placeholder="{{ auth()->user()->is_admin ? 'Degree name' : '' }}"
-                                                id="bachelor_degree" :disabled="!auth()->user()->is_admin" />
+
+                                            @if (auth()->user()->is_admin)
+                                                <select wire:model.live="bachelor_degree_value"
+                                                    class="block h-9 w-full rounded-md border border-gray-300 bg-white px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                    id="userLevel">
+                                                    @php
+                                                        $courseLists = \App\Models\BachelorDegree::get();
+                                                    @endphp
+                                                    @foreach ($courseLists as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            @else
+                                                <x-input-field class="w-full" type="text"
+                                                    wire:model.live="bachelor_degree_value"
+                                                    placeholder="{{ auth()->user()->is_admin ? 'Degree name' : '' }}"
+                                                    id="bachelor_degree" :disabled="!auth()->user()->is_admin" />
+                                            @endif
                                             @error('bachelor_degree_value')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -318,8 +333,9 @@
                                         <div class="flex w-full flex-col">
                                             <x-label-input for="abstract_or_summary">
                                                 Abstract/ Summary</x-label-input>
-                                            <textarea class="rounded-md border border-gray-400 p-2 text-sm" type="text" wire:model.live="abstract_or_summary"
-                                                rows="25" id="abstract_or_summary" placeholder="abstract_or_summary of your work"></textarea>
+                                            <textarea class="custom-scrollbar rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                                wire:model.live="abstract_or_summary" rows="25" id="abstract_or_summary"
+                                                placeholder="abstract_or_summary of your work"></textarea>
                                             @error('abstract_or_summary')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -654,7 +670,13 @@
                         @endif
                     </div>
 
-                    <div class="flex justify-end gap-2 px-8 py-4">
+                    <div class="relative flex justify-end gap-2 px-8 py-4">
+                        <div wire:loading wire:target='changeTab, uploadDocument'
+                            class="mt-2 h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                            role="status">
+                            <span
+                                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                        </div>
                         @if ($currentTab == 1)
                             <a href="{{ route('edit-profile', 'tab4') }}"
                                 class="lg:1/12 w-1/2 rounded-md border border-gray-700 p-1 text-center duration-300 ease-in-out hover:bg-gray-600 hover:text-white md:w-1/4"

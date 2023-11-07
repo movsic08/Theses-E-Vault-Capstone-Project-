@@ -406,7 +406,7 @@
                               @enderror
                           @else
                               <span class="whitespace-nowrap font-semibold">
-                                  {{ $dataItem->keyword_1 }}
+                                  {{ $dataItem->keyword_2 }}
                               </span>
                           @endif
                           @if ($editing)
@@ -416,7 +416,7 @@
                               @enderror
                           @else
                               <span class="whitespace-nowrap font-semibold">
-                                  {{ $dataItem->keyword_1 }}
+                                  {{ $dataItem->keyword_3 }}
                               </span>
                           @endif
                           @if ($editing)
@@ -426,7 +426,7 @@
                               @enderror
                           @else
                               <span class="whitespace-nowrap font-semibold">
-                                  {{ $dataItem->keyword_1 }}
+                                  {{ $dataItem->keyword_4 }}
                               </span>
                           @endif
                           @if ($editing)
@@ -436,7 +436,7 @@
                               @enderror
                           @else
                               <span class="whitespace-nowrap font-semibold">
-                                  {{ $dataItem->keyword_1 }}
+                                  {{ $dataItem->keyword_5 }}
                               </span>
                           @endif
                           @if ($editing)
@@ -446,7 +446,7 @@
                               @enderror
                           @else
                               <span class="whitespace-nowrap font-semibold">
-                                  {{ $dataItem->keyword_1 }}
+                                  {{ $dataItem->keyword_6 }}
                               </span>
                           @endif
                           @if ($editing)
@@ -456,7 +456,7 @@
                               @enderror
                           @else
                               <span class="whitespace-nowrap font-semibold">
-                                  {{ $dataItem->keyword_1 }}
+                                  {{ $dataItem->keyword_7 }}
                                   keyword
                               </span>
                           @endif
@@ -467,7 +467,7 @@
                               @enderror
                           @else
                               <span class="whitespace-nowrap font-semibold">
-                                  {{ $dataItem->keyword_1 }}
+                                  {{ $dataItem->keyword_8 }}
                               </span>
                           @endif
                       </div>
@@ -491,7 +491,8 @@
                           @enderror
                       @else
                           <p class="font-semibold">
-                              {{ $dataItem->recommended_citation }}
+                              {!! nl2br(e($dataItem->recommended_citation)) !!}
+
                           </p>
                       @endif
 
@@ -517,7 +518,7 @@
                           @enderror
                       @else
                           <p class="mx-auto font-semibold">
-                              {{ $dataItem->abstract_or_summary }}
+                              {!! nl2br(e($dataItem->abstract_or_summary)) !!}
                           </p>
                       @endif
                       <div class="col-span-2 mt-6 flex flex-col items-start gap-1">
