@@ -27,7 +27,7 @@ class Home extends Component
         $docuPostData = DocuPost::where('status', 1)
             ->paginate(10);
         $this->bachelorDegree = BachelorDegree::all();
-        $this->latestDocuPostData = DocuPost::latest()->take(5)->get();
+        $this->latestDocuPostData = DocuPost::where('status', 1)->latest()->take(5)->get();
         return view('livewire.home', [
             'docuPostData' => $docuPostData
         ])->layout('layout.app');

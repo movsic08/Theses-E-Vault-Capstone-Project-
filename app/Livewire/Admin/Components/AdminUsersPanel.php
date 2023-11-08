@@ -456,10 +456,11 @@ class AdminUsersPanel extends Component
     public $hasData;
     public function render()
     {
-        sleep(1);
+        // sleep(1);
         $degreeLists = BachelorDegree::latest()
             ->get();
         $currentListData = User::latest();
+        // $currentListData = User::where('id', 7);
         $this->hasData = 1;
 
         if (isset($this->search)) {

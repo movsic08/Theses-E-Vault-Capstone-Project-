@@ -224,13 +224,14 @@
 
             </div>
             {{-- 2nd div (Fixed Right Side) --}}
-            <div class="sticky right-0 top-[4rem] col-span-5 h-fit lg:col-span-2">
-                <div class="flex flex-col gap-1">
-                    <div class="my-1 rounded-3xl bg-white drop-shadow-lg">
+            <div class="sticky right-0 top-[4.3rem] col-span-5 h-fit lg:col-span-2">
+                <div class="flex flex-col gap-2">
+                    {{-- 1st section sticky --}}
+                    <section class="mb-2 rounded-3xl bg-white drop-shadow-lg">
                         <div class="rounded-t-lg py-2 text-center">
-                            <strong>Latest research works</strong>
+                            <strong>Trending post</strong>
                         </div>
-                        <div class="h-full py-2 md:h-[15rem] lg:h-[18rem]">
+                        <div class="h-full py-2 md:max-h-[14rem] lg:max-h-[17rem]">
                             <div class="flex h-full flex-col gap-2">
                                 @if ($latestDocuPostData == null || count($latestDocuPostData) === 0)
                                     <section
@@ -260,7 +261,7 @@
                                 @else
                                     <div class="custom-scrollbar h-full overflow-y-auto">
                                         @foreach ($latestDocuPostData as $itemLatest)
-                                            <div class="px-2">
+                                            <div class="my-1.5 px-2">
                                                 <a href=""
                                                     class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
                                                 <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
@@ -272,14 +273,15 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
-                    <div class="my-1 rounded-3xl bg-white drop-shadow-lg">
-                        <div class="py-2 text-center">
-                            <strong>Latest Posts</strong>
+                    </section>
+                    {{-- 2nd section sticky --}}
+                    <section class="mb-2 rounded-3xl bg-white drop-shadow-lg">
+                        <div class="rounded-t-lg py-2 text-center">
+                            <strong>Trending post</strong>
                         </div>
-                        <div class="custom-scrollbar mb-2 h-full overflow-y-auto py-2 md:h-[15rem] lg:h-[18rem]">
+                        <div class="h-full py-2 md:max-h-[14rem] lg:max-h-[17rem]">
                             <div class="flex h-full flex-col gap-2">
-                                @if ($latestDocuPostData == null)
+                                @if ($latestDocuPostData == null || count($latestDocuPostData) === 0)
                                     <section
                                         class="bg-primary relative z-10 flex h-full items-center justify-center text-gray-700 drop-shadow-lg">
                                         <div class="container">
@@ -305,19 +307,21 @@
                                         </div>
                                     </section>
                                 @else
-                                    @foreach ($latestDocuPostData as $itemLatest)
-                                        <div class="px-2">
-                                            <a href=""
-                                                class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
-                                            <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
-                                                class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
-                                            </a>
-                                        </div>
-                                    @endforeach
+                                    <div class="custom-scrollbar h-full overflow-y-auto">
+                                        @foreach ($latestDocuPostData as $itemLatest)
+                                            <div class="my-1.5 px-2">
+                                                <a href=""
+                                                    class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
+                                                <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
+                                                    class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 @endif
                             </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
             </div>
 

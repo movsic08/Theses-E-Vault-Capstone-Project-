@@ -350,6 +350,11 @@
                 </section>
             </div>
         @endif
+
+
+        {{-- <x-admin.modals.admin-add-new-user :userLevel='$userLevel' :completeInfo='$completeInfo'>
+        </x-admin.modals.admin-add-new-user> --}}
+
         <x-admin.modals.admin-user-panel-delete-user :selectedUser='$selectedUser'>
         </x-admin.modals.admin-user-panel-delete-user>
 
@@ -375,10 +380,10 @@
                 </div>
                 <div class="flex gap-4 text-xs lg:text-base">
                     <div wire:click='openNewDepartmentBox'
-                        class="cursor-pointer rounded-lg border border-primary-color p-1 px-3 text-primary-color">
+                        class="h-fit cursor-pointer rounded-lg border border-primary-color p-1 px-3 text-primary-color">
                         Departments</div>
                     <div wire:click='showAddUserBox'
-                        class="cursor-pointer rounded-lg bg-primary-color p-1 px-3 text-white">Add
+                        class="h-fit cursor-pointer rounded-lg bg-primary-color p-1 px-3 text-white">Add
                         user</div>
                 </div>
             </div>

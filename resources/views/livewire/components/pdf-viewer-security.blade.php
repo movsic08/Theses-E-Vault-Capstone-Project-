@@ -1,6 +1,5 @@
 <div>
     <x-session_flash />
-    {{-- <h2>XBnS6LGZAk3yeHNWbz</h2> --}}
 
     <h2>{{ $pdfFileDecrpted }}</h2>
     @if ($PDFlocked)

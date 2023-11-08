@@ -492,7 +492,6 @@
                       @else
                           <p class="font-semibold">
                               {!! nl2br(e($dataItem->recommended_citation)) !!}
-
                           </p>
                       @endif
 

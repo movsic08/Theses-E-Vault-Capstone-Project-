@@ -76,7 +76,7 @@
                                 <input type="checkbox" name="" id="remember_me">
                                 <label class="font-normal" for="remember_me">Remember me</label>
                             </div>
-                            <a href="#"
+                            <a href="{{ route('forgot-pass') }}"
                                 class="text-blue-500 duration-150 ease-in-out hover:font-normal hover:text-blue-950">Forgot
                                 your password?</a>
                         </div>
