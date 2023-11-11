@@ -14,7 +14,7 @@
                             x-on:close-send.window = "send = false" x-on:open-otp.window = "otp = true"
                             x-on:close-otp.window = "otp = false" x-on:open-pass.window = "pass = true"
                             x-on:close-pass.window = "pass = false"
-                            class="mx-20 flex flex-col items-center justify-center gap-7 p-2">
+                            class="flex flex-col items-center justify-center gap-7 p-2 px-10">
 
                             {{-- enter email --}}
                             <section x-show=" send " class="flex flex-col items-center gap-3" style="display: none"
@@ -33,10 +33,10 @@
                                         your
                                         password securely.</small>
                                 </div>
-                                <div class="flex flex-col items-center justify-center gap-5">
-                                    <div class="w-full">
+                                <div class="flex w-full flex-col items-center justify-center gap-5">
+                                    <div class="w-full px-10">
                                         <x-input-field wire:model.live='email' type="email"
-                                            wire:keydown.enter="resetPassword" class="w-full md:w-[15rem] lg:w-[20rem]"
+                                            wire:keydown.enter="resetPassword" class="w-full"
                                             placeholder="Enter your email"></x-input-field>
                                         @error('email')
                                             <span class="w-full px-1 text-xs text-red-700">
@@ -67,7 +67,7 @@
 
                             {{-- enter otp code area --}}
                             <section x-show="otp" x-transition.delay.300ms:enter.duration.500ms x-transiton:leave
-                                class="flex w-full flex-col items-center justify-center">
+                                class="flex w-full flex-col items-center justify-center px-10">
                                 <div class="w-fit rounded-2xl bg-blue-100 p-2">
                                     <svg class="h-10 w-10 text-primary-color" fill="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -86,8 +86,8 @@
                                     <strong> {{ $email }}</strong> inbox now. If the OTP is already expired you
                                     can request another one by clicking the request new OTP button below.</span>
 
-                                <div class="mt-4 flex flex-col items-center justify-center gap-3">
-                                    <div class="w-full">
+                                <div class="mt-4 flex w-full flex-col items-center justify-center gap-3">
+                                    <div class="w-full px-10">
                                         <x-input-field wire:model.live='otpInput' type="text"
                                             wire:keydown.enter="resetPassword" class="w-full"
                                             placeholder="Enter your OTP here"></x-input-field>
@@ -106,19 +106,21 @@
                                                 {{ $message }}
                                             </span>
                                         @enderror
+                                        <span class="mx-1 mt-1 text-sm font-medium text-gray-700">Need a new OTP code?
+                                            <button wire:click.prevent='requestNewOTp'
+                                                class="font-medium text-blue-700 duration-500 ease-in-out hover:text-primary-color">Request
+                                                new code.</button></span>
                                     </div>
-                                    <button wire:click.prevent='requestNewOTp'
-                                        class="rounded-lg bg-blue-500 p-2 font-medium text-white duration-500 hover:bg-blue-800">Request
-                                        new code</button>
-                                    <button wire:click.prevent="confirmOTP" wire:loading.attr="disabled"
-                                        class="flex w-fit items-center justify-center gap-2 rounded-xl bg-blue-900 px-3 py-1 font-medium text-white duration-500 ease-in-out hover:bg-primary-color">
-                                        <div wire:loading wire:target="confirmOTP"
-                                            class="z-20 inline-block h-3 w-3 animate-spin rounded-full border-2 border-solid border-white border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
-                                        </div>
-                                        <span>Confirm</span>
-                                    </button>
-
-                                    <div class="container flex w-full items-center justify-end">
+                                    <div class="flex w-full items-center justify-end px-10">
+                                        <button wire:click.prevent="confirmOTP" wire:loading.attr="disabled"
+                                            class="flex w-fit items-center justify-center gap-2 rounded-xl bg-blue-900 px-3 py-1 font-medium text-white duration-500 ease-in-out hover:bg-primary-color">
+                                            <div wire:loading wire:target="confirmOTP"
+                                                class="z-20 inline-block h-3 w-3 animate-spin rounded-full border-2 border-solid border-white border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
+                                            </div>
+                                            <span>Confirm</span>
+                                        </button>
+                                    </div>
+                                    <div class="flex w-full items-center justify-start">
                                         <button @click="otp = false, send = true"
                                             class="mt-8 flex h-full w-fit cursor-pointer items-center justify-center gap-1 rounded-full bg-blue-100 px-3 py-2 text-sm font-semibold text-blue-800 duration-500 ease-in-out hover:bg-blue-200">
                                             <svg class="h-5 w-5" fill="currentColor" viewBox=""
@@ -134,7 +136,7 @@
 
                             {{-- change pass --}}
                             <section x-show="pass" x-transition.delay.300ms:enter.duration.500ms x-transiton:leave
-                                class="flex w-full flex-col items-center justify-center">
+                                class="flex w-full flex-col items-center justify-center px-10">
                                 <div class="w-fit rounded-2xl bg-blue-100 p-2">
                                     <svg class="h-10 w-10 text-primary-color" fill="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">

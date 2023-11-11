@@ -36,7 +36,8 @@
                         <div class="flex flex-col items-center gap-2">
                             <h1 class="text-[2rem] font-black leading-tight">Explore research works
                                 by undergraduates</h1>
-                            <p class="font-thin leading-tight">"Welcome to Thesis Kiosk! Here, you can easily explore a
+                            <p class="mr-4 font-thin leading-tight">"Welcome to Thesis Kiosk! Here, you can easily
+                                explore a
                                 collection
                                 of research works by
                                 undergraduate scholars!Unlock the doors to a world of knowledge, inspiration, and
