@@ -30,9 +30,9 @@ class UploadDocument extends Component
     }
     public $uploaded = false;
 
-    public $currentTab = 1;
+    public $currentTab = 2;
 
-    public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4;
+    public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4, $author5, $author6;
     public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload, $pdf_path;
 
     protected $tab1Rules = [
@@ -91,13 +91,13 @@ class UploadDocument extends Component
         }
     }
 
-    public function incrementProgress()
-    {
-        $this->progressPercent += 4;
+    // public function incrementProgress()
+    // {
+    //     $this->progressPercent += 4;
 
-        // Emit a Livewire event to update the progress bar in the JavaScript
-        $this->dispatch('updateProgressBar', $this->progressPercent);
-    }
+    //     // Emit a Livewire event to update the progress bar in the JavaScript
+    //     $this->dispatch('updateProgressBar', $this->progressPercent);
+    // }
 
     public $authorAPA;
 
@@ -243,6 +243,8 @@ class UploadDocument extends Component
             'author_2' => $this->author2,
             'author_3' => $this->author3,
             'author_4' => $this->author4,
+            'author_5' => $this->author5,
+            'author_6' => $this->author6,
             'keyword_1' => $this->keyword1,
             'keyword_2' => $this->keyword2,
             'keyword_3' => $this->keyword3,

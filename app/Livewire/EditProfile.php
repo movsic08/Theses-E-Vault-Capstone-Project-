@@ -98,7 +98,6 @@ class EditProfile extends Component
             'bio' => ['required', 'min:2'],
             'address' => ['required', 'min:5'],
             'bachelor_degree_input' => ['required'],
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
         ], [
             'bacbachelor_degree_input.required' => 'Please select your bachelor degree',
             'student_id.regex' => 'The student ID must be in the format "XX-AC-XXXX".',
@@ -112,7 +111,6 @@ class EditProfile extends Component
         Auth::user()->update([
             'first_name' => ucfirst($this->first_name),
             'last_name' => ucfirst($this->last_name),
-            'email' => $this->email,
             'bio' => $this->bio,
             'phone_no' => $this->phone_no,
             'student_id' => $this->student_id,

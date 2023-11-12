@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -45,6 +44,8 @@ return new class extends Migration
             $table->string('author_2')->nullable();
             $table->string('author_3')->nullable();
             $table->string('author_4')->nullable();
+            $table->string('author_5')->nullable();
+            $table->string('author_6')->nullable();
             $table->string('status')->default(false);
             $table->timestamps();
         });

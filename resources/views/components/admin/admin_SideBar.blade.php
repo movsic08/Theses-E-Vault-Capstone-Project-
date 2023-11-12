@@ -150,7 +150,7 @@
                 {{-- setting area --}}
                 <div
                     class="{{ request()->routeIs('admin-system-setting') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 flex flex-row items-center justify-between rounded-xl p-1 px-3 py-2.5 duration-500">
-                    <a wire:navigate href="{{ route('admin-system-setting', ['activeTab' => 'tab1']) }}"
+                    <a wire:navigate href="{{ route('admin-system-setting', ['activeTab' => 'profile']) }}"
                         class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">

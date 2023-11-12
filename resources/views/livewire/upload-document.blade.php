@@ -333,9 +333,9 @@
                                         <div class="flex w-full flex-col">
                                             <x-label-input for="abstract_or_summary">
                                                 Abstract/ Summary</x-label-input>
-                                            <textarea class="custom-scrollbar rounded-md border border-gray-400 p-2 text-sm" type="text"
+                                            <textarea class="custom-scrollbar rounded-md border border-gray-400 p-2 text-sm outline-primary-color" type="text"
                                                 wire:model.live="abstract_or_summary" rows="25" id="abstract_or_summary"
-                                                placeholder="abstract_or_summary of your work"></textarea>
+                                                placeholder="Abstract or summary of your work"></textarea>
                                             @error('abstract_or_summary')
                                                 <small class="text-red-500">{{ $message }}</small>
                                             @enderror
@@ -345,38 +345,61 @@
                                         <div class="flex w-full flex-col gap-3">
                                             <x-label-input for="authors">
                                                 Author/s</x-label-input>
-                                            <div class="">
-                                                <x-input-field class="w-full" type="text"
-                                                    wire:model.live="author1" id="authors"
-                                                    placeholder="authors of your work" :disabled='!auth()->user()->is_admin' />
-                                                @error('author1')
-                                                    <small class="text-red-500">{{ $message }}</small>
-                                                @enderror
+                                            <div class="flex w-full flex-row gap-3">
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author1" id="authors"
+                                                        placeholder="Author 1" :disabled='!auth()->user()->is_admin' />
+                                                    @error('author1')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author4" id="authors"
+                                                        placeholder="Author 4" />
+                                                    @error('author4')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <x-input-field class="w-full" type="text"
-                                                    wire:model.live="author2" id="authors"
-                                                    placeholder="authors of your work" />
-                                                @error('author2')
-                                                    <small class="text-red-500">{{ $message }}</small>
-                                                @enderror
+                                            <div class="flex w-full flex-row gap-3">
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author2" id="authors"
+                                                        placeholder="Author 2" />
+                                                    @error('author2')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author5" id="authors"
+                                                        placeholder="Author 5" />
+                                                    @error('author5')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <x-input-field class="w-full" type="text"
-                                                    wire:model.live="author3" id="authors"
-                                                    placeholder="authors of your work" />
-                                                @error('author3')
-                                                    <small class="text-red-500">{{ $message }}</small>
-                                                @enderror
+                                            <div class="flex w-full flex-row gap-3">
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author3" id="authors"
+                                                        placeholder="Author 3" />
+                                                    @error('author3')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author6" id="authors"
+                                                        placeholder="Author 6" />
+                                                    @error('author6')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <x-input-field class="w-full" type="text"
-                                                    wire:model.live="author4" id="authors"
-                                                    placeholder="authors of your work" />
-                                                @error('author4')
-                                                    <small class="text-red-500">{{ $message }}</small>
-                                                @enderror
-                                            </div>
+
                                         </div>
                                         <div class="flex w-full flex-col gap-2">
                                             <x-label-input class="text-sm font-semibold" for="keywords">
@@ -405,6 +428,14 @@
                                                 </div>
                                                 <div class="">
                                                     <x-input-field class="w-full" type="text"
+                                                        wire:model.live="keyword5" id="keywords"
+                                                        placeholder="Keyword 5 (Optional) " />
+                                                    @error('keyword5')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="">
+                                                    <x-input-field class="w-full" type="text"
                                                         wire:model.live="keyword2" id="keywords"
                                                         placeholder="Keyword 2 required" />
                                                     @error('keyword2')
@@ -413,9 +444,26 @@
                                                 </div>
                                                 <div class="">
                                                     <x-input-field class="w-full" type="text"
+                                                        wire:model.live="keyword6" id="keywords"
+                                                        placeholder="Keyword 6 (Optional)" />
+                                                    @error('keyword6')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="">
+                                                    <x-input-field class="w-full" type="text"
                                                         wire:model.live="keyword3" id="keywords"
                                                         placeholder="Keyword 3 required" />
                                                     @error('keyword3')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="keyword7" id="keywords"
+                                                        placeholder="Keyword 7 (Optional)" />
+                                                    @error('keyword7')
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>
@@ -427,35 +475,10 @@
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>
-
-                                                <div class="">
-                                                    <x-input-field class="w-full" type="text"
-                                                        wire:model.live="keyword5" id="keywords"
-                                                        placeholder="Keyword 5 required" />
-                                                    @error('keyword5')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="">
-                                                    <x-input-field class="w-full" type="text"
-                                                        wire:model.live="keyword6" id="keywords"
-                                                        placeholder="Keyword 6 required" />
-                                                    @error('keyword6')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="">
-                                                    <x-input-field class="w-full" type="text"
-                                                        wire:model.live="keyword7" id="keywords"
-                                                        placeholder="Keyword 7 optional" />
-                                                    @error('keyword7')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
                                                 <div class="">
                                                     <x-input-field class="w-full" type="text"
                                                         wire:model.live="keyword8" id="keywords"
-                                                        placeholder="Keyword 8 optional" />
+                                                        placeholder="Keyword 8 (Optional)" />
                                                     @error('keyword8')
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
