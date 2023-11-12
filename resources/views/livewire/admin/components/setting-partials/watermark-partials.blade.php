@@ -231,7 +231,7 @@
                                                  </svg>
                                              </span>
                                              <div wire:click='setAsDefault({{ $item->id }})'
-                                                 class="hover: cursor-pointer rounded-md bg-blue-600 p-1 text-white duration-500 ease-in-out hover:bg-blue-800">
+                                                 class="hover: w-fit cursor-pointer rounded-md bg-blue-600 p-1 text-center text-xs text-white duration-500 ease-in-out hover:bg-blue-800">
                                                  Set as default
                                              </div>
                                          </div>

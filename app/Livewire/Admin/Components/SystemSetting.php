@@ -133,7 +133,7 @@ class SystemSetting extends Component
                 $this->closeAddWatermark();
                 session()->flash('success', 'Save success.');
             } else {
-                unlink(public_path('storage/' . $filePath)); // Delete the file if it's not a PNG
+                unlink(public_path('storage/' . $filePath));
                 session()->flash('error', 'The image must be in PNG format to have a transparency background.');
             }
         }
@@ -158,9 +158,9 @@ class SystemSetting extends Component
     public function deleteWatermark($id)
     {
         $is_setCount = SettingWatermark::where('is_set', 1)->count();
-        if ($is_setCount > 1) {
+        if ($is_setCount >= 1) {
             $getData = SettingWatermark::where('id', $id)->first();
-            if ($getData->is_set == 1) {
+            if ($getData->is_set != 1) {
                 unlink(public_path('storage/' . $getData->file_link));
                 $isDeleted = $getData->delete();
                 if ($isDeleted) {
