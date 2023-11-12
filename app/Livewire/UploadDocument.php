@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\DocuPost;
 use App\Models\Notification;
+use App\Models\SettingWatermark;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -180,6 +181,15 @@ class UploadDocument extends Component
 
     public function createNewDocuPostEntry()
     {
+        $findWatermark = SettingWatermark::where('is_set', 1)->count();
+        if ($findWatermark != 1) {
+            return session()->flash('error', 'Watermark missing, contact admin.');
+        } else {
+            $findWatermark = SettingWatermark::where('is_set', 1)->first();
+            $getWatermarkData = SettingWatermark::where('id', $findWatermark->id)->first();
+        }
+
+
         $this->showProgressBox = true;
 
 
@@ -189,7 +199,8 @@ class UploadDocument extends Component
             $this->pdf_path = $this->user_upload->storeAs('PDF_uploads', $customFileName, 'public');
 
             $filePath = 'storage/' . $this->pdf_path;
-            $text_image = 'storage/watermark/watermark.png';
+
+            $text_image = 'storage/' . $getWatermarkData->file_link;
 
             // Set source PDF file
             $pdf = new Fpdi();

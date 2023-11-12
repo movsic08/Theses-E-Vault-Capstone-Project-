@@ -1,6 +1,6 @@
  <div x-show="activeTab === 'profile'" class="flex w-full flex-col gap-4 lg:flex-row">
      <div
-         class="flex w-full flex-col justify-between rounded-xl bg-white p-4 drop-shadow-lg lg:max-h-[30.5rem] lg:min-h-[30.5rem] lg:w-5/12">
+         class="flex w-full flex-col justify-between rounded-xl bg-white p-4 drop-shadow-lg md:p-8 lg:max-h-[30.5rem] lg:min-h-[30.5rem] lg:w-5/12">
          <div class="flex flex-col items-center justify-center gap-2">
              <div class="relative">
                  @if ($user->profile_picture)

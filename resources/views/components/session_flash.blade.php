@@ -5,13 +5,6 @@
     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition duration-500 transform ease-in"
     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
     This device is currently offline.
-    <button @click="open = false">
-        <svg width="23" height="23" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd"
-                d="M5.152 5.152a1.2 1.2 0 0 1 1.696 0L12 10.303l5.152-5.151a1.2 1.2 0 1 1 1.696 1.696L13.697 12l5.151 5.152a1.2 1.2 0 0 1-1.696 1.696L12 13.697l-5.152 5.151a1.2 1.2 0 0 1-1.696-1.696L10.303 12 5.152 6.848a1.2 1.2 0 0 1 0-1.696Z"
-                clip-rule="evenodd"></path>
-        </svg>
-    </button>
 </div>
 
 
