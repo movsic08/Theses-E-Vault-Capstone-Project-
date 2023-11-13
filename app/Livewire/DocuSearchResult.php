@@ -14,6 +14,7 @@ class DocuSearchResult extends Component
 
     #[Url()]
     public $search;
+
     public $results, $resultsCount, $authenticatedUser;
 
 
@@ -21,25 +22,14 @@ class DocuSearchResult extends Component
     public function mount()
     {
         $this->search = Route::current()->parameter('search');
-        // dd($this->search);
-        $this->results = DocuPost::where('title', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_1', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_2', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_3', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_4', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_5', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_6', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_7', 'like', '%' . $this->search . '%')
-            ->orWhere('keyword_8', 'like', '%' . $this->search . '%')
-            ->get();
-
-        $this->resultsCount = count($this->results);
-        $this->authenticatedUser = auth()->user();
     }
 
     public $newSearch;
-    public function searchNewDocu()
+    public function searchNewDocu($findThis = null)
     {
+        if ($findThis != null) {
+            $this->newSearch = $this->search;
+        }
         $this->search = $this->newSearch;
         $this->results = DocuPost::where('title', 'like', '%' . $this->newSearch . '%')
             ->orWhere('keyword_1', 'like', '%' . $this->newSearch . '%')
@@ -53,7 +43,6 @@ class DocuSearchResult extends Component
             ->get();
 
         $this->resultsCount = count($this->results);
-        $this->dispatch('formSubmitted');
     }
 
     public $isBookmarked;
@@ -98,6 +87,7 @@ class DocuSearchResult extends Component
 
     public function render()
     {
+        $this->searchNewDocu($this->search);
         return view('livewire.docu-search-result')->layout('layout.app');
     }
 }

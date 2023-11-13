@@ -356,27 +356,9 @@
                                                 </div>
                                                 <div class="w-full">
                                                     <x-input-field class="w-full" type="text"
-                                                        wire:model.live="author4" id="authors"
-                                                        placeholder="Author 4" />
-                                                    @error('author4')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="flex w-full flex-row gap-3">
-                                                <div class="w-full">
-                                                    <x-input-field class="w-full" type="text"
                                                         wire:model.live="author2" id="authors"
                                                         placeholder="Author 2" />
                                                     @error('author2')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="w-full">
-                                                    <x-input-field class="w-full" type="text"
-                                                        wire:model.live="author5" id="authors"
-                                                        placeholder="Author 5" />
-                                                    @error('author5')
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>
@@ -392,6 +374,24 @@
                                                 </div>
                                                 <div class="w-full">
                                                     <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author4" id="authors"
+                                                        placeholder="Author 4" />
+                                                    @error('author4')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="flex w-full flex-row gap-3">
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author5" id="authors"
+                                                        placeholder="Author 5" />
+                                                    @error('author5')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
                                                         wire:model.live="author6" id="authors"
                                                         placeholder="Author 6" />
                                                     @error('author6')
@@ -400,7 +400,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex w-full">
-                                                <div class="w-full">
+                                                <div class="w-full lg:w-1/2">
                                                     <x-input-field class="w-full" type="text"
                                                         wire:model.live="author7" id="authors"
                                                         placeholder="Author 7" />
@@ -431,24 +431,41 @@
                                                 <div class="">
                                                     <x-input-field class="w-full" type="text"
                                                         wire:model.live="keyword1" id="keywords"
-                                                        placeholder="Keyword 1 required" />
+                                                        placeholder="Keyword 1 Required" />
                                                     @error('keyword1')
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>
                                                 <div class="">
                                                     <x-input-field class="w-full" type="text"
-                                                        wire:model.live="keyword5" id="keywords"
-                                                        placeholder="Keyword 5 (Optional) " />
-                                                    @error('keyword5')
+                                                        wire:model.live="keyword2" id="keywords"
+                                                        placeholder="Keyword 2 Required " />
+                                                    @error('keyword2')
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>
                                                 <div class="">
                                                     <x-input-field class="w-full" type="text"
-                                                        wire:model.live="keyword2" id="keywords"
-                                                        placeholder="Keyword 2 required" />
-                                                    @error('keyword2')
+                                                        wire:model.live="keyword3" id="keywords"
+                                                        placeholder="Keyword 3 Required" />
+                                                    @error('keyword3')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="keyword4" id="keywords"
+                                                        placeholder="Keyword 4 Required" />
+                                                    @error('keyword4')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="keyword5" id="keywords"
+                                                        placeholder="Keyword 5 (Optional)" />
+                                                    @error('keyword5')
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>
@@ -460,28 +477,11 @@
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>
-
-                                                <div class="">
-                                                    <x-input-field class="w-full" type="text"
-                                                        wire:model.live="keyword3" id="keywords"
-                                                        placeholder="Keyword 3 required" />
-                                                    @error('keyword3')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
                                                 <div class="">
                                                     <x-input-field class="w-full" type="text"
                                                         wire:model.live="keyword7" id="keywords"
                                                         placeholder="Keyword 7 (Optional)" />
                                                     @error('keyword7')
-                                                        <small class="text-red-500">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="">
-                                                    <x-input-field class="w-full" type="text"
-                                                        wire:model.live="keyword4" id="keywords"
-                                                        placeholder="Keyword 4 required" />
-                                                    @error('keyword4')
                                                         <small class="text-red-500">{{ $message }}</small>
                                                     @enderror
                                                 </div>

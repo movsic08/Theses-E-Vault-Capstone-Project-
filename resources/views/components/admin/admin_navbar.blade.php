@@ -1,5 +1,5 @@
-<div class="md:gradient-bg-light container sticky top-0 z-30 w-full bg-slate-100 bg-opacity-70 backdrop-blur-md">
-    <div class="container flex w-full items-center justify-between p-4 text-base font-semibold text-blue-950">
+<div class="md:gradient-bg-light container sticky top-0 z-30 w-full bg-opacity-70 backdrop-blur-xl">
+    <div class="container flex w-full items-center justify-between px-4 py-2 text-base font-semibold text-blue-950">
         @php
 
             $currentHour = now()->hour; // Get the current hour of the day

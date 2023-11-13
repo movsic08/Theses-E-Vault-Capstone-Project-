@@ -46,6 +46,7 @@ return new class extends Migration {
             $table->string('author_4')->nullable();
             $table->string('author_5')->nullable();
             $table->string('author_6')->nullable();
+            $table->string('author_7')->nullable();
             $table->string('status')->default(false);
             $table->timestamps();
         });

@@ -3,9 +3,23 @@
 @tailwind utilities;
 
 
+
+
 .gradient-bg-light {
-  background: linear-gradient(135deg, #E8F5FD 0%, rgba(231, 234, 236, 0.56) 100%);
+  background: linear-gradient(107deg, #D9F0FF 3.72%, #E3E5E5 107.94%);
 }
+
+/* .gradient-bg-light {
+  background-color: hsla(197, 76%, 46%, 1);
+  background-image:
+    radial-gradient(at 24% 100%, hsla(184, 100%, 83%, 0.86) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(188, 79%, 79%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(207, 100%, 79%, 0.27) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(195, 100%, 81%, 0.91) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(191, 100%, 77%, 0.58) 0px, transparent 50%),
+    radial-gradient(at 84% 100%, hsla(210, 93%, 90%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(200, 100%, 79%, 0.54) 0px, transparent 50%);
+} */
 
 .signup-gradient {
   background: linear-gradient(136deg, #77DEF4 0%, #5CA4E8 100%);
