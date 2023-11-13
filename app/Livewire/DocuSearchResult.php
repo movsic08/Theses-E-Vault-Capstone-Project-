@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class DocuSearchResult extends Component
 {
+    use WithPagination;
 
     public $query, $authenticatedUser;
 
@@ -75,17 +77,22 @@ class DocuSearchResult extends Component
 
     public function render()
     {
-        $results = DocuPost::where('keyword_1', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_2', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_3', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_4', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_5', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_6', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_7', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_8', 'like', '%' . $this->query . '%')
-            ->orWhere('title', 'like', '%' . $this->query . '%')
-            ->get();
-        // dd($results);
+        $results = DocuPost::where('status', 1)
+            ->where(function ($query) {
+                $query->where('document_type', '=', $this->query)
+                    ->orWhere('course', '=', $this->query)
+                    ->orWhere('keyword_1', 'like', '%' . $this->query . '%')
+                    ->orWhere('keyword_2', 'like', '%' . $this->query . '%')
+                    ->orWhere('keyword_3', 'like', '%' . $this->query . '%')
+                    ->orWhere('keyword_4', 'like', '%' . $this->query . '%')
+                    ->orWhere('keyword_5', 'like', '%' . $this->query . '%')
+                    ->orWhere('keyword_6', 'like', '%' . $this->query . '%')
+                    ->orWhere('keyword_7', 'like', '%' . $this->query . '%')
+                    ->orWhere('keyword_8', 'like', '%' . $this->query . '%')
+                    ->orWhere('title', 'like', '%' . $this->query . '%');
+            })->paginate(10);
+
+
         $resultsCount = count($results);
         // $this->searchNewDocu($this->search);
         return view('livewire.docu-search-result', [

@@ -1,36 +1,42 @@
 <div class="container">
-    <p>Search: {{ $query }}</p>
-    <x-session_flash />
     @section('title', 'Search ' . $query)
-    <form wire:submit='searchNewDocu'>
-        <div class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 backdrop-blur-md">
-            <div class="flex w-full items-center">
-                <svg class="h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="m21 21-2.243-2.247-2.243-2.247"></path>
-                    <path d="M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z"></path>
-                </svg>
-                <input class="mx-2 w-full p-2 focus:border-b focus:border-gray-500 focus:outline-none"
-                    wire:model='search' type="search" name="" value="{{ $oldSearch }}" id="">
-            </div>
-            <div class="flex items-center gap-2">
-                <option value="">Filter</option>
-                <button type="submit" class="rounded-lg bg-blue-500 p-2 text-white">Search</button>
-            </div>
-        </div>
-    </form>
-    <div class="mt-4">
-        <strong class="my-2">{{ $resultsCount }}
-            @if ($resultsCount <= 1)
-                Result
-            @else
-                Results
-        </strong>
-        @endif
-        <div class="flex flex-col gap-3 lg:flex-row">
-            <section class="w-full">
+    <x-session_flash />
+
+    <div class="mx-3 mt-4">
+        <div class="relative mb-8 flex flex-col gap-4 lg:flex-row lg:gap-8">
+            <section class="flex w-full flex-col gap-4">
+                <div class="flex w-full items-center justify-between text-primary-color">
+                    <div><strong>Search:</strong> <span>{{ $query }}</span></div>
+                    <strong class="my-2">{{ $resultsCount }}
+                        @if ($resultsCount <= 1)
+                            Result
+                        @else
+                            Results
+                        @endif
+                    </strong>
+                </div>
+                <form wire:submit='searchNewDocu' class="-mt-2">
+                    <div
+                        class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 drop-shadow-md backdrop-blur-md">
+                        <div class="flex w-full items-center">
+                            <svg class="h-6 text-primary-color" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-width="4" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="m21 21-2.243-2.247-2.243-2.247"></path>
+                                <path d="M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z"></path>
+                            </svg>
+                            <input class="mx-2 w-full p-2 focus:border-b focus:border-gray-500 focus:outline-none"
+                                wire:model='search' type="search" placeholder="Search now..."
+                                value="{{ $oldSearch }}" id="">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <option value="">Filter</option>
+                            <button type="submit" class="rounded-lg bg-blue-500 p-2 text-white">Search</button>
+                        </div>
+                    </div>
+                </form>
                 @if (!$results->isEmpty())
-                    <div class="relative flex w-full flex-col gap-3">
+                    <div class="relative flex w-full flex-col gap-4">
                         <div wire:loading wire:target='searchNewDocu'
                             class="absolute z-30 h-full w-full bg-opacity-50 backdrop-blur">
                             <div class="container mt-20 w-fit rounded-xl bg-white p-14 drop-shadow-md">
@@ -117,13 +123,45 @@
                             </div>
                         @endforeach
                     </div>
+                    <div class="sticky bottom-2 right-0 mt-2 flex w-full items-center justify-center">
+                        <div class="rounded-lg border border-gray-300 bg-opacity-50 px-4 py-2 backdrop-blur-lg">
+                            {{ $results->links() }}
+                        </div>
+                    </div>
                 @else
-                    <div class="w-full bg-white">
-                        <h2>No result</h2>
+                    <div
+                        class="flex w-full flex-col items-center justify-center gap-4 rounded-xl bg-white p-10 drop-shadow">
+                        <svg class="h-36 lg:h-44" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
+                            viewBox="0 0 647.63626 632.17383" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path
+                                d="M687.3279,276.08691H512.81813a15.01828,15.01828,0,0,0-15,15v387.85l-2,.61005-42.81006,13.11a8.00676,8.00676,0,0,1-9.98974-5.31L315.678,271.39691a8.00313,8.00313,0,0,1,5.31006-9.99l65.97022-20.2,191.25-58.54,65.96972-20.2a7.98927,7.98927,0,0,1,9.99024,5.3l32.5498,106.32Z"
+                                transform="translate(-276.18187 -133.91309)" fill="#f2f2f2" />
+                            <path
+                                d="M725.408,274.08691l-39.23-128.14a16.99368,16.99368,0,0,0-21.23-11.28l-92.75,28.39L380.95827,221.60693l-92.75,28.4a17.0152,17.0152,0,0,0-11.28028,21.23l134.08008,437.93a17.02661,17.02661,0,0,0,16.26026,12.03,16.78926,16.78926,0,0,0,4.96972-.75l63.58008-19.46,2-.62v-2.09l-2,.61-64.16992,19.65a15.01489,15.01489,0,0,1-18.73-9.95l-134.06983-437.94a14.97935,14.97935,0,0,1,9.94971-18.73l92.75-28.4,191.24024-58.54,92.75-28.4a15.15551,15.15551,0,0,1,4.40966-.66,15.01461,15.01461,0,0,1,14.32032,10.61l39.0498,127.56.62012,2h2.08008Z"
+                                transform="translate(-276.18187 -133.91309)" fill="#3f3d56" />
+                            <path
+                                d="M398.86279,261.73389a9.0157,9.0157,0,0,1-8.61133-6.3667l-12.88037-42.07178a8.99884,8.99884,0,0,1,5.9712-11.24023l175.939-53.86377a9.00867,9.00867,0,0,1,11.24072,5.9707l12.88037,42.07227a9.01029,9.01029,0,0,1-5.9707,11.24072L401.49219,261.33887A8.976,8.976,0,0,1,398.86279,261.73389Z"
+                                transform="translate(-276.18187 -133.91309)" fill="#3535d0" />
+                            <circle cx="190.15351" cy="24.95465" r="20" fill="#3535d0" />
+                            <circle cx="190.15351" cy="24.95465" r="12.66462" fill="#fff" />
+                            <path
+                                d="M878.81836,716.08691h-338a8.50981,8.50981,0,0,1-8.5-8.5v-405a8.50951,8.50951,0,0,1,8.5-8.5h338a8.50982,8.50982,0,0,1,8.5,8.5v405A8.51013,8.51013,0,0,1,878.81836,716.08691Z"
+                                transform="translate(-276.18187 -133.91309)" fill="#e6e6e6" />
+                            <path
+                                d="M723.31813,274.08691h-210.5a17.02411,17.02411,0,0,0-17,17v407.8l2-.61v-407.19a15.01828,15.01828,0,0,1,15-15H723.93825Zm183.5,0h-394a17.02411,17.02411,0,0,0-17,17v458a17.0241,17.0241,0,0,0,17,17h394a17.0241,17.0241,0,0,0,17-17v-458A17.02411,17.02411,0,0,0,906.81813,274.08691Zm15,475a15.01828,15.01828,0,0,1-15,15h-394a15.01828,15.01828,0,0,1-15-15v-458a15.01828,15.01828,0,0,1,15-15h394a15.01828,15.01828,0,0,1,15,15Z"
+                                transform="translate(-276.18187 -133.91309)" fill="#3f3d56" />
+                            <path
+                                d="M801.81836,318.08691h-184a9.01015,9.01015,0,0,1-9-9v-44a9.01016,9.01016,0,0,1,9-9h184a9.01016,9.01016,0,0,1,9,9v44A9.01015,9.01015,0,0,1,801.81836,318.08691Z"
+                                transform="translate(-276.18187 -133.91309)" fill="#3535d0" />
+                            <circle cx="433.63626" cy="105.17383" r="20" fill="#3535d0" />
+                            <circle cx="433.63626" cy="105.17383" r="12.18187" fill="#fff" />
+                        </svg>
+                        <strong class="text-lg font-extrabold uppercase text-primary-color lg:text-2xl">No found, try
+                            again.</strong>
                     </div>
                 @endif
             </section>
-            <div class="h-fit w-1/2 rounded-lg bg-white p-2">
+            <div class="sticky right-0 top-[5rem] max-h-big w-full rounded-lg bg-white p-2 drop-shadow lg:w-1/2">
                 <h2>UI am side</h2>
             </div>
         </div>

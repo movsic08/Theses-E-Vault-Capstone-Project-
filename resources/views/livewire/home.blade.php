@@ -216,14 +216,16 @@
                                                 }
 
                                             @endphp
-                                            <div
+                                            <a href="{{ route('search-result-page', ['q' => $docuData->document_type]) }}"
+                                                target="_blank"
                                                 class="{{ $bgColorDT }} h-fit w-fit rounded-md px-1 py-0.5 text-sm md:px-2">
                                                 {{ $docuData->document_type }}
-                                            </div>
-                                            <div
+                                            </a>
+                                            <a href="{{ route('search-result-page', ['q' => $docuData->course]) }}"
+                                                target="_blank"
                                                 class="{{ $bgColorCourse }} h-fit w-fit rounded-md px-1 py-0.5 text-sm md:px-2">
                                                 {{ $docuData->course }}
-                                            </div>
+                                            </a>
                                         </div>
                                         <span
                                             class="text-sm font-semibold">{{ \Carbon\Carbon::parse($docuData->created_at)->format('M d, Y') }}</span>

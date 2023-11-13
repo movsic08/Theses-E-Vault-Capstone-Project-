@@ -1,8 +1,8 @@
 <div>
     <section class="container">
-        <div class="flex flex-col items-center justify-center md:p-2">
+        <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-36 md:p-2">
             <h2
-                class="text-md mx-[4rem] mt-7 text-center font-extrabold text-primary-color dark:text-white md:text-[1.3rem] lg:text-[1.6rem]">
+                class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[6.5rem] lg:text-4xl lg:text-[1.6rem]">
                 UNLOCKING
                 ACADEMIC
                 INSIGHTS:
@@ -16,23 +16,31 @@
 
                 <div class="flex items-center justify-center" for="search-docu">
                     <input
-                        class="h-8 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-lg focus:border-gray-400 focus:outline-none md:h-10 md:w-[27rem] lg:w-[62.8rem]"
-                        type="search" id="search-docu" wire:model.live='search' placeholder="Search">
+                        class="h-8 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-md focus:border-gray-400 focus:outline-none md:h-10 md:w-[27rem] lg:h-14 lg:w-[62.8rem]"
+                        wire:keydown.enter='findResult' type="search" id="search-docu" wire:model.live='search'
+                        placeholder="Search">
                     <button wire:click='findResult'
-                        class="custom-blue-via flex h-[2rem] w-[2.5rem] items-center justify-center rounded-r-full p-2 drop-shadow-lg md:h-[2.4rem] md:w-[4rem]">
-                        <svg class="h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43 37" fill="none">
+                        class="custom-blue-via flex h-[2rem] w-[2.5rem] items-center justify-center rounded-r-full p-2 drop-shadow-lg md:h-[2.4rem] md:w-[4rem] lg:h-14">
+                        <svg wire:loading.remove wire:target='findResult' class="h-5"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43 37" fill="none">
                             <path
                                 d="M18.1262 27.7507C21.184 27.7501 24.1537 26.834 26.5624 25.1483L34.1356 31.9255L36.5716 29.7456L28.9984 22.9684C30.8831 20.8126 31.9074 18.1544 31.9081 15.4173C31.9081 8.61703 25.7252 3.08398 18.1262 3.08398C10.5271 3.08398 4.34418 8.61703 4.34418 15.4173C4.34418 22.2176 10.5271 27.7507 18.1262 27.7507ZM18.1262 6.16732C23.8267 6.16732 28.4626 10.3159 28.4626 15.4173C28.4626 20.5187 23.8267 24.6673 18.1262 24.6673C12.4256 24.6673 7.78967 20.5187 7.78967 15.4173C7.78967 10.3159 12.4256 6.16732 18.1262 6.16732Z"
                                 fill="white" />
                         </svg>
+                        <div wire:loading wire:target='findResult'
+                            class="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-white border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                            role="status">
+                            <span
+                                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                        </div>
                     </button>
                 </div>
 
                 <a href=""
-                    class="w-fit rounded-md bg-blue-500 px-2 py-1 text-white duration-200 ease-in-out hover:bg-blue-700">Advanced
+                    class="w-fit rounded-md bg-blue-500 px-2 py-1 text-xs text-white duration-200 ease-in-out hover:bg-blue-700 md:text-base">Advanced
                     search</a>
             </div>
-            <div class="mt-2 w-full">
+            {{-- <div class="mt-2 w-full">
                 <div
                     class="custom-scrollbar h-[20rem] space-y-2 overflow-y-auto rounded-3xl bg-white bg-opacity-50 p-2 drop-shadow-xl backdrop-blur-sm md:mx-[9.5rem] md:h-[28rem] md:w-[35rem] lg:h-fit lg:w-fit">
                     @foreach ($latestDocu as $item)
@@ -55,7 +63,7 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
 
