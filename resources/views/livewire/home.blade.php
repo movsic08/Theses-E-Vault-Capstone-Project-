@@ -63,7 +63,8 @@
                                     <div class="">
                                         <div class="mr-6 flex">
                                             <a href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
-                                                target="_blank" class="text-[1rem] font-medium text-primary-color">
+                                                wire:click='viewsCount({{ $docuData->id }})' target="_blank"
+                                                class="text-[1rem] font-medium text-primary-color">
                                                 {{ $docuData->title }}
                                             </a>
                                         </div>
@@ -233,7 +234,7 @@
                         </div>
                         <div class="h-full py-2 md:max-h-[14rem] lg:max-h-[17rem]">
                             <div class="flex h-full flex-col gap-2">
-                                @if ($latestDocuPostData == null || count($latestDocuPostData) === 0)
+                                @if ($mostViewedDocu == null || count($mostViewedDocu) === 0)
                                     <section
                                         class="bg-primary relative z-10 flex h-full items-center justify-center text-gray-700 drop-shadow-lg">
                                         <div class="container">
@@ -260,7 +261,10 @@
                                     </section>
                                 @else
                                     <div class="custom-scrollbar h-full overflow-y-auto">
-                                        @foreach ($latestDocuPostData as $itemLatest)
+                                        @foreach ($mostViewedDocu as $item)
+                                            @php
+                                                $itemLatest = \App\Models\DocuPost::where('id', $item->post_id)->first();
+                                            @endphp
                                             <div class="my-1.5 px-2">
                                                 <a href=""
                                                     class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>

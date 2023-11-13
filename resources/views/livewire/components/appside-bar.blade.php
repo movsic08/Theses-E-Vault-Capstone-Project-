@@ -41,7 +41,8 @@
                             @if ($numberOfNotification > 0)
                                 <div
                                     class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
-                                    <p class="text-[8px]">{{ $numberOfNotification }}</p>
+                                    <p class="text-[8px]">{{ $numberOfNotification <= 9 ? $numberOfNotification : '9+' }}
+                                    </p>
                                 </div>
                             @endif
                         </div>

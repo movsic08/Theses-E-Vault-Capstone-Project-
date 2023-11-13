@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\BachelorDegree;
 use App\Models\BookmarkList;
 use App\Models\DocuPost;
+use App\Models\DocuPostView;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -22,14 +23,39 @@ class Home extends Component
         // dd( $this->authenticatedUser );
     }
 
+    public function viewsCount($postId)
+    {
+
+        $postView = DocuPostView::where('post_id', $postId)->first();
+
+        if ($postView) {
+            $postView->increment('views_count');
+        } else {
+            DocuPostView::create([
+                'post_id' => $postId,
+                'views_count' => 1,
+            ]);
+        }
+
+    }
+
+
     public function render()
     {
         $docuPostData = DocuPost::where('status', 1)
             ->paginate(10);
+
         $this->bachelorDegree = BachelorDegree::all();
+
         $this->latestDocuPostData = DocuPost::where('status', 1)->latest()->take(5)->get();
+
+        $mostViewedDocu = DocuPostView::orderBy('views_count', 'desc')
+            ->take(5)
+            ->get();
+
         return view('livewire.home', [
-            'docuPostData' => $docuPostData
+            'docuPostData' => $docuPostData,
+            'mostViewedDocu' => $mostViewedDocu,
         ])->layout('layout.app');
     }
 
