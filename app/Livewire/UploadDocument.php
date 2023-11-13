@@ -33,11 +33,11 @@ class UploadDocument extends Component
 
     public $currentTab = 1;
 
-    public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4, $author5, $author6;
+    public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4, $author5, $author6, $author7;
     public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload, $pdf_path;
 
     protected $tab1Rules = [
-        'title' => 'required|min:3',
+        'title' => 'required|min:3|unique:docu_posts,title',
         'document_type' => 'required|min:3',
         'date_of_approval' => 'required|date',
         'format' => 'required|min:2',
@@ -256,6 +256,7 @@ class UploadDocument extends Component
             'author_4' => $this->author4,
             'author_5' => $this->author5,
             'author_6' => $this->author6,
+            'author_7' => $this->author7,
             'keyword_1' => $this->keyword1,
             'keyword_2' => $this->keyword2,
             'keyword_3' => $this->keyword3,

@@ -133,7 +133,7 @@ class DocuPostPanel extends Component
 
     #[Rule('required', as: 'author')]
     public $updating_author_1;
-    public $updating_author_2, $updating_author_3, $updating_author_4;
+    public $updating_author_2, $updating_author_3, $updating_author_4, $updating_author_5, $updating_author_6, $updating_author_7;
 
     #[Rule('required', as: 'recommend_citation')]
     public $updating_recommended_citation;
@@ -171,6 +171,8 @@ class DocuPostPanel extends Component
         $this->updating_author_2 = $currentEditingDocuData->author_2;
         $this->updating_author_3 = $currentEditingDocuData->author_3;
         $this->updating_author_4 = $currentEditingDocuData->author_4;
+        $this->updating_author_5 = $currentEditingDocuData->author_5;
+        $this->updating_author_6 = $currentEditingDocuData->author_6;
         $this->updating_keyword_1 = $currentEditingDocuData->keyword_1;
         $this->updating_keyword_2 = $currentEditingDocuData->keyword_2;
         $this->updating_keyword_3 = $currentEditingDocuData->keyword_3;

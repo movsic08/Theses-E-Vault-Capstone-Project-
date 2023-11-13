@@ -399,6 +399,16 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            <div class="flex w-full">
+                                                <div class="w-full">
+                                                    <x-input-field class="w-full" type="text"
+                                                        wire:model.live="author7" id="authors"
+                                                        placeholder="Author 7" />
+                                                    @error('author7')
+                                                        <small class="text-red-500">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
 
                                         </div>
                                         <div class="flex w-full flex-col gap-2">

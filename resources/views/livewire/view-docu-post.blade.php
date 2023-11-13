@@ -225,6 +225,15 @@
                         @if (!empty($data->author_4))
                             <p class="text-gray-600">{{ $data->author_4 }}</p>
                         @endif
+                        @if (!empty($data->author_5))
+                            <p class="text-gray-600">{{ $data->author_5 }}</p>
+                        @endif
+                        @if (!empty($data->author_6))
+                            <p class="text-gray-600">{{ $data->author_6 }}</p>
+                        @endif
+                        @if (!empty($data->author_7))
+                            <p class="text-gray-600">{{ $data->author_7 }}</p>
+                        @endif
                     </div>
                 </div>
             </div>

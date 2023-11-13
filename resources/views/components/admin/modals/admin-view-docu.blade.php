@@ -375,6 +375,36 @@
                                   {{ $dataItem->author_4 }}
                               </span>
                           @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_author_5' />
+                              @error('updating_author_5')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->author_5 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_author_6' />
+                              @error('updating_author_6')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->author_6 }}
+                              </span>
+                          @endif
+                          @if ($editing)
+                              <x-input-field id="title" class="w-full" wire:model.live='updating_author_7' />
+                              @error('updating_author_7')
+                                  <small class="text-red-500">{{ $message }}</small>
+                              @enderror
+                          @else
+                              <span class="whitespace-nowrap font-semibold">
+                                  {{ $dataItem->author_7 }}
+                              </span>
+                          @endif
                       </div>
                   </div>
                   <div class="grid grid-cols-2 gap-4 border-b-2 border-gray-400 py-4">

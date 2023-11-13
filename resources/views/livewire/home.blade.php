@@ -281,7 +281,7 @@
                     {{-- 2nd section sticky --}}
                     <section class="mb-2 rounded-3xl bg-white drop-shadow-lg">
                         <div class="rounded-t-lg py-2 text-center">
-                            <strong>Trending post</strong>
+                            <strong>Latest post</strong>
                         </div>
                         <div class="h-full py-2 md:max-h-[14rem] lg:max-h-[17rem]">
                             <div class="flex h-full flex-col gap-2">
