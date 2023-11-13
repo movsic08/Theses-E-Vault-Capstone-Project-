@@ -87,9 +87,14 @@ Route::middleware(['auth', 'user'])->group(function () {
 Route::get('/home', [HomeController::class, 'show'])->name('home');
 Route::get('/home-component', Home::class)->name('home-component');
 Route::get('/document/{reference?}', ViewDocuPost::class)->name('view-document');
+
+
 Route::get('/search', [SearchController::class, 'viewBasicSearch'])->name('user-search');
 Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
+
 Route::get('/search/result/{search?}', DocuSearchResult::class)->name('search-result-page');
+
+
 Route::get('/catalogue', [CatalogueController::class, 'mainView'])->name('user-catalogue');
 // });
 
@@ -111,7 +116,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/users-panel', function () {
         return view('pages.admin.users-panel');
     })->name('admin-users-panel');
-    Route::get('/documents-lists-panel', DocuPostPanel::class)->name('admin-docu-post-panel');
+
+    Route::get('/documents-lists-panel', function () {
+        return view('pages.admin.docu-panel-page');
+    })->name('admin-docu-post-panel');
+    // Route::get('/documents-lists-panel', DocuPostPanel::class)->name('admin-docu-post-panel');
 
     Route::get('/analytics', function () {
         return view('pages.admin.analytics');

@@ -6,8 +6,9 @@
             });
         });
     </script> --}}
+    {{ dump($search) }}
     <x-session_flash />
-    @section('title', 'Search ' . $query)
+    @section('title', 'Search ' . $search)
     <form wire:submit='searchNewDocu'>
         <div class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 backdrop-blur-md">
             <div class="flex w-full items-center">
@@ -17,7 +18,7 @@
                     <path d="M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z"></path>
                 </svg>
                 <input class="mx-2 w-full p-2 focus:border-b focus:border-gray-500 focus:outline-none"
-                    wire:model='query' type="search" name="" value="{{ $query }}" id="">
+                    wire:model='newSearch' type="search" name="" value="{{ $search }}" id="">
             </div>
             <div class="flex items-center gap-2">
                 <option value="">Filter</option>

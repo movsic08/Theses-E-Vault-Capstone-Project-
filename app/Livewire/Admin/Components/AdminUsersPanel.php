@@ -19,7 +19,7 @@ class AdminUsersPanel extends Component
 
     public function placeholder()
     {
-        return view('livewire.placeholder.admin-users-skeleton')->layout('layout.admin');
+        return view('livewire.placeholder.admin-users-skeleton');
     }
 
     public $currentQuery;

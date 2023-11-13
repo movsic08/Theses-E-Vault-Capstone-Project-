@@ -447,8 +447,14 @@ class DocuPostPanel extends Component
         return view('livewire.admin.docu-post-panel', [
             'listOfDocuPost' => $listOfDocuPost,
             'degreeLists' => $degreeLists
-        ])
-            ->layout('layout.admin');
+        ]);
+
     }
+
+    public function placeholder()
+    {
+        return view('livewire.placeholder.admin-docu-panel-skeleton');
+    }
+
 
 }

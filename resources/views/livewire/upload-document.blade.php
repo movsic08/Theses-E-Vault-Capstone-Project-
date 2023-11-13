@@ -727,7 +727,7 @@
                             </button>
                         @else
                             <button wire:loading.attr="disabled"
-                                class="{{ $errorsTab1 && $errorsTab12 && $errorsTab3 ? '' : 'hover:bg-blue-500 w-1/2  duration-300 ease-in-out' }} lg:1/12 rounded-md bg-blue-800 p-1 text-white md:w-1/4"
+                                class="{{ $errorsTab1 && $errorsTab2 && $errorsTab3 ? '' : 'hover:bg-blue-500 w-1/2  duration-300 ease-in-out' }} lg:1/12 rounded-md bg-blue-800 p-1 text-white md:w-1/4"
                                 type="Submit" @if ($errorsTab1 && $errorsTab2 && $errorsTab3) disabled @endif>
                                 Submit
                             </button>

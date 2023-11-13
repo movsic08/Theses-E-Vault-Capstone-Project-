@@ -12,40 +12,44 @@ use Livewire\Component;
 class DocuSearchResult extends Component
 {
 
-    #[Url( as: "s", history: true)]
-    public $query;
+    #[Url()]
+    public $search;
     public $results, $resultsCount, $authenticatedUser;
 
-    public function mount($search = null)
+
+
+    public function mount()
     {
-        $this->query = $search;
-        $this->results = DocuPost::where('title', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_1', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_2', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_3', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_4', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_5', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_6', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_7', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_8', 'like', '%' . $this->query . '%')
+        $this->search = Route::current()->parameter('search');
+        // dd($this->search);
+        $this->results = DocuPost::where('title', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_1', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_2', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_3', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_4', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_5', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_6', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_7', 'like', '%' . $this->search . '%')
+            ->orWhere('keyword_8', 'like', '%' . $this->search . '%')
             ->get();
 
         $this->resultsCount = count($this->results);
         $this->authenticatedUser = auth()->user();
     }
 
+    public $newSearch;
     public function searchNewDocu()
     {
-        $this->query;
-        $this->results = DocuPost::where('title', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_1', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_2', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_3', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_4', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_5', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_6', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_7', 'like', '%' . $this->query . '%')
-            ->orWhere('keyword_8', 'like', '%' . $this->query . '%')
+        $this->search = $this->newSearch;
+        $this->results = DocuPost::where('title', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_1', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_2', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_3', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_4', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_5', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_6', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_7', 'like', '%' . $this->newSearch . '%')
+            ->orWhere('keyword_8', 'like', '%' . $this->newSearch . '%')
             ->get();
 
         $this->resultsCount = count($this->results);

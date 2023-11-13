@@ -1,11 +1,11 @@
-<div wire:offline
+{{-- <div wire:offline
     class="container fixed left-0 right-0 top-14 z-50 flex w-fit items-center justify-between gap-2 rounded-md bg-orange-500 bg-opacity-80 p-2 text-white shadow-md drop-shadow-sm backdrop-blur-sm"
-    x-data="{ open: true }" x-init="setTimeout(() => { open = false }, 5000)" x-show="open"
+    x-data="{ open: true }" x-init="setTimeout(() => { open = false }, 5000)" x-show="open" x-on:keydown.escape.window =" open = false "
     x-transition:enter="transition duration-500 transform ease-out" x-transition:enter-start="opacity-0 scale-95"
     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition duration-500 transform ease-in"
     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
     This device is currently offline.
-</div>
+</div> --}}
 
 
 
