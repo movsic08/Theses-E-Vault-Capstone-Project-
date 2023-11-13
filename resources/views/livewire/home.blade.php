@@ -102,47 +102,55 @@
                                                     fill="" />
                                             </svg>
                                             @if (!empty($docuData->keyword_1))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_1 }}
                                                 </a>
                                             @endif
                                             @if (!empty($docuData->keyword_2))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_2 }}</a>
                                             @endif
                                             @if (!empty($docuData->keyword_3))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_3 }}</a>
                                             @endif
                                             @if (!empty($docuData->keyword_4))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_4 }}
                                                 </a>
                                             @endif
                                             @if (!empty($docuData->keyword_5))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_5 }}
                                                 </a>
                                             @endif
                                             @if (!empty($docuData->keyword_6))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_6 }}
                                                 </a>
                                             @endif
                                             @if (!empty($docuData->keyword_7))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_7 }}
                                                 </a>
                                             @endif
                                             @if (!empty($docuData->keyword_8))
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('search-result-page', ['q' => $docuData->keyword_1]) }}"
+                                                    target="_blank"
                                                     class="whitespace-nowrap rounded-md bg-slate-100 px-1 duration-200 hover:bg-slate-300">
                                                     {{ $docuData->keyword_8 }}
                                                 </a>
@@ -176,6 +184,12 @@
                                                 {{ $docuData->author_3 }}</a>
                                             <a target="_blank" href="#" class="mr-2 whitespace-nowrap">
                                                 {{ $docuData->author_4 }}</a>
+                                            <a target="_blank" href="#" class="mr-2 whitespace-nowrap">
+                                                {{ $docuData->author_5 }}</a>
+                                            <a target="_blank" href="#" class="mr-2 whitespace-nowrap">
+                                                {{ $docuData->author_6 }}</a>
+                                            <a target="_blank" href="#" class="mr-2 whitespace-nowrap">
+                                                {{ $docuData->author_7 }}</a>
                                         </div>
                                     </div>
                                     <div class="mt-2 flex items-center justify-between">

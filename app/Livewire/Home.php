@@ -59,6 +59,8 @@ class Home extends Component
         ])->layout('layout.app');
     }
 
+
+
     public function bookmarkItem($id, $reference)
     {
         if (!auth()->check()) {

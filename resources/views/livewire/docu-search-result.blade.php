@@ -1,14 +1,7 @@
 <div class="container">
-    {{-- <script>
-        document.addEventListener('livewire:load', function() {
-            Livewire.on('formSubmitted', function() {
-                location.reload(); // Refresh the entire page
-            });
-        });
-    </script> --}}
-    {{ dump($search) }}
+    <p>Search: {{ $query }}</p>
     <x-session_flash />
-    @section('title', 'Search ' . $search)
+    @section('title', 'Search ' . $query)
     <form wire:submit='searchNewDocu'>
         <div class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 backdrop-blur-md">
             <div class="flex w-full items-center">
@@ -18,7 +11,7 @@
                     <path d="M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z"></path>
                 </svg>
                 <input class="mx-2 w-full p-2 focus:border-b focus:border-gray-500 focus:outline-none"
-                    wire:model='newSearch' type="search" name="" value="{{ $search }}" id="">
+                    wire:model='search' type="search" name="" value="{{ $oldSearch }}" id="">
             </div>
             <div class="flex items-center gap-2">
                 <option value="">Filter</option>
@@ -35,16 +28,26 @@
         </strong>
         @endif
         <div class="flex flex-col gap-3 lg:flex-row">
-            <div wire:loading wire:target='searchNewDocu' class="w-full bg-white p-20">
-                <h2>LOADING>>></h2>
-            </div>
-            {{-- data result box  --}}
-            <section class="w-full" wire:loading.remove wire:target='searchNewDocu'>
+            <section class="w-full">
                 @if (!$results->isEmpty())
-                    <div class="flex w-full flex-col gap-3">
+                    <div class="relative flex w-full flex-col gap-3">
+                        <div wire:loading wire:target='searchNewDocu'
+                            class="absolute z-30 h-full w-full bg-opacity-50 backdrop-blur">
+                            <div class="container mt-20 w-fit rounded-xl bg-white p-14 drop-shadow-md">
+                                <div class="flex h-full flex-col items-center justify-center gap-2">
+                                    <div
+                                        class="relative h-24 w-24 animate-spin rounded-full bg-gradient-to-r from-yellow-500 to-blue-800">
+                                        <div
+                                            class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-white bg-gray-200">
+                                        </div>
+                                    </div>
+                                    <strong class="text-primary-color md:text-lg lg:text-xl">Searching...</strong>
+                                </div>
+                            </div>
+                        </div>
                         @foreach ($results as $resultsItem)
                             <div
-                                class="w-full rounded-lg border border-gray-200 bg-white p-2 text-gray-600 drop-shadow">
+                                class="w-full rounded-lg border border-gray-200 bg-white p-2 text-gray-600 drop-shadow-md">
                                 <div class="flex w-full items-center justify-between">
                                     <div class="flex">
                                         <svg class="ml-2 mr-3 h-14 min-h-[3.5rem] w-14 min-w-[3.5rem]"
@@ -99,7 +102,6 @@
                                     <img class="h-4 rounded-full object-cover"
                                         src="{{ asset('assets/default_profile.png') }}" alt="profile">
                                     <span class="text-sm">
-                                        {{-- {{ $userData->first_name }} {{ $userData->last_name }} --}}
                                         {{ $resultsItem->author_1 }}
                                     </span>
                                     <span class="ml-1 text-sm">
@@ -116,7 +118,6 @@
                         @endforeach
                     </div>
                 @else
-                    {{-- no result box --}}
                     <div class="w-full bg-white">
                         <h2>No result</h2>
                     </div>

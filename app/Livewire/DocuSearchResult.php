@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\BookmarkList;
 use App\Models\DocuPost;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -12,43 +13,30 @@ use Livewire\Component;
 class DocuSearchResult extends Component
 {
 
-    #[Url()]
-    public $search;
-
-    public $results, $resultsCount, $authenticatedUser;
-
-
+    public $query, $authenticatedUser;
 
     public function mount()
     {
-        $this->search = Route::current()->parameter('search');
+        $this->query = Request::get('q');
+        $this->authenticatedUser = auth()->user();
     }
 
-    public $newSearch;
-    public function searchNewDocu($findThis = null)
-    {
-        if ($findThis != null) {
-            $this->newSearch = $this->search;
-        }
-        $this->search = $this->newSearch;
-        $this->results = DocuPost::where('title', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_1', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_2', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_3', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_4', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_5', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_6', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_7', 'like', '%' . $this->newSearch . '%')
-            ->orWhere('keyword_8', 'like', '%' . $this->newSearch . '%')
-            ->get();
+    // #[Url(keep: true)]
+    public $search = '', $oldSearch;
 
-        $this->resultsCount = count($this->results);
+    // public $results, $resultsCount;
+    // public $newSearch;
+    public function searchNewDocu()
+    {
+        $this->oldSearch = $this->query;
+        return redirect()->route('search-result-page', ['q' => $this->search]);
     }
 
     public $isBookmarked;
 
     public function bookmark($id, $reference)
     {
+        // dd($this->authenticatedUser);
         if (!auth()->check()) {
             request()->session()->flash('message', 'You need to sign in first');
         } else {
@@ -87,7 +75,22 @@ class DocuSearchResult extends Component
 
     public function render()
     {
-        $this->searchNewDocu($this->search);
-        return view('livewire.docu-search-result')->layout('layout.app');
+        $results = DocuPost::where('keyword_1', 'like', '%' . $this->query . '%')
+            ->orWhere('keyword_2', 'like', '%' . $this->query . '%')
+            ->orWhere('keyword_3', 'like', '%' . $this->query . '%')
+            ->orWhere('keyword_4', 'like', '%' . $this->query . '%')
+            ->orWhere('keyword_5', 'like', '%' . $this->query . '%')
+            ->orWhere('keyword_6', 'like', '%' . $this->query . '%')
+            ->orWhere('keyword_7', 'like', '%' . $this->query . '%')
+            ->orWhere('keyword_8', 'like', '%' . $this->query . '%')
+            ->orWhere('title', 'like', '%' . $this->query . '%')
+            ->get();
+        // dd($results);
+        $resultsCount = count($results);
+        // $this->searchNewDocu($this->search);
+        return view('livewire.docu-search-result', [
+            'resultsCount' => $resultsCount,
+            'results' => $results,
+        ])->layout('layout.app');
     }
 }

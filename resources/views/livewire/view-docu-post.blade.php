@@ -66,26 +66,37 @@
                             <div>
                                 <p class="font-extrabold">KEYWORDS/ TAGS</p>
                                 <p class="text-gray-600">
-                                    <a class="bg-gray-100 px-1 hover:text-blue-600"
-                                        href="{{ route('search-result-page', $data->keyword_1) }}" target="_blank"
-                                        rel="noopener noreferrer">{{ $data->keyword_1 }};</a>
-                                    <a class="bg-gray-100 px-1 hover:text-blue-600"
-                                        href="{{ route('search-result-page', $data->keyword_2) }}" target="_blank"
-                                        rel="noopener noreferrer">{{ $data->keyword_2 }};</a>
-                                    <a class="bg-gray-100 px-1 hover:text-blue-600"
-                                        href="{{ route('search-result-page', $data->keyword_3) }}" target="_blank"
-                                        rel="noopener noreferrer">{{ $data->keyword_3 }};</a>
-                                    <a class="bg-gray-100 px-1 hover:text-blue-600"
-                                        href="{{ route('search-result-page', $data->keyword_4) }}" target="_blank"
-                                        rel="noopener noreferrer">{{ $data->keyword_4 }};</a>
+                                    <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                        href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                        target="_blank" rel="noopener noreferrer">{{ $data->keyword_1 }}</a>
+                                    <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                        href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                        target="_blank" rel="noopener noreferrer">{{ $data->keyword_2 }}</a>
+                                    <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                        href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                        target="_blank" rel="noopener noreferrer">{{ $data->keyword_3 }}</a>
+                                    <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                        href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                        target="_blank" rel="noopener noreferrer">{{ $data->keyword_4 }}</a>
                                     @if (!empty($data->keyword_5))
-                                        <a class="bg-gray-100 px-1 hover:text-blue-600"
-                                            href="{{ route('search-result-page', $data->keyword_5) }}" target="_blank"
-                                            rel="noopener noreferrer">{{ $data->keyword_5 }};</a>
-                                    @elseif(!empty($data->keyword_6))
-                                        <a class="bg-gray-100 px-1 hover:text-blue-600"
-                                            href="{{ route('search-result-page', $data->keyword_6) }}" target="_blank"
-                                            rel="noopener noreferrer">{{ $data->keyword_6 }};</a>
+                                        <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                            href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                            target="_blank" rel="noopener noreferrer">{{ $data->keyword_5 }}</a>
+                                    @endif
+                                    @if (!empty($data->keyword_6))
+                                        <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                            href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                            target="_blank" rel="noopener noreferrer">{{ $data->keyword_6 }}</a>
+                                    @endif
+                                    @if (!empty($data->keyword_7))
+                                        <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                            href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                            target="_blank" rel="noopener noreferrer">{{ $data->keyword_7 }}</a>
+                                    @endif
+                                    @if (!empty($data->keyword_8))
+                                        <a class="mr-1 bg-gray-100 px-1 hover:text-blue-600"
+                                            href="{{ route('search-result-page', ['q' => $data->keyword_1]) }}"
+                                            target="_blank" rel="noopener noreferrer">{{ $data->keyword_8 }}</a>
                                     @endif
                                 </p>
                             </div>
@@ -137,7 +148,6 @@
                                             @endif
                                         </button>
                                     </div>
-                                    {{-- <strong>{{ dump($data->document_file_url) }}</strong> --}}
                                     @php
                                         $pdfFileData = $data->document_file_url;
 

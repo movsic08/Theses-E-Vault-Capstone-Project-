@@ -89,10 +89,14 @@ Route::get('/home-component', Home::class)->name('home-component');
 Route::get('/document/{reference?}', ViewDocuPost::class)->name('view-document');
 
 
-Route::get('/search', [SearchController::class, 'viewBasicSearch'])->name('user-search');
+Route::get('/search', function () {
+    return view('pages.user.search');
+})->name('user-search');
+
+
 Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
 
-Route::get('/search/result/{search?}', DocuSearchResult::class)->name('search-result-page');
+Route::get('/search/result/', DocuSearchResult::class)->name('search-result-page');
 
 
 Route::get('/catalogue', [CatalogueController::class, 'mainView'])->name('user-catalogue');
