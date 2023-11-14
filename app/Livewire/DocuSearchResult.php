@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\BookmarkList;
 use App\Models\DocuPost;
+use App\Models\DocuPostView;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ class DocuSearchResult extends Component
     {
         $this->query = Request::get('q');
         $this->authenticatedUser = auth()->user();
+        $this->search = $this->query;
     }
 
     // #[Url(keep: true)]
@@ -34,7 +36,7 @@ class DocuSearchResult extends Component
         return redirect()->route('search-result-page', ['q' => $this->search]);
     }
 
-    public $isBookmarked;
+    public $isBookmarked, $sort_by = 'relevance', $items = 5;
 
     public function bookmark($id, $reference)
     {
@@ -75,8 +77,16 @@ class DocuSearchResult extends Component
         return;
     }
 
+    public $shareLink;
+    public function share($reference)
+    {
+        $this->shareLink = route('view-document', ['reference' => $reference]);
+        return $this->dispatch('open-shr');
+    }
+
     public function render()
     {
+        // dd(phpinfo());
         $results = DocuPost::where('status', 1)
             ->where(function ($query) {
                 $query->where('document_type', '=', $this->query)
@@ -90,14 +100,50 @@ class DocuSearchResult extends Component
                     ->orWhere('keyword_7', 'like', '%' . $this->query . '%')
                     ->orWhere('keyword_8', 'like', '%' . $this->query . '%')
                     ->orWhere('title', 'like', '%' . $this->query . '%');
-            })->paginate(10);
+            })
+            ->when($this->sort_by === 'a-z', function ($query) {
+                $query->orderBy('title', 'asc');
+            })
+            ->when($this->sort_by === 'z-a', function ($query) {
+                $query->orderBy('title', 'desc');
+            })
+            ->when($this->sort_by === 'newest', function ($query) {
+                $query->orderBy('date_of_approval', 'desc');
+            })
+            ->when($this->sort_by === 'oldest', function ($query) {
+                $query->orderBy('date_of_approval', 'asc');
+            })
+            ->when($this->sort_by === 'most_cited', function ($query) {
+                $query->orderBy('citation_count', 'desc');
+            })
+            ->paginate($this->items);
 
 
         $resultsCount = count($results);
+
+        $trendingPosts = DocuPostView::orderBy('views_count', 'desc')->take(5)->get();
+
+        $documentTypes = DocuPost::pluck('document_type')->unique();
+
+        $documentTypeCounts = [];
+
+        foreach ($documentTypes as $type) {
+            $count = DocuPost::where('document_type', $type)->count();
+            $documentTypeCounts[$type] = $count;
+        }
+
+
+
         // $this->searchNewDocu($this->search);
         return view('livewire.docu-search-result', [
             'resultsCount' => $resultsCount,
             'results' => $results,
+            'trendingPosts' => $trendingPosts,
+            'count' => count($trendingPosts),
+            'documentTypeCounts' => $documentTypeCounts,
         ])->layout('layout.app');
     }
+
+
+
 }

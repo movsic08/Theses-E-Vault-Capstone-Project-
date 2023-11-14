@@ -62,7 +62,7 @@ class UploadDocument extends Component
     ];
 
     protected $tab3Rules = [
-        'user_upload' => 'required|file',
+        'user_upload' => 'required|file|max:100000',
     ];
 
     public function changeTab($tab)

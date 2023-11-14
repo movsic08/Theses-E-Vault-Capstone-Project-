@@ -45,11 +45,14 @@
                             </div>
                             <div>
                                 <p class="font-extrabold">DEGREE NAME</p>
-                                <p class="text-gray-600">{{ $data->course }} </p>
+                                <a href="{{ route('search-result-page', ['q' => $data->course]) }}" target="_blank"
+                                    class="px-1 text-gray-600 hover:bg-gray-100 hover:text-blue-600">{{ $data->course }}</a>
                             </div>
                             <div>
                                 <p class="font-extrabold">DOCUMENT TYPE</p>
-                                <p class="text-gray-600">{{ $data->document_type }}</p>
+                                <a href="{{ route('search-result-page', ['q' => $data->document_type]) }}"
+                                    target="_blank"
+                                    class="px-1 text-gray-600 hover:bg-gray-100 hover:text-blue-600">{{ $data->document_type }}</a>
                             </div>
                             <div>
                                 <p class="font-extrabold">FORMAT</p>

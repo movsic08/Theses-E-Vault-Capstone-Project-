@@ -139,10 +139,10 @@
                                   @enderror
                               @else
                                   <span class="-mb-2 text-[1rem] font-medium">
-                                      {{ \Carbon\Carbon::parse($dataItem->created_at)->format('M d Y') }}
+                                      {{ \Carbon\Carbon::parse($dataItem->created_at)->format('M  Y') }}
                                   </span>
                               @endif
-                              <span class="text-sm text-slate-700">Date created</span>
+                              <span class="text-sm text-slate-700">Date created XX</span>
                           </div>
                       </div>
                       <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
@@ -210,7 +210,7 @@
                                   @enderror
                               @else
                                   <span class="-mb-2 text-[1rem] font-medium">
-                                      {{ $dataItem->date_of_approval }}
+                                      {{ \Carbon\Carbon::parse($dataItem->date_of_approval)->format('M  Y') }}
                                   </span>
                               @endif
                               <span class="text-sm text-slate-700">Date of publish</span>

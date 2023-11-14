@@ -49,28 +49,34 @@
                         <input type="file" wire:model.live="user_upload" id="uploadFile" class="" hidden
                             accept="application/pdf">
                     </label>
-                    <small class="text-gray-600">Please be guided, the required file should be in PDF format.</small>
-                    <div>
-                        @error('user_upload')
-                            <small class="text-red-500">{{ $message }}</small>
-                        @enderror
+                    <div class="container mt-2">
+                        <div class="my-2 rounded-md border border-gray-600 bg-gray-100 p-2 text-gray-600">Please
+                            be
+                            guided, the
+                            required file should be in PDF format. <strong class="text-red-500">Reminder, the PDF file
+                                should not greater than 100mb.</strong> </div>
+                        <div>
+                            @error('user_upload')
+                                <small class="text-red-500">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="w-full" x-show="uploading" x-cloak>
+                            <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                                <div class="h-2.5 rounded-full bg-blue-600" :style="'width: ' + progress + '%'"></div>
+                            </div>
+                            <div class="mt-2" x-cloak>Uploading...</div>
+                        </div>
+                        @if ($uploaded)
+                            <div class="font-medium text-primary-color">
+                                File upload completed!
+                            </div>
+                            <div class="mt-2 flex w-full items-center justify-center">
+                                <div wire:click='uploadPdfFileBox'
+                                    class="w-fit cursor-pointer rounded-md bg-blue-800 px-4 py-1 align-middle text-white duration-300 hover:bg-primary-color">
+                                    Close</div>
+                            </div>
+                        @endif
                     </div>
-                    <div class="w-full" x-show="uploading" x-cloak>
-                        <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                            <div class="h-2.5 rounded-full bg-blue-600" :style="'width: ' + progress + '%'"></div>
-                        </div>
-                        <div class="mt-2" x-cloak>Uploading...</div>
-                    </div>
-                    @if ($uploaded)
-                        <div class="font-medium text-primary-color">
-                            File upload completed!
-                        </div>
-                        <div class="mt-2 flex w-full items-center justify-center">
-                            <div wire:click='uploadPdfFileBox'
-                                class="w-fit cursor-pointer rounded-md bg-blue-800 px-4 py-1 align-middle text-white duration-300 hover:bg-primary-color">
-                                Close</div>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
