@@ -172,7 +172,9 @@
                                 <div class="border-b border-gray-400 py-2 md:py-6">
                                     <a href="{{ route('search-result-page', ['q' => $resultsItem->course]) }}"
                                         target="_blank" class="text-xs font-semibold text-blue-600 lg:text-base">
-                                        <p class="leading-3">{{ $resultsItem->course }}</p>
+                                        <a wire:navigate
+                                            href="{{ route('search-result-page', ['q' => $resultsItem->course]) }}"
+                                            class="leading-3">{{ $resultsItem->course }}</a>
                                     </a>
                                     <div
                                         class="mt-1 line-clamp-6 overflow-hidden rounded-lg bg-slate-100 p-1 font-medium md:mt-2 md:line-clamp-4 lg:line-clamp-5">
@@ -327,12 +329,14 @@
                                     $getData = \App\Models\DocuPost::where('id', $item->post_id)->first();
                                 @endphp
                                 <div
-                                    class="@if ($index == 0) bg-yellow-400 @elseif($index == 1) bg-[#075DEF] @else  bg-sky-100 text-[#075DEF] @endif flex w-full gap-1 rounded-md px-3 py-2 font-medium text-white">
+                                    class="@if ($index == 0) bg-yellow-400 @elseif($index == 1) bg-[#075DEF] @else  bg-sky-100 text-[#075DEF] @endif flex w-full gap-1 rounded-md px-3 py-2 text-white">
                                     <small
-                                        class="@if ($index == 0) bg-yellow-500 @elseif($index == 1) bg-[#4e88eb] @else  bg-sky-400  text-white @endif flex h-[1rem] w-[1rem] items-center justify-center rounded-full text-[0.65rem] font-medium text-white">
+                                        class="@if ($index == 0) bg-yellow-500 @elseif($index == 1) bg-[#4e88eb] @else  bg-sky-400 @endif flex h-[1rem] w-[1rem] items-center justify-center rounded-full text-[0.65rem] font-medium text-white">
                                         {{ $index + 1 }}
                                     </small>
-                                    <p class="line-clamp-1 text-xs">{{ $getData->title }}</p>
+                                    <p
+                                        class="@if ($index != 0 && $index != 1) text-sky-600 @else text-white @endif line-clamp-1 text-xs font-semibold">
+                                        {{ $getData->title }}</p>
                                 </div>
                             @endforeach
 

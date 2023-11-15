@@ -49,8 +49,8 @@
                         <p class="hideName block pl-2 md:hidden">Notification</p>
                     </a>
                     {{-- message --}}
-                    <a wire:navigate href="{{ route('chat') }}"
-                        class="{{ request()->routeIs('chat') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2">
+                    {{-- <a wire:navigate href="{{ route('') }}"
+                        class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2">
                         <div class="relative">
                             <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <p class="hideName block pl-2 md:hidden">Messages</p>
-                    </a>
+                    </a> --}}
                 @endauth
                 {{-- HOME --}}
                 <a wire:navigate href="{{ route('home') }}"
