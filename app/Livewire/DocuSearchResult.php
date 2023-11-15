@@ -84,6 +84,21 @@ class DocuSearchResult extends Component
         return $this->dispatch('open-shr');
     }
 
+    public function viewsCount($postId)
+    {
+
+        $postView = DocuPostView::where('post_id', $postId)->first();
+
+        if ($postView) {
+            $postView->increment('views_count');
+        } else {
+            DocuPostView::create([
+                'post_id' => $postId,
+                'views_count' => 1,
+            ]);
+        }
+
+    }
     public function render()
     {
         // dd(phpinfo());

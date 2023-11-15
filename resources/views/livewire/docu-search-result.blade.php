@@ -117,7 +117,8 @@
                                 <div class="flex w-full flex-col gap-1 border-b border-gray-400 py-2">
                                     <div class="flex w-full items-start justify-between">
                                         <div class="flex w-full items-start">
-                                            <a href="{{ route('view-document', ['reference' => $resultsItem->reference]) }}"
+                                            <a wire:click='viewsCount({{ $resultsItem->id }})'
+                                                href="{{ route('view-document', ['reference' => $resultsItem->reference]) }}"
                                                 class="text-md font-bold text-primary-color md:text-lg lg:text-xl"
                                                 target="">
                                                 {{ $resultsItem->title }}
