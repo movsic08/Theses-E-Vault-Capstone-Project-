@@ -53,7 +53,15 @@
                                     </a></small>
                             </p>
                             <a wire:navigate href="{{ route('user-upload-document-form') }}"
-                                class="h-fit rounded-full bg-blue-800 px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-primary-color">Upload</a>
+                                class="flex h-fit items-center gap-1 rounded-full bg-primary-color px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-blue-800">
+                                <svg class="hidden h-5 w-5 md:block" fill="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Zm-9.375-4.375a.625.625 0 1 0-1.25 0v3.75h-3.75a.625.625 0 1 0 0 1.25h3.75v3.75a.624.624 0 1 0 1.25 0v-3.75h3.75a.624.624 0 1 0 0-1.25h-3.75v-3.75Z">
+                                    </path>
+                                </svg>
+                                Upload
+                            </a>
                         </div>
                         <div
                             class="mb-2 mt-3 flex w-full items-center justify-start gap-2 border-t border-gray-300 pt-2">
@@ -123,15 +131,31 @@
                                 <section
                                     class="rounded-xl bg-white p-5 drop-shadow-lg duration-500 ease-in-out hover:-translate-y-1">
                                     <div class="relative flex w-full items-start gap-2 border-b border-gray-300 pb-3">
-                                        <strong class="text-base md:pr-6 md:text-lg">
+                                        <a wire:click='viewsCount({{ $docuData->id }})'
+                                            href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
+                                            class="text-base font-bold md:pr-6 md:text-lg">
                                             {{ $docuData->title }}
-                                        </strong>
+                                        </a>
+                                        @php
+                                            $checkBookmark = \App\Models\BookmarkList::where('user_id', auth()->id())
+                                                ->where('docu_post_id', $docuData->id)
+                                                ->count();
+                                        @endphp
+
                                         <svg class="absolute right-0 top-0 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700"
+                                            wire:click.prevent="bookmarkItem({{ $docuData->id }}, '{{ $docuData->reference }}')"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M4.8 4.8V21a.6.6 0 0 0 .888.527L12 18.083l6.312 3.444A.6.6 0 0 0 19.2 21V4.8a2.4 2.4 0 0 0-2.4-2.4H7.2a2.4 2.4 0 0 0-2.4 2.4Z">
-                                            </path>
+                                            @if ($checkBookmark > 0)
+                                                <path
+                                                    d="M4.8 4.8V21a.6.6 0 0 0 .888.527L12 18.083l6.312 3.444A.6.6 0 0 0 19.2 21V4.8a2.4 2.4 0 0 0-2.4-2.4H7.2a2.4 2.4 0 0 0-2.4 2.4Z">
+                                                </path>
+                                            @else
+                                                <path
+                                                    d="M4.8 4.8a2.4 2.4 0 0 1 2.4-2.4h9.6a2.4 2.4 0 0 1 2.4 2.4V21a.601.601 0 0 1-.933.5L12 18.122 5.732 21.5A.6.6 0 0 1 4.8 21V4.8Zm2.4-1.2A1.2 1.2 0 0 0 6 4.8v15.08l5.668-2.979a.599.599 0 0 1 .664 0L18 19.88V4.8a1.2 1.2 0 0 0-1.2-1.2H7.2Z">
+                                                </path>
+                                            @endif
                                         </svg>
+
                                     </div>
                                     <div class="mt-3 flex flex-col gap-2 text-xs font-medium md:flex-row md:text-sm">
                                         <div class="h-fit w-fit rounded-full bg-sky-700 px-2 py-1 text-white">
@@ -159,29 +183,37 @@
                                         </svg>
                                         <p class="text-sm font-medium text-gray-600">
                                             <a class="px-1 hover:bg-gray-100 hover:text-blue-600">
-                                                {{ $docuData->keyword_1 . ', ' }}</a>
+                                                {{ $docuData->keyword_1 . ($docuData->keyword_1 ? ', ' : '') }}</a>
                                             <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                rel="noopener noreferrer">{{ $docuData->keyword_2 . ', ' }}</a>
+                                                rel="noopener noreferrer">
+                                                {{ $docuData->keyword_2 . ($docuData->keyword_2 ? ', ' : '') }}</a>
                                             <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                rel="noopener noreferrer">{{ $docuData->keyword_3 . ', ' }}</a>
+                                                rel="noopener noreferrer">
+                                                {{ $docuData->keyword_3 . ($docuData->keyword_3 ? ', ' : '') }}</a>
                                             <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                rel="noopener noreferrer">{{ $docuData->keyword_4 . ', ' }}</a>
+                                                rel="noopener noreferrer">
+                                                {{ $docuData->keyword_4 . ($docuData->keyword_4 ? ', ' : '') }}</a>
                                             @if ($docuData->keyword_5 != null)
                                                 <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">{{ $docuData->keyword_5 . ', ' }}</a>
+                                                    rel="noopener noreferrer">
+                                                    {{ $docuData->keyword_5 . ($docuData->keyword_6 || $docuData->keyword_7 || $docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_6 != null)
                                                 <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">{{ $docuData->keyword_6 . ', ' }}</a>
+                                                    rel="noopener noreferrer">
+                                                    {{ $docuData->keyword_6 . ($docuData->keyword_7 || $docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_7 != null)
                                                 <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">{{ $docuData->keyword_7 . ', ' }}</a>
+                                                    rel="noopener noreferrer">
+                                                    {{ $docuData->keyword_7 . ($docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_8 != null)
                                                 <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">{{ $docuData->keyword_8 . ', ' }}</a>
+                                                    rel="noopener noreferrer">
+                                                    {{ $docuData->keyword_8 }}</a>
                                             @endif
+
                                         </p>
                                     </div>
                                     <div class="flex items-center justify-between border-t border-slate-200 pt-2">
@@ -222,7 +254,10 @@
                                                         d="M2.4 11.64S6 5.04 12 5.04s9.6 6.6 9.6 6.6-3.6 6.6-9.6 6.6-9.6-6.6-9.6-6.6Zm9.6 4.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z">
                                                     </path>
                                                 </svg>
-                                                <span>2</span>
+                                                @php
+                                                    $viewsData = \App\Models\DocuPostView::where('post_id', $docuData->id)->first();
+                                                @endphp
+                                                <span>{{ $viewsData == null ? '0' : $viewsData->views_count }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -238,105 +273,88 @@
             </div>
             {{-- 2nd div (Fixed Right Side) --}}
             <div class="sticky right-0 top-[4.3rem] col-span-5 h-fit lg:col-span-2">
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2 md:gap-6">
                     {{-- 1st section sticky --}}
-                    <section class="mb-2 rounded-3xl bg-white drop-shadow-lg">
-                        <div class="rounded-t-lg py-2 text-center">
+                    <section class="rounded-xl border border-blue-100 bg-white drop-shadow-lg">
+                        <div
+                            class="flex items-center gap-1 rounded-t-xl bg-primary-color px-4 py-2 text-left text-sm uppercase text-white md:text-base lg:text-base">
+                            <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 22c-4.97 0-9-2.582-9-7v-.088C3 12.794 4.338 11.1 6.375 10c1.949-1.052 3.101-2.99 2.813-5l-.563-3 2.086.795c3.757 1.43 6.886 3.912 8.914 7.066A8.495 8.495 0 0 1 21 14.464V15c0 1.562-.504 2.895-1.375 3.965">
+                                </path>
+                                <path
+                                    d="M12 22c-1.657 0-3-1.433-3-3.2 0-1.4 1.016-2.521 1.91-3.548L12 14l1.09 1.252C13.984 16.28 15 17.4 15 18.8c0 1.767-1.343 3.2-3 3.2z">
+                                </path>
+                            </svg>
                             <strong>Trending post</strong>
                         </div>
-                        <div class="h-full py-2 md:max-h-[14rem] lg:max-h-[17rem]">
-                            <div class="flex h-full flex-col gap-2">
-                                @if ($mostViewedDocu == null || count($mostViewedDocu) === 0)
-                                    <section
-                                        class="bg-primary relative z-10 flex h-full items-center justify-center text-gray-700 drop-shadow-lg">
-                                        <div class="container">
-                                            <div class="-mx-4 flex h-full">
-                                                <div class="h-full w-full px-4">
-                                                    <div
-                                                        class="flex h-full max-w-[400px] flex-col items-center justify-center text-center">
-                                                        <svg class="h-[5rem] text-gray-700" fill="currentColor"
-                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
-                                                            </path>
-                                                            <path
-                                                                d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
-                                                            </path>
-                                                        </svg>
-                                                        <h4 class="mb-3 text-[22px] font-semibold leading-tight">
-                                                            Oops! There is no upload Document yet.
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                @else
-                                    <div class="custom-scrollbar h-full overflow-y-auto">
-                                        @foreach ($mostViewedDocu as $item)
-                                            @php
-                                                $itemLatest = \App\Models\DocuPost::where('id', $item->post_id)->first();
-                                            @endphp
-                                            <div class="my-1.5 px-2">
-                                                <a href=""
-                                                    class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
-                                                <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
-                                                    class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
-                                                </a>
-                                            </div>
-                                        @endforeach
+                        @if ($mostViewedDocu == null)
+                            <section class="p-4">
+                                <div class="mt-2 flex flex-col items-center justify-center gap-1">
+                                    <img class="h-52" src="{{ asset('assets/svgs/undraw_empty_re_opql.svg') }}"
+                                        alt="svg file" srcset="">
+                                    <p class="text-righ text-xl font-bold text-primary-color">Currently, there are no
+                                        trending posts.</p>
+                                </div>
+                            </section>
+                        @else
+                            <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
+                                @foreach ($mostViewedDocu as $item)
+                                    @php
+                                        $itemLatest = \App\Models\DocuPost::where('id', $item->post_id)->first();
+                                    @endphp
+                                    <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
+                                        <a href=""
+                                            class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
+                                        <a wire:click='viewsCount({{ $docuData->id }})'
+                                            href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
+                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $itemLatest->title }}
+                                        </a>
                                     </div>
-                                @endif
+                                @endforeach
                             </div>
-                        </div>
+                        @endif
+
                     </section>
                     {{-- 2nd section sticky --}}
-                    <section class="mb-2 rounded-3xl bg-white drop-shadow-lg">
-                        <div class="rounded-t-lg py-2 text-center">
-                            <strong>Latest post</strong>
+                    <section class="rounded-xl border border-blue-100 bg-white drop-shadow-lg">
+                        <div
+                            class="flex items-center gap-1 rounded-t-xl bg-primary-color px-4 py-2 text-left text-sm uppercase text-white md:text-base lg:text-base">
+                            <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M18 5.1a1.8 1.8 0 1 1 3.6 0v13.2a1.8 1.8 0 1 1-3.6 0v-.257c-2.594-1.49-5.388-2.211-8.294-2.5l.486 3.255a1.202 1.202 0 0 1-1.18 1.422h-.657a1.2 1.2 0 0 1-1.1-.719l-2.22-4.188-.242-.004A2.416 2.416 0 0 1 2.4 12.9v-2.4a2.424 2.424 0 0 1 2.39-2.415 89.561 89.561 0 0 0 2.98-.09c3.652-.185 7.378-1.02 10.23-2.64V5.1Zm1.2 0v13.2a.6.6 0 1 0 1.2 0V5.1a.6.6 0 1 0-1.2 0ZM18 6.72c-2.812 1.446-6.25 2.21-9.6 2.44v5.079c.216.012.431.026.645.043 3.081.227 6.111.893 8.955 2.392V6.72ZM7.2 14.178V9.222c-.796.029-1.593.05-2.39.062A1.224 1.224 0 0 0 3.6 10.5v2.4c0 .66.538 1.202 1.208 1.21.798.01 1.595.032 2.392.068Zm-.788 1.17 1.93 3.644.013.03h.657l-.002-.018-.532-3.559a80.97 80.97 0 0 0-2.066-.098Z">
+                                </path>
+                            </svg>
+                            <strong>top 8 Latest uploaded</strong>
                         </div>
-                        <div class="h-full py-2 md:max-h-[14rem] lg:max-h-[17rem]">
-                            <div class="flex h-full flex-col gap-2">
-                                @if ($latestDocuPostData == null || count($latestDocuPostData) === 0)
-                                    <section
-                                        class="bg-primary relative z-10 flex h-full items-center justify-center text-gray-700 drop-shadow-lg">
-                                        <div class="container">
-                                            <div class="-mx-4 flex h-full">
-                                                <div class="h-full w-full px-4">
-                                                    <div
-                                                        class="flex h-full max-w-[400px] flex-col items-center justify-center text-center">
-                                                        <svg class="h-[5rem] text-gray-700" fill="currentColor"
-                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
-                                                            </path>
-                                                            <path
-                                                                d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
-                                                            </path>
-                                                        </svg>
-                                                        <h4 class="mb-3 text-[22px] font-semibold leading-tight">
-                                                            Oops! There is no upload Document yet.
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                @else
-                                    <div class="custom-scrollbar h-full overflow-y-auto">
-                                        @foreach ($latestDocuPostData as $itemLatest)
-                                            <div class="my-1.5 px-2">
-                                                <a href=""
-                                                    class="rounded-md bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
-                                                <a href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
-                                                    class="text-sm duration-200 ease-in-out hover:font-medium hover:text-primary-color">{{ $itemLatest->title }}
-                                                </a>
-                                            </div>
-                                        @endforeach
+                        @if ($latestDocuPostData == null)
+                            <section class="p-4">
+                                <div class="mt-2 flex flex-col items-center justify-center gap-1">
+                                    <img class="h-52" src="{{ asset('assets/svgs/undraw_empty_re_opql.svg') }}"
+                                        alt="svg file" srcset="">
+                                    <p class="text-righ text-xl font-bold text-primary-color">Currently, there are no
+                                        trending posts.</p>
+                                </div>
+                            </section>
+                        @else
+                            <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
+                                @foreach ($latestDocuPostData as $item)
+                                    <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
+                                        <a href=""
+                                            class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
+                                        <a wire:click='viewsCount({{ $item->id }})'
+                                            href="{{ route('view-document', ['reference' => $item->reference]) }}"
+                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
+                                        </a>
                                     </div>
-                                @endif
+                                @endforeach
                             </div>
-                        </div>
+                        @endif
+
                     </section>
                 </div>
             </div>

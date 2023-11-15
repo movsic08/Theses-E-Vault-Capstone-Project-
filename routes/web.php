@@ -25,8 +25,8 @@ Route::get('/', function () {
 })->name('index');
 
 
-Route::get('/sidebar', function () {
-    return view('sidebar');
+Route::get('/skeleton', function () {
+    return view('skeletons.home-data-skeleton');
 });
 
 // Route::controller(UserController:: class)->group(funtion(){

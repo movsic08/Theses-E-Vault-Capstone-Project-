@@ -13,7 +13,7 @@ use Livewire\WithPagination;
 class Home extends Component
 {
     use WithPagination;
-    public $bachelorDegree, $latestDocuPostData;
+    public $bachelorDegree;
 
     public $skeletonData = null, $bookmarkItemChecker, $authenticatedUser;
 
@@ -59,7 +59,7 @@ class Home extends Component
 
         $this->bachelorDegree = BachelorDegree::all();
 
-        $this->latestDocuPostData = DocuPost::where('status', 1)->latest()->take(5)->get();
+        $latestDocuPostData = DocuPost::where('status', 1)->latest()->take(8)->get();
 
         $mostViewedDocu = DocuPostView::orderBy('views_count', 'desc')
             ->take(5)
@@ -68,6 +68,7 @@ class Home extends Component
         return view('livewire.home', [
             'docuPostData' => $docuPostData,
             'mostViewedDocu' => $mostViewedDocu,
+            'latestDocuPostData' => $latestDocuPostData,
         ])->layout('layout.app');
     }
 

@@ -2,7 +2,7 @@
     <section class="container">
         <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-36 md:p-2">
             <h2
-                class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[6.5rem] lg:text-4xl lg:text-[1.6rem]">
+                class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[10rem] lg:text-4xl">
                 UNLOCKING
                 ACADEMIC
                 INSIGHTS:
@@ -12,7 +12,7 @@
                 RESEARCH
                 WORKS,
                 THESES, CAPSTONE, AND FEASIBILITY STUDIES</h2>
-            <div class="my-4 flex flex-col gap-2 md:gap-4">
+            <div class="mx-20 my-4 flex flex-col gap-2 md:gap-4">
 
                 <div class="flex items-center justify-center" for="search-docu">
                     <input
