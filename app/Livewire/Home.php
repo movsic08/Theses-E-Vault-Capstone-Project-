@@ -39,11 +39,23 @@ class Home extends Component
 
     }
 
-
+    public $items = 5, $sort_by = 'newest';
     public function render()
     {
         $docuPostData = DocuPost::where('status', 1)
-            ->paginate(10);
+            ->when($this->sort_by === 'a-z', function ($docuPostData) {
+                $docuPostData->orderBy('title', 'asc');
+            })
+            ->when($this->sort_by === 'z-a', function ($docuPostData) {
+                $docuPostData->orderBy('title', 'desc');
+            })
+            ->when($this->sort_by === 'newest', function ($docuPostData) {
+                $docuPostData->orderBy('date_of_approval', 'desc');
+            })
+            ->when($this->sort_by === 'oldest', function ($docuPostData) {
+                $docuPostData->orderBy('date_of_approval', 'asc');
+            })
+            ->paginate($this->items);
 
         $this->bachelorDegree = BachelorDegree::all();
 

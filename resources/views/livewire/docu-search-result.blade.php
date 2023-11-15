@@ -172,9 +172,7 @@
                                 <div class="border-b border-gray-400 py-2 md:py-6">
                                     <a href="{{ route('search-result-page', ['q' => $resultsItem->course]) }}"
                                         target="_blank" class="text-xs font-semibold text-blue-600 lg:text-base">
-                                        <a wire:navigate
-                                            href="{{ route('search-result-page', ['q' => $resultsItem->course]) }}"
-                                            class="leading-3">{{ $resultsItem->course }}</a>
+                                        <a class="leading-3">{{ $resultsItem->course }}</a>
                                     </a>
                                     <div
                                         class="mt-1 line-clamp-6 overflow-hidden rounded-lg bg-slate-100 p-1 font-medium md:mt-2 md:line-clamp-4 lg:line-clamp-5">

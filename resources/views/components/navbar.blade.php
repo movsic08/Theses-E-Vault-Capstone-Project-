@@ -44,16 +44,14 @@
                 @endauth
 
                 @guest
-                    <div class="flex items-center justify-center gap-2">
-                        <a class="w-[4.5rem] rounded-md border border-solid border-primary-color bg-slate-100 p-1 px-2 text-center text-sm text-primary-color duration-300 hover:bg-primary-color hover:text-white"
+                    <div class="flex flex-row-reverse items-center justify-center gap-2">
+                        <a class="hidden w-[4.5rem] rounded-md bg-primary-color p-1 px-2 text-center text-sm text-white duration-300 hover:bg-blue-900 md:block"
                             href="{{ route('register') }}">
                             Signup
                         </a>
-                        <a class="w-[4.5rem] rounded-md bg-primary-color p-1 px-2 text-center text-sm text-white duration-300 hover:bg-blue-900"
-                            href="{{ route('login') }}">
+                        <a class="" href="{{ route('login') }}">
                             Login
                         </a>
-
                     </div>
                 @endguest
 
