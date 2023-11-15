@@ -48,8 +48,8 @@
                 </div>
                 {{-- message area --}}
                 <div
-                    class="{{ request()->routeIs('user-messages') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a wire:navigate href="{{ route('user-messages') }}" class="flex items-center">
+                    class="{{ request()->routeIs('chat') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a wire:navigate href='/chat' class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -58,7 +58,7 @@
                             </svg>
                             <div
                                 class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
-                                <p class="text-[8px]">1</p>
+                                <p class="text-[8px]">2</p>
                             </div>
                         </div>
                         <p class="hideName block pl-2 md:hidden">Chat</p>
