@@ -1,24 +1,27 @@
 <div>
     <section class="container">
-        <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-36 md:p-2">
-            <h2
-                class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[10rem] lg:text-4xl">
-                UNLOCKING
-                ACADEMIC
-                INSIGHTS:
-                EXPLORE
-                THE
-                REALM OF
-                RESEARCH
-                WORKS,
-                THESES, CAPSTONE, AND FEASIBILITY STUDIES</h2>
+        <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-[7rem] md:p-2">
+            <div class="flex w-full flex-col items-center justify-center">
+                <img class="h-[5rem]" src="{{ asset('icons/logo.svg') }}" alt="logo">
+                <h2
+                    class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[10rem] lg:text-4xl">
+                    UNLOCKING
+                    ACADEMIC
+                    INSIGHTS:
+                    EXPLORE
+                    THE
+                    REALM OF
+                    RESEARCH
+                    WORKS,
+                    THESES, CAPSTONE, AND FEASIBILITY STUDIES</h2>
+            </div>
             <div class="mx-20 my-4 flex flex-col gap-2 md:gap-4">
 
                 <div class="flex items-center justify-center" for="search-docu">
                     <input
                         class="h-8 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-md focus:border-gray-400 focus:outline-none md:h-10 md:w-[27rem] lg:h-14 lg:w-[62.8rem]"
                         wire:keydown.enter='findResult' type="search" id="search-docu" wire:model.live='search'
-                        placeholder="Search">
+                        placeholder="Advanced search">
                     <button wire:click='findResult'
                         class="custom-blue-via flex h-[2rem] w-[2.5rem] items-center justify-center rounded-r-full p-2 drop-shadow-lg md:h-[2.4rem] md:w-[4rem] lg:h-14">
                         <svg wire:loading.remove wire:target='findResult' class="h-5"
@@ -36,8 +39,8 @@
                     </button>
                 </div>
 
-                <a href="{{ route('user-advanced-search') }}" wire:navigate
-                    class="w-fit rounded-md bg-blue-500 px-2 py-1 text-xs text-white duration-200 ease-in-out hover:bg-blue-700 md:text-base">Advanced
+                <a href="{{ route('user-search') }}" wire:navigate
+                    class="w-fit rounded-md bg-blue-500 px-2 py-1 text-xs text-white duration-200 ease-in-out hover:bg-blue-700 md:text-base">Basic
                     search</a>
             </div>
             {{-- <div class="mt-2 w-full">
@@ -72,9 +75,9 @@
         preserveAspectRatio="xMidYMax slice">
         <defs>
             <linearGradient id="bg">
-                <stop offset="0%" style="stop-color:rgba(130, 158, 249, 0.244)"></stop>
-                <stop offset="50%" style="stop-color:rgba(76, 189, 255, 0.456)"></stop>
-                <stop offset="100%" style="stop-color:rgba(115, 209, 72, 0.337)"></stop>
+                <stop offset="0%" style="stop-color:rgba(237, 240, 34, 0.774))"></stop>
+                <stop offset="50%" style="stop-color:rgba(1, 46, 124, 0.456)"></stop>
+                <stop offset="100%" style="stop-color:rgba(241, 238, 45, 0.741)"></stop>
             </linearGradient>
             <path id="wave" fill="url(#bg)" d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
  s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z" />
@@ -97,5 +100,4 @@
             </use>
         </g>
     </svg>
-
 </div>

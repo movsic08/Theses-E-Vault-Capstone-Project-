@@ -42,6 +42,7 @@ class Home extends Component
     public $items = 5, $sort_by = 'newest';
     public function render()
     {
+
         $docuPostData = DocuPost::where('status', 1)
             ->when($this->sort_by === 'a-z', function ($docuPostData) {
                 $docuPostData->orderBy('title', 'asc');
@@ -114,7 +115,9 @@ class Home extends Component
 
     public function placeholder()
     {
+
         return view('skeletons.home-data-skeleton');
+
     }
 
 

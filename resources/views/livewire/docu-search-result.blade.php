@@ -297,7 +297,7 @@
             </section>
             <div class="mb-4 h-[20rem] w-full lg:sticky lg:right-0 lg:top-[5rem] lg:w-1/2">
                 <div class="flex w-full flex-col gap-2 rounded-lg bg-white p-3 drop-shadow">
-                    <div class="flex w-full items-center justify-center gap-2">
+                    <div class="flex w-full items-center justify-start gap-2">
                         <div class="w-fit rounded-lg border border-green-800 bg-green-100 p-1 text-green-800">
                             <svg class="h-3" fill="none" stroke="currentColor" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
@@ -308,7 +308,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <strong class="text-green-800">Trending post</strong>
+                        <strong class="uppercase text-green-800">Trending post</strong>
                     </div>
                     @if ($count < 3)
                         <section>
@@ -329,11 +329,11 @@
                                 <div
                                     class="@if ($index == 0) bg-yellow-400 @elseif($index == 1) bg-[#075DEF] @else  bg-sky-100 text-[#075DEF] @endif flex w-full gap-1 rounded-md px-3 py-2 text-white">
                                     <small
-                                        class="@if ($index == 0) bg-yellow-500 @elseif($index == 1) bg-[#4e88eb] @else  bg-sky-400 @endif flex h-[1rem] w-[1rem] items-center justify-center rounded-full text-[0.65rem] font-medium text-white">
+                                        class="@if ($index == 0) bg-yellow-500 @elseif($index == 1) bg-[#4e88eb] @else  bg-sky-400 @endif flex min-h-[1.4rem] min-w-[1.4rem] items-center justify-center rounded-full text-[0.65rem] font-medium text-white">
                                         {{ $index + 1 }}
                                     </small>
                                     <p
-                                        class="@if ($index != 0 && $index != 1) text-sky-600 @else text-white @endif line-clamp-1 text-xs font-semibold">
+                                        class="@if ($index != 0 && $index != 1) text-sky-600 @else text-white @endif line-clamp-1 text-sm font-semibold">
                                         {{ $getData->title }}</p>
                                 </div>
                             @endforeach
@@ -342,7 +342,7 @@
                     @endif
                 </div>
                 <div class="my-4 mb-4 flex w-full flex-col gap-2 rounded-lg bg-white p-3 drop-shadow lg:mt-8">
-                    <strong class="text-primary-color">Document Types</strong>
+                    <strong class="uppercase text-primary-color">Document Types</strong>
                     <div class="flex flex-col gap-2 lg:gap-3">
                         @foreach ($documentTypeCounts as $type => $count)
                             <div class="flex w-full justify-between rounded bg-sky-100 px-3 py-2 font-semibold">

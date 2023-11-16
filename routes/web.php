@@ -93,6 +93,10 @@ Route::get('/search', function () {
     return view('pages.user.search');
 })->name('user-search');
 
+Route::get('/advanced-search', function () {
+    return view('pages.user.advanced-search-page');
+})->name('user-advanced-search');
+
 
 Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
 
