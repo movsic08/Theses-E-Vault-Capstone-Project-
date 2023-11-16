@@ -44,6 +44,8 @@ class Dashboard extends Component
             ->count();
         $reportedComments = ReportedComment::where('report_status', 0)->count();
 
+        $pendingPost = DocuPost::where('status', 0)->count();
+
         $latestDocuPostData = DocuPost::latest()->take(5)->get();
 
         return view('livewire.admin.dashboard', [
@@ -54,6 +56,7 @@ class Dashboard extends Component
             'uploadFilesCount' => $uploadFilesCount,
             'latestDocuPostData' => $latestDocuPostData,
             'reportedComments' => $reportedComments,
+            'pendingPost' => $pendingPost,
         ])->layout('layout.admin');
     }
 }

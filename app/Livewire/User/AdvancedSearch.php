@@ -7,18 +7,46 @@ use Livewire\Component;
 
 class AdvancedSearch extends Component
 {
+    public $search, $datapicker = 'month-and-year-only', $dateMYOnly, $dateRangeStart, $dateRangeEnd, $docuTypeInput = 'all', $language = 'all';
+    protected $rules = [
+        'search' => 'required|min:1',
+        'dateMYOnly' => 'nullable|required_if:datapicker,month-and-year-only|date',
+        'dateRangeStart' => 'nullable|required_if:datapicker,date-range|date',
+        'dateRangeEnd' => 'nullable|required_if:datapicker,date-range|date',
+    ];
+
+    protected $messages = [
+        'search.required' => 'The search field is required.',
+        'search.min' => 'The search field must be at least :min characters.',
+        'dateMYOnly.required_if' => 'The Date month and year field is required when datapicker is month-and-year-only.',
+        'dateMYOnly.date' => 'The Date month and year field must be a valid date.',
+        'dateRangeEnd.required_if' => 'The Date range field is required when datapicker is date-range.',
+        'dateRangeEnd.date' => 'The Date range field must be a valid date.',
+        'dateRangeStart.required_if' => 'The Date range field is required when datapicker is date-range.',
+        'dateRangeStart.date' => 'The Date range field must be a valid date.',
+    ];
+
     public function findResult()
     {
-        dd($this->docuTypeInput);
-        $this->validate([
-            "search" => 'min:1',
+        // dd($this->docuTypeInput);   
+        $this->validate();
+
+        return redirect()->route('search-result-page', [
+            'q' => $this->search,
+            'datePicked' => $this->datapicker,
+            'dateMYOnly' => $this->dateMYOnly,
+            'dateRangeStart' => $this->dateRangeStart,
+            'dateRangeEnd' => $this->dateRangeEnd,
+            'documentType' => $this->docuTypeInput,
+            'lang' => $this->language,
         ]);
     }
-    public $advancedSearch, $docuTypeInput;
+
+    public $advancedSearch;
     public function render()
     {
         $documentTypes = DocuPost::distinct('document_type')->pluck('document_type');
-        $this->docuTypeInput = $documentTypes->isEmpty() ? 'default_value' : $documentTypes->first();
+
         return view('livewire.user.advanced-search', [
             'documentTypes' => $documentTypes,
         ]);

@@ -16,11 +16,11 @@ class SystemSetting extends Component
     use WithPagination;
 
     #[Url()]
-    public $activeTab = 'profile';
+    public $tab = 'general';
 
     public function switchTab($tab)
     {
-        $this->activeTab = $tab;
+        $this->tab = $tab;
         // $this->dispatch('popstate', $tab);
     }
 
@@ -207,6 +207,11 @@ class SystemSetting extends Component
     {
         $this->dispatch('close-prev');
         return $this->previewData = null;
+    }
+
+    public function placeholder()
+    {
+        return view('livewire.placeholder.setting-skeleton');
     }
 
     public function render()

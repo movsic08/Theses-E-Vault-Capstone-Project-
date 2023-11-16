@@ -1,5 +1,5 @@
 <div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/datepicker.min.js"></script>
+    <script wire:ignore src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/datepicker.min.js"></script>
     <section class="container">
         <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-[4rem] md:p-2">
             <div class="flex w-full flex-col items-center justify-center">
@@ -44,70 +44,63 @@
                         </button>
                     </div>
                     {{-- data picker --}}
-                    <div class="flex w-full items-center justify-start gap-2">
-                        <x-label-input class="w-fit whitespace-nowrap">Date option</x-label-input>
-                        <select x-model="dateOption"
-                            class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                            <option value="month-and-year-only">Month and year</option>
-                            <option value="date-range">Date range</option>
-                        </select>
-
+                    <div class="flex w-full items-start justify-between gap-2">
+                        <div class="flex w-fit flex-col items-start justify-start gap-2">
+                            <div class="flex w-full flex-row items-center justify-start gap-2">
+                                <x-label-input class="w-fit whitespace-nowrap">Date option</x-label-input>
+                                <select x-model="dateOption" wire:model.live='datapicker'
+                                    class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                                    <option value="month-and-year-only">Month and year</option>
+                                    <option value="date-range">Date range</option>
+                                </select>
+                            </div>
+                            @error('dateMYOnly')
+                                <small class="mt-1 text-red-500">{{ $message }}</small>
+                            @enderror
+                            @error('dateRangeStart')
+                                <small class="text-red-500">{{ $message }}</small>
+                            @enderror
+                            @error('dateRangeEnd')
+                                <small class="text-red-500">{{ $message }}</small>
+                            @enderror
+                        </div>
                         {{-- month and year --}}
                         <div x-show="dateOption === 'month-and-year-only'" x-transition:enter.duration.400ms.delay.300ms
                             x-transition:leave.duration.200ms class="relative w-full transition-all">
-                            <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-                                <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                </svg>
+                            <div class="flex items-center justify-center">
+                                <label for="monthYear" class="block text-sm font-medium text-gray-700">Month and
+                                    Year:</label>
+                                <input type="month" id="monthYear" name="monthYear" wire:model='dateMYOnly'
+                                    class="rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none">
                             </div>
-                            <input datepicker type="text"
-                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                placeholder="Select date">
                         </div>
 
                         {{-- date range --}}
-                        <div x-show="dateOption === 'date-range'" x-transition:enter.duration.400ms.delay.300ms
-                            x-transition:leave.duration.200ms class="flex items-center transition-all">
-                            <div date-rangepicker class="flex items-center">
-                                <div class="relative">
-                                    <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-                                        <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <input name="start" type="text"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                        placeholder="Select date start">
-                                </div>
-                                <span class="mx-4 text-gray-500">to</span>
-                                <div class="relative">
-                                    <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-                                        <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <input name="end" type="text"
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                        placeholder="Select date end">
-                                </div>
+                        <div x-show="dateOption === 'date-range'" wire:model.live='dateRange'
+                            x-transition:enter.duration.400ms.delay.300ms x-transition:leave.duration.200ms
+                            class="flex w-full items-center transition-all">
+                            <div class="flex items-center justify-center">
+                                <label for="startDate" class="block text-sm font-medium text-gray-700">Start
+                                    Date:</label>
+                                <input wire:model.live='dateRangeStart' type="month" id="startDate" name="startDate"
+                                    class="rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none">
+
+                                <label for="endDate" class="ml-4 block text-sm font-medium text-gray-700">End
+                                    Date:</label>
+                                <input wire:model.live='dateRangeEnd' type="month" id="endDate" name="endDate"
+                                    class="ml-1 rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none">
                             </div>
+
                         </div>
 
                     </div>
                     {{-- language and document type  --}}
-                    <div class="flex w-full items-center"
-                        :class="{ 'justify-between': dateOption === 'month-and-year-only', 'gap-10': dateOption === 'date-range' }">
+                    <div class="flex w-full items-center justify-start gap-4">
                         <div class="flex items-center gap-2">
                             <x-label-input>Document type</x-label-input>
-                            <select x-model="dateOption"
+                            <select wire:model.live='docuTypeInput'
                                 class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-
+                                <option selected value="all">All</option>
                                 @foreach ($documentTypes as $item)
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
@@ -117,6 +110,7 @@
                             <x-label-input>Language</x-label-input>
                             <select x-model="dateOption"
                                 class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                                <option selected value="all">All</option>
                                 <option value="month-and-year-only">English</option>
                             </select>
                         </div>

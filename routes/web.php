@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 
 Route::get('/skeleton', function () {
-    return view('skeletons.home-data-skeleton');
+    return view('livewire.placeholder.setting-skeleton');
 });
 
 // Route::controller(UserController:: class)->group(funtion(){

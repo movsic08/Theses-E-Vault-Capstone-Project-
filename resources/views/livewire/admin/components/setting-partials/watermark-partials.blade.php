@@ -1,7 +1,7 @@
- <div x-show="activeTab === 'watermarkConfiguration'" class="mb-6 flex w-full flex-col gap-4 lg:flex-row">
+ <div class="mb-6 flex w-full flex-col gap-4 lg:flex-row">
 
      {{-- add new --}}
-     <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
+     <div class="fixed right-0 top-0 z-30 flex h-full w-full items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
          x-data="{ add: false, uploading: false, progress: 0, uploaded: false }" x-show="add" x-on:open-wat.window = "add = true"
          x-on:close-wat.window = "add = false; uploaded = false" x-on:keydown.escape.window = "add = false"
          x-transition:enter.duration.400ms x-transition:leave.duration.300ms
@@ -160,7 +160,7 @@
          <div class="custom-scrollbar overflow-x-auto">
              <div class="max-w-full lg:max-h-[32rem]">
                  <table class="min-w-full">
-                     <thead class="sticky top-0 bg-white bg-opacity-50 backdrop-blur">
+                     <thead class="sticky top-0 bg-opacity-50 backdrop-blur">
                          <tr>
                              <th class="px-6 py-2 text-left font-bold text-gray-700">
                                  Image preview
@@ -230,7 +230,7 @@
                                                          clip-rule="evenodd"></path>
                                                  </svg>
                                              </span>
-                                             <div wire:click='setAsDefault({{ $item->id }})'
+                                             <div wire:click.prevent='setAsDefault({{ $item->id }})'
                                                  class="hover: w-fit cursor-pointer rounded-md bg-blue-600 p-1 text-center text-xs text-white duration-500 ease-in-out hover:bg-blue-800">
                                                  Set as default
                                              </div>
