@@ -1,6 +1,7 @@
 <div>
     <section class="container">
-        <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-36 md:p-2">
+        <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-[6rem] md:p-2">
+            <img class="h-[5rem]" src="{{ asset('icons/logo.svg') }}" alt="logo">
             <h2
                 class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[10rem] lg:text-4xl">
                 UNLOCKING

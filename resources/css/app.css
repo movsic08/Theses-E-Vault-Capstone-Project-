@@ -43,6 +43,10 @@
   background: linear-gradient(107deg, #D9F0FF 3.72%, #E3E5E5 107.94%);
 } */
 
+/* styles.css or in your Tailwind CSS file */
+
+
+
 .gradient-bg-light {
   background: linear-gradient(108deg, #E8F5FD 3.73%, rgba(231, 234, 236, 0.56) 99.09%);
 }
