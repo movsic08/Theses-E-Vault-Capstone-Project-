@@ -1,16 +1,17 @@
 <div>
-    <section class="">
-        <div class="my-2 w-full">
+    <section class="flex flex-col items-center justify-center">
+
+        <div class="w-[80%] lg:w-[50%]">
+
             <div class="flex flex-col items-center justify-center gap-4">
-                <strong>Notifactions</strong>
-            </div>
-        </div>
-        <div class="w-full">
-            <div class="flex flex-col items-center justify-center gap-4">
+                <div class="flex w-full flex-row items-center justify-between">
+                    <strong>Notifactions</strong>
+                    <strong>Setting dropdown ito</strong>
+                </div>
                 @foreach ($notificationItems as $item)
                     <a href="{{ $item->link }}" wire:navigate wire:click="clickedNotification({{ $item->id }})"
                         @click="$dispatch('notification-read')"
-                        class="{{ $item->is_read == 0 ? 'bg-slate-200 duration-700 hover:bg-slate-300 ease-in-out' : 'bg-white' }} relative flex h-full w-[80%] items-center rounded-md p-2 drop-shadow-md lg:w-[50%]">
+                        class="{{ $item->is_read == 0 ? 'bg-blue-300  duration-700 hover:bg-blue-400 ease-in-out bg-opacity-20 hover:bg-opacity-50' : 'bg-white bg-opacity-60' }} relative flex h-full items-center rounded-md border border-slate-300 p-2 drop-shadow-lg backdrop-blur-sm">
                         <div class="flex h-full items-start justify-start">
                             @if ($item->category == 'system')
                                 <img class="ml-4 h-10 w-10" src=" {{ asset('icons/logo.svg') }}" alt="">

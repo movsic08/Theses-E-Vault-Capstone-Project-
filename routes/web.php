@@ -16,6 +16,7 @@ use App\Livewire\ProfileEditTab;
 use App\Livewire\EditProfile;
 use App\Http\Livewire\Admin\{AddNewUser, CreateUsers};
 use App\Livewire\UploadDocument;
+use App\Livewire\User\AdvancedSearchResults;
 use App\Livewire\ViewDocuPost;
 use Illuminate\Support\Facades\Route;
 
@@ -101,6 +102,7 @@ Route::get('/advanced-search', function () {
 Route::get('/search/Nsearch', [SearchController::class, 'basicSearch'])->name('basic-search');
 
 Route::get('/search/result/', DocuSearchResult::class)->name('search-result-page');
+Route::get('/advanced-search/result/', AdvancedSearchResults::class)->name('advanced-search-result-page');
 
 
 Route::get('/catalogue', [CatalogueController::class, 'mainView'])->name('user-catalogue');

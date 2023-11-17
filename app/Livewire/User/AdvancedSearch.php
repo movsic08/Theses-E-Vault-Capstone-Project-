@@ -7,22 +7,22 @@ use Livewire\Component;
 
 class AdvancedSearch extends Component
 {
-    public $search, $datapicker = 'month-and-year-only', $dateMYOnly, $dateRangeStart, $dateRangeEnd, $docuTypeInput = 'all', $language = 'all';
+    public $search, $datepicker = 'month-and-year-only', $dateMYOnly, $dateRangeStart, $dateRangeEnd, $docuTypeInput = 'all', $language = 'all';
     protected $rules = [
         'search' => 'required|min:1',
-        'dateMYOnly' => 'nullable|required_if:datapicker,month-and-year-only|date',
-        'dateRangeStart' => 'nullable|required_if:datapicker,date-range|date',
-        'dateRangeEnd' => 'nullable|required_if:datapicker,date-range|date',
+        'dateMYOnly' => 'nullable|required_if:datepicker,month-and-year-only|date',
+        'dateRangeStart' => 'nullable|required_if:datepicker,date-range|date',
+        'dateRangeEnd' => 'nullable|required_if:datepicker,date-range|date',
     ];
 
     protected $messages = [
         'search.required' => 'The search field is required.',
         'search.min' => 'The search field must be at least :min characters.',
-        'dateMYOnly.required_if' => 'The Date month and year field is required when datapicker is month-and-year-only.',
+        'dateMYOnly.required_if' => 'The Date month and year field is required when datepicker is month-and-year-only.',
         'dateMYOnly.date' => 'The Date month and year field must be a valid date.',
-        'dateRangeEnd.required_if' => 'The Date range field is required when datapicker is date-range.',
+        'dateRangeEnd.required_if' => 'The Date range field is required when datepicker is date-range.',
         'dateRangeEnd.date' => 'The Date range field must be a valid date.',
-        'dateRangeStart.required_if' => 'The Date range field is required when datapicker is date-range.',
+        'dateRangeStart.required_if' => 'The Date range field is required when datepicker is date-range.',
         'dateRangeStart.date' => 'The Date range field must be a valid date.',
     ];
 
@@ -31,9 +31,9 @@ class AdvancedSearch extends Component
         // dd($this->docuTypeInput);   
         $this->validate();
 
-        return redirect()->route('search-result-page', [
+        return redirect()->route('advanced-search-result-page', [
             'q' => $this->search,
-            'datePicked' => $this->datapicker,
+            'datePicked' => $this->datepicker,
             'dateMYOnly' => $this->dateMYOnly,
             'dateRangeStart' => $this->dateRangeStart,
             'dateRangeEnd' => $this->dateRangeEnd,

@@ -48,7 +48,7 @@
                         <div class="flex w-fit flex-col items-start justify-start gap-2">
                             <div class="flex w-full flex-row items-center justify-start gap-2">
                                 <x-label-input class="w-fit whitespace-nowrap">Date option</x-label-input>
-                                <select x-model="dateOption" wire:model.live='datapicker'
+                                <select x-model="dateOption" wire:model.live='datepicker'
                                     class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                                     <option value="month-and-year-only">Month and year</option>
                                     <option value="date-range">Date range</option>
@@ -100,7 +100,7 @@
                             <x-label-input>Document type</x-label-input>
                             <select wire:model.live='docuTypeInput'
                                 class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                                <option selected value="all">All</option>
+                                <option selected value="all">all</option>
                                 @foreach ($documentTypes as $item)
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
@@ -110,7 +110,7 @@
                             <x-label-input>Language</x-label-input>
                             <select x-model="dateOption"
                                 class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                                <option selected value="all">All</option>
+                                <option selected value="all">all</option>
                                 <option value="month-and-year-only">English</option>
                             </select>
                         </div>
