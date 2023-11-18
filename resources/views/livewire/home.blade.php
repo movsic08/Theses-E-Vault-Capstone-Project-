@@ -131,7 +131,7 @@
                                 <section
                                     class="rounded-xl bg-white p-5 drop-shadow-lg duration-500 ease-in-out hover:-translate-y-1">
                                     <div class="relative flex w-full items-start gap-2 border-b border-gray-300 pb-3">
-                                        <a wire:click='viewsCount({{ $docuData->id }})'
+                                        <a wire:click='viewsCount({{ $docuData->id }})' wire:navigate
                                             href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
                                             class="text-base font-bold md:pr-6 md:text-lg">
                                             {{ $docuData->title }}
