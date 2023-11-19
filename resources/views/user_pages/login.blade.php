@@ -57,14 +57,12 @@
                         <div class="flex flex-col">
                             <label class="font-medium text-gray-800" for="email">Email</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                type="email" name="email" id="email" placeholder="user@psu.edu.ph"
-                                value="{{ old('email') }}">
-
+                                type="email" name="email" id="email" placeholder="user@psu.edu.ph" @if(isset($_COOKIE["email"])) value="{{ $_COOKIE["email"]}}" @endif required"">
                         </div>
                         <div class="flex flex-col">
                             <label class="font-medium text-gray-800" for="password">Password</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                type="password" name="password" id="password">
+                                type="password" name="password" id="password" @if(isset($_COOKIE["password"])) value="{{ $_COOKIE["password"]}}" @endif required"">
                             @error('password')
                                 <span class="w-full px-1 text-xs text-red-700">
                                     {{ $message }}
@@ -73,11 +71,11 @@
                         </div>
                         <div class="flex items-center justify-between text-gray-500 md:text-sm lg:text-base">
                             <div class="flex flex-row gap-2">
-                                <input type="checkbox" name="" id="remember_me">
-                                <label class="font-normal" for="remember_me">Remember me</label>
+                                <input type="checkbox" name="remember_me" id="remember_me" @if(isset($_COOKIE["email"])) checked="" @endif>
+                                <label class="font-normal text-xs" for="remember_me" >Remember me</label>
                             </div>
                             <a href="{{ route('forgot-pass') }}"
-                                class="text-blue-500 duration-150 ease-in-out hover:font-normal hover:text-blue-950">Forgot
+                                class="text-blue-500 duration-150 ease-in-out text-xs hover:font-normal hover:text-blue-950">Forgot
                                 your password?</a>
                         </div>
                         <input

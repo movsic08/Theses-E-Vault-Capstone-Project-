@@ -102,38 +102,38 @@ class UserController extends Controller
         ]);
 
         $user = User::where('email', $validated['email'])->first();
+
         if (!$user) {
             return back()->withErrors([
                 'email' => 'No account found with this email. Create a new account.',
             ])->onlyInput('email');
         }
 
-        if (auth()->attempt($validated)) {
-            $request->session()->regenerate();
+        $remember = $request->has('remember_me');
 
-            $user = auth()->user();
+        //check if the user click remember me
+        // dd($remember);
 
-            $existingLog = LoginLog::where('user_id', auth()->user()->id)
-                ->whereDate('login_time', Carbon::today())
-                ->first();
-
-            // If no existing log, create a new one
-            if (!$existingLog) {
-                LoginLog::create([
-                    'user_id' => auth()->user()->id,
-                    'login_time' => now(),
-                    'is_admin' => auth()->user()->is_admin == 1
-                ]);
+        if (auth()->attempt($validated, $remember)) {
+            if ($remember) {
+                // Set cookies for email and password if "Remember Me" is checked
+                setcookie("email", $validated['email']);
+                setcookie("password", $validated['password']);
+            }else{
+                setcookie("email", "");
+                setcookie("password", "");
             }
+
+            $request->session()->regenerate();
+            $user = auth()->user();
 
             if ($user->is_admin) {
                 return redirect()->route('admin-home')->with('message', 'Welcome back, Admin ' . $user->email . '!');
             } else {
                 return redirect()->intended(route('home'))->with('message', 'Welcome back, ' . $user->email . '!');
             }
-
         }
-
+        
         return back()->withErrors(['email' => 'You entered invalid credentials'])->onlyInput('email');
     }
 
