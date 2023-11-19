@@ -38,7 +38,7 @@ export default {
             },
             colors: {
                 "primary-color": "#0A2647",
-                "secondary-color": "#2C74B3",
+                "secondary-color": "#E6CB56",
             },
         },
         container: {
