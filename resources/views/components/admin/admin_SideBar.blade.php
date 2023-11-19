@@ -4,7 +4,7 @@
     <div class="">
         <div>
             <div class="flex items-center justify-between space-x-1 p-4">
-                <h1>ADMIN</h1>
+                <img height="30" width="30" src="{{ asset('icons/logo.svg') }}" alt="logo" srcset="">
                 <h1 class="hideName block text-sm md:hidden">ThesisKIosk</h1>
                 <button id="sidebarBtn" class="absolute -right-7 z-40 hidden md:block">
                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">

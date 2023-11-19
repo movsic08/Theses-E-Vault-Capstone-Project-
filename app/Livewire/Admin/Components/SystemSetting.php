@@ -15,7 +15,7 @@ class SystemSetting extends Component
     use WithFileUploads;
     use WithPagination;
 
-    #[Url()]
+    // #[Url()]
     public $tab = 'general';
 
     public function switchTab($tab)

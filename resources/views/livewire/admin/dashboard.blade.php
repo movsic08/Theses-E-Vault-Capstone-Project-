@@ -108,8 +108,7 @@
                             @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
                             @import url(https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css);
                         </style>
-                        <div class="w-full text-gray-500 dark:bg-gray-800" x-data="{ chartData: chartData() }"
-                            x-init="chartData.fetch()">
+                        <div class="w-full text-gray-500 dark:bg-gray-800">
                             <div class="flex flex-wrap items-end">
                                 <div class="flex-1">
                                     <h3 class="text-lg font-semibold leading-tight">App usages</h3>
@@ -303,16 +302,24 @@
                                                     </div>
                                                 </td>
                                                 <td class="whitespace-nowrap px-1 py-2">
-                                                    <p>juan@gmail.com</p>
+                                                    <p> {{ $item->email }}</p>
                                                 </td>
                                                 <td class="whitespace-nowrap px-1 py-2">
-                                                    <div
-                                                        class="rounded-full bg-red-100 px-1 py-1 text-center text-xs font-semibold uppercase text-red-800">
-                                                        unverified
-                                                    </div>
+                                                    @if ($item->is_verified == 1)
+                                                        <div
+                                                            class="rounded-full bg-green-100 px-1 py-1 text-center text-xs font-semibold uppercase text-green-800">
+                                                            Verfied
+                                                        </div>
+                                                    @else
+                                                        <div
+                                                            class="rounded-full bg-red-100 px-1 py-1 text-center text-xs font-semibold uppercase text-red-800">
+                                                            unverified
+                                                        </div>
+                                                    @endif
+
                                                 </td>
                                                 <td class="whitespace-nowrap px-1 py-2 text-center">
-                                                    Nov 23 2023
+                                                    {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -333,29 +340,58 @@
                             <tr>
                                 <th class="border-r border-gray-300 px-4 py-2">Title</th>
                                 <th class="border-r border-gray-300 px-4 py-2">Author</th>
-                                <th class="border-r border-gray-300 px-4 py-2">Document Type</th>
+                                <th class="border-r border-gray-300 px-2 py-2">Document Type</th>
                                 <th class="border-r border-gray-300 px-4 py-2">Status</th>
-                                <th class="border-r border-gray-300 px-4 py-2">Date Created</th>
+                                <th class="border-r border-gray-300 px-1 py-2">Date Created</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 5; $i++)
-                                <tr class="{{ $i % 2 == 0 ? 'bg-gray-50' : '' }}">
-                                    <td class="border-r border-gray-300 px-4 py-2">Document Title
-                                        {{ $i + 1 }}</td>
-                                    <td class="border-r border-gray-300 px-4 py-2">Author Name {{ $i + 1 }}
+                            @foreach ($latestDocuPostData as $item)
+                                <tr class="bg-gray-50">
+                                    <td
+                                        class="border-r border-gray-300 px-4 py-2 font-semibold duration-300 ease-in hover:text-primary-color">
+                                        <a wire:navigate
+                                            href="{{ route('admin-view-document', ['reference' => $item->reference]) }}">
+                                            {{ $item->title }}
+                                        </a>
                                     </td>
-                                    <td class="border-r border-gray-300 px-4 py-2">Type {{ $i + 1 }}</td>
-                                    <td class="border-r border-gray-300 px-4 py-2">
-                                        <span class="{{ $i % 2 == 0 ? 'text-green-600' : 'text-red-600' }}">
-                                            {{ $i % 2 == 0 ? 'Published' : 'Draft' }}
-                                        </span>
+                                    <td class="whitespace-nowrap border-r border-gray-300 px-4 py-2">
+                                        {{ $item->author_1 }}
                                     </td>
-                                    <td class="border-r border-gray-300 px-4 py-2">
-                                        {{ now()->subDays($i)->diffForHumans() }}
+                                    <td class="border-r border-gray-300 px-2 py-2 text-center">
+                                        {{ $item->document_type }}
+                                    </td>
+                                    <td class="border-r border-gray-300 px-4 py-2 text-center font-medium">
+                                        @if ($item->status == 0)
+                                            <span class="text-center text-yellow-500">
+                                                Pending
+                                            </span>
+                                        @elseif ($item->status == 1)
+                                            <span class="text-center text-green-600">
+                                                Approved
+                                            </span>
+                                        @elseif ($item->status == 2)
+                                            <span class="text-center text-orange-500">
+                                                Disapproved
+                                            </span>
+                                        @elseif ($item->status == 3)
+                                            <span class="text-center text-red-500">
+                                                Revision
+                                            </span>
+                                        @elseif ($item->status == 4)
+                                            <span class="text-center text-gray-900">
+                                                Out of Span
+                                            </span>
+                                        @endif
+
+
+                                    </td>
+                                    <td class="border-r border-gray-300 px-1 py-2 text-sm">
+                                        {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                                     </td>
                                 </tr>
-                            @endfor
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

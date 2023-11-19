@@ -16,8 +16,7 @@
              <div
                  class="custom-scrollbar flex flex-row items-center gap-3 overflow-x-auto whitespace-nowrap border-r-2 border-gray-300 px-4 py-2 font-medium md:w-[20rem] md:flex-col md:items-start">
                  <small class="-mb-2 hidden uppercase text-gray-400 md:block">account</small>
-                 <li wire:click="switchTab('profile')" @click="tab = 'profile'"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'profile' }"
+                 <li wire:click="switchTab('profile')" :class="{ 'font-semibold bg-gray-100': tab === 'profile' }"
                      class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
                      <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -28,8 +27,7 @@
                          </path>
                      </svg>Profile
                  </li>
-                 <li @click="tab = 'password'" wire:click="switchTab('password')"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'password' }"
+                 <li wire:click="switchTab('password')" :class="{ 'font-semibold bg-gray-100': tab === 'password' }"
                      class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
                      <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -39,8 +37,7 @@
                      </svg>Password
                  </li>
                  <small class="-mb-2 mt-3 hidden uppercase text-gray-400 md:block">System setting</small>
-                 <li @click="tab = 'general'" wire:click="switchTab('general')"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'general' }"
+                 <li wire:click="switchTab('general')" :class="{ 'font-semibold bg-gray-100': tab === 'general' }"
                      class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
                      <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -50,7 +47,7 @@
                          </path>
                      </svg>General
                  </li>
-                 <li @click="tab = 'documentTypes'" wire:click="switchTab('documentTypes')"
+                 <li wire:click="switchTab('documentTypes')"
                      :class="{ 'font-semibold bg-gray-100': tab === 'documentTypes' }"
                      class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
                      <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -64,8 +61,7 @@
                          <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
                      </svg>Document types
                  </li>
-                 <li @click="tab = 'watermark'" wire:click="switchTab('watermark')"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'watermark' }"
+                 <li wire:click="switchTab('watermark')" :class="{ 'font-semibold bg-gray-100': tab === 'watermark' }"
                      class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
                      <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
