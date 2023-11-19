@@ -18,7 +18,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="relative h-screen overflow-hidden">
+<body class="relative h-screen overflow-hidden font-poppins">
     <div class="absolute inset-0 -z-10 bg-cover bg-center"
         style="background-image: url('{{ asset('assets/psu_acc.jpg') }}');"></div>
     <div class="absolute inset-0 z-10 bg-blue-800 opacity-50"></div>
@@ -26,17 +26,50 @@
         <div class="flex md:h-[32rem] md:w-[55rem]">
             <div
                 class="hidden w-1/2 items-start justify-center rounded-l-lg bg-blue-400 bg-opacity-50 p-8 drop-shadow-lg backdrop-blur-md md:flex md:flex-col">
-                <h1 class="whitespace-wrap font-extrabold leading-tight text-yellow-400 md:text-[3rem] lg:text-[4rem]">
+                <h1
+                    class="whitespace-wrap font-extrabold leading-tight text-yellow-400 md:text-[3rem] lg:text-[3.8rem]">
                     Pangasinan
                     State
-                    Univeristy
+                    University
                 </h1>
                 <h2 class="text-[1.7rem] font-bold text-white">Alaminos City Campus</h2>
+                <div class="mt-2" x-data="{
+                    paragraphs: [
+                        'The gateway to a world of knowledge at your fingertips. We believe that knowledge should be easily accessible and available to all. With Thesis Kiosk, we\'re here to make that a reality.',
+                        'Whether you\'re a student or instructor, our platform simplifies the way you discover, access, and contribute to a wealth of academic works.',
+                        'Your Key to a World of Wisdom. We\'re the doorway to boundless knowledge, where every click opens a new chapter in your academic journey. At Thesis Kiosk, we\'re all about making knowledge accessible, simple, and inspiring.',
+                        'Join us in reshaping the way you connect with the wealth of academic insights, where discovery is just a click away.',
+                        'We are your gateway to unlocking the profound insights within research and theses. At Thesis Kiosk, we\'re dedicated to revolutionizing the way you engage with academia, making it an accessible and enriching experience.'
+                    ],
+                    currentParagraph: '',
+                    currentIndex: 0,
+                    updateParagraph: function() {
+                        this.currentIndex = (this.currentIndex + 1) % this.paragraphs.length;
+                        this.currentParagraph = this.paragraphs[this.currentIndex];
+                    }
+                }" x-init="updateParagraph();
+                setInterval(() => { updateParagraph() }, 8000)" class="max-w-lg text-center">
+
+                    <template x-if="currentParagraph">
+                        <div x-transition:enter.duration.1000ms x-transition:leave.duration.1000ms
+                            x-text="currentParagraph" class="fade-in-out mb-4 text-sm text-yellow-400"></div>
+                    </template>
+
+                    <style>
+                        .fade-in-out {
+                            transition: opacity 1s ease-in-out;
+                        }
+                    </style>
+                </div>
+
+
+
+                <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
             </div>
             <div class="flex flex-col rounded-l-lg rounded-r-lg bg-white p-8 drop-shadow-lg md:w-1/2 md:rounded-l-none">
                 <div class="mt-4 flex items-center justify-center gap-2">
                     <img src="{{ asset('icons/logo.svg') }}" alt="PSU LOGO" srcset="">
-                    <h1 class="text-xl font-bold">ThesisKiosk</h1>
+                    <h1 class="text-2xl font-bold uppercase text-primary-color">Thesis Kiosk</h1>
                 </div>
                 <div class="my-4">
                     <p class="text-gray-500">
@@ -48,13 +81,10 @@
                 {{-- FORM --}}
                 <form action="{{ route('login-process') }}" method="POST" class="my-6">
                     @csrf
-                    @error('email')
-                        <span class="w-full px-1 text-xs text-red-700">
-                            {{ $message }}
-                        </span>
-                    @enderror
+
                     <div class="flex flex-col gap-6">
                         <div class="flex flex-col">
+{{-- <<<<<<< HEAD --}}
                             <label class="font-medium text-gray-800" for="email">Email</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="email" name="email" id="email" placeholder="user@psu.edu.ph" @if(isset($_COOKIE["email"])) value="{{ $_COOKIE["email"]}}" @endif required"">
@@ -63,6 +93,28 @@
                             <label class="font-medium text-gray-800" for="password">Password</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="password" name="password" id="password" @if(isset($_COOKIE["password"])) value="{{ $_COOKIE["password"]}}" @endif required"">
+{{-- =======
+<div class="flex flex-col">
+    <x-label-input for="email">Email</x-label-input>
+    <x-input-field class="w-full h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950" 
+                    type="email" name="email" id="email" 
+                    placeholder="user@psu.edu.ph" 
+                    value="{{ old('email') }}" @if(isset($_COOKIE["email"])) value="{{ $_COOKIE["email"]}}" @endif required />
+    @error('email')
+        <span class="w-full px-1 text-xs text-red-700">
+            {{ $message }}
+        </span>
+    @enderror
+</div>
+<div class="flex flex-col">
+    <x-label-input for="password">Password</x-label-input>
+    <x-input-field class="w-full h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950" 
+                    type="password" name="password" id="password" 
+                    placeholder="Password" 
+                    @if(isset($_COOKIE["password"])) value="{{ $_COOKIE["password"]}}" @endif required />
+</div>
+
+>>>>>>> master --}}
                             @error('password')
                                 <span class="w-full px-1 text-xs text-red-700">
                                     {{ $message }}

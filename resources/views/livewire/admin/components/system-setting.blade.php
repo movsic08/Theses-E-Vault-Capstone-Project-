@@ -3,97 +3,131 @@
      <div class= "mx-4 text-gray-800 md:mx-8 lg:mx-10">
          <h1 class="text-lg font-bold md:md:text-xl">Settings</h1>
          <span>Manage account details and customize website preferences </span>
-         {{-- <div class="mt-2 border-t border-gray-300 pt-2">
-            
-                 @include('livewire\admin\components\setting-partials\general-setting-partials')
-                 
-                
-    
-         </div> --}}
 
-         <div x-data="{ tab: '{{ $tab }}' }"
-             class="mt-2 flex h-fit max-h-[36rem] w-full flex-col rounded-xl bg-white p-2 drop-shadow-md md:h-[30rem] md:flex-row lg:h-[36rem]">
-             <div
-                 class="custom-scrollbar flex flex-row items-center gap-3 overflow-x-auto whitespace-nowrap border-r-2 border-gray-300 px-4 py-2 font-medium md:w-[20rem] md:flex-col md:items-start">
-                 <small class="-mb-2 hidden uppercase text-gray-400 md:block">account</small>
-                 <li wire:click="switchTab('profile')" @click="tab = 'profile'"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'profile' }"
-                     class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
-                     <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
-                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg">
-                         <path d="M12 2a5 5 0 1 0 0 10 5 5 0 1 0 0-10z"></path>
-                         <path
-                             d="M17 14h.352a3 3 0 0 1 2.976 2.628l.391 3.124A2 2 0 0 1 18.734 22H5.266a2 2 0 0 1-1.985-2.248l.39-3.124A3 3 0 0 1 6.649 14H7">
-                         </path>
-                     </svg>Profile
-                 </li>
-                 <li @click="tab = 'password'" wire:click="switchTab('password')"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'password' }"
-                     class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
-                     <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
-                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg">
-                         <path d="m8 18 2-2h2l1.36-1.36a6.5 6.5 0 1 0-3.997-3.992L2 18v4h4l2-2v-2z"></path>
-                         <path d="M17 6a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
-                     </svg>Password
-                 </li>
-                 <small class="-mb-2 mt-3 hidden uppercase text-gray-400 md:block">System setting</small>
-                 <li @click="tab = 'general'" wire:click="switchTab('general')"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'general' }"
-                     class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
-                     <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
-                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg">
-                         <path
-                             d="M22 20v-7.826a4 4 0 0 0-1.253-2.908l-7.373-6.968a2 2 0 0 0-2.748 0L3.253 9.266A4 4 0 0 0 2 12.174V20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2z">
-                         </path>
-                     </svg>General
-                 </li>
-                 <li @click="tab = 'documentTypes'" wire:click="switchTab('documentTypes')"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'documentTypes' }"
-                     class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
-                     <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
-                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg">
-                         <path
-                             d="M4 4v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.342a2 2 0 0 0-.602-1.43l-4.44-4.342A2 2 0 0 0 13.56 2H6a2 2 0 0 0-2 2z">
-                         </path>
-                         <path d="M9 13h6"></path>
-                         <path d="M9 17h3"></path>
-                         <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-                     </svg>Document types
-                 </li>
-                 <li @click="tab = 'watermark'" wire:click="switchTab('watermark')"
-                     :class="{ 'font-semibold bg-gray-100': tab === 'watermark' }"
-                     class="flex w-full cursor-pointer list-none items-center gap-2 rounded-xl px-3 py-1 text-gray-800 duration-300 ease-in-out hover:bg-gray-100">
-                     <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
-                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg">
-                         <path
-                             d="M12 22a8 8 0 0 1-8-8c0-3.502 2.71-6.303 5.093-8.87L12 2l2.907 3.13C17.29 7.698 20 10.499 20 14a8 8 0 0 1-8 8z">
-                         </path>
-                     </svg>Watermark
-                 </li>
-
+         <div x-data="{ openTab: 'profile' }"
+             class="mt-2 flex h-fit max-h-[36rem] rounded-xl bg-white drop-shadow-xl md:h-[30rem] md:flex-row lg:h-[36rem]">
+             <!-- Sidebar -->
+             <div class="w-1/5 capitalize">
+                 <ul class="flex flex-col gap-1 p-4">
+                     <small class="hidden font-medium uppercase text-gray-500 md:block">account</small>
+                     <li>
+                         <a @click="openTab = 'profile'" :class="{ 'bg-gray-100 font-bold': openTab === 'profile' }"
+                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-blue-200 p-1 text-blue-900">
+                                 <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                     <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
+                                     <path
+                                         d="M8 13.25A3.75 3.75 0 0 0 4.25 17v1.188c0 .754.546 1.396 1.29 1.517 4.278.699 8.642.699 12.92 0a1.537 1.537 0 0 0 1.29-1.517V17A3.75 3.75 0 0 0 16 13.25h-.34c-.185 0-.369.03-.544.086l-.866.283a7.251 7.251 0 0 1-4.5 0l-.866-.283a1.752 1.752 0 0 0-.543-.086H8Z">
+                                     </path>
+                                 </svg>
+                             </div>
+                             profile
+                         </a>
+                     </li>
+                     <li>
+                         <a @click="openTab = 'password'" :class="{ 'bg-gray-100 font-bold': openTab === 'password' }"
+                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-orange-200 p-1 text-orange-900">
+                                 <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                     <path fill-rule="evenodd"
+                                         d="M1.25 12a5.75 5.75 0 0 1 10.8-2.75H21c.966 0 1.75.784 1.75 1.75v2.5a.75.75 0 0 1-.75.75h-2.25V16a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1-.75-.75v-1.75h-3.457A5.751 5.751 0 0 1 1.25 12ZM7 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
+                                         clip-rule="evenodd"></path>
+                                 </svg>
+                             </div>
+                             password
+                         </a>
+                     </li>
+                     <div class="mt-2">
+                         <small class="hidden font-medium uppercase text-gray-500 md:block">System setting</small>
+                         <li>
+                             <a @click="openTab = 'general'"
+                                 :class="{ 'bg-gray-100 font-bold': openTab === 'general' }"
+                                 class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                                 <div class="rounded-md bg-gray-200 p-1 text-gray-900">
+                                     <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                         <path d="M8.75 12a3.25 3.25 0 1 1 6.5 0 3.25 3.25 0 0 1-6.5 0Z"></path>
+                                         <path fill-rule="evenodd"
+                                             d="M11.46 1.838a.75.75 0 0 1 1.08 0L15.111 4.5h3.638a.75.75 0 0 1 .75.75v3.638l2.662 2.573a.75.75 0 0 1 0 1.078L19.5 15.111v3.639a.75.75 0 0 1-.75.75h-3.638l-2.573 2.661a.75.75 0 0 1-1.078 0L8.889 19.5H5.25a.75.75 0 0 1-.75-.75v-3.64l-2.66-2.57a.75.75 0 0 1 0-1.078L4.5 8.888V5.25a.75.75 0 0 1 .75-.75h3.64l2.572-2.662ZM12 7.25a4.75 4.75 0 1 0 0 9.5 4.75 4.75 0 0 0 0-9.5Z"
+                                             clip-rule="evenodd"></path>
+                                     </svg>
+                                 </div>
+                                 general
+                             </a>
+                         </li>
+                     </div>
+                     <li>
+                         <a @click="openTab = 'documentType'"
+                             :class="{ 'bg-gray-100 font-bold': openTab === 'documentType' }"
+                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-sky-200 p-1 text-sky-900">
+                                 <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                     <path
+                                         d="M7 2h6.616c.332 0 .65.132.884.366L19.134 7c.234.234.366.552.366.884v5.366h-15V4.5A2.5 2.5 0 0 1 7 2Zm6.875 1.875v2.5a1.25 1.25 0 0 0 1.25 1.25h2.5l-3.75-3.75ZM4.5 17h15v2.5A2.5 2.5 0 0 1 17 22H7a2.5 2.5 0 0 1-2.5-2.5V17Zm-1.875-2.5a.625.625 0 1 0 0 1.25h18.75a.624.624 0 1 0 0-1.25H2.625Z">
+                                     </path>
+                                 </svg>
+                             </div>
+                             document type
+                         </a>
+                     </li>
+                     <li>
+                         <a @click="openTab = 'watermarkConfig'"
+                             :class="{ 'bg-gray-100 font-bold': openTab === 'watermarkConfig' }"
+                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-sky-200 p-1 text-sky-900">
+                                 <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                     <path fill-rule="evenodd"
+                                         d="M11.052 3.36c.576-.606.948-.96.948-.96.13.436.28.85.445 1.246.974 2.335 2.488 4.02 3.836 5.52 1.572 1.75 2.919 3.248 2.919 5.234a7.2 7.2 0 0 1-14.4 0c0-3.998 4.296-8.98 6.252-11.04Zm.495 1.226a37.473 37.473 0 0 0-2.194 2.602C8.48 8.328 7.629 9.598 7 10.872c-.635 1.288-1 2.494-1 3.528 0 0 3 1.8 6 .6 3-1.2 6-.6 6-.6 0-1.44-.955-2.588-2.617-4.44l-.036-.038c-1.247-1.39-2.747-3.056-3.8-5.336Z"
+                                         clip-rule="evenodd"></path>
+                                     <path fill-rule="evenodd"
+                                         d="M7.863 11.732c.984-1.97 2.06-3.304 2.512-3.756l.85.85c-.348.347-1.354 1.572-2.289 3.443l-1.073-.537Z"
+                                         clip-rule="evenodd"></path>
+                                 </svg>
+                             </div>
+                             watermark Config
+                         </a>
+                     </li>
+                 </ul>
              </div>
-             <div class="custom-scrollbar flex-grow-1 w-full overflow-y-auto px-4 py-2">
-                 <div x-show="tab === 'profile'" x-transition:enter.duration.400ms.delay.300ms
-                     x-transition:leave.duration.200ms>
+
+             <!-- Content Area -->
+             <div class="flex-1 p-8">
+                 <div x-show="openTab === 'profile'" class="text-gray-700">
+                     <!-- profile Settings Content -->
+                     <h2 class="mb-4 text-2xl font-semibold">profile Settings</h2>
                      @include('livewire\admin\components\setting-partials\edit-admin-profile-partials')
                  </div>
+                 <div x-show="openTab === 'password'" class="text-gray-700">
+                     <!-- password Settings Content -->
+                     <h2 class="mb-4 text-2xl font-semibold">password Settings</h2>
+                     <p>Your password settings content goes here.</p>
+                 </div>
 
+                 <div x-show="openTab === 'general'" class="text-gray-700">
+                     <!-- general Settings Content -->
+                     <h2 class="mb-4 text-2xl font-semibold">general Settings</h2>
+                     <p>Your general settings content goes here.</p>
+                 </div>
 
-                 <div x-show="tab === 'documentTypes'" x-transition:enter.duration.400ms.delay.300ms
-                     x-transition:leave.duration.200ms>
+                 <div x-show="openTab === 'documentType'" class="text-gray-700">
+                     <!-- documentType Settings Content -->
+                     <h2 class="mb-4 text-2xl font-semibold">documentType Settings</h2>
                      @include('livewire\admin\components\setting-partials\documentTypes-partials')
                  </div>
-                 <div x-show="tab === 'watermark'" x-transition:enter.duration.400ms.delay.300ms
-                     x-transition:leave.duration.200ms>
+                 <div x-show="openTab === 'watermarkConfig'" class="text-gray-700">
+                     <!-- watermarkConfig Settings Content -->
+                     <h2 class="mb-4 text-2xl font-semibold">watermarkConfig Settings</h2>
                      @include('livewire\admin\components\setting-partials\watermark-partials')
                  </div>
              </div>
          </div>
+
+
+
      </div>
 
  </div>

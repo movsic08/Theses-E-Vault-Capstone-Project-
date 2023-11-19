@@ -16,7 +16,7 @@ class SystemSetting extends Component
     use WithPagination;
 
     #[Url()]
-    public $tab = 'general';
+    public $tab = 'profile';
 
     public function switchTab($tab)
     {

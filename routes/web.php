@@ -136,21 +136,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         return view('pages.admin.analytics');
     })->name('admin-analytics');
 
-    Route::get('/chats', function () {
-        return view('pages.admin.chats');
-    })->name('admin-chats');
 
-    Route::get('/help-and-support', function () {
-        return view('pages.admin.help-and-support');
-    })->name('admin-help-and-support');
 
-    Route::get('/list-of-books', function () {
-        return view('pages.admin.list-of-books');
-    })->name('admin-list-of-books');
 
-    Route::get('/notification', function () {
-        return view('pages.admin.notification');
-    })->name('admin-notification');
+
+
 
     Route::get('/reported-comments', function () {
         return view('pages.admin.reported_comments');
