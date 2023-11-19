@@ -90,63 +90,10 @@
                     <p class="hideName block pl-2 text-sm md:hidden">Add docu</p>
                 </a>
             </div>
-            {{-- List of books --}}
-            <div
-                class="{{ request()->routeIs('admin-list-of-books') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
-                <a wire:navigate href="{{ route('admin-list-of-books') }}" class="flex items-center">
-                    <div class="relative">
-                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd"
-                                d="M4 8a4.5 4.5 0 0 1 4.5-4.5h10A1.5 1.5 0 0 1 20 5v15a1 1 0 0 1-1 1H7.5a3.5 3.5 0 0 1-3.465-3H4V8Zm14.5 7.5h-11a2 2 0 1 0 0 4h11v-4ZM8.25 8A.75.75 0 0 1 9 7.25h7a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 8ZM9 10.25a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5H9Z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <p class="hideName block pl-2 text-sm md:hidden">List of books</p>
-                </a>
-            </div>
-            {{-- notification --}}
+
             <div class="text-sm font-semibold">
-                {{-- notification --}}
-                <div id="sample"
-                    class="div-container {{ request()->routeIs('admin-notification') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 mb-2 flex items-center justify-between rounded-xl p-1 px-3 py-2.5 duration-500">
-                    <a wire:navigate href="{{ route('admin-notification') }}" class="flex items-center">
-                        <div class="relative">
-                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22Zm7-7.414V10c0-3.217-2.185-5.927-5.145-6.742A1.99 1.99 0 0 0 12 2a1.99 1.99 0 0 0-1.855 1.258C7.185 4.074 5 6.783 5 10v4.586l-1.707 1.707A.996.996 0 0 0 3 17v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a.996.996 0 0 0-.293-.707L19 14.586Z">
-                                </path>
-                            </svg>
-                            <div
-                                class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
-                                <p class="text-[8px]">1</p>
-                            </div>
-                        </div>
-                        <div class="ml-2 flex flex-col">
-                            <p class="hideName block text-sm md:hidden">Notification</p>
-                        </div>
-                    </a>
-                    <p id="msgCount" class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1
-                        Notification</p>
-                </div>
-                {{-- message area --}}
-                <div
-                    class="{{ request()->routeIs('admin-chats') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 flex flex-row items-center justify-between rounded-xl p-1 px-3 py-2.5 duration-500">
-                    <a wire:navigate href="{{ route('admin-chats') }}" class="flex items-center">
-                        <div class="relative">
-                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M22.276 9.68a10.281 10.281 0 0 0-3.62-5.844A10.66 10.66 0 0 0 11.992 1.5c-2.856 0-5.523 1.1-7.517 3.098C2.548 6.531 1.492 9.083 1.5 11.783c0 1.98.581 3.915 1.671 5.567l.204.283L2.25 22.5l5.381-1.339s.108.036.188.067c.08.03.765.293 1.493.497.604.168 1.863.422 2.848.422 2.796 0 5.407-1.083 7.352-3.05a10.332 10.332 0 0 0 2.988-7.308c0-.709-.075-1.416-.224-2.108Z">
-                                </path>
-                            </svg>
-                            <div
-                                class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
-                                <p class="text-[8px]">1</p>
-                            </div>
-                        </div>
-                        <p class="hideName block pl-2 text-sm md:hidden">Chat</p>
-                    </a>
-                    <p class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1 Message</p>
-                </div>
+
+
                 {{-- setting area --}}
                 <div
                     class="{{ request()->routeIs('admin-system-setting') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 flex flex-row items-center justify-between rounded-xl p-1 px-3 py-2.5 duration-500">
@@ -184,20 +131,7 @@
                     <p class="hideName block pl-2 text-sm md:hidden">Dark</p>
                 </a>
             </div>
-            <div
-                class="{{ request()->routeIs('admin-help-and-support') ? 'bg-slate-200 ' : 'hover:bg-slate-300' }} mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
-                <a wire:navigate href="{{ route('admin-help-and-support') }}" class="flex items-center">
-                    <div class="relative">
-                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm1 16h-2v-2h2v2Zm.976-4.885c-.196.158-.385.309-.535.459-.408.407-.44.777-.441.793v.133h-2v-.167c0-.118.029-1.177 1.026-2.174.195-.195.437-.393.691-.599.734-.595 1.216-1.029 1.216-1.627a1.934 1.934 0 0 0-3.867.001h-2A3.939 3.939 0 0 1 12 6a3.939 3.939 0 0 1 3.934 3.934c0 1.597-1.179 2.55-1.958 3.181Z">
-                            </path>
-                        </svg>
-                    </div>
-                    <p class="hideName block pl-2 text-sm md:hidden">Help</p>
-                </a>
-            </div>
+
 
             @auth
                 <div class="mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
