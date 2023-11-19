@@ -5,53 +5,48 @@ namespace App\Http\Controllers;
 use App\Events\NewUserCreated;
 use App\Models\BachelorDegree;
 use App\Models\DocuPost;
-use App\Models\LoginLog;
 use App\Models\Notification;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
-{
-    public function register()
-    {
-        return view('user_pages.signup');
+class UserController extends Controller {
+    public function register() {
+        return view( 'user_pages.signup' );
     }
 
     //creating account
 
-    public function create(Request $request)
-    {
-        $validated = $request->validate([
-            'username' => ['required', 'min:4', Rule::unique('users', 'username')],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
+    public function create( Request $request ) {
+        $validated = $request->validate( [
+            'username' => [ 'required', 'min:4', Rule::unique( 'users', 'username' ) ],
+            'email' => [ 'required', 'email', Rule::unique( 'users', 'email' ) ],
             'password' => 'required|confirmed|min:8',
             'role_id' => 'required',
-        ]);
+        ] );
 
-        $validated['password'] = Hash::make($validated['password']);
+        $validated[ 'password' ] = Hash::make( $validated[ 'password' ] );
         // account role filtering
-        if ($validated['role_id'] === 'student') {
-            $validated['role_id'] = 1;
-        } elseif ($validated['role_id'] === 'faculty') {
-            $validated['role_id'] = 2;
+        if ( $validated[ 'role_id' ] === 'student' ) {
+            $validated[ 'role_id' ] = 1;
+        } elseif ( $validated[ 'role_id' ] === 'faculty' ) {
+            $validated[ 'role_id' ] = 2;
         }
 
-        $user = User::create($validated);
-        auth()->login($user);
+        $user = User::create( $validated );
+        auth()->login( $user );
 
-        $notificationNewAccount = Notification::create([
+        $notificationNewAccount = Notification::create( [
             'user_id' => auth()->user()->id,
             'header_message' => 'Complete acount information',
             'content_message' => 'Click here to complete your account information.',
-            'link' => route('edit-profile', ['activeTab' => 'tab1']),
+            'link' =>  route( 'edit-profile', [ 'activeTab' => 'tab1' ] ),
             'category' => 'system',
-        ]);
+        ] );
 
-        if ($notificationNewAccount) {
-            return redirect()->route('home')->with('message', 'Creating new account success, finish setup you account');
+        if ( $notificationNewAccount ) {
+            return redirect()->route( 'home' )->with( 'message', 'Creating new account success, finish setup you account' );
         } else {
             return 'Account created but notification is not. Contact admin.';
         }
@@ -60,8 +55,7 @@ class UserController extends Controller
 
     //logout
 
-    public function logout(Request $request)
-    {
+    public function logout( Request $request ) {
         $is_admin = auth()->user()->is_admin;
         auth()->logout();
 
@@ -69,61 +63,46 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         // Redirect based on the is_admin value
-        if ($is_admin) {
-            return redirect()->route('login')->with('message', 'Log out successfully.');
+        if ( $is_admin ) {
+            return redirect()->route( 'login' )->with( 'message', 'Log out successfully.' );
         } else {
-            return redirect()->route('home')->with('message', 'Log out successfully.');
+            return redirect()->route( 'home' )->with( 'message', 'Log out successfully.' );
         }
     }
 
     //login
 
-    public function login()
-    {
-        return view('user_pages.login');
+    public function login() {
+        return view( 'user_pages.login' );
     }
 
     //loginProcess
 
-    public function loginProcess(Request $request)
-    {
-        $validated = $request->validate([
-            'email' => ['required', 'email'],
+    public function loginProcess( Request $request ) {
+        $validated = $request->validate( [
+            'email' => [ 'required', 'email' ],
             'password' => 'required',
-        ]);
+        ] );
 
-        $user = User::where('email', $validated['email'])->first();
-        if (!$user) {
-            return back()->withErrors([
+        $user = User::where( 'email', $validated[ 'email' ] )->first();
+        if ( !$user ) {
+            return back()->withErrors( [
                 'email' => 'No account found with this email. Create a new account.',
-            ])->onlyInput('email');
+            ] )->onlyInput( 'email' );
         }
 
-        if (auth()->attempt($validated)) {
+        if ( auth()->attempt( $validated ) ) {
             $request->session()->regenerate();
             $user = auth()->user();
-
-            $existingLog = LoginLog::where('user_id', auth()->user()->id)
-                ->whereDate('login_time', Carbon::today())
-                ->first();
-
-            // If no existing log, create a new one
-            if (!$existingLog) {
-                LoginLog::create([
-                    'user_id' => auth()->user()->id,
-                    'login_time' => now(),
-                    'is_admin' => auth()->user()->is_admin == 1
-                ]);
-            }
-
-            if ($user->is_admin) {
-                return redirect()->route('admin-home')->with('message', 'Welcome back, Admin ' . $user->email . '!');
+            if ( $user->is_admin ) {
+                return redirect()->route( 'admin-home' )->with( 'message', 'Welcome back, Admin ' . $user->email . '!' );
             } else {
-                return redirect()->intended(route('home'))->with('message', 'Welcome back, ' . $user->email . '!');
+                return redirect()->intended( route( 'home' ) )->with( 'message', 'Welcome back, ' . $user->email . '!' );
             }
+
         }
 
-        return back()->withErrors(['email' => 'You entered invalid credentials'])->onlyInput('email');
+        return back()->withErrors( [ 'email' => 'You entered invalid credentials' ] )->onlyInput( 'email' );
     }
 
     // public function viewProfile( $id )
@@ -139,68 +118,65 @@ class UserController extends Controller
 
     // show all student
 
-    public function studentList()
-    {
+    public function studentList() {
         $users = User::all();
         $bachelor_degree = BachelorDegree::all();
         // dd( $users );
-        return view('admin.pages.user-list', compact('users', 'bachelor_degree'))->with('title', 'List of users');
+        return view( 'admin.pages.user-list', compact( 'users', 'bachelor_degree' ) )->with( 'title', 'List of users' );
     }
 
-    public function addNewUser(Request $request)
-    {
+    public function addNewUser( Request $request ) {
         // dd( $request );
-        $validated = $request->validate([
-            'username' => ['required', 'min:4'],
-            'email' => ['required', 'email'],
+        $validated = $request->validate( [
+            'username' => [ 'required', 'min:4' ],
+            'email' => [ 'required', 'email' ],
             'password' => 'required|confirmed|min:8',
             'account_level' => 'required',
             // 'role_id' => 'required',
-        ]);
-        $validated['password'] = Hash::make($validated['password']);
+        ] );
+        $validated[ 'password' ] = Hash::make( $validated[ 'password' ] );
 
         // Account role filtering
-        if ($validated['account_level'] === 'user') {
+        if ( $validated[ 'account_level' ] === 'user' ) {
             $is_admin = false;
-        } elseif ($validated['account_level'] === 'admin') {
+        } elseif ( $validated[ 'account_level' ] === 'admin' ) {
             $is_admin = true;
         }
 
         // Merge the calculated values into the validated data
-        $validated['is_admin'] = $is_admin;
+        $validated[ 'is_admin' ] = $is_admin;
 
         //creation of user
-        $user = User::create($validated);
-        auth()->login($user);
-        return redirect()->route('home')->with('message', 'Creating new account success, finish setup you account');
+        $user = User::create( $validated );
+        auth()->login( $user );
+        return redirect()->route( 'home' )->with( 'message', 'Creating new account success, finish setup you account' );
 
     }
 
-    public function viewUser($username)
-    {
+    public function viewUser ( $username ) {
         // dd( $username );
 
-        $checkedAccount = User::where('username', $username)
-            ->orWhere('id', $username)
-            ->first();
+        $checkedAccount = User::where( 'username', $username )
+        ->orWhere( 'id', $username )
+        ->first();
 
-        if ($checkedAccount == !null) {
+        if ( $checkedAccount == ! null ) {
             $currentUserId = $checkedAccount->id;
-            $fullName = $checkedAccount->first_name . ' ' . $checkedAccount->last_name;
+            $fullName = $checkedAccount->first_name. ' '. $checkedAccount->last_name;
         } else {
             $currentUserId = '';
             $fullName = '';
         }
 
-        $docuPostOfUser = DocuPost::where('user_id', $checkedAccount->id)->get();
+        $docuPostOfUser  = DocuPost::where( 'user_id', $checkedAccount->id )->get();
 
         // dd( $docuPostOfUser );
-        return view('user_pages.profile', [
+        return view( 'user_pages.profile',  [
             'currentUserId' => $currentUserId,
             'checkedAccount' => $checkedAccount,
             'fullName' => $fullName,
             'docuPostOfUser' => $docuPostOfUser,
-        ]);
+        ] );
 
     }
 
