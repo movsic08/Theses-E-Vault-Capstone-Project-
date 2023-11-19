@@ -4,7 +4,7 @@
             <div class="my-2">
                 <h2>Dashboard</h2>
             </div>
-            <div class="mb-3 grid grid-cols-10 gap-6">
+            <div class="mb-6 grid grid-cols-10 gap-6">
                 {{-- 1st div --}}
                 <div
                     class="z-10 col-span-10 flex h-full flex-col gap-4 overflow-hidden rounded-2xl bg-primary-color p-4 text-white drop-shadow-lg duration-500 ease-in-out hover:scale-110 md:col-span-5 lg:col-span-2">
@@ -326,42 +326,41 @@
 
                 </div>
                 <!-- 3rd div created documents -->
-                <div class="col-span-10 rounded-2xl bg-white p-4 text-gray-500 drop-shadow-lg xl:col-span-10">
-                    <div class="overflow-x-auto">
-
-                        <table class="min-w-full border border-gray-300 bg-white">
-                            <thead class="bg-gray-100">
-                                <tr>
-                                    <th class="border-r border-gray-300 px-4 py-2">Title</th>
-                                    <th class="border-r border-gray-300 px-4 py-2">Author</th>
-                                    <th class="border-r border-gray-300 px-4 py-2">Document Type</th>
-                                    <th class="border-r border-gray-300 px-4 py-2">Status</th>
-                                    <th class="border-r border-gray-300 px-4 py-2">Date Created</th>
+                <div
+                    class="col-span-10 overflow-x-auto rounded-2xl border border-gray-300 bg-white text-gray-500 drop-shadow-lg xl:col-span-10">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100 py-1">
+                            <tr>
+                                <th class="border-r border-gray-300 px-4 py-2">Title</th>
+                                <th class="border-r border-gray-300 px-4 py-2">Author</th>
+                                <th class="border-r border-gray-300 px-4 py-2">Document Type</th>
+                                <th class="border-r border-gray-300 px-4 py-2">Status</th>
+                                <th class="border-r border-gray-300 px-4 py-2">Date Created</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for ($i = 0; $i < 5; $i++)
+                                <tr class="{{ $i % 2 == 0 ? 'bg-gray-50' : '' }}">
+                                    <td class="border-r border-gray-300 px-4 py-2">Document Title
+                                        {{ $i + 1 }}</td>
+                                    <td class="border-r border-gray-300 px-4 py-2">Author Name {{ $i + 1 }}
+                                    </td>
+                                    <td class="border-r border-gray-300 px-4 py-2">Type {{ $i + 1 }}</td>
+                                    <td class="border-r border-gray-300 px-4 py-2">
+                                        <span class="{{ $i % 2 == 0 ? 'text-green-600' : 'text-red-600' }}">
+                                            {{ $i % 2 == 0 ? 'Published' : 'Draft' }}
+                                        </span>
+                                    </td>
+                                    <td class="border-r border-gray-300 px-4 py-2">
+                                        {{ now()->subDays($i)->diffForHumans() }}
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @for ($i = 0; $i < 5; $i++)
-                                    <tr class="{{ $i % 2 == 0 ? 'bg-gray-50' : '' }}">
-                                        <td class="border-r border-gray-300 px-4 py-2">Document Title
-                                            {{ $i + 1 }}
-                                        </td>
-                                        <td class="border-r border-gray-300 px-4 py-2">Author Name {{ $i + 1 }}
-                                        </td>
-                                        <td class="border-r border-gray-300 px-4 py-2">Type {{ $i + 1 }}</td>
-                                        <td class="border-r border-gray-300 px-4 py-2">
-                                            <span class="{{ $i % 2 == 0 ? 'text-green-600' : 'text-red-600' }}">
-                                                {{ $i % 2 == 0 ? 'Published' : 'Draft' }}
-                                            </span>
-                                        </td>
-                                        <td class="border-r border-gray-300 px-4 py-2">
-                                            {{ now()->subDays($i)->diffForHumans() }}</td>
-                                    </tr>
-                                @endfor
-                            </tbody>
-                        </table>
-
-                    </div>
+                            @endfor
+                        </tbody>
+                    </table>
                 </div>
+
+
 
 
             </div>
