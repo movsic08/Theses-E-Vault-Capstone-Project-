@@ -21,7 +21,8 @@
     <div class="signup-gradient absolute inset-0 z-10 bg-cover"></div>
     <div class="container absolute inset-0 z-20 h-screen w-screen">
         <div class="flex h-full w-full items-center justify-center">
-            <div class="hidden h-[35.9rem] w-[45%] overflow-hidden rounded-l-lg p-4 drop-shadow-lg md:block">
+            {{-- 1st div --}}
+            <div class="hidden h-full w-[45%] overflow-hidden rounded-l-lg p-4 drop-shadow-lg md:block">
                 <div class="absolute inset-0 z-10 transform transition-transform duration-700 hover:scale-125">
                     <img src="{{ asset('assets/psu_acc.jpg') }}" class="absolute z-10 h-full w-full object-cover"
                         alt="psu-bg">
@@ -47,8 +48,9 @@
                     </div>
                 </div>
             </div>
+            {{-- 2nd div --}}
             <div
-                class="w-fit rounded-lg bg-white px-10 py-4 drop-shadow-lg md:w-[45%] md:rounded-l-none md:rounded-r-lg">
+                class="h-[43rem] max-h-[-43rem] w-fit rounded-lg bg-white px-10 py-4 drop-shadow-lg md:w-[45%] md:rounded-l-none md:rounded-r-lg">
                 <div class="my-3">
                     <h1 class="text-lg font-semibold">Create an account</h1>
                     <p class="text-gray-500">
@@ -57,7 +59,31 @@
                 </div>
                 <form action="{{ route('user.create') }}" method="POST">
                     @csrf
-                    <div class="flex flex-col gap-6">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex w-full flex-row gap-2">
+                            <div class="flex w-full flex-col">
+                                <label class="font-medium" for="fname">First name</label>
+                                <input class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                    type="text" name="first_name" id="fname" placeholder="Juan "
+                                    value="{{ old('fname') }}">
+                                @error('fname')
+                                    <span class="w-full text-xs text-red-700">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="flex w-full flex-col">
+                                <label class="font-medium" for="lname">Last name</label>
+                                <input class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                    type="text" name="last_name" id="lname" placeholder="Dela Cruz "
+                                    value="{{ old('lname') }}">
+                                @error('lname')
+                                    <span class="w-full text-xs text-red-700">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="flex flex-col">
                             <label class="font-medium" for="username">Username</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"

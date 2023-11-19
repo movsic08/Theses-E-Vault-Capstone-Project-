@@ -26,9 +26,23 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'username' => ['required', 'min:4', Rule::unique('users', 'username')],
+            'first_name' => ['required', 'min:2'],
+            'last_name' => ['required', 'min:2'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed|min:8',
             'role_id' => 'required',
+        ], [
+            'first_name.required' => 'The first name field is required.',
+            'fname.min' => 'The first name must be at least :min characters.',
+            'last_name.required' => 'The last name field is required.',
+            'last_name.min' => 'The last name must be at least :min characters.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'The email must be a valid email address.',
+            'email.unique' => 'The email has already been taken.',
+            'password.required' => 'The password field is required.',
+            'password.confirmed' => 'The password confirmation does not match.',
+            'password.min' => 'The password must be at least :min characters.',
+            'role_id.required' => 'The role field is required.',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -128,16 +142,7 @@ class UserController extends Controller
         return back()->withErrors(['email' => 'You entered invalid credentials'])->onlyInput('email');
     }
 
-    // public function viewProfile( $id )
-    // {
-    //     $user = User::findOrFail( $id );
 
-    //     if ( $user->id !== auth()->user()->id ) {
-    //         return redirect()->route( 'home' )->with( 'error', 'You are not authorized to view this profile.' );
-    //     }
-
-    //     return view( 'user_pages.profile', compact( 'user' ) );
-    // }
 
     // show all student
 
