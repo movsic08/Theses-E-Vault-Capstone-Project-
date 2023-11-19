@@ -97,8 +97,29 @@
                 </svg>
             </div>
 
+            <!-- chart 2nd div -->
+            <div class="col-span-10 grid grid-cols-10 gap-5">
+                <div class="col-span-7 rounded-2xl bg-white p-4 drop-shadow-lg">
+                    <div>
+                        <h1 class="text-gray-00 font-medium">App usages</h1>
+                    </div>
+                    <div wire:ignore>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+                <div class="col-span-3 rounded-2xl bg-red-600 p-4 drop-shadow-lg">
+                    2nd
+                </div>
+            </div>
+
             <!-- 2nd div  -->
-            <div class="col-span-10 rounded-lg bg-white px-4 py-2 text-gray-600 drop-shadow-lg lg:col-span-6">
+            <div class="col-span-10 rounded-lg bg-white p-4 text-gray-600 drop-shadow-lg lg:col-span-6">
                 <div class="flex justify-between">
                     <h2 class="text-[1.1rem] font-semibold lg:text-[1.5rem]">New created accounts</h2>
                     <div class="flex gap-2">
@@ -241,4 +262,5 @@
         </div>
 
     </section>
+
 </div>

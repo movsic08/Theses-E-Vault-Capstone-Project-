@@ -2,33 +2,36 @@
 
 namespace App\Livewire\Admin;
 
+use App\Charts\SampleChart;
+use App\Charts\UserLogInsChart;
 use App\Models\DocuPost;
 use App\Models\ReportedComment;
 use App\Models\User;
+
+use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use Livewire\Component;
+
+use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Component
 {
-    // public $latestAccounts, $userCount, $adminUserCount, $verifiedAccountCount, $uploadFilesCount, $latestDocuPostData;
-    // public $pollInterval = 1000;
-    // // Refresh every 5 seconds ( adjust as needed )
-
-    // protected $listeners = [ 'newUserCreated' => 'refreshUserList' ];
-
-    // public function mount() {
-    //     $this->latestAccounts = User::orderBy( 'created_at', 'desc' )
-    //     ->where( 'is_admin', 0 )
-    //     ->limit( 5 )
-    //     ->get();
-    // }
-
-    // public function loadDashboard() {
-
-
-    // }
 
     public function render()
     {
+
+        $data = DB::table('login_logs')
+            ->select(DB::raw('DATE(login_time) as date'), DB::raw('COUNT(*) as total_logins'))
+            ->groupBy('date')
+            ->get();
+
+
+
+        //     $chart = Charts::create('line', 'highcharts')
+        //         ->title('Total Logins Per Day')
+        //         ->labels($data->pluck('date'))
+        //         ->values($data->pluck('total_logins'))
+        //         ->responsive(true);
+
         // $this->loadDashboard();
         $latestAccounts = User::orderBy('created_at', 'desc')
             ->where('is_admin', 0)
@@ -48,6 +51,9 @@ class Dashboard extends Component
 
         $latestDocuPostData = DocuPost::latest()->take(5)->get();
 
+
+
+
         return view('livewire.admin.dashboard', [
             'latestAccounts' => $latestAccounts,
             'userCount' => $userCount,
@@ -57,6 +63,8 @@ class Dashboard extends Component
             'latestDocuPostData' => $latestDocuPostData,
             'reportedComments' => $reportedComments,
             'pendingPost' => $pendingPost,
+
+
         ])->layout('layout.admin');
     }
 }

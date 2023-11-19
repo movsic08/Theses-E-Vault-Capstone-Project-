@@ -11,8 +11,10 @@
     <link rel="icon" href="{{ asset('icons/logo.svg') }}" type="image/x-icon">
     <script src="{{ asset('js/admin-js/jQuery.js') }}"></script>
     <script src="{{ asset('js/admin-js/sideBar.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
     <script src='{{ asset('js/admin-js/adminAccount.js') }}'></script>
     @stack('livewire:scripts')
+
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
         integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
@@ -24,6 +26,7 @@
     <title>@yield('title', 'Thesis Kiosk')</title>
     @vite('resources/css/app.css')
     @livewireStyles
+    @livewireScripts
 </head>
 <style>
     #nprogress {
@@ -109,7 +112,6 @@
         </section> --}}
 
     </div>
-    @livewireScripts
 
 </body>
 
