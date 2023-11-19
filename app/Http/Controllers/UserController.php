@@ -137,8 +137,6 @@ class UserController extends Controller
         return back()->withErrors(['email' => 'You entered invalid credentials'])->onlyInput('email');
     }
 
-
-
     // show all student
 
     public function studentList(){
