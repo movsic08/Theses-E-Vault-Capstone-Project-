@@ -14,12 +14,20 @@
         <!--  Body -->
         <div>
             <p class="mb-2">Copy the link below:</p>
-            <x-input-field wire:model.live='shareLink' type="text" class="mb-4 w-full rounded border p-2"
-                x-ref="shareInput"></x-input-field>
-        </div>
-        <div class="flex w-full justify-end font-bold">
-            <button class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
+            <x-input-field wire:model.live='shareLink' type="text" id="value" class="mb-4 w-full rounded border p-2" x-ref="shareInput"></x-input-field>
         </div>
 
+        <div class="flex w-full justify-end font-bold">
+            <button wire:click="copyLink('{{ $shareLink }}')" id="copy" class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
+        </div>
+
+        <script>
+            const COPY = document.querySelector('#copy');
+
+            COPY.addEventListener('click', async () => {
+                const VALUE = document.querySelector('#value');
+                await navigator.clipboard.writeText(VALUE.value);
+            });
+        </script>
     </div>
 </div>

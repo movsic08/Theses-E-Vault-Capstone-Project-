@@ -84,6 +84,14 @@ class DocuSearchResult extends Component
         return $this->dispatch('open-shr');
     }
 
+    public function copyLink($reference)
+    {
+        // Your logic to copy the link goes here Link 
+        
+        // For example, you can use session flash to show a success message
+        session()->flash('success', 'copied successfully!');
+    }
+
     public function viewsCount($postId)
     {
 
