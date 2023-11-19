@@ -11,7 +11,7 @@
          x-on:livewire-upload-progress="progress = $event.detail.progress" style="display: none">
          <div class="container md:flex md:items-center md:justify-center">
              <section
-                 class="mx-auto h-fit w-full rounded-lg bg-white px-6 py-4 drop-shadow-xl md:mt-32 md:w-[40%] md:px-8 md:py-6">
+                 class="mx-auto mt-10 h-fit w-full rounded-lg bg-white px-6 py-4 drop-shadow-xl md:w-[40%] md:px-8 md:py-6">
                  <div class="flex w-full items-center justify-center">
                      <strong class="text-center">Upload new watermark</strong>
                  </div>
@@ -60,13 +60,13 @@
      </div>
 
      {{-- delete --}}
-     <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
+     <div class="fixed right-0 top-0 z-30 flex h-full w-full items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
          x-data="{ del: false }" x-show="del" x-on:open-del.window = "del = true"
          x-on:close-del.window = "del = false; uploaded = false" x-on:keydown.escape.window = "del = false"
          x-transition:enter.duration.400ms x-transition:leave.duration.300ms style="display: none">
          <div class="container md:flex md:items-center md:justify-center">
              <section
-                 class="mx-auto h-fit w-full rounded-lg bg-white px-6 py-4 drop-shadow-xl md:mt-32 md:w-[40%] md:px-8 md:py-6">
+                 class="mx-auto mt-10 h-fit w-full rounded-lg bg-white px-6 py-4 drop-shadow-xl md:w-[40%] md:px-8 md:py-6">
                  <div class="flex w-full flex-col items-center justify-center gap-2">
                      <strong class="text-center text-red-700">Delete this watermark</strong>
                      @if ($selectedData != null)
@@ -93,14 +93,14 @@
      </div>
 
      {{-- preview --}}
-     <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
+     <div class="fixed right-0 top-0 z-30 flex h-full w-full items-center justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm lg:items-start"
          x-data="{ preview: false }" x-show="preview" x-on:open-prev.window = "preview = true"
          x-on:close-prev.window = "preview = false; uploaded = false"
          x-on:keydown.escape.window = "preview = false; $wire.closePrev()" x-transition:enter.duration.400ms
          x-transition:leave.duration.300ms style="display: none">
          <div class="container md:flex md:items-center md:justify-center">
              <section
-                 class="mx-auto h-fit w-full rounded-lg bg-white px-6 py-4 drop-shadow-xl md:mt-32 md:w-[40%] md:px-8 md:py-6">
+                 class="mx-auto mt-10 h-fit w-full rounded-lg bg-white px-6 py-4 drop-shadow-xl md:w-[40%] md:px-8 md:py-6">
                  <div class="flex w-full flex-col items-center justify-center gap-2">
                      <strong class="text-center text-primary-color">Preview of watermark</strong>
                      @if ($previewData != null)
@@ -123,7 +123,7 @@
          </div>
      </div>
 
-     <div class="flex h-[33rem] max-h-[33rem] w-full flex-col gap-2 rounded-lg bg-white p-4 drop-shadow-md lg:w-2/6">
+     <div class="flex h-[30rem] max-h-[30rem] w-full flex-col gap-2 rounded-lg border border-slate-200 p-4 lg:w-2/6">
          <strong>Current Watermark</strong>
          {{-- <small class="rounded-xl border border-blue-800 bg-blue-100 px-2 py-1 text-xs font-medium text-blue-900">
              The image below is currently utilized as the system's watermark.
@@ -136,7 +136,7 @@
 
 
 
-     <div class="flex max-h-[33rem] w-full flex-col gap-1 rounded-lg bg-white p-4 drop-shadow-md md:p-8 md:pt-4">
+     <div class="flex max-h-[30rem] w-full flex-col gap-1 rounded-lg border border-slate-200 p-4 md:p-8 md:pt-4">
 
          <div class="mb-2 flex w-full items-center justify-between">
              <strong>Watermark Configuration</strong>
