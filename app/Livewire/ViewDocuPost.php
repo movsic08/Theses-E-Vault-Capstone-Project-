@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\BookmarkList;
 use App\Models\ReportedComment;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB; 
 use App\Models\DocuPost;
 use App\Models\DocuPostComment;
 use App\Models\PdfKey;
@@ -33,8 +34,7 @@ class ViewDocuPost extends Component
         $checkReference = BookmarkList::where('reference', $this->parameter)
             ->where('user_id', $user)
             ->where('docu_post_id', $this->data->id)
-            ->exists();
-        // Use exists() with parentheses
+            ->exists(); // Use exists() with parentheses
 
         if ($checkReference) {
             $this->isBookmarked = true;
@@ -48,11 +48,12 @@ class ViewDocuPost extends Component
         $isDeleted = DocuPostComment::where('id', $id)
             ->where('user_id', auth()->user()->id)
             ->delete();
+
         if (!$isDeleted) {
             request()->session()->flash('error', 'Deleting comment failed, contact developer!');
         }
-        return;
     }
+
     public $editingCommentId = null;
     public $editedComment = '';
 
@@ -76,10 +77,10 @@ class ViewDocuPost extends Component
 
         $this->cancelEditing();
     }
+
     protected function findComment($commentId)
     {
         return DocuPostComment::find($commentId);
-
     }
 
     public function cancelEditing()
@@ -98,13 +99,15 @@ class ViewDocuPost extends Component
                 $this->authenticatedUser->phone_no &&
                 $this->authenticatedUser->student_id &&
                 $this->authenticatedUser->bachelor_degree);
+
             if ($checkInfoData) {
                 request()->session()->flash('message', 'Account information details are incomplete, fill out now here.');
             } else {
                 if ($this->authenticatedUser->is_verified == 0) {
-                    request()->session()->flash('message', 'Ve rify your account now, to enjoy the full features for free.');
+                    request()->session()->flash('message', 'Verify your account now to enjoy the full features for free.');
                 } else {
                     $this->isBookmarked = !$this->isBookmarked;
+
                     if ($this->isBookmarked) {
                         BookmarkList::create([
                             'user_id' => auth()->id(),
@@ -118,9 +121,7 @@ class ViewDocuPost extends Component
                             ->delete();
                     }
                 }
-
             }
-
         }
     }
 
@@ -130,6 +131,7 @@ class ViewDocuPost extends Component
     public function createDocuPostComment()
     {
         $this->validateOnly('comment');
+
         if (!auth()->check()) {
             request()->session()->flash('message', 'You need to sign in first');
         } else {
@@ -138,23 +140,40 @@ class ViewDocuPost extends Component
                 $this->authenticatedUser->phone_no &&
                 $this->authenticatedUser->student_id &&
                 $this->authenticatedUser->bachelor_degree);
+
             if ($checkInfoData) {
                 request()->session()->flash('message', 'Account information details are incomplete, fill out now here.');
             } else {
                 if ($this->authenticatedUser->is_verified == 0) {
-                    request()->session()->flash('message', 'Ve rify your account now, to enjoy the full features for free.');
+                    request()->session()->flash('message', 'Verify your account now to enjoy the full features for free.');
                 } else {
+                    // Remove special characters
+                    $sanitizedComment = preg_replace('/[^\w\s]/u', '', $this->comment);
+
+                    // Check for offensive words
+                    $offensiveWords = DB::table('filter_words')->pluck('word')->toArray();
+                    $offensiveWordsInComment = collect($offensiveWords)->filter(function ($offensiveWord) use ($sanitizedComment) {
+                        return stripos(strtolower($sanitizedComment), $offensiveWord) !== false;
+                    })->toArray();
+
+                    if (!empty($offensiveWordsInComment)) {
+                        $offensiveWordsList = implode(', ', $offensiveWordsInComment);
+                        $this->addError('comment', "Don't use offensive words: ($offensiveWordsList)");
+                        return null;
+                    }
+
                     $checkIfSuccess = DocuPostComment::create([
                         'post_id' => $this->data->id,
                         'user_id' => $this->authenticatedUser->id,
-                        'comment_content' => $this->comment
+                        'comment_content' => $this->comment,
                     ]);
+
                     if ($checkIfSuccess) {
                         request()->session()->flash('success', 'Comment created');
-
                     } else {
                         request()->session()->flash('warning', 'Comment failed');
                     }
+
                     $this->dispatch('$refresh');
                     return $this->comment = '';
                 }
@@ -162,13 +181,19 @@ class ViewDocuPost extends Component
         }
     }
 
-    public $showReplyBox = false, $targetReply = null, $replyingTo, $currentReplyingID;
+
+
+
+    public $showReplyBox = false;
+    public $targetReply = null;
+    public $replyingTo;
+    public $currentReplyingID;
 
     public function toggleReplyBox($commentId, $commentMainAuthor)
     {
-        // dd( $commentMainAuthor );
         $this->showReplyBox = true;
         $this->targetReply = $commentId;
+
         $mainAuthorDetails = User::where('id', $commentMainAuthor)->first();
 
         if ($mainAuthorDetails) {
@@ -178,17 +203,18 @@ class ViewDocuPost extends Component
         } else {
             $this->replyingTo = 'user';
         }
-
     }
 
     #[Rule('required|min:1', message: 'Reply should not be empty.')]
     public $replyCommentContent = '';
+
     #[Rule('required|min:1', message: 'You\'re about to reply a replied comment. It should not be empty.')]
     public $replyOfRepliedCommentContent = '';
 
     public function createReply()
     {
         $this->validateOnly('replyCommentContent');
+
         if (!auth()->check()) {
             request()->session()->flash('message', 'You need to sign in first');
         } else {
@@ -197,13 +223,28 @@ class ViewDocuPost extends Component
                 $this->authenticatedUser->phone_no &&
                 $this->authenticatedUser->student_id &&
                 $this->authenticatedUser->bachelor_degree);
+
             if ($checkInfoData) {
                 request()->session()->flash('message', 'Account information details are incomplete, fill out now here.');
             } else {
                 if ($this->authenticatedUser->is_verified == 0) {
-                    request()->session()->flash('message', 'Ve rify your account now, to enjoy the full features for free.');
+                    request()->session()->flash('message', 'Verify your account now to enjoy the full features for free.');
                 } else {
-                    // dd( $this->data->id, $this->targetReply, $this->authenticatedUser->id, $this->replyCommentContent );
+                    // Remove special characters
+                    $sanitizedReplyComment = preg_replace('/[^\w\s]/u', '', $this->replyCommentContent);
+
+                    // Check for bad words
+                    $badWords = DB::table('filter_words')->pluck('word')->toArray();
+                    $badWordsInReplyComment = collect($badWords)->filter(function ($badWord) use ($sanitizedReplyComment) {
+                        return stripos(strtolower($sanitizedReplyComment), $badWord) !== false;
+                    })->toArray();
+
+                    if (!empty($badWordsInReplyComment)) {
+                        $badWordsList = implode(', ', $badWordsInReplyComment);
+                        $this->addError('replyCommentContent', "Please avoid using inappropriate language: ($badWordsList)");
+                        return null;
+                    }
+
                     $checkIfSuccess = DocuPostComment::create([
                         'post_id' => $this->data->id,
                         'parent_id' => $this->targetReply,
@@ -211,12 +252,13 @@ class ViewDocuPost extends Component
                         'comment_content' => $this->replyCommentContent,
                         'reply_parent_author' => $this->currentReplyingID,
                     ]);
+
                     if ($checkIfSuccess) {
                         request()->session()->flash('success', 'Comment created');
-
                     } else {
                         request()->session()->flash('warning', 'Comment failed');
                     }
+
                     $this->dispatch('$refresh');
                     $this->showReplyBox = false;
                     return $this->comment = '';
@@ -224,6 +266,7 @@ class ViewDocuPost extends Component
             }
         }
     }
+
 
     public function createRepliesOfReply()
     {
@@ -235,18 +278,23 @@ class ViewDocuPost extends Component
             'comment_content' => $this->replyOfRepliedCommentContent,
             'reply_parent_author' => $this->parentCommentUserId,
         ]);
+
         if ($checkIfSuccess) {
             request()->session()->flash('success', 'Comment created');
-
         } else {
             request()->session()->flash('warning', 'Comment failed');
         }
+
         $this->dispatch('$refresh');
         $this->replyBoxOfReplies = false;
         return $this->replyOfRepliedCommentContent = '';
     }
 
-    public $replyBoxOfReplies = false, $replyingIDtarget, $replyingToReplyName, $parentCommentUserId, $parentIDCommentValue;
+    public $replyBoxOfReplies = false;
+    public $replyingIDtarget;
+    public $replyingToReplyName;
+    public $parentCommentUserId;
+    public $parentIDCommentValue;
 
     public function toggleReplyBoxFromReplies($replyingIdOfComment, $UserIdOfComment, $parenIDOfComment)
     {
@@ -270,7 +318,6 @@ class ViewDocuPost extends Component
         } else {
             $this->replyingToReplyName = 'Unknown Comment';
         }
-
     }
 
     public $InputPDFKey = 'Generate key';
@@ -285,13 +332,15 @@ class ViewDocuPost extends Component
                 $this->authenticatedUser->phone_no &&
                 $this->authenticatedUser->student_id &&
                 $this->authenticatedUser->bachelor_degree);
+
             if ($checkInfoData) {
                 request()->session()->flash('message', 'Account information details are incomplete, fill out now here.');
             } else {
                 if ($this->authenticatedUser->is_verified == 0) {
-                    request()->session()->flash('message', 'Ve rify your account now, to enjoy the full features for free.');
+                    request()->session()->flash('message', 'Verify your account now to enjoy the full features for free.');
                 } else {
                     $isKeyIsGEnerated = PdfKey::where('docu_post_id', $id)->exists();
+
                     if ($isKeyIsGEnerated) {
                         PdfKey::where('docu_post_id', $id)->delete();
                         $this->keyGenerator($id);
@@ -301,7 +350,6 @@ class ViewDocuPost extends Component
                 }
             }
         }
-        // dd('end of code');
     }
 
     protected function keyGenerator($id)
@@ -331,15 +379,16 @@ class ViewDocuPost extends Component
         $this->reportingCommentData = $reportedCommentData;
         $this->dispatch('open-rep');
     }
+
     public function closeReportBox()
     {
         $this->dispatch('close-rep');
         $this->reportReason = '';
         return $this->report_other_context = '';
     }
-    #[Rule('required|min:5', message: 'You need to specify the reason of reporting this comment.')]
-    public $report_other_context;
 
+    #[Rule('required|min:5', message: 'You need to specify the reason for reporting this comment.')]
+    public $report_other_context;
 
     #[Rule('required', message: 'Please select a reason.')]
     public $reportReason;
@@ -347,9 +396,11 @@ class ViewDocuPost extends Component
     public function createReportComment($id)
     {
         $this->validateOnly('reportReason');
+
         if ($this->reportReason === 'other') {
             $this->validateOnly('report_other_context');
         }
+
         $createCommentReport = ReportedComment::create([
             'docu_post_id' => $this->reportingCommentData->post_id,
             'reporter_user_id' => auth()->user()->id,
@@ -359,9 +410,11 @@ class ViewDocuPost extends Component
             'report_other_context' => $this->report_other_context,
             'report_status' => 0,
         ]);
+
         $this->closeReportBox();
+
         if ($createCommentReport) {
-            request()->session()->flash('success', 'Reported created in database');
+            request()->session()->flash('success', 'Report created in the database');
         } else {
             request()->session()->flash('error', 'Creating report failed, contact devs.');
         }
