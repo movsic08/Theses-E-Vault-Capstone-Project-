@@ -14,13 +14,20 @@ use Livewire\Component;
 
 class ViewDocuPost extends Component
 {
+    public $citation;
+    public function citeMe(){
+        $this->dispatch('open-shr');
+    }
+
     public $parameter, $data, $authenticatedUser;
 
     public function mount($reference)
     {
+
         $this->parameter = $reference;
         $this->authenticatedUser = auth()->user();
         $this->data = DocuPost::where('reference', $this->parameter)->first();
+        $this->citation = $this->data->recommended_citation;
     }
 
     public $isBookmarked;
@@ -368,6 +375,8 @@ class ViewDocuPost extends Component
 
         return;
     }
+
+
 
 
     public function render()
