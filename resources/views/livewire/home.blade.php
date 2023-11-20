@@ -133,7 +133,7 @@
                                     <div class="relative flex w-full items-start gap-2 border-b border-gray-300 pb-3">
                                         <a wire:click='viewsCount({{ $docuData->id }})' wire:navigate
                                             href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
-                                            class="text-base font-bold md:pr-6 md:text-lg">
+                                            class="text-base font-bold pr-4 md:text-lg">
                                             {{ $docuData->title }}
                                         </a>
                                         @php
@@ -142,7 +142,7 @@
                                                 ->count();
                                         @endphp
 
-                                        <svg class="absolute right-0 top-0 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700"
+                                        <svg class="sticky top-[1.2rem] right-4 lg:absolute lg:right-0 lg:top-0 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700"
                                             wire:click.prevent="bookmarkItem({{ $docuData->id }}, '{{ $docuData->reference }}')"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             @if ($checkBookmark > 0)

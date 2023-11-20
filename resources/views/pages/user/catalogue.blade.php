@@ -127,7 +127,7 @@
                             class="my-auto ml-2 mr-5 flex h-[3rem] w-[3rem] items-center justify-center rounded-md bg-sky-700 bg-opacity-50 text-white backdrop-blur-sm">
                             <h2 class="p-2 font-semibold">{{ $itemCount }}</h2>
                         </div>
-                        <div class="absolute bottom-0 left-0 -z-10 w-full">
+                        <div class="absolute bottom-0 left-0 overflow-hidden -z-10 w-full">
                             {!! $svgs[$index % count($svgs)] !!}
                         </div>
 

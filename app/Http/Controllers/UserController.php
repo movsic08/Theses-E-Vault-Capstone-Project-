@@ -118,18 +118,18 @@ class UserController extends Controller
 
             $user = auth()->user();
 
-            $existingLog = LoginLog::where('user_id', auth()->user()->id)
-                ->whereDate('login_time', Carbon::today())
-                ->first();
+            // $existingLog = LoginLog::where('user_id', auth()->user()->id)
+            //     ->whereDate('login_time', Carbon::today())
+            //     ->first();
 
-            // If no existing log, create a new one
-            if (!$existingLog) {
-                LoginLog::create([
-                    'user_id' => auth()->user()->id,
-                    'login_time' => now(),
-                    'is_admin' => auth()->user()->is_admin == 1
-                ]);
-            }
+            // // If no existing log, create a new one
+            // if (!$existingLog) {
+            //     LoginLog::create([
+            //         'user_id' => auth()->user()->id,
+            //         'login_time' => now(),
+            //         'is_admin' => auth()->user()->is_admin == 1
+            //     ]);
+            // }
 
             if ($user->is_admin) {
                 return redirect()->route('admin-home')->with('message', 'Welcome back, Admin ' . $user->email . '!');

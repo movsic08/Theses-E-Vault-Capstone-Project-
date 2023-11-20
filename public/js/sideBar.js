@@ -65,6 +65,22 @@ $(document).ready(function () {
         // updateUI(); // Update the UI based on the new isExpanded state
     });
 
+
+    const showMenuMobile = $('#showMenuMobile');
+    const mobileMenuItems = $('#mobileMenuItems');
+    const menuMobileRemoverBtn = $('#menuMobileRemoverBtn');
+
+    showMenuMobile.on('click', function (){
+        mobileMenuItems.removeClass('hidden');
+        showMenuMobile.toggleClass('hidden');
+        menuMobileRemoverBtn.removeClass('hidden');
+    });
+    menuMobileRemoverBtn.on('click', function (){
+        mobileMenuItems.toggleClass('hidden');
+        showMenuMobile.removeClass('hidden');
+        menuMobileRemoverBtn.toggleClass('hidden');
+    });
+
     $("#closeBtnSession").on("click", function () {
         $("#sessionMsg").fadeOut(400);
     });

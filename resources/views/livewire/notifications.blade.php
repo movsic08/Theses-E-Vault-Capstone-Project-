@@ -4,9 +4,9 @@
         <div class="w-[80%] lg:w-[50%]">
 
             <div class="flex flex-col items-center justify-center gap-4">
-                <div class="flex w-full flex-row items-center justify-between">
-                    <strong>Notifactions</strong>
-                    <strong>Setting dropdown ito</strong>
+                <div class="flex w-full mt-1 flex-row items-center justify-between text-primary-color">
+                    <strong>Notifications</strong>
+                    <strong>Setting</strong>
                 </div>
                 @foreach ($notificationItems as $item)
                     <a href="{{ $item->link }}" wire:navigate wire:click="clickedNotification({{ $item->id }})"
