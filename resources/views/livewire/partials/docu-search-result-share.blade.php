@@ -29,5 +29,6 @@
                 await navigator.clipboard.writeText(VALUE.value);
             });
         </script>
+        
     </div>
 </div>
