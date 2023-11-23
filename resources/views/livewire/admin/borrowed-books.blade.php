@@ -15,6 +15,7 @@
                     <span
                         class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
                 </div>
+              
                 <div class="mr-2 flex items-center">
                     <x-label-input class="mr-2">Items</x-label-input>
                     <select x-model="itemCategory"
@@ -31,6 +32,7 @@
                         id="Date" />
                 </div>
                 <div class="rounded-md bg-green-950 p-2 text-white">Excel</div>
+                <div class="rounded-md bg-sky-950 p-2 text-white">Summary</div>
             </div>
         </div>
         <div class="mb-6 mt-2 rounded-lg drop-shadow-md">
