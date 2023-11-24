@@ -3,12 +3,54 @@
 
         <div class="w-[80%] lg:w-[50%]">
 
-            <div class="flex flex-col items-center justify-center gap-4">
-                <div class="flex w-full mt-1 flex-row items-center justify-between text-primary-color">
+            <div class="flex flex-col items-center justify-center gap-4 pb-6">
+                <div class="mt-1 flex w-full flex-row items-center justify-between text-primary-color">
                     <strong>Notifications</strong>
                     <strong>Setting</strong>
                 </div>
+
                 @foreach ($notificationItems as $item)
+                    <a class="w-full" href="{{ $item->link }}" wire:navigate
+                        wire:click="clickedNotification({{ $item->id }})">
+                        <div
+                            class="{{ $item->is_read == 0 ? ' bg-slate-200 border border-slate-300  duration-700 hover:bg-slate-300 ease-in-out ' : 'bg-white bg-opacity-60' }} w-full rounded-lg px-4 py-2 shadow-lg">
+                            <div class="flex items-start gap-1">
+                                @if ($item->category == 'system')
+                                    <img class="h-10 w-10" src=" {{ asset('icons/logo.svg') }}" alt="">
+                                @elseif($item->category == 'docu post')
+                                    <img class="h-10 w-10" src="{{ asset('assets/svgs/notification/pdf-ico.svg') }}"
+                                        alt="" srcset="comment ico">
+                                @elseif($item->category == 'comment_report_feedback')
+                                    <img class="h-10 w-10"
+                                        src="{{ asset('assets/svgs/notification/comment_report.svg') }}" alt=""
+                                        srcset="comment ico">
+                                @endif
+                                <section>
+                                    <strong class="text-primary-color">{{ $item->header_message }}</strong>
+                                    <p class="text-sm text-gray-800 md:text-base">
+                                        {!! $item->content_message !!}
+                                    </p>
+                                </section>
+                            </div>
+                            <div class="mt-1 flex w-full justify-between text-sm text-gray-800">
+                                <div>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                </div>
+                                <div class="flex list-none gap-2">
+                                    @if ($item->is_read == 0)
+                                        <li class="cursor-pointer duration-300 hover:text-primary-color">Mark as
+                                            read
+                                        </li>
+                                    @else
+                                        <li class="">Read</li>
+                                    @endif
+                                    <li class="cursor-pointer duration-300 hover:text-primary-color">Delete</li>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+
+                {{-- @foreach ($notificationItems as $item)
                     <a href="{{ $item->link }}" wire:navigate wire:click="clickedNotification({{ $item->id }})"
                         @click="$dispatch('notification-read')"
                         class="{{ $item->is_read == 0 ? 'bg-blue-300  duration-700 hover:bg-blue-400 ease-in-out bg-opacity-20 hover:bg-opacity-50' : 'bg-white bg-opacity-60' }} relative flex h-full items-center rounded-md border border-slate-300 p-2 drop-shadow-lg backdrop-blur-sm">
@@ -50,7 +92,7 @@
                             </div>
                         </div>
                     </a>
-                @endforeach
+                @endforeach --}}
             </div>
         </div>
     </section>
