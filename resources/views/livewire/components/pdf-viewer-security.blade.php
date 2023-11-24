@@ -26,7 +26,7 @@
             </div>
         </div>
     @endif
-    <section x-data="{ pdfViewer: false, fileNotFound: false }" x-show="pdfViewer" x-on:open-pdf.window="pdfViewer = true; fileNotFound = false" x wire:ignore>
+    <section x-data="{ pdfViewer: false, fileNotFound: false, loading: true }" x-show="pdfViewer" x-on:open-pdf.window="pdfViewer = true; fileNotFound = false" x wire:ignore>
         <div id="pdfData" data-file-path="{{ asset('storage/' . decrypt($this->pdfFile)) }}"></div>
         <div class="container relative">
             <div class="" style="height: 100%; width: 100%;">
@@ -76,7 +76,7 @@
                 <div class="col-span-12 mt-2 overflow-auto text-center" id="scrollableCanvas">
                     <div class="h-full w-auto">
                         <div class="flex items-center justify-center h-full absolute top-0 left-0 w-full"
-                            id="loadingSpinnerText">
+                            id="loadingSpinnerText" x-show="loading">
                             <span x-show="fileNotFound" id="loadingText" class="text-lg font-bold text-primary-color">File not found in the database</span>
                             <span x-show="!fileNotFound" id="loadingText" class="text-lg font-bold text-primary-color">Loading</span>
                             <span id="loadingDot" class="animate-dots">.</span>
@@ -147,9 +147,10 @@
                 renderPage(pdfDoc, 1);
             }).catch(function (error) {
                 console.error('Error loading PDF:', error);
-                const pdfViewerElement = document.querySelector('[x-data="{ pdfViewer: false, fileNotFound: false }"]');
+                const pdfViewerElement = document.querySelector('[x-data="{ pdfViewer: false, fileNotFound: false, loading: true }"]');
                 if (pdfViewerElement) {
                     pdfViewerElement.fileNotFound = true;
+                    pdfViewerElement.loading = false;
                 }
             });
 
@@ -170,10 +171,14 @@
                         viewport: viewport
                     };
                     page.render(renderContext);
+
+                    // Hide the loading spinner once the rendering is complete
+                    const loadingSpinner = document.getElementById('loadingSpinnerText');
+                    if (loadingSpinner) {
+                        loadingSpinner.style.display = 'none';
+                    }
                 });
             }
-
-            
         </script>
 
         {!! $pdfViewerContent !!}
