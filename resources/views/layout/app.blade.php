@@ -55,7 +55,7 @@
 <body class="gradient-bg-light custom-scrollbar m-0 flex scroll-smooth p-0 font-poppins dark:bg-primary-color">
     {{-- sidebar --}}
     {{-- <x-sidebar /> --}}
-    <livewire:components.app-side-bar>
+    <livewire:components.appside-bar>
 
         <div class="flex w-full max-w-full flex-col">
             {{-- navbar --}}
