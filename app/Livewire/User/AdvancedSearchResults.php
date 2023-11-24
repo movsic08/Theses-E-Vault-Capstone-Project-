@@ -181,7 +181,7 @@ class AdvancedSearchResults extends Component
 
         $resultsCount = count($results);
 
-        $trendingPosts = DocuPostView::orderBy('views_count', 'desc')->take(5)->get();
+        $trendingPosts = DocuPost::orderBy('view_count', 'desc')->take(5)->get();
 
 
         $documentTypes = DocuPost::distinct('document_type')->pluck('document_type');

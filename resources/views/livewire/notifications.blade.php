@@ -19,18 +19,18 @@
 
                         <!-- Dropdown menu -->
                         <div x-show="open"
-                            class="absolute right-0 mt-2 origin-top-right rounded-md border border-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-md md:w-48">
+                            class="absolute right-0 mt-2 w-[14rem] origin-top-right rounded-md border border-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-md md:w-48">
                             <div class="w-full">
                                 <button wire:click='readAll'
-                                    class="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                                    class="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:bg-opacity-50">
                                     Mark all as read
                                 </button>
                                 <button wire:click='unreadAll'
-                                    class="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                                    class="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:bg-opacity-50">
                                     Mark all as unread
                                 </button>
                                 <button wire:click='deleteAll'
-                                    class="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                                    class="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:bg-opacity-50">
                                     Delete all</button>
                             </div>
                         </div>

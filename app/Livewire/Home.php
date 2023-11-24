@@ -25,19 +25,11 @@ class Home extends Component
 
     public function viewsCount($postId)
     {
-
-        $postView = DocuPostView::where('post_id', $postId)->first();
-
-        if ($postView) {
-            $postView->increment('views_count');
-        } else {
-            DocuPostView::create([
-                'post_id' => $postId,
-                'views_count' => 1,
-            ]);
-        }
-
+        $updatedRows = DocuPost::where('id', $postId)
+            ->update(['view_count' => \DB::raw('COALESCE(view_count, 0) + 1')]);
     }
+
+
 
     public $items = 5, $sort_by = 'newest';
     public function render()
@@ -62,7 +54,7 @@ class Home extends Component
 
         $latestDocuPostData = DocuPost::where('status', 1)->latest()->take(8)->get();
 
-        $mostViewedDocu = DocuPostView::orderBy('views_count', 'desc')
+        $mostViewedDocu = DocuPost::orderBy('view_count', 'desc')
             ->take(5)
             ->get();
 
