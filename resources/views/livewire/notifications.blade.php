@@ -10,44 +10,45 @@
                 </div>
 
                 @foreach ($notificationItems as $item)
-                    <a class="w-full" href="{{ $item->link }}" wire:navigate
-                        wire:click="clickedNotification({{ $item->id }})">
-                        <div
-                            class="{{ $item->is_read == 0 ? ' bg-slate-200 border border-slate-300  duration-700 hover:bg-slate-300 ease-in-out ' : 'bg-white bg-opacity-60' }} w-full rounded-lg px-4 py-2 shadow-lg">
-                            <div class="flex items-start gap-1">
-                                @if ($item->category == 'system')
-                                    <img class="h-10 w-10" src=" {{ asset('icons/logo.svg') }}" alt="">
-                                @elseif($item->category == 'docu post')
-                                    <img class="h-10 w-10" src="{{ asset('assets/svgs/notification/pdf-ico.svg') }}"
-                                        alt="" srcset="comment ico">
-                                @elseif($item->category == 'comment_report_feedback')
-                                    <img class="h-10 w-10"
-                                        src="{{ asset('assets/svgs/notification/comment_report.svg') }}" alt=""
-                                        srcset="comment ico">
-                                @endif
-                                <section>
-                                    <strong class="text-primary-color">{{ $item->header_message }}</strong>
-                                    <p class="text-sm text-gray-800 md:text-base">
-                                        {!! $item->content_message !!}
-                                    </p>
-                                </section>
+                    <div
+                        class="{{ $item->is_read == 0 ? ' bg-slate-200 border border-slate-300  duration-700 hover:bg-slate-300 ease-in-out ' : 'bg-white bg-opacity-60' }} w-full rounded-lg px-4 py-2 shadow-lg">
+                        <a href="{{ $item->link }}" wire:navigate wire:click="clickedNotification({{ $item->id }})"
+                            class="flex w-full items-start gap-1">
+                            @if ($item->category == 'system')
+                                <img class="h-10 w-10" src=" {{ asset('icons/logo.svg') }}" alt="">
+                            @elseif($item->category == 'docu post')
+                                <img class="h-10 w-10" src="{{ asset('assets/svgs/notification/pdf-ico.svg') }}"
+                                    alt="" srcset="comment ico">
+                            @elseif($item->category == 'comment_report_feedback')
+                                <img class="h-10 w-10" src="{{ asset('assets/svgs/notification/comment_report.svg') }}"
+                                    alt="" srcset="comment ico">
+                            @endif
+                            <section>
+                                <strong class="text-primary-color">{{ $item->header_message }}</strong>
+                                <p class="text-sm text-gray-800 md:text-base">
+                                    {!! $item->content_message !!}
+                                </p>
+                            </section>
+                        </a>
+                        <div class="mt-1 flex w-full justify-between text-sm text-gray-800">
+                            <div>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                             </div>
-                            <div class="mt-1 flex w-full justify-between text-sm text-gray-800">
-                                <div>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
-                                </div>
-                                <div class="flex list-none gap-2">
-                                    @if ($item->is_read == 0)
-                                        <li class="cursor-pointer duration-300 hover:text-primary-color">Mark as
-                                            read
-                                        </li>
-                                    @else
-                                        <li class="">Read</li>
-                                    @endif
-                                    <li class="cursor-pointer duration-300 hover:text-primary-color">Delete</li>
-                                </div>
+                            <div class="flex list-none gap-2">
+                                @if ($item->is_read == 0)
+                                    <li wire:click='markAsRead({{ $item->id }})'
+                                        class="cursor-pointer duration-300 hover:text-primary-color hover:underline">
+                                        Mark as
+                                        read
+                                    </li>
+                                @else
+                                    <li class="">Read</li>
+                                @endif
+                                <li wire:click='deleteNotification({{ $item->id }})'
+                                    class="cursor-pointer duration-300 hover:text-primary-color hover:underline">Delete
+                                </li>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
 
                 {{-- @foreach ($notificationItems as $item)

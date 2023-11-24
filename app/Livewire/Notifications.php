@@ -6,25 +6,40 @@ use App\Models\Notification;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Notifications extends Component {
+class Notifications extends Component
+{
 
-    public function clickedNotification( $id ) {
-        Notification::where( 'id', $id )->update( [ 'is_read' => 1 ] );
-        $this->dispatch( 'notificationClicked' );
+    public function clickedNotification($id)
+    {
+        Notification::where('id', $id)->update(['is_read' => 1]);
+        $this->dispatch('notificationClicked');
     }
 
-    #[ On( 'new-notification' ) ]
-    public function updateCount() {
+    #[On('new-notification')]
+    public function updateCount()
+    {
 
     }
 
-    public function render() {
-        $notificationItems = Notification::where( 'user_id', auth()->user()->id )
-        ->orderBy( 'created_at', 'desc' )
-        ->get();
+    public function markAsRead($id)
+    {
+        Notification::where('id', $id)->update(['is_read' => 1]);
+        $this->dispatch('notificationClicked');
+    }
 
-        return view( 'livewire.notifications', [
+    public function deleteNotification($id)
+    {
+        Notification::where('id', $id)->delete();
+    }
+
+    public function render()
+    {
+        $notificationItems = Notification::where('user_id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('livewire.notifications', [
             'notificationItems' => $notificationItems
-        ] );
+        ]);
     }
 }
