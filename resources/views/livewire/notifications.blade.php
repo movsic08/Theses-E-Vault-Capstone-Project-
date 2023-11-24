@@ -6,7 +6,7 @@
             <div class="mb-6 flex flex-col items-center justify-center gap-4">
                 <div class="mt-1 flex w-full flex-row items-center justify-between text-primary-color">
                     <strong class="text-base md:text-lg">Notifications</strong>
-                    <div x-data="{ open: false }" @click.away="open = false" class="relative">
+                    <div x-data="{ open: false }" @click.away="open = false" class="relative w-full">
                         <!-- Toggle button -->
                         <button @click="open = !open" class="text-gray-600 focus:outline-none">
                             <svg class="h-6 w-6 text-primary-color duration-300 hover:rotate-6" fill="currentColor"
@@ -19,8 +19,8 @@
 
                         <!-- Dropdown menu -->
                         <div x-show="open"
-                            class="absolute right-0 mt-2 w-48 origin-top-right rounded-md border border-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-md">
-                            <div class="">
+                            class="absolute right-0 mt-2 w-full origin-top-right rounded-md border border-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur-md md:w-48">
+                            <div class="w-full">
                                 <button wire:click='readAll'
                                     class="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
                                     Mark all as read
