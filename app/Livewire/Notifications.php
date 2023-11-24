@@ -32,14 +32,38 @@ class Notifications extends Component
         Notification::where('id', $id)->delete();
     }
 
+    public $loadData = 5;
+
+    public function loadMore()
+    {
+        $this->loadData += 5;
+    }
+
+    public function readAll()
+    {
+        Notification::where('user_id', auth()->user()->id)->update(['is_read' => 1]);
+    }
+    public function unreadAll()
+    {
+        Notification::where('user_id', auth()->user()->id)->update(['is_read' => 0]);
+    }
+
+    public function deleteAll()
+    {
+        Notification::where('user_id', auth()->user()->id)->delete();
+    }
+
     public function render()
     {
         $notificationItems = Notification::where('user_id', auth()->user()->id)
             ->orderBy('created_at', 'desc')
+            ->take($this->loadData)
             ->get();
+        $totalItems = Notification::where('user_id', auth()->user()->id)->count();
 
         return view('livewire.notifications', [
-            'notificationItems' => $notificationItems
+            'notificationItems' => $notificationItems,
+            'totalItems' => $totalItems,
         ]);
     }
 }
