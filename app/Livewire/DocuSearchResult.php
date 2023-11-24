@@ -90,6 +90,7 @@ class DocuSearchResult extends Component
         
         // For example, you can use session flash to show a success message
         session()->flash('success', 'copied successfully!');
+        return $this->dispatch('close-shr');
     }
 
     public function viewsCount($postId)

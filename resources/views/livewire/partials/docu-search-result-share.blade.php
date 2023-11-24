@@ -7,7 +7,7 @@
 
         <!-- Modal Header -->
         <div class="mb-4 flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Share Link</h2>
+            <h2 class="text-xl font-semibold">Share Link </h2>
             <span @click="shareBox = false" class="cursor-pointer">&times;</span>
         </div>
 
@@ -21,13 +21,7 @@
             <button wire:click="copyLink('{{ $shareLink }}')" id="copy" class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
         </div>
 
-        <script>
-            const COPY = document.querySelector('#copy');
-
-            COPY.addEventListener('click', async () => {
-                const VALUE = document.querySelector('#value');
-                await navigator.clipboard.writeText(VALUE.value);
-            });
-        </script>
+     
+        
     </div>
 </div>

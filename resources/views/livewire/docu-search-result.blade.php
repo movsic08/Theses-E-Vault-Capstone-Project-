@@ -360,4 +360,12 @@
             </div>
         </div>
     </div>
+       <script wire:ignore>
+            const COPY = document.querySelector('#copy');
+
+            COPY.addEventListener('click', async () => {
+                const VALUE = document.querySelector('#value');
+                return await navigator.clipboard.writeText(VALUE.value);
+            });
+        </script>
 </div>
