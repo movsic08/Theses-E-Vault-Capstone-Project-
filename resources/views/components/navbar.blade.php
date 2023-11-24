@@ -1,4 +1,4 @@
-<section class="md:gradient-bg-light sticky top-0 z-30 bg-opacity-70 py-2 backdrop-blur-xl md:py-0">
+<section class=" sticky top-0 z-30 bg-opacity-70 py-2 backdrop-blur-xl md:py-0">
     <div class="container text-base font-semibold text-blue-950">
         <div class="flex w-full items-center justify-between md:p-2">
             @php
@@ -55,12 +55,12 @@
                     </div>
                 @endguest
 
-                <button id="left-btn" class="ml-2 md:hidden">
+                <button id="showMenuMobile" class="ml-2 md:hidden">
                     <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M4 6h16v2H4V6Zm4 5h12v2H8v-2Zm5 5h7v2h-7v-2Z"></path>
                     </svg>
                 </button>
-                <button id="menu-hide-btn" class="ml-2 hidden md:hidden">
+                <button id="menuMobileRemoverBtn" class="ml-2 hidden md:hidden">
                     <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242-1.414-1.414Z">
@@ -72,11 +72,12 @@
     </div>
     {{-- mobile version --}}
     <div class="relative">
-        <div id="mobileMenu" class="absolute hidden h-auto w-screen bg-slate-100 backdrop-blur-sm">
+        <div id="mobileMenuItems" class="absolute hidden  h-auto w-screen ">
+        <section  class=" backdrop-blur-sm gradient-bg-light">
             <div class="container text-sm font-semibold">
                 <div id="sample"
                     class="div-container mx-1 mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                    <a wire:navigate href="{{ route('user-notification') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -96,27 +97,9 @@
                         Notification</p>
                 </div>
 
-                <div
-                    class="mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
-                        <div class="relative">
-                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M22.276 9.68a10.281 10.281 0 0 0-3.62-5.844A10.66 10.66 0 0 0 11.992 1.5c-2.856 0-5.523 1.1-7.517 3.098C2.548 6.531 1.492 9.083 1.5 11.783c0 1.98.581 3.915 1.671 5.567l.204.283L2.25 22.5l5.381-1.339s.108.036.188.067c.08.03.765.293 1.493.497.604.168 1.863.422 2.848.422 2.796 0 5.407-1.083 7.352-3.05a10.332 10.332 0 0 0 2.988-7.308c0-.709-.075-1.416-.224-2.108Z">
-                                </path>
-                            </svg>
-                            <div
-                                class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-white bg-gray-700 text-gray-100">
-                                <p class="text-[8px]">1</p>
-                            </div>
-                        </div>
 
-                        <p class="hideName block pl-2 md:hidden">Chat</p>
-                    </a>
-                    <p class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1 Message</p>
-                </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="{{ route('home') }}" class="flex items-center">
+                    <a wire:navigate href="{{ route('home') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -129,7 +112,7 @@
                     </a>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                    <a wire:navigate href="{{ route('user-search') }}" class="flex items-center">
                         <div class="relative">
                             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M10.8 10.8a2.4 2.4 0 1 1 4.8 0 2.4 2.4 0 0 1-4.8 0Z"></path>
@@ -143,7 +126,19 @@
                     </a>
                 </div>
                 <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a href="" class="flex items-center">
+                    <a wire:navigate href="{{ route('user-catalogue') }}" class="flex items-center">
+                        <div class="relative">
+                            <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M2 6s1.5-2 5-2 5 2 5 2v14s-1.5-1-5-1-5 1-5 1V6z"></path>
+                            <path d="M12 6s1.5-2 5-2 5 2 5 2v14s-1.5-1-5-1-5 1-5 1V6z"></path>
+                            </svg>
+                        </div>
+
+                        <p class="hideName block pl-2 md:hidden">Catologue</p>
+                    </a>
+                </div>
+                <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
+                    <a wire:navigate href="{{ route('user-bookmark') }}" class="flex items-center">
                         <div class="relative">
                             <svg class="relative" width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -156,7 +151,7 @@
                 </div>
                 @auth
                     <div class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                        <a href="{{ route('user-profile') }}" class="flex items-center">
+                        <a wire:navigate href="{{ route('user-profile', ['username' => auth()->user()->username]) }}" class="flex items-center">
                             <div class="relative">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
@@ -221,7 +216,7 @@
                     @endauth
                 </div>
             </div>
-
+</section>
         </div>
     </div>
 </section>

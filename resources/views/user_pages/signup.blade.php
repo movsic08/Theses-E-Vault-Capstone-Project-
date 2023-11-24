@@ -23,12 +23,12 @@
     <div class="signup-gradient absolute inset-0 z-10 bg-cover"></div>
     <div class="container absolute inset-0 z-20 h-full w-full">
         <div class="relative flex h-full w-full items-center justify-center">
-            <img class="absolute left-6 top-7 h-28 blur-sm" src="{{ asset('assets\svgs\blob1.svg') }}" alt="">
+            {{-- <img class="absolute left-6 top-7 h-28 blur-sm" src="{{ asset('assets\svgs\blob1.svg') }}" alt="">
             <img class="absolute -right-6 bottom-7 h-28" src="{{ asset('assets\svgs\blob1.svg') }}" alt="">
             <img class="absolute -right-6 bottom-7 h-28" src="{{ asset('assets\svgs\blob1.svg') }}" alt="">
             <img class="absolute right-48 top-1 h-48 blur-sm" src="{{ asset('assets\svgs\blob1.svg') }}" alt="">
             <img class="absolute -right-6 bottom-7 h-28" src="{{ asset('assets\svgs\blob1.svg') }}" alt="">
-            <img class="absolute -left-6 bottom-5 h-36" src="{{ asset('assets\svgs\blob1.svg') }}" alt="">
+            <img class="absolute -left-6 bottom-5 h-36" src="{{ asset('assets\svgs\blob1.svg') }}" alt=""> --}}
             <div class="drop-shadow-lg">
                 <div class="flex">
                     {{-- 1st div --}}

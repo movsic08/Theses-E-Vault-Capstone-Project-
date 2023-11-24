@@ -46,7 +46,7 @@
                     </a>
                     <p class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1 NOtification</p>
                 </div>
-                {{-- message area --}}
+                {{-- message area
                 <div
                     class="{{ request()->routeIs('chat') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 flex flex-row items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                     <a wire:navigate href='/chat' class="flex items-center">
@@ -64,7 +64,7 @@
                         <p class="hideName block pl-2 md:hidden">Chat</p>
                     </a>
                     <p class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1 Message</p>
-                </div>
+                </div> --}}
             @endauth
 
             <div

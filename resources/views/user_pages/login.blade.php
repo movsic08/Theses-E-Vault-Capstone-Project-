@@ -16,6 +16,7 @@
         rel="stylesheet">
     <title>Login</title>
     @vite('resources/css/app.css')
+      @livewireStyles
 </head>
 
 <body class="relative h-screen overflow-hidden font-poppins">
@@ -140,6 +141,7 @@
 
         </div>
     </div>
+     @livewireScripts
 </body>
 
 

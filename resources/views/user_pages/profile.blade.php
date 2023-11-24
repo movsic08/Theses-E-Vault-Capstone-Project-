@@ -5,7 +5,8 @@
     <div class="container">
         <x-session_flash />
     </div>
-    <div class="h-full w-full md:container">
+    <div class="h-full w-full container">
+    
         @if ($checkedAccount !== null)
             <div class="mb-12 mt-6 rounded-2xl bg-slate-50 p-4 py-8 drop-shadow-md md:mx-2 md:px-[6rem] lg:mx-24">
                 <div
@@ -64,7 +65,7 @@
                                     About
                                 </button>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <button @click="activeTab = 'post'" class="p-2"
                                     :class="{
                                         'border-b-2 border-primary-color  font-bold': activeTab === 'post',
@@ -73,7 +74,7 @@
                                     }">
                                     Posts
                                 </button>
-                            </li>
+                            </li> --}}
                             <li>
                                 <button @click="activeTab = 'document'" class="p-2"
                                     :class="{
@@ -204,8 +205,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mt-3" x-show="activeTab === 'post'">
-                            Post content dito.</div>
+                        {{-- <div class="mt-3" x-show="activeTab === 'post'">
+                            Post content dito.</div> --}}
                     </div>
 
                 </div>
