@@ -6,7 +6,7 @@
             <div class="mb-6 flex flex-col items-center justify-center gap-4">
                 <div class="mt-1 flex w-full flex-row items-center justify-between text-primary-color">
                     <strong class="text-base md:text-lg">Notifications</strong>
-                    <div x-data="{ open: false }" @click.away="open = false" class="relative w-full">
+                    <div x-data="{ open: false }" @click.away="open = false" class="relative">
                         <!-- Toggle button -->
                         <button @click="open = !open" class="text-gray-600 focus:outline-none">
                             <svg class="h-6 w-6 text-primary-color duration-300 hover:rotate-6" fill="currentColor"
