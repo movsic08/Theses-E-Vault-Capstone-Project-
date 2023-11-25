@@ -417,18 +417,15 @@
                         <section class="flex flex-col gap-2 lg:gap-3">
 
                             @foreach ($trendingPosts as $index => $item)
-                                @php
-                                    $getData = \App\Models\DocuPost::where('id', $item->post_id)->first();
-                                @endphp
                                 <div
-                                    class="@if ($index == 0) bg-yellow-400 @elseif($index == 1) bg-[#075DEF] @else  bg-sky-100 text-[#075DEF] @endif flex w-full gap-1 rounded-md px-3 py-2 text-white">
+                                    class="@if ($index == 0) animated-gradient  @elseif($index == 1) bg-[#075DEF] @else  bg-sky-100 text-[#075DEF] @endif flex w-full gap-1 rounded-md px-3 py-2 text-white">
                                     <small
-                                        class="@if ($index == 0) bg-yellow-500 @elseif($index == 1) bg-[#4e88eb] @else  bg-sky-400 @endif flex min-h-[1.4rem] min-w-[1.4rem] items-center justify-center rounded-full text-[0.65rem] font-medium text-white">
+                                        class="@if ($index == 0) bg-sky-700  @elseif($index == 1) bg-[#4e88eb] @else  bg-sky-400 @endif flex min-h-[1.4rem] min-w-[1.4rem] items-center justify-center rounded-full text-[0.65rem] font-medium text-white">
                                         {{ $index + 1 }}
                                     </small>
                                     <p
                                         class="@if ($index != 0 && $index != 1) text-sky-600 @else text-white @endif line-clamp-1 text-sm font-semibold">
-                                        {{ $getData->title }}</p>
+                                        {{ $item->title }}</p>
                                 </div>
                             @endforeach
 

@@ -43,7 +43,37 @@
   background: linear-gradient(107deg, #D9F0FF 3.72%, #E3E5E5 107.94%);
 } */
 
-/* styles.css or in your Tailwind CSS file */
+
+
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  25% {
+    background-position: 100% 50%;
+  }
+
+  50% {
+    background-position: 0% 50%;
+  }
+
+  75% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient {
+  background: linear-gradient(90deg, #0fffc1, #7e0fff);
+  background-size: 200% 200%;
+  animation: gradientAnimation 10s linear infinite;
+  /* Set the height for the example */
+}
 
 
 

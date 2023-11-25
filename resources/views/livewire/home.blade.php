@@ -133,7 +133,7 @@
                                     <div class="relative flex w-full items-start gap-2 border-b border-gray-300 pb-3">
                                         <a wire:click='viewsCount({{ $docuData->id }})' wire:navigate
                                             href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
-                                            class="text-base font-bold pr-4 md:text-lg">
+                                            class="pr-4 text-base font-bold md:text-lg">
                                             {{ $docuData->title }}
                                         </a>
                                         @php
@@ -142,7 +142,7 @@
                                                 ->count();
                                         @endphp
 
-                                        <svg class="sticky top-[1.2rem] right-4 lg:absolute lg:right-0 lg:top-0 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700"
+                                        <svg class="sticky right-4 top-[1.2rem] max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700 lg:absolute lg:right-0 lg:top-0"
                                             wire:click.prevent="bookmarkItem({{ $docuData->id }}, '{{ $docuData->reference }}')"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             @if ($checkBookmark > 0)
@@ -158,13 +158,16 @@
 
                                     </div>
                                     <div class="mt-3 flex flex-col gap-2 text-xs font-medium md:flex-row md:text-sm">
-                                        <div class="h-fit w-fit rounded-full bg-sky-700 px-2 py-1 text-white">
+                                        <a href=" {{ route('search-result-page', ['q' => $docuData->document_type]) }} "
+                                            target="_blank"
+                                            class="h-fit w-fit rounded-full bg-sky-700 px-2 py-1 text-white">
                                             {{ $docuData->document_type }}
-                                        </div>
-                                        <div
+                                        </a>
+                                        <a href=" {{ route('search-result-page', ['q' => $docuData->course]) }} "
+                                            target="_blank"
                                             class="h-fit w-fit rounded-full border-blue-700 bg-blue-100 px-2 py-1 text-blue-700">
                                             {{ $docuData->course }}
-                                        </div>
+                                        </a>
                                     </div>
                                     <p
                                         class="my-2 line-clamp-4 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-sm md:line-clamp-5 md:text-base">
@@ -173,7 +176,8 @@
 
                                     <div class="flex items-start pb-2">
                                         <svg class="mr-1 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem]"
-                                            fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            fill="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M5.28 4.32a1.2 1.2 0 0 1 1.2-1.2h5.503a1.2 1.2 0 0 1 .849.352l8.4 8.4a1.2 1.2 0 0 1 0 1.697l-5.503 5.503a1.2 1.2 0 0 1-1.697 0l-8.4-8.4a1.2 1.2 0 0 1-.352-.849V4.32Zm4.2 4.8a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6Z">
                                             </path>
@@ -182,35 +186,43 @@
                                             </path>
                                         </svg>
                                         <p class="text-sm font-medium text-gray-600">
-                                            <a class="px-1 hover:bg-gray-100 hover:text-blue-600">
+                                            <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_1]) }} "
+                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600">
                                                 {{ $docuData->keyword_1 . ($docuData->keyword_1 ? ', ' : '') }}</a>
-                                            <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                rel="noopener noreferrer">
+                                            <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_2]) }} "
+                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                target="_blank" rel="noopener noreferrer">
                                                 {{ $docuData->keyword_2 . ($docuData->keyword_2 ? ', ' : '') }}</a>
-                                            <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                rel="noopener noreferrer">
+                                            <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_3]) }} "
+                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                target="_blank" rel="noopener noreferrer">
                                                 {{ $docuData->keyword_3 . ($docuData->keyword_3 ? ', ' : '') }}</a>
-                                            <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                rel="noopener noreferrer">
+                                            <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_4]) }} "
+                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                target="_blank" rel="noopener noreferrer">
                                                 {{ $docuData->keyword_4 . ($docuData->keyword_4 ? ', ' : '') }}</a>
                                             @if ($docuData->keyword_5 != null)
-                                                <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">
+                                                <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_5]) }} "
+                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_5 . ($docuData->keyword_6 || $docuData->keyword_7 || $docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_6 != null)
-                                                <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">
+                                                <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_6]) }} "
+                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_6 . ($docuData->keyword_7 || $docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_7 != null)
-                                                <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">
+                                                <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_7]) }} "
+                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_7 . ($docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_8 != null)
-                                                <a class="px-1 hover:bg-gray-100 hover:text-blue-600" target="_blank"
-                                                    rel="noopener noreferrer">
+                                                <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_8]) }} "
+                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_8 }}</a>
                                             @endif
 
@@ -218,7 +230,9 @@
                                     </div>
                                     <div class="flex items-center justify-between border-t border-slate-200 pt-2">
                                         <div class="flex items-center gap-2">
-                                            <div class="rounded-full bg-sky-100 p-1">
+                                            <a wire:click='viewsCount({{ $docuData->id }})'
+                                                href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
+                                                class="cursor-pointer rounded-full bg-sky-100 p-1">
                                                 <svg width="24" height="24" fill="currentColor"
                                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -228,7 +242,7 @@
                                                         d="M7.2 2.4h9.6a2.4 2.4 0 0 1 2.4 2.4v14.4a2.4 2.4 0 0 1-2.4 2.4H7.2a2.4 2.4 0 0 1-2.4-2.4V4.8a2.4 2.4 0 0 1 2.4-2.4Zm.198 14.002c.108.216.276.412.525.503a.95.95 0 0 0 .696-.036c.382-.156.762-.523 1.112-.944.4-.48.82-1.112 1.225-1.812a13.979 13.979 0 0 1 2.396-.487c.36.46.732.856 1.092 1.14.336.264.724.484 1.121.5.216.011.43-.046.612-.165a1.24 1.24 0 0 0 .425-.499c.108-.217.174-.444.165-.676a1.013 1.013 0 0 0-.24-.621c-.27-.324-.715-.48-1.152-.558a6.91 6.91 0 0 0-1.602-.06 13.146 13.146 0 0 1-1.176-2.023c.3-.792.525-1.541.624-2.153a3.72 3.72 0 0 0 .058-.737 1.487 1.487 0 0 0-.152-.646.841.841 0 0 0-.573-.438c-.242-.051-.492 0-.72.093-.453.18-.692.564-.782.987-.088.408-.048.884.055 1.364.106.487.286 1.017.516 1.554a23.64 23.64 0 0 1-1.274 2.672 9.189 9.189 0 0 0-1.779.774c-.444.264-.839.576-1.076.944-.252.392-.33.857-.096 1.324Z"
                                                         clip-rule="evenodd"></path>
                                                 </svg>
-                                            </div>
+                                            </a>
                                             <div class="h-5 border-r border-slate-400 pr-1 text-gray-500">
                                             </div>
                                             <p class="font-medium text-gray-500">
@@ -254,10 +268,7 @@
                                                         d="M2.4 11.64S6 5.04 12 5.04s9.6 6.6 9.6 6.6-3.6 6.6-9.6 6.6-9.6-6.6-9.6-6.6Zm9.6 4.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z">
                                                     </path>
                                                 </svg>
-                                                @php
-                                                    $viewsData = \App\Models\DocuPostView::where('post_id', $docuData->id)->first();
-                                                @endphp
-                                                <span>{{ $viewsData == null ? '0' : $viewsData->views_count }}</span>
+                                                <span>{{ $docuData->view_count == null ? '0' : $docuData->view_count }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -302,15 +313,13 @@
                         @else
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($mostViewedDocu as $item)
-                                    @php
-                                        $itemLatest = \App\Models\DocuPost::where('id', $item->post_id)->first();
-                                    @endphp
                                     <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
-                                        <a href=""
-                                            class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $itemLatest->document_type }}</a>
-                                        <a wire:click='viewsCount({{ $docuData->id }})'
-                                            href="{{ route('view-document', ['reference' => $itemLatest->reference]) }}"
-                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $itemLatest->title }}
+                                        <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
+                                            target="_blank"
+                                            class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
+                                        <a wire:click='viewsCount({{ $item->id }})'
+                                            href="{{ route('view-document', ['reference' => $item->reference]) }}"
+                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
                                         </a>
                                     </div>
                                 @endforeach
@@ -344,7 +353,8 @@
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($latestDocuPostData as $item)
                                     <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
-                                        <a href=""
+                                        <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
+                                            target="_blank"
                                             class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
                                         <a wire:click='viewsCount({{ $item->id }})'
                                             href="{{ route('view-document', ['reference' => $item->reference]) }}"
