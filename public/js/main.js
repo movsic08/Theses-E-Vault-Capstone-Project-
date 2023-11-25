@@ -7,7 +7,8 @@ class Main {
         this.pageNum = 1;
         this.numPages = 0;
 
-        this.canvasContainer = document.querySelector("#canvasContainer");
+        this.canvas = document.querySelector("#pdfArea");
+        this.ctx = this.canvas.getContext("2d");
         this.scale = 1.5;
 
         this.loadPdf();
@@ -20,69 +21,26 @@ class Main {
             this.pdfDoc = pdfDoc;
             this.numPages = pdfDoc.numPages;
             document.getElementById("totalPages").textContent = this.numPages;
-
             this.renderPage(this.pageNum);
         } catch (error) {
             console.error("Error loading PDF:", error);
-            this.handlePdfError();
         }
     }
 
     async renderPage(num) {
         try {
-            // Cancel previous rendering task if it exists
-            if (this.renderTask) {
-                this.renderTask.cancel();
-            }
-
             const page = await this.pdfDoc.getPage(num);
             const viewport = page.getViewport({ scale: this.scale });
-
-            // Create a new canvas element for each rendering operation
-            const canvas = document.createElement("canvas");
-            canvas.className = "pdf-canvas"; // Add a class for styling if needed
-
-            if (this.canvasContainer) {
-                this.canvasContainer.appendChild(canvas);
-
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                const renderContext = {
-                    canvasContext: canvas.getContext("2d"),
-                    viewport,
-                };
-
-                // Save the render task to be able to cancel it later
-                this.renderTask = page.render(renderContext);
-
-                await this.renderTask.promise;
-
-                // Additional: Remove previous canvases (optional, depending on your requirements)
-                this.removePreviousCanvases();
-            } else {
-                console.error("Canvas container not found.");
-            }
+            this.canvas.height = viewport.height;
+            this.canvas.width = viewport.width;
+            const renderContext = {
+                canvasContext: this.ctx,
+                viewport,
+            };
+            await page.render(renderContext);
         } catch (error) {
             console.error("Error rendering page:", error);
         }
-    }
-
-    // Additional: Remove previous canvases from the container
-    removePreviousCanvases() {
-        const canvases =
-            this.canvasContainer.getElementsByClassName("pdf-canvas");
-        Array.from(canvases).forEach((canvas) => {
-            canvas.remove();
-        });
-    }
-
-    handlePdfError() {
-        // Handle the case where the PDF file is not found
-        const loadingSpinnerText =
-            document.getElementById("loadingSpinnerText");
-        loadingSpinnerText.innerHTML =
-            '<span class="text-lg font-bold text-primary-color">File not found in the database</span>';
     }
 
     showNextPage() {
@@ -92,7 +50,6 @@ class Main {
         this.pageNum++;
         this.renderPage(this.pageNum);
         this.updatePageNumberInputValue();
-        this.resetScrollPosition();
     }
 
     showPrevPage() {
@@ -102,7 +59,6 @@ class Main {
         this.pageNum--;
         this.renderPage(this.pageNum);
         this.updatePageNumberInputValue();
-        this.resetScrollPosition();
     }
 
     updatePageNumberInputValue() {
@@ -130,18 +86,12 @@ class Main {
             this.pageNum = newPageNum;
             this.renderPage(this.pageNum);
             this.updatePageNumberInputValue();
-            this.resetScrollPosition();
         } else {
             // Invalid input, reset to the current page number
             pageNumberInput.value = this.pageNum;
         }
     }
-
-    resetScrollPosition() {
-        const scrollableCanvas = document.querySelector(".scrollable-canvas");
-        scrollableCanvas.scrollTop = 0;
-    }
 }
 
-// Additional Script - Assuming Main class is defined in main.js
+// Create an instance of the Main class
 const main = new Main();

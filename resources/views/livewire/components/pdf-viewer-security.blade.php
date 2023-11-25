@@ -8,8 +8,10 @@
                 <div class="w-[20rem] rounded-md bg-white p-4 drop-shadow-lg">
                     <h2 class="md:text2xl text-center text-lg font-extrabold text-primary-color">PDF IS LOCKED</h2>
                     <div class="my-1 rounded-md border border-blue-300 bg-blue-100 p-2 text-blue-950">
-                        <p class="text-xs font-light">If you don't know where to find the generated key for you,
-                            you can find it in the view document page. Just click on generate key and paste it here to unlock</p>
+                        <p class="text-xs font-light">If you don't have know where to find the generated key for you,
+                            you can find
+                            it in the view
+                            document page. Just click on generate key and paste it here to unlock</p>
                     </div>
                     <form action="" wire:submit.prevent='unlockPDFForm'>
                         <x-label-input>Enter the generated key</x-label-input>
@@ -26,10 +28,12 @@
             </div>
         </div>
     @endif
-    <section x-data="{ pdfViewer: false, fileNotFound: false, loading: true }" x-show="pdfViewer" x-on:open-pdf.window="pdfViewer = true; fileNotFound = false" x wire:ignore>
+    <section x-data="{ pdfViewer: false }" x-show="pdfViewer" x-on:open-pdf.window="pdfViewer = true" x wire:ignore>
         <div id="pdfData" data-file-path="{{ asset('storage/' . decrypt($this->pdfFile)) }}"></div>
+        {{-- data-file-path="{{ auth()->user()->is_admin == 1 ? asset('storage/' . $this->pdfFile) : asset('storage/' . decrypt($this->pdfFile)) }}"> --}}
         <div class="container relative">
             <div class="" style="height: 100%; width: 100%;">
+                {{-- sticky top --}}
                 <div class="fixed inset-x-0 bottom-3 z-50 flex w-full items-center justify-center">
                     <div
                         class="flex w-fit items-center gap-1 rounded-md bg-slate-100 bg-opacity-70 px-1 outline outline-gray-200 drop-shadow-lg backdrop-blur-lg md:gap-2 md:px-9 md:py-1 lg:gap-3 lg:py-2">
@@ -43,6 +47,7 @@
                             <span class="mx-1">/</span>
                             <span id="totalPages" class="m-2">10</span>
                         </div>
+                        {{-- drop down --}}
                         <div x-data="{ isOpen: false, selectedOption: 'Fit to Width' }" class="relative inline-block text-left">
                             <button @click="isOpen = !isOpen" type="button" id="zoomDropdown"
                                 class="rounded-lg bg-gray-200 px-1 text-gray-700 shadow-md md:px-2">
@@ -68,27 +73,26 @@
                                 </div>
                             </div>
                         </div>
+
                         <button class="rounded-md bg-primary-color px-2 py-1 font-bold text-white"
                             id="nextPageBtn">Next</button>
                     </div>
                 </div>
 
+
+
                 <div class="col-span-12 mt-2 overflow-auto text-center" id="scrollableCanvas">
                     <div class="h-full w-auto">
-                        <div class="flex items-center justify-center h-full absolute top-0 left-0 w-full"
-                            id="loadingSpinnerText" x-show="loading">
-                            <span x-show="fileNotFound" id="loadingText" class="text-lg font-bold text-primary-color">File not found in the database</span>
-                            <span x-show="!fileNotFound" id="loadingText" class="text-lg font-bold text-primary-color">Loading</span>
-                            <span id="loadingDot" class="animate-dots">.</span>
-                        </div>
                         <canvas class="mx-auto" id="pdfArea" style="height: auto; width: 100%;"></canvas>
                     </div>
                 </div>
+
 
             </div>
         </div>
 
         <style>
+            /* Hide the up and down spinner controls for the input[type=number] */
             input[type=number]::-webkit-inner-spin-button,
             input[type=number]::-webkit-outer-spin-button {
                 -webkit-appearance: none;
@@ -98,91 +102,90 @@
             input[type=number] {
                 -moz-appearance: textfield;
             }
-
-            #loadingSpinnerText {
-                background-color: rgba(255, 255, 255, 0.8);
-                z-index: 1000;
-            }
-
-            #loadingSpinnerText span {
-                margin-right: 0.5rem;
-            }
-
-            .animate-dots {
-                animation: blink 1s infinite;
-            }
-
-            @keyframes blink {
-                50% {
-                    opacity: 0;
-                }
-            }
         </style>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
         <script src="{{ asset('js/main.js') }}"></script>
-
         <script>
-            // Function to handle the dot animation
-            function animateDots() {
-                const loadingDot = document.getElementById('loadingDot');
-                let dotCount = 0;
-                const interval = setInterval(function () {
-                    loadingDot.textContent = '.'.repeat(dotCount % 4); // Repeat dots 0, 1, 2, 3
-                    dotCount++;
-
-                    if (dotCount > 3) {
-                        clearInterval(interval); // Stop the animation after four dots
-                    }
-                }, 500); // Adjust the interval as needed
-            }
-
-            // Get the PDF document
-            const pdfDocPromise = pdfjsLib.getDocument('{{ asset('storage/' . decrypt($this->pdfFile)) }}').promise;
-
-            // Call the dot animation function after rendering the PDF
-            pdfDocPromise.then(function (pdfDoc) {
-                animateDots();
-                // Render the first page
-                renderPage(pdfDoc, 1);
-            }).catch(function (error) {
-                console.error('Error loading PDF:', error);
-                const pdfViewerElement = document.querySelector('[x-data="{ pdfViewer: false, fileNotFound: false, loading: true }"]');
-                if (pdfViewerElement) {
-                    pdfViewerElement.fileNotFound = true;
-                    pdfViewerElement.loading = false;
-                }
-            });
-
-            // Function to render a specific page
-            function renderPage(pdfDoc, pageNum) {
+            $(document).ready(function() {
+                // Set initial zoom level and limits
+                let zoomLevel = 1.0;
+                const minZoom = 0.5; // Minimum zoom level
+                const maxZoom = 2.0; // Maximum zoom level
                 const canvas = document.getElementById('pdfArea');
-                const ctx = canvas.getContext('2d');
-
-                // Fetch the specified page
-                pdfDoc.getPage(pageNum).then(function(page) {
-                    const viewport = page.getViewport({ scale: 1.5 });
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    // Render the page content on the canvas
-                    const renderContext = {
-                        canvasContext: ctx,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-
-                    // Hide the loading spinner once the rendering is complete
-                    const loadingSpinner = document.getElementById('loadingSpinnerText');
-                    if (loadingSpinner) {
-                        loadingSpinner.style.display = 'none';
+                // Function to change the canvas size based on the selected option
+                function changeCanvasSize(size) {
+                    if (canvas) {
+                        if (size === 'fitToPage') {
+                            canvas.style.height = '100%';
+                            canvas.style.width = 'auto';
+                        } else if (size === 'fitToWidth') {
+                            canvas.style.height = 'auto';
+                            canvas.style.width = '100%';
+                        } else {
+                            // Zoom in or out based on the given percentage
+                            const percentage = parseFloat(size.replace('zoom', '')) / 100;
+                            zoomLevel = percentage;
+                            zoomLevel = Math.min(maxZoom, Math.max(minZoom, zoomLevel)); // Limit zoom level
+                            canvas.style.height = (canvas.height * zoomLevel) + 'px';
+                            canvas.style.width = (canvas.width * zoomLevel) + 'px';
+                        }
+                    }
+                }
+                // Handle dropdown item click events
+                $('.dropdown-item').on('click', function(e) {
+                    e.preventDefault();
+                    const selectedSize = $(this).attr('id');
+                    changeCanvasSize(selectedSize);
+                });
+                // Zoom In and Out with Shift+ and Shift+-
+                $(document).on('keydown', function(e) {
+                    if (e.shiftKey) {
+                        if (e.key === '+') {
+                            e.preventDefault();
+                            zoomIn();
+                        } else if (e.key === '_') { // Use '_' for 'Shift+-'
+                            e.preventDefault();
+                            zoomOut();
+                        }
                     }
                 });
-            }
+                // Function to zoom in
+                function zoomIn() {
+                    zoomLevel = zoomLevel * 1.1;
+                    zoomLevel = Math.min(maxZoom, zoomLevel); // Limit zoom level
+                    canvas.style.height = (canvas.height * zoomLevel) + 'px';
+                    canvas.style.width = (canvas.width * zoomLevel) + 'px';
+                }
+                // Function to zoom out
+                function zoomOut() {
+                    zoomLevel = zoomLevel / 1.1;
+                    zoomLevel = Math.max(minZoom, zoomLevel); // Limit zoom level
+                    canvas.style.height = (canvas.height * zoomLevel) + 'px';
+                    canvas.style.width = (canvas.width * zoomLevel) + 'px';
+                }
+                // Enable pinch-to-zoom using Hammer.js
+                const mc = new Hammer.Manager(canvas);
+                const pinch = new Hammer.Pinch();
+                mc.add([pinch]);
+                let initialZoom = 1.0;
+                mc.on('pinch', function(e) {
+                    const newZoom = initialZoom * e.scale;
+                    if (newZoom >= minZoom && newZoom <= maxZoom) {
+                        canvas.style.height = (canvas.height * newZoom) + 'px';
+                        canvas.style.width = (canvas.width * newZoom) + 'px';
+                        zoomLevel = newZoom;
+                    }
+                });
+                mc.on('pinchend', function(e) {
+                    initialZoom = zoomLevel;
+                });
+            });
         </script>
 
         {!! $pdfViewerContent !!}
 
     </section>
+    {{-- @endif --}}
 
 </div>
