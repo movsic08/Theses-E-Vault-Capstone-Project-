@@ -116,18 +116,19 @@
                     @endphp
 
                     <div
-                        class="{{ $bgColors[$index % count($bgColors)] }} relative mb-3 flex rounded-2xl p-2 drop-shadow-lg">
+                        class="{{ $bgColors[$index % count($bgColors)] }} relative mb-3 flex overflow-hidden rounded-2xl p-2 drop-shadow-lg">
                         <div class="ml-5 flex flex-grow flex-col gap-2">
+
                             <h1 class="mt-2 text-[1.5rem] font-bold text-white">{{ $itemDocumentType }}</h1>
                             <a wire:navigate href="{{ route('search-result-page', ['q' => $itemDocumentType]) }}"
-                                class="mb-2 mt-8 w-fit rounded-md border border-slate-300 px-3 py-1 font-semibold text-white backdrop-blur-sm">View
+                                class="mb-2 mt-8 w-fit rounded-md px-1 py-2 font-semibold text-white backdrop-blur-sm duration-200 ease-in-out hover:bg-white hover:bg-opacity-25 hover:backdrop-blur-sm">View
                                 documents</a>
                         </div>
                         <div
                             class="my-auto ml-2 mr-5 flex h-[3rem] w-[3rem] items-center justify-center rounded-md bg-sky-700 bg-opacity-50 text-white backdrop-blur-sm">
                             <h2 class="p-2 font-semibold">{{ $itemCount }}</h2>
                         </div>
-                        <div class="absolute bottom-0 left-0 overflow-hidden -z-10 w-full">
+                        <div class="absolute bottom-0 left-0 -z-10 w-full overflow-hidden">
                             {!! $svgs[$index % count($svgs)] !!}
                         </div>
 
@@ -135,44 +136,28 @@
                 @endforeach
             </section>
 
-            {{-- <section class="flex w-full gap-3">
-                @foreach ($document_types as $itemDocumentType)
-                    @php
-                        $itemCount = \App\Models\DocuPost::where('document_type', $itemDocumentType)->count();
-                    @endphp
-                    <div class="my-2 flex w-full items-center rounded-lg bg-white p-2 shadow-lg">
-                        <div
-                            class="mx-4 flex h-fit w-fit rounded-md bg-blue-500 px-4 py-2 font-semibold text-white drop-shadow-md">
-                            {{ $itemCount }}
-                        </div>
-                        <div class="mr-4">
-                            <h1 class="font-bold text-blue-500">{{ $itemDocumentType }}</h1>
-                        </div>
-                    </div>
-                @endforeach
-            </section> --}}
             <h2 class="mt-2 text-[1.2rem] font-semibold text-primary-color">Collections</h2>
             <section class="mt-2">
-                <div class="grid w-full grid-flow-dense grid-cols-2 gap-4">
+                <div class="grid w-full grid-flow-dense grid-cols-2 gap-4 pb-4">
                     @foreach ($degree_lists as $itemDegree)
                         @php
                             $itemCount = \App\Models\DocuPost::where('course', $itemDegree)->count();
                         @endphp
-                        <div
-                            class="col-span-2 flex h-fit w-full items-center gap-2 rounded-lg bg-white p-2 px-3 drop-shadow-md md:col-span-1 md:h-[6rem]">
+                        <a href=" {{ route('search-result-page', ['q' => $itemDegree]) }} "
+                            class="col-span-2 flex h-full w-full items-center gap-2 rounded-lg bg-white p-2 px-3 shadow-md duration-300 ease-in-out hover:bg-slate-200 md:col-span-1">
                             <div
                                 class="ml-4 mr-4 flex h-[1rem] w-[1rem] items-center justify-center rounded-lg bg-sky-700 p-6 font-medium text-white">
                                 <span> {{ $itemCount }}</span>
                             </div>
                             <div class="flex h-full flex-col justify-center">
-                                <h1 class="text-[1.2rem] font-semibold text-sky-700">
+                                <h1 class="text-base font-semibold text-sky-700">
                                     {{ $itemDegree }}
                                 </h1>
                                 <p class="whitespace-wrap text-sm font-light text-gray-500">
                                     Research works submitted to the {{ $itemDegree }}.
                                 </p>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </section>

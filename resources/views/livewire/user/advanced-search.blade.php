@@ -3,9 +3,9 @@
     <section class="container">
         <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-[4rem] md:p-2">
             <div class="flex w-full flex-col items-center justify-center">
-                <img class="h-[3rem] md:h-[5rem]" src="{{ asset('icons/logo.svg') }}" alt="logo">
+                <img class="h-[5rem]" src="{{ asset('icons/logo.svg') }}" alt="logo">
                 <h2
-                    class="mx-[2rem] mt-4 text-center text-lg font-extrabold text-primary-color dark:text-white md:mt-7 md:text-2xl lg:mx-[10rem] lg:text-4xl">
+                    class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[10rem] lg:text-4xl">
                     UNLOCKING
                     ACADEMIC
                     INSIGHTS:
@@ -16,19 +16,19 @@
                     WORKS,
                     THESES, CAPSTONE, AND FEASIBILITY STUDIES</h2>
             </div>
-            <div class="my-4 flex flex-col gap-2 md:gap-4">
+            <div class="mx-20 my-4 flex flex-col gap-2 md:gap-4">
 
-                <div x-data="{ dateOption: 'month-and-year-only' }" x-data="{ dateOption: '' }"
-                    class="gradient-border flex flex-col items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white bg-opacity-30 p-3 shadow-xl backdrop-blur-md md:mx-0 md:gap-4 md:p-6 lg:px-10 lg:py-6"
+                <div x-data="{ dateOption: 'month-and-year-only' }"
+                    class="gradient-border flex flex-col items-center justify-center gap-4 rounded-xl border border-gray-200 bg-white bg-opacity-30 p-6 drop-shadow-md backdrop-blur-md lg:px-10 lg:py-6"
                     for="search-docu">
                     {{-- search input --}}
-                    <div class="flex w-full">
+                    <div class="flex">
                         <input
-                            class="h-10 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-md focus:border-gray-400 focus:outline-none md:w-full lg:h-14 lg:w-[30.8rem]"
+                            class="h-8 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-md focus:border-gray-400 focus:outline-none md:h-10 md:w-[10rem] lg:h-14 lg:w-[30.8rem]"
                             wire:keydown.enter='findResult' type="search" id="search-docu" wire:model.live='search'
                             placeholder="Advanced search">
                         <button wire:click='findResult'
-                            class="custom-blue-via flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-r-full p-2 drop-shadow-lg md:h-[2.4rem] md:w-[4rem] lg:h-14">
+                            class="custom-blue-via flex h-[2rem] w-[2.5rem] items-center justify-center rounded-r-full p-2 drop-shadow-lg md:h-[2.4rem] md:w-[4rem] lg:h-14">
                             <svg wire:loading.remove wire:target='findResult' class="h-5"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43 37" fill="none">
                                 <path
@@ -44,84 +44,72 @@
                         </button>
                     </div>
                     {{-- data picker --}}
-                    <section class="w-full">
-                        <div class="flex w-full flex-col items-start justify-between gap-2 md:flex-row">
-                            <div class="flex w-full flex-col items-start justify-start gap-1 md:w-fit">
-                                {{-- date option --}}
-                                <div class="flex w-full flex-row items-center justify-start md:flex-col">
-                                    <label for="dateOpt"
-                                        class="mr-1 block whitespace-nowrap text-sm font-medium text-gray-700 md:mr-0">Start
-                                        Date Option</label>
-                                    <select id="dateOpt" x-model="dateOption" wire:model.live='datepicker'
-                                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 md:w-fit">
-                                        <option value="month-and-year-only">Month and year</option>
-                                        <option value="date-range">Date range</option>
-                                    </select>
-                                </div>
-
+                    <div class="flex w-full items-start justify-between gap-2">
+                        <div class="flex w-fit flex-col items-start justify-start gap-2">
+                            <div class="flex w-full flex-row items-center justify-start gap-2">
+                                <x-label-input class="w-fit whitespace-nowrap">Date option</x-label-input>
+                                <select x-model="dateOption" wire:model.live='datepicker'
+                                    class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                                    <option value="month-and-year-only">Month and year</option>
+                                    <option value="date-range">Date range</option>
+                                </select>
                             </div>
-                            {{-- month and year --}}
-                            <div x-show="dateOption === 'month-and-year-only'"
-                                x-transition:enter.duration.400ms.delay.300ms x-transition:leave.duration.200ms
-                                class="relative w-full transition-all">
-                                <div class="flex w-full flex-row items-start md:flex-col">
-                                    <label for="monthYear"
-                                        class="mr-1 block w-fit whitespace-nowrap text-left text-sm font-medium text-gray-700">Month
-                                        and
-                                        Year:</label>
-                                    <input type="month" id="monthYear" name="monthYear" wire:model='dateMYOnly'
-                                        class="w-full rounded-md border border-gray-300 p-1.5 focus:border-blue-500 focus:outline-none">
-                                </div>
+                            @error('dateMYOnly')
+                                <small class="mt-1 text-red-500">{{ $message }}</small>
+                            @enderror
+                            @error('dateRangeStart')
+                                <small class="text-red-500">{{ $message }}</small>
+                            @enderror
+                            @error('dateRangeEnd')
+                                <small class="text-red-500">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        {{-- month and year --}}
+                        <div x-show="dateOption === 'month-and-year-only'" x-transition:enter.duration.400ms.delay.300ms
+                            x-transition:leave.duration.200ms class="relative w-full transition-all">
+                            <div class="flex items-center justify-center">
+                                <label for="monthYear" class="block text-sm font-medium text-gray-700">Month and
+                                    Year:</label>
+                                <input type="month" id="monthYear" name="monthYear" wire:model='dateMYOnly'
+                                    class="rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none">
                             </div>
+                        </div>
 
-                            {{-- date range --}}
-                            <div x-show="dateOption === 'date-range'" x-transition:enter.duration.400ms.delay.300ms
-                                x-transition:leave.duration.200ms
-                                class="flex w-full flex-col items-center transition-all">
-                                <div class="flex w-full flex-col items-center gap-2 md:flex-row md:justify-center">
-                                    <div class="flex w-full flex-row items-center md:flex-col">
-                                        <label for="startDate"
-                                            class="mr-1 block whitespace-nowrap text-sm font-medium text-gray-700 md:mr-0">Start
-                                            Date:</label>
-                                        <input wire:model.live='dateRangeStart' type="month" id="startDate"
-                                            name="startDate"
-                                            class="w-full rounded-md border border-gray-300 p-1.5 focus:border-blue-500 focus:outline-none">
-                                    </div>
-                                    <div class="flex w-full flex-row items-center md:flex-col">
-                                        <label for="endDate"
-                                            class="mr-1 block whitespace-nowrap text-sm font-medium text-gray-700">End
-                                            Date:</label>
-                                        <input wire:model.live='dateRangeEnd' type="month" id="endDate"
-                                            name="endDate"
-                                            class="w-full rounded-md border border-gray-300 p-1.5 focus:border-blue-500 focus:outline-none">
-                                    </div>
-                                </div>
+                        {{-- date range --}}
+                        <div x-show="dateOption === 'date-range'" wire:model.live='dateRange'
+                            x-transition:enter.duration.400ms.delay.300ms x-transition:leave.duration.200ms
+                            class="flex w-full items-center transition-all">
+                            <div class="flex items-center justify-center">
+                                <label for="startDate" class="block text-sm font-medium text-gray-700">Start
+                                    Date:</label>
+                                <input wire:model.live='dateRangeStart' type="month" id="startDate" name="startDate"
+                                    class="rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none">
+
+                                <label for="endDate" class="ml-4 block text-sm font-medium text-gray-700">End
+                                    Date:</label>
+                                <input wire:model.live='dateRangeEnd' type="month" id="endDate" name="endDate"
+                                    class="ml-1 rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none">
                             </div>
 
                         </div>
-                        @error('dateMYOnly')
-                            <small class="mt-1 text-red-500">{{ $message }}</small>
-                        @enderror
-                        @error('dateRangeStart')
-                            <small class="text-red-500">{{ $message }}</small>
-                        @enderror
-                    </section>
+
+                    </div>
                     {{-- language and document type  --}}
-                    <div class="flex w-full flex-row items-center justify-start gap-2">
-                        <div class="flex w-full flex-col items-center gap-1 md:flex-row md:gap-2">
-                            <x-label-input class="whitespace-nowrap">Document type</x-label-input>
+                    <div class="flex w-full items-center justify-start gap-4">
+                        <div class="flex items-center gap-2">
+                            <x-label-input>Document type</x-label-input>
                             <select wire:model.live='docuTypeInput'
-                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                                class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                                 <option selected value="all">all</option>
                                 @foreach ($documentTypes as $item)
                                     <option value="{{ $item }}">{{ $item }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="flex w-full flex-col items-center gap-1 md:flex-row md:gap-2">
+                        <div class="flex items-center gap-2">
                             <x-label-input>Language</x-label-input>
                             <select x-model="dateOption"
-                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                                class="block w-fit rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                                 <option selected value="all">all</option>
                                 <option value="month-and-year-only">English</option>
                             </select>
@@ -130,7 +118,7 @@
                 </div>
 
                 <a href="{{ route('user-search') }}" wire:navigate
-                    class="w-fit rounded-md border border-blue-500 bg-blue-500 bg-opacity-30 p-3 text-xs font-extrabold text-blue-900 backdrop-blur-sm duration-200 ease-in-out hover:bg-blue-700 hover:text-white md:px-2 md:py-1 md:text-base">Basic
+                    class="w-fit rounded-md border border-blue-500 bg-blue-500 bg-opacity-30 px-2 py-1 text-xs text-white backdrop-blur-sm duration-200 ease-in-out hover:bg-blue-700 md:text-base">Basic
                     search</a>
             </div>
         </div>
