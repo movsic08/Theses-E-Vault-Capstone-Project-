@@ -158,13 +158,16 @@
 
                                     </div>
                                     <div class="mt-3 flex flex-col gap-2 text-xs font-medium md:flex-row md:text-sm">
-                                        <div class="h-fit w-fit rounded-full bg-sky-700 px-2 py-1 text-white">
+                                        <a href=" {{ route('search-result-page', ['q' => $docuData->document_type]) }} "
+                                            target="_blank"
+                                            class="h-fit w-fit rounded-full bg-sky-700 px-2 py-1 text-white">
                                             {{ $docuData->document_type }}
-                                        </div>
-                                        <div
+                                        </a>
+                                        <a href=" {{ route('search-result-page', ['q' => $docuData->course]) }} "
+                                            target="_blank"
                                             class="h-fit w-fit rounded-full border-blue-700 bg-blue-100 px-2 py-1 text-blue-700">
                                             {{ $docuData->course }}
-                                        </div>
+                                        </a>
                                     </div>
                                     <p
                                         class="my-2 line-clamp-4 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-sm md:line-clamp-5 md:text-base">
@@ -173,7 +176,8 @@
 
                                     <div class="flex items-start pb-2">
                                         <svg class="mr-1 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem]"
-                                            fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            fill="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M5.28 4.32a1.2 1.2 0 0 1 1.2-1.2h5.503a1.2 1.2 0 0 1 .849.352l8.4 8.4a1.2 1.2 0 0 1 0 1.697l-5.503 5.503a1.2 1.2 0 0 1-1.697 0l-8.4-8.4a1.2 1.2 0 0 1-.352-.849V4.32Zm4.2 4.8a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6Z">
                                             </path>
@@ -310,7 +314,8 @@
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($mostViewedDocu as $item)
                                     <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
-                                        <a href=""
+                                        <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
+                                            target="_blank"
                                             class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
                                         <a wire:click='viewsCount({{ $item->id }})'
                                             href="{{ route('view-document', ['reference' => $item->reference]) }}"
@@ -348,7 +353,8 @@
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($latestDocuPostData as $item)
                                     <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
-                                        <a href=""
+                                        <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
+                                            target="_blank"
                                             class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
                                         <a wire:click='viewsCount({{ $item->id }})'
                                             href="{{ route('view-document', ['reference' => $item->reference]) }}"
