@@ -82,6 +82,11 @@
 
 
                 <div class="col-span-12 mt-2 overflow-auto text-center" id="scrollableCanvas">
+                    <div class="flex items-center justify-center h-full absolute top-0 left-0 w-full" id="loadingSpinner">
+                        <div class="text-primary-color animate-loading-dots">
+                            Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                        </div>
+                    </div>
                     <div class="h-full w-auto">
                         <canvas class="mx-auto" id="pdfArea" style="height: auto; width: 100%;"></canvas>
                     </div>
@@ -91,7 +96,61 @@
             </div>
         </div>
 
+        <script>
+            // Add this script to handle PDF loading and remove the spinner
+            document.addEventListener('DOMContentLoaded', function () {
+                const loadingSpinner = document.getElementById('loadingSpinner');
+                const pdfArea = document.getElementById('pdfArea');
+        
+                // Function to remove the loading spinner
+                function removeSpinner() {
+                    loadingSpinner.style.display = 'none';
+                }
+        
+                // PDF.js code to load the PDF
+                pdfjsLib.getDocument('{{ asset('storage/' . decrypt($this->pdfFile)) }}').promise.then(function (pdfDoc) {
+                    const totalPages = pdfDoc.numPages;
+                    document.getElementById('totalPages').textContent = totalPages;
+        
+                    // Your existing PDF rendering code here
+        
+                    // After rendering the PDF, remove the spinner
+                    removeSpinner();
+                }).catch(function (error) {
+                    console.error('Error loading PDF:', error);
+                    // Handle error if needed
+                    removeSpinner(); // Make sure to remove the spinner even if there's an error
+                });
+            });
+        </script>
         <style>
+            /* This is Loading Spinner Style */
+
+            /* Add this style for the Loading... animation */
+            .animate-loading-dots {
+                color: #6563ff; /* Adjust color if needed */
+                font-size: 1.5rem; /* Adjust font size if needed */
+            }
+
+            .dot {
+                animation: dot-animation 1.5s infinite;
+                margin-right: 0.2em;
+            }
+
+            @keyframes dot-animation {
+                0%, 20% {
+                    opacity: 0;
+                }
+                50% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                }
+            }
+            
+            /* This is Loading SPinner End */
+
             /* Hide the up and down spinner controls for the input[type=number] */
             input[type=number]::-webkit-inner-spin-button,
             input[type=number]::-webkit-outer-spin-button {
