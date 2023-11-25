@@ -27,7 +27,7 @@ class Boomarks extends Component
         $doneDeleting = BookmarkList::where('user_id', auth()->id())
             ->where('id', $this->deletingItemId)
             ->delete();
-
+        $this->closeConfirmationBox();
         if ($doneDeleting) {
             $this->confirmationBox = false;
             session()->flash('message', 'Removed success');
@@ -53,7 +53,14 @@ class Boomarks extends Component
 
     public function deleteAllBookmark()
     {
-        return request()->session()->flash('success', 'Bookmarks deleted!');
+        $isDeleted = BookmarkList::where('user_id', auth()->id())->delete();
+        if ($isDeleted) {
+            return request()->session()->flash('success', 'Bookmarks deleted!');
+        } else {
+            return request()->session()->flash('error', 'Deleting failed, contact Devs.');
+
+        }
+
     }
     public function render()
     {
