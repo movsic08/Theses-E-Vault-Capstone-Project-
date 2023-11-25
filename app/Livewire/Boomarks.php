@@ -6,49 +6,76 @@ use App\Models\BookmarkList;
 use App\Models\DocuPost;
 use Livewire\Component;
 
-class Boomarks extends Component {
+class Boomarks extends Component
+{
 
     public $bookmarkLists, $documentLists;
     public $deletingItemId;
-    public $deletingReferId;
     public $confirmationBox = false;
 
-    public function showConfirmation( $id, $referId ) {
+    public function showConfirmation($title, $id)
+    {
+        $this->title = $title;
         $this->confirmationBox = true;
         $this->deletingItemId = $id;
-        $this->deletingReferId = $referId;
+        $this->dispatch('open-del');
     }
 
-    public function removeFromList() {
-
-        $doneDeleting = BookmarkList::where( 'user_id', auth()->id() )
-        ->where( 'id', $this->deletingItemId )
-        ->delete();
-
-        if ( $doneDeleting ) {
+    public $title;
+    public function removeFromList()
+    {
+        $doneDeleting = BookmarkList::where('user_id', auth()->id())
+            ->where('id', $this->deletingItemId)
+            ->delete();
+        $this->closeConfirmationBox();
+        if ($doneDeleting) {
             $this->confirmationBox = false;
-            session()->flash( 'message', 'ssuceess' );
+            session()->flash('message', 'Removed success');
         } else {
-            session()->flash( 'message', 'soemthign wrong' );
+            session()->flash('message', 'Something went wrong.');
         }
 
     }
+    public $shareLink;
+    public function toggleShare($reference)
+    {
+        $this->shareLink = route('view-document', ['reference' => $reference]);
+        $this->dispatch('open-shr');
+    }
 
-    public function closeConfirmationBox() {
-        $this->confirmationBox = false;
+    public function closeConfirmationBox()
+    {
+        $this->dispatch('close-del', function () {
+            $this->title = '';
+        });
 
     }
 
-    public function render() {
-        $this->bookmarkLists = BookmarkList::where( 'user_id', auth()->id() )->get();
+    public function deleteAllBookmark()
+    {
+        $isDeleted = BookmarkList::where('user_id', auth()->id())->delete();
+        if ($isDeleted) {
+            return request()->session()->flash('success', 'Bookmarks deleted!');
+        } else {
+            return request()->session()->flash('error', 'Deleting failed, contact Devs.');
+
+        }
+
+    }
+    public function render()
+    {
+        $this->bookmarkLists = BookmarkList::where('user_id', auth()->id())->get();
+        $bookmarkItemCount = $this->bookmarkLists->count();
         // $this->documentLists = DocuPost::where( 'reference', $this->bookmarkLists->reference )
         // ->where( 'docu_post_id', $this->bookmarkLists->docu_post_id );
         // dd( $this->bookmarkLists );
-        $references = $this->bookmarkLists->pluck( 'reference' )->toArray();
+        $references = $this->bookmarkLists->pluck('reference')->toArray();
 
         // Retrieve DocuPost data where the 'reference' matches any value in the $references array
-        $this->documentLists = DocuPost::whereIn( 'reference', $references )->get();
-        return view( 'livewire.boomarks' )
-        ->layout( 'layout.app' );
+        $this->documentLists = DocuPost::whereIn('reference', $references)->get();
+        return view('livewire.boomarks', [
+            'bookmarkItemCount' => $bookmarkItemCount,
+        ])
+            ->layout('layout.app');
     }
 }

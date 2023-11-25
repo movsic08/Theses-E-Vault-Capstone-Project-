@@ -131,7 +131,7 @@
                                 <section
                                     class="rounded-xl bg-white p-5 drop-shadow-lg duration-500 ease-in-out hover:-translate-y-1">
                                     <div class="relative flex w-full items-start gap-2 border-b border-gray-300 pb-3">
-                                        <a wire:click='viewsCount({{ $docuData->id }})' wire:navigate
+                                        <a wire:navigate
                                             href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
                                             class="pr-4 text-base font-bold md:text-lg">
                                             {{ $docuData->title }}
@@ -230,8 +230,7 @@
                                     </div>
                                     <div class="flex items-center justify-between border-t border-slate-200 pt-2">
                                         <div class="flex items-center gap-2">
-                                            <a wire:click='viewsCount({{ $docuData->id }})'
-                                                href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
+                                            <a href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
                                                 class="cursor-pointer rounded-full bg-sky-100 p-1">
                                                 <svg width="24" height="24" fill="currentColor"
                                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -317,8 +316,7 @@
                                         <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
                                             target="_blank"
                                             class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
-                                        <a wire:click='viewsCount({{ $item->id }})'
-                                            href="{{ route('view-document', ['reference' => $item->reference]) }}"
+                                        <a href="{{ route('view-document', ['reference' => $item->reference]) }}"
                                             class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
                                         </a>
                                     </div>
@@ -356,8 +354,7 @@
                                         <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
                                             target="_blank"
                                             class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
-                                        <a wire:click='viewsCount({{ $item->id }})'
-                                            href="{{ route('view-document', ['reference' => $item->reference]) }}"
+                                        <a href="{{ route('view-document', ['reference' => $item->reference]) }}"
                                             class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
                                         </a>
                                     </div>

@@ -10,13 +10,12 @@
         <!-- Row 2, Column 1 -->
         <div
             class="justify-centermd:col-span-3 z-10 col-span-7 flex items-center md:col-span-4 md:items-start md:justify-center lg:col-span-4">
-            <p class="text-xl font-light md:text-2xl">Thesis Kiosk is a dedicated platform designed to showcase the
+            <p class="text-xl font-light md:text-2xl">Welcome to Thesis Kiosk!, a dedicated platform designed to showcase
                 exceptional
                 research and
-                scholarly endeavors of undergraduate students. Be inspired by the groundbreaking discoveries, critical
+                scholarly works. Be inspired by the groundbreaking discoveries, critical
                 analyses, and creative endeavors presented by talented undergraduate researchers from esteemed
-                institutions. Begin your journey of exploration today. Welcome to Thesis Kiosk, where undergraduate
-                brilliance shines!</p>
+                institutions. Begin your journey of exploration today. </p>
         </div>
         <!-- Row 1, Column 2 -->
         <style>

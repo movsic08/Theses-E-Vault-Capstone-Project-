@@ -7,7 +7,7 @@
             <div id="sample"
                 class="mx-1 mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="{{ route('index') }}" class="flex items-center">
-                    <img height="30" width="30" src="{{ asset('icons/logo.svg') }}" alt="logo" srcset="">
+                    <img height="30" width="30" src="{{ asset('icons\logo.svg') }}" alt="logo" srcset="">
                     <div class="ml-2 flex flex-col">
                         <p class="hideName block md:hidden">Thesis Kiosk</p>
                     </div>
