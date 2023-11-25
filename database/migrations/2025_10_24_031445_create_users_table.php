@@ -23,6 +23,8 @@ return new class extends Migration {
             $table->string('address')->nullable();
             $table->string('phone_no')->unique()->nullable();
             $table->string('last_name')->nullable();
+            $table->string('year')->nullable();
+            $table->string('section')->nullable();
             $table->string('student_id')->nullable();
             $table->string('staff_id')->nullable();
             $table->string('profile_picture')->nullable();

@@ -107,10 +107,11 @@
                         <div class="flex items-center justify-between text-gray-500 md:text-sm lg:text-base">
                             <div class="flex flex-row gap-2">
                                 <input type="checkbox" name="" id="remember_me">
-                                <label class="font-normal" for="remember_me">Remember me</label>
+                                <label class="text-sm font-normal md:text-xs lg:text-base" for="remember_me">Remember
+                                    me</label>
                             </div>
                             <a href="{{ route('forgot-pass') }}"
-                                class="text-blue-500 duration-150 ease-in-out hover:font-normal hover:text-blue-950">Forgot
+                                class="text-sm text-blue-500 duration-150 ease-in-out hover:font-normal hover:text-blue-950 md:text-xs lg:text-base">Forgot
                                 your password?</a>
                         </div>
                         <input

@@ -193,13 +193,16 @@ class UserController extends Controller
 
         if ($checkedAccount == !null) {
             $currentUserId = $checkedAccount->id;
+            $docuPostOfUser = DocuPost::where('user_id', $checkedAccount->id)->get();
             $fullName = $checkedAccount->first_name . ' ' . $checkedAccount->last_name;
         } else {
-            $currentUserId = '';
-            $fullName = '';
+            $checkedAccount = null;
+            $currentUserId = 'Unknown';
+            $fullName = 'Unknown';
+            $docuPostOfUser = null;
         }
 
-        $docuPostOfUser = DocuPost::where('user_id', $checkedAccount->id)->get();
+
 
         // dd( $docuPostOfUser );
         return view('user_pages.profile', [
