@@ -29,7 +29,7 @@
                             <input
                                 class="mx-2 w-full p-2 font-medium text-primary-color focus:border-b focus:border-gray-500 focus:outline-none"
                                 wire:model='search' type="search" placeholder="Search now..."
-                                value="{{ $query }}" id="">
+                                value="{{ $query }}" id="searchInput">
                         </div>
                         <div class="flex items-center gap-2">
                             <option value="">Filter</option>
@@ -357,12 +357,4 @@
             </div>
         </div>
     </div>
-       <script wire:ignore>
-            const COPY = document.querySelector('#copy');
-
-            COPY.addEventListener('click', async () => {
-                const VALUE = document.querySelector('#value');
-                return await navigator.clipboard.writeText(VALUE.value);
-            });
-        </script>
 </div>

@@ -20,8 +20,43 @@
         <div class="flex w-full justify-end font-bold">
             <button wire:click="copyLink('{{ $shareLink }}')" id="copy" class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
         </div>
-
-     
         
     </div>
+    <script>
+        // this is copy to clipboard logic begin
+        const COPY = document.querySelector('#copy');
+        const VALUE = document.querySelector('#value');
+    
+        COPY.addEventListener('click', () => {
+            try {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(VALUE.value);
+                    console.log('Link copied to clipboard!');
+                } else {
+                    fallbackCopyTextToClipboard(VALUE.value);
+                }
+            } catch (err) {
+                console.error('Error copying to clipboard:', err);
+            }
+        });
+    
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+    
+            try {
+                document.execCommand('copy');
+                console.log('Link copied to clipboard using fallback method!');
+            } catch (err) {
+                console.error('Error copying to clipboard:', err);
+            }
+    
+            document.body.removeChild(textArea);
+        }
+        // this is copy to clipboard logic end
+    </script>
+    
+    
 </div>
