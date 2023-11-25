@@ -16,7 +16,7 @@
         rel="stylesheet">
     <title>Login</title>
     @vite('resources/css/app.css')
-      @livewireStyles
+    @livewireStyles
 </head>
 
 <body class="relative h-screen overflow-hidden font-poppins">
@@ -65,11 +65,11 @@
 
 
 
-                <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
             </div>
             <div class="flex flex-col rounded-l-lg rounded-r-lg bg-white p-8 drop-shadow-lg md:w-1/2 md:rounded-l-none">
                 <div class="mt-4 flex items-center justify-center gap-2">
-                    <img src="{{ asset('icons/logo.svg') }}" alt="PSU LOGO" srcset="">
+                    <img src="{{ asset('icons/logo.svg') }}" alt="App Ico" srcset="">
                     <h1 class="text-2xl font-bold uppercase text-primary-color">Thesis Kiosk</h1>
                 </div>
                 <div class="my-4">
@@ -123,7 +123,7 @@
 
         </div>
     </div>
-     @livewireScripts
+    @livewireScripts
 </body>
 
 
