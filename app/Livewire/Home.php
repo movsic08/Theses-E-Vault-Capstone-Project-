@@ -23,11 +23,7 @@ class Home extends Component
         // dd( $this->authenticatedUser );
     }
 
-    public function viewsCount($postId)
-    {
-        $updatedRows = DocuPost::where('id', $postId)
-            ->update(['view_count' => \DB::raw('COALESCE(view_count, 0) + 1')]);
-    }
+
 
 
 

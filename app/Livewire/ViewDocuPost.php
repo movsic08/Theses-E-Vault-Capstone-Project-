@@ -15,7 +15,8 @@ use Livewire\Component;
 class ViewDocuPost extends Component
 {
     public $citation;
-    public function citeMe(){
+    public function citeMe()
+    {
         $this->dispatch('open-shr');
     }
 
@@ -28,6 +29,11 @@ class ViewDocuPost extends Component
         $this->authenticatedUser = auth()->user();
         $this->data = DocuPost::where('reference', $this->parameter)->first();
         $this->citation = $this->data->recommended_citation;
+    }
+
+    public function booted()
+    {
+        $this->data->update(['view_count' => \DB::raw('COALESCE(view_count, 0) + 1')]);
     }
 
     public $isBookmarked;
