@@ -82,15 +82,22 @@
 
 
                 <div class="col-span-12 mt-2 overflow-auto text-center" id="scrollableCanvas">
-                    <div class="flex items-center justify-center h-full absolute top-0 left-0 w-full" id="loadingSpinner">
-                        <div class="text-primary-color animate-loading-dots">
-                            Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                    @if ($fileNotFound)
+                        <div class="h-full w-full bg-white p-4">
+                            <p class="text-red-500">Error: File not found in the database.</p>
                         </div>
-                    </div>
-                    <div class="h-full w-auto">
-                        <canvas class="mx-auto" id="pdfArea" style="height: auto; width: 100%;"></canvas>
-                    </div>
+                    @else
+                        <div class="flex items-center justify-center h-full absolute top-0 left-0 w-full" id="loadingSpinner">
+                            <div class="text-primary-color animate-loading-dots">
+                                Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                            </div>
+                        </div>
+                        <div class="h-full w-auto">
+                            <canvas class="mx-auto" id="pdfArea" style="height: auto; width: 100%;"></canvas>
+                        </div>
+                    @endif
                 </div>
+                
 
 
             </div>

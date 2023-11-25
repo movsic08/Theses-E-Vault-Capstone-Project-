@@ -23,6 +23,8 @@ class PdfViewerSecurity extends Component
     public $key_input = '';
 
     public $unlockPDF = false;
+    public $fileNotFound = false; // Add this line
+
     public function boot()
     {
         if (auth()->user()->is_admin == 1) {
@@ -50,7 +52,7 @@ class PdfViewerSecurity extends Component
                 request()->session()->flash('message', 'Account information details are incomplete, fill out now in edit user page.');
             } else {
                 if ($this->authenticatedUser->is_verified == 0) {
-                    request()->session()->flash('message', 'Ve rify your account now, to enjoy the full features for free.');
+                    request()->session()->flash('message', 'Verify your account now, to enjoy the full features for free.');
                 } else {
 
                     // part
@@ -71,8 +73,16 @@ class PdfViewerSecurity extends Component
                             return request()->session()->flash('error', 'Document not found, contact admin.');
                         }
 
-                        $borrowerFullName = $this->authenticatedUser->first_name . ' ' . $this->authenticatedUser->last_name;
+                        // Check if the file exists in public storage
+                        $filePath = 'storage/' . $findDocuData->document_file_url; // Adjust the path accordingly
+                        if (!file_exists(public_path($filePath))) {
+                            $this->fileNotFound = true; // Set the variable to true
+                            request()->session()->flash('error', 'File not found in database.');
+                            // dd('File not found in public storage');
+                        }
 
+                        $borrowerFullName = $this->authenticatedUser->first_name . ' ' . $this->authenticatedUser->last_name;
+                        
                         $isLogCreated = BorrowersLogbook::where('reference', $findDocuData->reference)
                             ->where('name', $borrowerFullName)
                             ->whereDate('created_at', now()->toDateString()) // Use now() to get the current date
@@ -111,6 +121,8 @@ class PdfViewerSecurity extends Component
 
     public function render()
     {
-        return view('livewire.components.pdf-viewer-security');
+        return view('livewire.components.pdf-viewer-security', [
+            'fileNotFound' => $this->fileNotFound, // Pass the variable to the view
+        ]);
     }
 }
