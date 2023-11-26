@@ -15,7 +15,7 @@ class HomeController extends Controller {
         $createdAt = $user ? $user->created_at : null;
 
         // Check if the user was created at least 5 minutes ago
-        $isCreatedWithin5Minutes = $createdAt && Carbon::now()->diffInMinutes($createdAt) <= 5;
+        $isCreatedWithin5Minutes = $createdAt && Carbon::now()->diffInMinutes($createdAt) <= 2;
 
         // check the value
         // dd([
@@ -25,12 +25,11 @@ class HomeController extends Controller {
         //     'isCreatedWithin5Minutes' => $isCreatedWithin5Minutes,
         // ]);
         // check the value end
+
         $showGuide = false;
-        if (Auth::check() && $isCreatedWithin5Minutes && $clicked){
+        if (Auth::check() && $isCreatedWithin5Minutes){
             $showGuide = true;
         }
-
-
         return view('home', ['showGuide' => $showGuide]);
     }
 }

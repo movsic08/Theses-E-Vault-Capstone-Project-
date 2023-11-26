@@ -30,7 +30,7 @@
             <div class="items-center-remover flex flex-col items-center gap-3 pt-2 text-sm">
                 @auth
                     <a wire:navigate href="{{ route('user-notification') }}"
-                        class="{{ request()->routeIs('user-notification') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
+                        class="{{ request()->routeIs('user-notification') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="notification" >
                         <div class="relative w-fit">
                             <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +67,7 @@
                 @endauth
                 {{-- HOME --}}
                 <a wire:navigate href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2">
+                    class="{{ request()->routeIs('home') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="home">
                     <div class="relative">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -79,7 +79,7 @@
                 </a>
                 {{-- search --}}
                 <a wire:navigate href="{{ route('user-search') }}"
-                    class="{{ request()->routeIs('user-search') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2">
+                    class="{{ request()->routeIs('user-search') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="search">
                     <div class="relative">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M10.8 10.8a2.4 2.4 0 1 1 4.8 0 2.4 2.4 0 0 1-4.8 0Z"></path>
@@ -92,7 +92,7 @@
                 </a>
                 {{-- catalogue --}}
                 <a wire:navigate href="{{ route('user-catalogue') }}"
-                    class="{{ request()->routeIs('user-catalogue') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2">
+                    class="{{ request()->routeIs('user-catalogue') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="catalogue">
                     <div class="relative flex items-center justify-center">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +105,7 @@
                 </a>
                 {{-- bookmark --}}
                 <a wire:navigate href="{{ route('user-bookmark') }}"
-                    class="{{ request()->routeIs('user-bookmark') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2">
+                    class="{{ request()->routeIs('user-bookmark') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="bookmark">
                     <div class="relative">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -118,7 +118,7 @@
                 @auth
                     {{-- user/profile --}}
                     <a wire:navigate href="{{ route('user-profile', ['username' => auth()->user()->username]) }}"
-                        class="{{ request()->routeIs('user-profile') && request()->route('username') === auth()->user()->username ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2">
+                        class="{{ request()->routeIs('user-profile') && request()->route('username') === auth()->user()->username ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="user">
                         <div class="relative">
                             <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
@@ -135,7 +135,7 @@
         {{-- lower --}}
         <div class="items-center-remover flex flex-col gap-3 pt-2 text-sm">
             <a wire:navigate href=""
-                class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
+                class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="darkmode">
                 <div class="relative w-fit">
                     <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -147,7 +147,7 @@
                 <p class="hideName block pl-2 md:hidden">Dark</p>
             </a>
             <a wire:navigate href="{{ route('help-and-support') }}"
-                class="{{ request()->routeIs('help-and-support') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2">
+                class="{{ request()->routeIs('help-and-support') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="helpSupport">
                 <div class="relative w-fit">
                     <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +161,7 @@
             @auth
                 {{-- logout --}}
                 <form action="{{ route('user.logout') }}"
-                    class="flex cursor-pointer rounded-xl p-2 duration-500 ease-in-out hover:bg-slate-300" method="POST">
+                    class="flex cursor-pointer rounded-xl p-2 duration-500 ease-in-out hover:bg-slate-300" method="POST" id="logout">
                     @csrf
                     <button type="submit">
                         <div class="relative">
