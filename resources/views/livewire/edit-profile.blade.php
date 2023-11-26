@@ -404,23 +404,17 @@
                                 <label class="text-sm font-semibold" for="bachelor_degree">Bachelor Degree</label>
                                 <select wire:model.live="bachelor_degree_input" id="bachelor-degree"
                                     class="w-full rounded-md border border-gray-400 p-2 text-sm">
-                                    @if ($user->bachelor_degree == null)
-                                        @foreach ($bachelor_degree_data as $degree)
-                                            <option class="text-sm" value="{{ $degree->name }}">
-                                                {{ $degree->name }}
-                                            </option>
-                                        @endforeach
-                                    @else
-                                        @foreach ($bachelor_degree_data as $degree)
-                                            <option class="text-sm" value="{{ $degree->name }}">
-                                                {{ $degree->name }}
-                                            </option>
-                                        @endforeach
-                                    @endif
+                                    <option value="" selected>Select course</option>
+                                    @foreach ($bachelor_degree_data as $degree)
+                                        <option class="text-sm" value="{{ $degree->name }}">
+                                            {{ $degree->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('bachelor_degree_input')
                                     <small class="text-red-500">{{ $message }}</small>
                                 @enderror
+
                             </div>
                             <div class="flex w-full flex-col">
                                 <label class="text-sm font-semibold" for="address">Address</label>

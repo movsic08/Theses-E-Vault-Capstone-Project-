@@ -22,7 +22,7 @@ class EditProfile extends Component
     use WithFileUploads;
     public $bachelor_degree_data, $user;
     public $facebook_url, $ms_url, $verifyEmail;
-    public $first_name, $last_name, $bio, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '1', $bachelor_degree, $address, $profile_picture;
+    public $first_name, $last_name, $bio, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '', $bachelor_degree, $address, $profile_picture;
 
     public function mount()
     {
@@ -99,14 +99,12 @@ class EditProfile extends Component
             'address' => ['required', 'min:5'],
             'bachelor_degree_input' => ['required'],
         ], [
-            'bacbachelor_degree_input.required' => 'Please select your bachelor degree',
+            'bachelor_degree_input.required' => 'Please select your bachelor degree',
             'student_id.regex' => 'The student ID must be in the format "XX-AC-XXXX".',
             'phone_no.regex' => 'This phone number must start with "09" and have 11 digits.',
             'phone_no.unique' => 'This phone number has already been taken.',
             'student_id.unique' => 'This student ID has already been taken, if you think this is mistaken contact admin.',
         ]);
-
-        // dd( $this->bachelor_degree_input );
 
         Auth::user()->update([
             'first_name' => ucfirst($this->first_name),
