@@ -92,8 +92,47 @@
                         </div>
                         <div class="flex flex-col">
                             <label class="font-medium text-gray-800" for="password">Password</label>
+                            <div class="input-box">
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="password" name="password" id="password" @if(isset($_COOKIE["password"])) value="{{ $_COOKIE["password"]}}" @endif required"">
+                                <img src="{{ asset('Icons/eye-close.png') }}" id="eyeicon">
+                            </div>
+                            {{-- show password logic begin --}}
+                            <style>
+                            .input-box{
+                                align-items: center;
+                                display: flex;
+                            }
+
+                            .input-box input{
+                                width: 100%;
+                                padding: 10px 0;
+                                border 0;
+                                outline: 0;
+                                }
+                                
+                                .input-box img{
+                                width: 10%;
+                                cursor: pointer;
+                                }
+                            </style>
+                                
+                            <script>
+                                    let eyeicon = document.getElementById("eyeicon");
+                                    let password = document.getElementById("password");
+                                
+                                    eyeicon.onclick = function() {
+                                        if (password.type == "password") {
+                                            password.type = "text";
+                                            eyeicon.src = "{{ asset('Icons/eye-open.png') }}";
+                                        } else {
+                                            password.type = "password";
+                                            eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
+                                        }
+                                    }
+                            </script>
+                            {{-- show password logic end --}}
+                                
 {{-- =======
 <div class="flex flex-col">
     <x-label-input for="email">Email</x-label-input>
