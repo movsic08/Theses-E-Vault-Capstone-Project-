@@ -105,7 +105,7 @@
              @enderror
          </div>
          <div class="flex w-full flex-row items-center gap-2">
-             <div class="mt-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2 lg:gap-5">
+             <div class="mt-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/4 lg:gap-5">
                  <button class="w-full rounded-md bg-blue-600 px-3 py-2 text-white hover:bg-blue-800" type="submit"
                      wire:loading.attr="disabled">
                      <div wire:loading wire:target='editProfile'>
@@ -115,10 +115,6 @@
                          </div>
                      </div>
                      <span wire:loading.remove wire:target='editProfile'>Save</span>
-                 </button>
-                 <button
-                     class="w-full rounded-md border border-gray-400 px-3 py-2 text-gray-600 hover:bg-gray-600 hover:text-white">
-                     Cancel
                  </button>
              </div>
          </div>

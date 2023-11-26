@@ -49,18 +49,17 @@ class EditProfile extends Component
 
     public function showProfileUpload()
     {
-        $this->uploadProfileBox = !$this->uploadProfileBox;
-        if ($this->uploadProfileBox == false) {
-            $this->reset($this->profile_picture);
-        }
+        $this->dispatch('open-dp');
     }
 
-    public function updatedProfilePicture()
+    public function closeProfile()
     {
-        $this->validate([
-            'profile_picture' => 'image|max:4024',
-        ]);
+        $this->dispatch('close-dp', function () {
+            $this->reset($this->profile_picture);
+            // }
+        });
     }
+
 
     public function changeProfile()
     {
@@ -75,19 +74,16 @@ class EditProfile extends Component
             $imagePath = $this->profile_picture->storeAs('profile_pictures', $customFileName, 'public');
             Auth::user()->update(['profile_picture' => $imagePath]);
 
-            $this->dispatch('profilePictureUpdated');
+            // $this->dispatch('profilePictureUpdated');
+            $this->user->refresh();
             request()->session()->flash('message', 'Profile picture changed successfully.');
         } else {
             request()->session()->flash('message', 'There is problem uploading your image, try again.');
         }
-        $this->uploadProfileBox = false;
-    }
-    protected $listeners = ['profilePictureUpdated' => 'refreshProfilePicture'];
 
-    public function refreshProfilePicture()
-    {
-        $this->user->refresh();
+        return $this->dispatch('close-dp');
     }
+
 
     public function editProfile()
     {
@@ -132,7 +128,7 @@ class EditProfile extends Component
 
     }
 
-    public $activeTab = 'tab3';
+    public $activeTab = 'tab2';
 
     public function setActiveTab($tab)
     {
@@ -144,9 +140,14 @@ class EditProfile extends Component
 
     public function showdelBox()
     {
-        $this->showDeleteBox = !$this->showDeleteBox;
-        $this->confirmationInput = '';
-        // Reset input field
+        $this->dispatch('open-dla');
+    }
+
+    public function closeDelBox()
+    {
+        $this->dispatch('close-dla', function () {
+            $this->reset('confirmationInput');
+        });
     }
     public $current_password, $password, $password_confirmation;
 
@@ -173,13 +174,6 @@ class EditProfile extends Component
         }
         $this->reset(['current_password', 'password', 'password_confirmation']);
 
-    }
-
-    public $showDeleteConfirmation = false;
-
-    public function toggleDeleteConfirmation()
-    {
-        $this->showDeleteConfirmation = !$this->showDeleteConfirmation;
     }
 
     public function deletemyAccount()

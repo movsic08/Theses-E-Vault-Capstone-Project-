@@ -51,7 +51,18 @@
                 </p>
             @endif
         </div>
-
+        <div class="mt-4 flex flex-col md:flex-row">
+            <p class="font-bold text-gray-700">Year </p>
+            @if ($user->year == null)
+                <p class="text-red-500 md:ml-4">Year is empty.</p>
+            @else
+                <p class="whitespace-normal text-gray-500 md:pl-[4rem]">
+                    {{ $user->year }} @if ($user->section != null)
+                        - {{ $user->section }}
+                    @endif
+                </p>
+            @endif
+        </div>
         <div class="mt-4 flex flex-col md:flex-row">
             <p class="font-bold text-gray-700">Email</p>
             <p class="whitespace-normal text-gray-500 md:pl-14">

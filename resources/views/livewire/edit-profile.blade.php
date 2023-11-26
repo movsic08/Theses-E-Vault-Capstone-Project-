@@ -1,12 +1,13 @@
 <div class="mx-2 mb-6">
     {{-- upload picture --}}
-    @if ($uploadProfileBox)
+    {{-- @if ($uploadProfileBox)
         <div class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-500 bg-opacity-25 backdrop-blur-sm"
             x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
             x-on:livewire-upload-finish="uploading = false; progress = 0"
             x-on:livewire-upload-error="uploading = false; progress = 0"
             x-on:livewire-upload-progress="progress = $event.detail.progress">
-            <div class="relative mx-3 flex w-fit flex-col gap-1 rounded-md bg-white px-10 py-5 text-center md:w-2/5">
+            <div
+                class="relative mx-3 mt-14 flex w-fit flex-col gap-1 rounded-md bg-white px-10 py-5 text-center md:w-2/5">
                 <svg wire:click='showProfileUpload' class="absolute right-6 top-4 h-8 text-red-500" fill="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -57,64 +58,12 @@
             </div>
         </div>
 
-    @endif
+    @endif --}}
+    @include('livewire.partials.editProfilePartials.upload-profile')
 
     {{-- confirmation delete box --}}
-    @if ($showDeleteBox)
-        <section id="deleteConfirmationBox" class="">
-            <div
-                class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
-                <div class="mx-3 flex w-fit flex-col gap-1 rounded-md bg-white px-10 py-5 text-center md:w-2/5">
-                    <h1 class="text-lg font-bold text-gray-500">Woah, there!</h1>
-                    <section class="text-sm text-red-700">
-                        <p>
-                            This action is irreversible and will permanently delete
-                            all your data associated with this account. If you
-                            proceed, you will lose access to your account and all
-                            its contents. Please take a moment to consider this
-                            decision. If you're certain about deleting your account,
-                            click the "Delete Account" button below.
-                        </p>
-                    </section>
-                    <div class="flex justify-center">
-                        <input type="text" wire:model.live="confirmationInput" id="confirmInput"
-                            class="rounded-md border border-gray-400 p-2" placeholder="Confirm, by typing DELETE"
-                            id="" />
-                        <div wire:loading.remove
-                            class="{{ $confirmationInput ? '' : 'hidden' }} my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-                            @if (!$confirmationInput)
-                                <span class="hidden">Hidden content</span> <!-- Add hidden class -->
-                            @elseif ($confirmationInput === 'DELETE')
-                                ✅ <!-- Checkmark indicator -->
-                            @else
-                                ❌ <!-- X indicator -->
-                            @endif
-                        </div>
-                        <div wire:loading>
-                            <!-- Show loading spinner while checking input -->
-                            <div class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-                                <div class="h-4 w-4 animate-spin rounded-full border-t-2 border-primary-color"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex w-full flex-col gap-2 md:flex-row">
-                        <button wire:click="showdelBox"
-                            class="w-full rounded-md bg-gray-600 p-1 text-white duration-200 ease-in hover:bg-gray-700">
-                            Cancel
-                        </button>
-                        <button
-                            @if ($confirmationInput !== 'DELETE') @else
-                         wire:click="deletemyAccount" @endif
-                            id="confirmBTN"
-                            class="{{ $confirmationInput === 'DELETE' ? 'bg-red-700 hover:bg-red-900' : 'bg-red-400' }} w-full rounded-md p-1 text-white"
-                            @if ($confirmationInput !== 'DELETE' || !$confirmationInput) disabled @endif>
-                            Yes, Delete it
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
+    @include('livewire.partials.editProfilePartials.delete-account-box')
+
 
     @if ($enterOtpBox)
         {{-- box for otp --}}
@@ -239,70 +188,7 @@
                     @include('livewire.partials.editProfilePartials.general-tab')
                 @elseif ($activeTab === 'tab2')
                     {{-- tab for security --}}
-                    <form wire:submit="changePassword" wire:loading.class="loading">
-                        <div
-                            class="flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:max-h-[30rem]">
-                            <div class="flex w-full flex-col">
-                                <label class="text-sm font-semibold" for="currentPassword">Current
-                                    password</label>
-                                <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
-                                    wire:model.live="current_password" id="currentPassword" />
-                                @error('current_password')
-                                    <small class="text-red-500">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="flex w-full flex-col">
-                                <label class="text-sm font-semibold" for="password">New password</label>
-                                <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
-                                    wire:model.live="password" id="password" />
-                                @error('password')
-                                    <small class="text-red-500">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="flex w-full flex-col">
-                                <label class="text-sm font-semibold" for="password_confirmation">Confirm
-                                    password</label>
-                                <input class="rounded-md border border-gray-400 p-2 text-sm" type="password"
-                                    wire:model.live="password_confirmation" id="password_confirmation" />
-                                @error('password_confirmation')
-                                    <small class="text-red-500">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="flex w-full flex-row items-center gap-2">
-                                <div wire:loading wire:target='changePassword'>
-                                    <div
-                                        class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-                                        <div class="h-4 w-4 animate-spin rounded-full border-t-2 border-primary-color">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
-                                    <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                        type="submit" wire:loading.attr="disabled">
-                                        Save
-                                    </button>
-                                    <button
-                                        class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
-                            <section class="flex flex-col gap-2">
-                                <h2 class="font-bold">Delete Account</h2>
-                                <p class="text-sm">
-                                    Once your account is deleted, all of its resources
-                                    and data will be permanently deleted. hBefore
-                                    deleting your account, please download any data or
-                                    information that you wish to retain.
-                                </p>
-                                <div class="my-2 w-full">
-                                    <span id="deleteButton" wire:click="showdelBox"
-                                        class="w-full cursor-pointer rounded-md bg-red-600 p-2 font-semi-bold text-white duration-200 ease-in hover:bg-red-800 md:w-1/3 lg:w-1/2">Delete
-                                        account</span>
-                                </div>
-                            </section>
-                        </div>
-                    </form>
+                    @include('livewire.partials.editProfilePartials.security-tab')
                 @elseif ($activeTab === 'tab3')
                     <div
                         class="flex min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:min-h-[30rem]">
