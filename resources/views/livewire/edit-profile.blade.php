@@ -64,72 +64,9 @@
     {{-- confirmation delete box --}}
     @include('livewire.partials.editProfilePartials.delete-account-box')
 
+    {{-- box for otp --}}
+    @include('livewire.partials.editProfilePartials.verify-account-otp')
 
-    @if ($enterOtpBox)
-        {{-- box for otp --}}
-        <div
-            class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
-            <div
-                class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg">
-                <img class="h-10" src="{{ asset('icons/logo.svg') }}" alt="Icon Description">
-                <h1 class="font-bold">Enter verification code</h1>
-                <h1 class="">We've send a code to <strong> {{ $verifyEmail }}</strong></h1>
-                <form wire:submit="checkOtpInput">
-                    <section class="flex flex-col items-center justify-center">
-                        <label class="" for="">Enter the 6 letters to verify your account</label>
-                        <div class="flex w-full flex-row justify-evenly capitalize">
-                            @for ($i = 1; $i <= 6; $i++)
-                                <input type="text"
-                                    class="@error('input' . $i) border-red-600 @enderror h-10 w-10 rounded-md border-2 border-gray-300 text-center text-lg font-semibold capitalize focus:border-blue-400 focus:ring focus:ring-blue-200"
-                                    maxlength="1" id="input{{ $i }}"
-                                    wire:model.live="input{{ $i }}">
-                            @endfor
-                        </div>
-                        @error('validateOtp')
-                            <small class="text-red-500">{{ $message }}</small>
-                        @enderror
-                        @error('alreadySent')
-                            <small class="text-red-500">{{ $message }}</small>
-                        @enderror
-                        <span>Didn't get a code? <button><Strong>Request new code</Strong></button></span>
-                        <div class="flex w-full flex-col gap-3 md:flex-row">
-                            <button wire:click="closeOtpBox"
-                                class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                                Cancel
-                            </button>
-                            <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                wire:loading.attr="disabled">
-                                Verify
-                            </button>
-                        </div>
-                    </section>
-                </form>
-            </div>
-        </div>
-    @endif
-
-    @if ($verifiedBox)
-        <div
-            class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
-            <div
-                class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg">
-                <div class="flex items-center justify-center">
-                    <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M7.52 4.146a3.68 3.68 0 0 0 2.094-.868 3.68 3.68 0 0 1 4.772 0 3.68 3.68 0 0 0 2.094.868 3.68 3.68 0 0 1 3.374 3.374 3.67 3.67 0 0 0 .868 2.094 3.68 3.68 0 0 1 0 4.772 3.679 3.679 0 0 0-.868 2.094 3.68 3.68 0 0 1-3.374 3.374 3.679 3.679 0 0 0-2.094.868 3.68 3.68 0 0 1-4.772 0 3.679 3.679 0 0 0-2.094-.868 3.68 3.68 0 0 1-3.374-3.374 3.68 3.68 0 0 0-.868-2.094 3.68 3.68 0 0 1 0-4.772 3.68 3.68 0 0 0 .868-2.094A3.68 3.68 0 0 1 7.52 4.146Zm8.928 6.302a1.2 1.2 0 0 0-1.696-1.696L10.8 12.703l-1.552-1.551a1.2 1.2 0 0 0-1.696 1.696l2.4 2.4a1.2 1.2 0 0 0 1.696 0l4.8-4.8Z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <h1>Account Verified!</h1>
-                <p>You have succesfully verified your acocunt.</p>
-                <button wire:click="closeVerifiedBox"
-                    class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                    Close
-                </button>
-            </div>
-        </div>
-    @endif
 
     @if ($showDeleteDocuPostBox)
         <div
@@ -160,25 +97,25 @@
         <h1 class="font-bold text-primary-color">Account information</h1>
     </div>
 
-    <section class="container flex flex-col gap-3 lg:flex-row">
+    <section class="container flex flex-col gap-6 lg:flex-row">
         @include('livewire.partials.editProfilePartials.account-info-box')
         <section class="w-full lg:w-3/5">
             <div
                 class="flex flex-row gap-6 rounded-t-lg border-b border-gray-300 bg-white px-8 text-gray-600 md:gap-10 lg:gap-14">
                 <button wire:click="setActiveTab('tab1')"
-                    class="{{ $activeTab === 'tab1' ? 'border-b-4 border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab1' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
                     General
                 </button>
                 <button wire:click="setActiveTab('tab2')"
-                    class="{{ $activeTab === 'tab2' ? 'border-b-4 border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab2' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
                     Security
                 </button>
                 <button wire:click="setActiveTab('tab3')"
-                    class="{{ $activeTab === 'tab3' ? 'border-b-4 border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab3' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
                     Links
                 </button>
                 <button wire:click="setActiveTab('tab4')"
-                    class="{{ $activeTab === 'tab4' ? 'border-b-4 border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab4' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
                     Files
                 </button>
             </div>
@@ -190,152 +127,7 @@
                     {{-- tab for security --}}
                     @include('livewire.partials.editProfilePartials.security-tab')
                 @elseif ($activeTab === 'tab3')
-                    <div
-                        class="flex min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:min-h-[30rem]">
-                        <section>
-                            <h2 class="mb-2">Link your social media account.</h2>
-                            <form wire:submit="addUrl" class="flex flex-col gap-2 md:gap-4">
-                                <div class="flex w-full flex-col">
-                                    <label class="text-sm font-semibold" for="fb_url">Facebook account URL</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                        wire:model.live="facebook_url" id="fb_url" />
-                                    @error('facebook_url')
-                                        <small class="text-red-500">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="flex w-full flex-col">
-                                    <label class="text-sm font-semibold" for="ig_url">Instagram account URL</label>
-                                    <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                        wire:model.live="ig_url" id="ig_url" />
-                                    @error('ig_url')
-                                        <small class="text-red-500">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="flex w-full flex-row items-center gap-2">
-                                    <div wire:loading wire:target='addUrl'>
-                                        <div
-                                            class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-                                            <div
-                                                class="h-4 w-4 animate-spin rounded-full border-t-2 border-primary-color">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
-                                        <button class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                            type="submit" wire:loading.attr="disabled">
-                                            Save
-                                        </button>
-                                        <button
-                                            class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </section>
-                        <section>
-                            <h2 class="mb-2">Account Verification</h2>
-                            <form wire:submit="verifyMyEmail">
-                                <div class="flex h-fit items-center justify-center">
-                                    @php
-                                        $user = auth()->user();
-                                        $areTheyEmpty = empty($user->first_name) || empty($user->last_name) || empty($user->address) || empty($user->phone_no);
-                                    @endphp
-                                    @if ($areTheyEmpty)
-                                        <div class="mx-3 flex items-center text-red-700">
-                                            <svg fill="currentColor" height="40" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                    d="M21.6 12a9.6 9.6 0 1 1-19.2 0 9.6 9.6 0 0 1 19.2 0Zm-8.4 4.8a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0ZM12 6a1.2 1.2 0 0 0-1.2 1.2V12a1.2 1.2 0 1 0 2.4 0V7.2A1.2 1.2 0 0 0 12 6Z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </div>
-                                        <p class="text-xs text-red-600">
-                                            Your accounts information is incomplete, please fill out the details
-                                            required before you can verify you account.
-                                        </p>
-                                    @else
-                                        @if (auth()->user()->is_verified == false)
-                                            <div class="mx-3 flex items-center text-yellow-700">
-                                                <svg fill="currentColor" height="40" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M21.6 12a9.6 9.6 0 1 1-19.2 0 9.6 9.6 0 0 1 19.2 0Zm-8.4 4.8a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0ZM12 6a1.2 1.2 0 0 0-1.2 1.2V12a1.2 1.2 0 1 0 2.4 0V7.2A1.2 1.2 0 0 0 12 6Z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                            </div>
-                                            <p class="text-xs text-yellow-600">
-                                                Your account is not yet verified. To access all
-                                                features, please verify your account to confirm
-                                                you are a student status at PSU-ACC. Binding
-                                                your institutional email account will help you
-                                                to recover your account.
-                                            </p>
-                                        @else
-                                            <div class="mx-3 flex items-center text-blue-600">
-                                                <svg fill="currentColor" height="40" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M7.52 4.146a3.68 3.68 0 0 0 2.094-.868 3.68 3.68 0 0 1 4.772 0 3.68 3.68 0 0 0 2.094.868 3.68 3.68 0 0 1 3.374 3.374 3.67 3.67 0 0 0 .868 2.094 3.68 3.68 0 0 1 0 4.772 3.679 3.679 0 0 0-.868 2.094 3.68 3.68 0 0 1-3.374 3.374 3.679 3.679 0 0 0-2.094.868 3.68 3.68 0 0 1-4.772 0 3.679 3.679 0 0 0-2.094-.868 3.68 3.68 0 0 1-3.374-3.374 3.68 3.68 0 0 0-.868-2.094 3.68 3.68 0 0 1 0-4.772 3.68 3.68 0 0 0 .868-2.094A3.68 3.68 0 0 1 7.52 4.146Zm8.928 6.302a1.2 1.2 0 0 0-1.696-1.696L10.8 12.703l-1.552-1.551a1.2 1.2 0 0 0-1.696 1.696l2.4 2.4a1.2 1.2 0 0 0 1.696 0l4.8-4.8Z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                            </div>
-                                            <div class="flex flex-col text-xs">
-                                                <p>
-                                                    Account Verified! Welcome to our Research & Thesis Hub! 🎓
-                                                </p>
-                                                <p> Your institutional account has been verified. Dive into
-                                                    a world of research,
-                                                    thesis, and capstone excellence. Enjoy exploring and learning on our
-                                                    platform!</p>
-                                                <p> Happy researching! 📚🔍</p>
-                                            </div>
-                                        @endif
-                                    @endif
-
-                                </div>
-                                <div class="mt-2 flex w-full flex-col">
-                                    <label class="text-sm font-semibold" for="verifyEmail">Institutional Email</label>
-                                    @if (auth()->user()->is_verified == false)
-                                        <small>To verify your account, you need to use your institutional
-                                            account.</small>
-                                    @endif
-                                    <input
-                                        class="{{ auth()->user()->is_verified ? 'text-gray-400' : '' }} my-2 rounded-md border border-gray-400 p-2 text-sm"
-                                        type="email" wire:model.live="verifyEmail" id="email"
-                                        {{ auth()->user()->is_verified || $areTheyEmpty ? 'disabled' : '' }} />
-                                    @error('verifyEmail')
-                                        <small class="text-red-500">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="my-2 flex w-full flex-col gap-3 md:flex-row lg:w-1/2">
-                                    <div wire:loading wire:target='verifyMyEmail'>
-                                        <div
-                                            class="my-auto ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
-                                            <div
-                                                class="h-4 w-4 animate-spin rounded-full border-t-2 border-primary-color">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if ($areTheyEmpty)
-                                    @else
-                                        @if (auth()->user()->is_verified == false)
-                                            <button
-                                                class="w-full rounded-md bg-blue-600 p-1 text-white hover:bg-blue-800"
-                                                wire:loading.attr="disabled">
-                                                Save
-                                            </button>
-                                            <button
-                                                class="w-full rounded-md border border-gray-400 p-1 text-gray-600 hover:bg-gray-600 hover:text-white">
-                                                Cancel
-                                            </button>
-                                        @endif
-                                    @endif
-                                </div>
-                            </form>
-                        </section>
-                    </div>
+                    @include('livewire.partials.editProfilePartials.link-tab')
                 @elseif ($activeTab === 'tab4')
                     <div
                         class="flex min-h-[26.5rem] w-full flex-col gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:h-[30rem]">

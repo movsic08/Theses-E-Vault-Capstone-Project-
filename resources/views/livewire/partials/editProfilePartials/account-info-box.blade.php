@@ -1,4 +1,4 @@
-<section class="flex w-full flex-col gap-3 lg:w-2/5">
+<section class="flex w-full flex-col gap-6 lg:w-2/5">
     <div class="flex min-h-[25.5rem] flex-col justify-between rounded-xl bg-white p-8 drop-shadow-lg">
         <div class="flex flex-col items-center justify-center gap-2">
             <div class="relative">
@@ -114,7 +114,7 @@
             @endif
         </div>
     </div>
-    <div class="flex gap-3 text-primary-color">
+    <div class="flex gap-6 text-primary-color">
         <div class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg md:w-1/2">
             <a href="https://{{ $user->facebook_url }}" target="_blank"
                 class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-blue-600">
@@ -127,7 +127,7 @@
                 Facebook
             </a>
         </div>
-        <div class="flex h-fit w-1/2 items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg">
+        <div class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg md:w-1/2">
             <a href="https://{{ $user->ig_url }}" target="_blank"
                 class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-pink-600">
                 <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"

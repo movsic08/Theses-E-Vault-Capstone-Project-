@@ -1,6 +1,6 @@
  <form wire:submit="changePassword" wire:loading.class="loading">
      <div
-         class="flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-3 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:gap-5">
+         class="flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-3 rounded-b-lg bg-white p-4 px-8 py-6 text-gray-600 drop-shadow-lg md:gap-4 lg:gap-5">
          <div class="flex w-full flex-col">
              <x-label-input for="currentPassword">Current
                  password</x-label-input>

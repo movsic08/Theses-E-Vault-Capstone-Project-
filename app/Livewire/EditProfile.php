@@ -128,7 +128,7 @@ class EditProfile extends Component
 
     }
 
-    public $activeTab = 'tab2';
+    public $activeTab = 'tab1';
 
     public function setActiveTab($tab)
     {
@@ -185,12 +185,13 @@ class EditProfile extends Component
     public function addUrl()
     {
         $this->validate([
-            'facebook_url' => 'required',
-            'ig_url' => 'required',
+            'facebook_url' => 'url',
+            'ig_url' => 'url',
         ], [
-            'facebook_url.required' => 'Please provide your Faceboook URL',
-            'ig_url.required' => 'Please provide your Microsoft account URL',
+            'facebook_url.url' => 'The Facebook URL is not valid',
+            'ig_url.url' => 'The Instagram URL is not valid',
         ]);
+
 
         if ((empty(auth()->user()->facebook_url) || empty(auth()->user()->ig_url))) {
             Auth::user()->update([
@@ -254,10 +255,10 @@ class EditProfile extends Component
             ]);
 
             Mail::to($email)->send(new OtpEmail($generatedOTP));
-            $this->enterOtpBox = true;
+            $this->dispatch('open-va');
             // return dd( $test );
         } else {
-            $this->enterOtpBox = true;
+            $this->dispatch('open-va');
             $this->addError('alreadySent', ' The OTP is already sent to you, check your inbox now.');
         }
 
@@ -265,7 +266,7 @@ class EditProfile extends Component
 
     public function closeOtpBox()
     {
-        $this->enterOtpBox = false;
+        $this->dispatch('close-va');
     }
     public $input1, $input2, $input3, $input4, $input5, $input6;
 
@@ -302,11 +303,12 @@ class EditProfile extends Component
                     'link' => route('home'),
                     'category' => 'system',
                 ]);
-                $this->dispatch('new-notification');
 
-                $this->enterOtpBox = false;
-                $this->verifiedBox = true;
-                session()->flash('message', 'Account verified successfully.');
+                // $this->enterOtpBox = false;
+                // $this->verifiedBox = true;
+                $this->dispatch('close-me');
+                $this->dispatch('entOtp');
+                // session()->flash('message', 'Account verified successfully.');
             }
         } else {
             $this->addError('validateOtp', 'The OTP you entered is invalid.');
@@ -318,8 +320,7 @@ class EditProfile extends Component
 
     public function closeVerifiedBox()
     {
-        $this->verifiedBox = false;
-        $this->enterOtpBox = false;
+        $this->dispatch('close-va');
     }
 
     public $showDeleteDocuPostBox = false;
