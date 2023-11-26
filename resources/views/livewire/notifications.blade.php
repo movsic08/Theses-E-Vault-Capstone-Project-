@@ -53,7 +53,7 @@
                             @endif
                             <section>
                                 <strong class="text-primary-color">{{ $item->header_message }}</strong>
-                                <p class="text-sm text-gray-800 md:text-base">
+                                <p class="my-1 text-sm text-gray-800 md:text-base">
                                     {!! $item->content_message !!}
                                 </p>
                             </section>

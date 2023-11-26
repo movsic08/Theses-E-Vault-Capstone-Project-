@@ -21,8 +21,8 @@ class EditProfile extends Component
     use WithPagination;
     use WithFileUploads;
     public $bachelor_degree_data, $user;
-    public $facebook_url, $ms_url, $verifyEmail;
-    public $first_name, $last_name, $bio, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '', $bachelor_degree, $address, $profile_picture;
+    public $facebook_url, $ig_url, $verifyEmail;
+    public $first_name, $last_name, $bio, $email, $phone_no, $year, $section, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '', $bachelor_degree, $address, $profile_picture;
 
     public function mount()
     {
@@ -36,8 +36,10 @@ class EditProfile extends Component
         $this->username = $this->user->username;
         $this->address = $this->user->address;
         $this->facebook_url = $this->user->facebook_url;
-        $this->ms_url = $this->user->ms_url;
+        $this->ig_url = $this->user->ig_url;
         $this->verifyEmail = $this->user->email;
+        $this->year = $this->user->year;
+        $this->section = $this->user->section;
         $bachelorDegree = BachelorDegree::find($this->user->bachelor_degree);
         $this->bachelorDegreeName = $bachelorDegree ? $bachelorDegree->name : null;
         $this->bachelor_degree_data = BachelorDegree::all();
@@ -47,18 +49,17 @@ class EditProfile extends Component
 
     public function showProfileUpload()
     {
-        $this->uploadProfileBox = !$this->uploadProfileBox;
-        if ($this->uploadProfileBox == false) {
-            $this->reset($this->profile_picture);
-        }
+        $this->dispatch('open-dp');
     }
 
-    public function updatedProfilePicture()
+    public function closeProfile()
     {
-        $this->validate([
-            'profile_picture' => 'image|max:4024',
-        ]);
+        $this->dispatch('close-dp', function () {
+            $this->reset($this->profile_picture);
+            // }
+        });
     }
+
 
     public function changeProfile()
     {
@@ -73,22 +74,20 @@ class EditProfile extends Component
             $imagePath = $this->profile_picture->storeAs('profile_pictures', $customFileName, 'public');
             Auth::user()->update(['profile_picture' => $imagePath]);
 
-            $this->dispatch('profilePictureUpdated');
+            // $this->dispatch('profilePictureUpdated');
+            $this->user->refresh();
             request()->session()->flash('message', 'Profile picture changed successfully.');
         } else {
             request()->session()->flash('message', 'There is problem uploading your image, try again.');
         }
-        $this->uploadProfileBox = false;
-    }
-    protected $listeners = ['profilePictureUpdated' => 'refreshProfilePicture'];
 
-    public function refreshProfilePicture()
-    {
-        $this->user->refresh();
+        return $this->dispatch('close-dp');
     }
+
 
     public function editProfile()
     {
+        // dd($this->year);
         $this->validate([
             'first_name' => ['required', 'min:2'],
             'last_name' => ['required', 'min:2'],
@@ -96,10 +95,14 @@ class EditProfile extends Component
             'student_id' => ['required', 'min:2', 'regex:/^\d{2}-AC-\d{4}$/', ($this->student_id == $this->user->student_id) ? '' : 'unique:users,student_id'],
             'username' => ['required', 'min:2'],
             'bio' => ['required', 'min:2'],
+            'year' => ['required'],
+            'section' => ['required'],
             'address' => ['required', 'min:5'],
             'bachelor_degree_input' => ['required'],
         ], [
             'bachelor_degree_input.required' => 'Please select your bachelor degree',
+            'year.required' => 'Please select your year',
+            'section.required' => 'Please select your section',
             'student_id.regex' => 'The student ID must be in the format "XX-AC-XXXX".',
             'phone_no.regex' => 'This phone number must start with "09" and have 11 digits.',
             'phone_no.unique' => 'This phone number has already been taken.',
@@ -114,26 +117,18 @@ class EditProfile extends Component
             'student_id' => $this->student_id,
             'username' => $this->username,
             'address' => $this->address,
+            'year' => $this->year,
+            'section' => $this->section,
             'bachelor_degree' => $this->bachelor_degree_input,
         ]);
 
         session()->flash('message', 'Edit profile success!');
 
         $this->user->refresh();
-        // Refresh the user model
-        $this->first_name = $this->user->first_name;
-        $this->last_name = $this->user->last_name;
-        $this->email = $this->user->email;
-        $this->bio = $this->user->bio;
-        $this->email = $this->user->email;
-        $this->phone_no = $this->user->phone_no;
-        $this->student_id = $this->user->student_id;
-        $this->username = $this->user->username;
-        $this->address = $this->user->address;
-        $this->bachelor_degree = $this->user->bachelor_degree;
+
     }
 
-    public $activeTab = 'tab3';
+    public $activeTab = 'tab1';
 
     public function setActiveTab($tab)
     {
@@ -145,9 +140,14 @@ class EditProfile extends Component
 
     public function showdelBox()
     {
-        $this->showDeleteBox = !$this->showDeleteBox;
-        $this->confirmationInput = '';
-        // Reset input field
+        $this->dispatch('open-dla');
+    }
+
+    public function closeDelBox()
+    {
+        $this->dispatch('close-dla', function () {
+            $this->reset('confirmationInput');
+        });
     }
     public $current_password, $password, $password_confirmation;
 
@@ -176,13 +176,6 @@ class EditProfile extends Component
 
     }
 
-    public $showDeleteConfirmation = false;
-
-    public function toggleDeleteConfirmation()
-    {
-        $this->showDeleteConfirmation = !$this->showDeleteConfirmation;
-    }
-
     public function deletemyAccount()
     {
         Auth::user()->delete();
@@ -192,23 +185,24 @@ class EditProfile extends Component
     public function addUrl()
     {
         $this->validate([
-            'facebook_url' => 'required',
-            'ms_url' => 'required',
+            'facebook_url' => 'url',
+            'ig_url' => 'url',
         ], [
-            'facebook_url.required' => 'Please provide your Faceboook URL',
-            'ms_url.required' => 'Please provide your Microsoft account URL',
+            'facebook_url.url' => 'The Facebook URL is not valid',
+            'ig_url.url' => 'The Instagram URL is not valid',
         ]);
 
-        if ((empty(auth()->user()->facebook_url) || empty(auth()->user()->ms_url))) {
+
+        if ((empty(auth()->user()->facebook_url) || empty(auth()->user()->ig_url))) {
             Auth::user()->update([
                 'facebook_url' => $this->facebook_url,
-                'ms_url' => $this->ms_url,
+                'ig_url' => $this->ig_url,
             ]);
             session()->flash('message', 'Adding social media success');
         } else {
             Auth::user()->update([
                 'facebook_url' => $this->facebook_url,
-                'ms_url' => $this->ms_url,
+                'ig_url' => $this->ig_url,
             ]);
 
             session()->flash('message', 'Edit Social media links success!');
@@ -261,10 +255,10 @@ class EditProfile extends Component
             ]);
 
             Mail::to($email)->send(new OtpEmail($generatedOTP));
-            $this->enterOtpBox = true;
+            $this->dispatch('open-va');
             // return dd( $test );
         } else {
-            $this->enterOtpBox = true;
+            $this->dispatch('open-va');
             $this->addError('alreadySent', ' The OTP is already sent to you, check your inbox now.');
         }
 
@@ -272,7 +266,7 @@ class EditProfile extends Component
 
     public function closeOtpBox()
     {
-        $this->enterOtpBox = false;
+        $this->dispatch('close-va');
     }
     public $input1, $input2, $input3, $input4, $input5, $input6;
 
@@ -309,11 +303,12 @@ class EditProfile extends Component
                     'link' => route('home'),
                     'category' => 'system',
                 ]);
-                $this->dispatch('new-notification');
 
-                $this->enterOtpBox = false;
-                $this->verifiedBox = true;
-                session()->flash('message', 'Account verified successfully.');
+                // $this->enterOtpBox = false;
+                // $this->verifiedBox = true;
+                $this->dispatch('close-me');
+                $this->dispatch('entOtp');
+                // session()->flash('message', 'Account verified successfully.');
             }
         } else {
             $this->addError('validateOtp', 'The OTP you entered is invalid.');
@@ -325,8 +320,7 @@ class EditProfile extends Component
 
     public function closeVerifiedBox()
     {
-        $this->verifiedBox = false;
-        $this->enterOtpBox = false;
+        $this->dispatch('close-va');
     }
 
     public $showDeleteDocuPostBox = false;

@@ -1,4 +1,2 @@
-<div>
-    <input
-        {{ $attributes->merge(['class' => 'h-9 rounded-md border-2 bg-slate-100  text-gray-600 text-sm px-2 focus:outline-blue-950']) }}>
-</div>
+<input
+    {{ $attributes->merge(['class' => 'py-2 rounded-md border border-gray-300 bg-slate-100  text-gray-600 text-sm px-3  focus:outline-primary-color font-poppins']) }}>

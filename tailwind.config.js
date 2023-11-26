@@ -9,6 +9,9 @@ export default {
     ],
     theme: {
         extend: {
+            focus: {
+                outline: ["2px solid #3b82f6", "1px dotted #3b82f6"],
+            },
             fontFamily: {
                 poppins: ["Poppins", "Arial", "sans-serif"],
             },
