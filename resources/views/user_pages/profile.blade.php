@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', $fullName)
+    @section('title', '@' . $username)
     {{-- @dd(auth()->user()) --}}
     <div class="container">
         <x-session_flash />
