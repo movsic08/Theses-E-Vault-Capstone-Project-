@@ -14,7 +14,10 @@ class Home extends Component
 {
     use WithPagination;
     public $bachelorDegree;
-
+    // public $clicked;
+    // public $createdAt;
+    // public $isCreatedWithin5Minutes;
+    public $showGuide;
     public $skeletonData = null, $bookmarkItemChecker, $authenticatedUser;
 
     public function mount()

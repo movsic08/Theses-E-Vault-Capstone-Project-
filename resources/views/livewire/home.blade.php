@@ -48,6 +48,13 @@
                             class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md">
                             <p class="flex flex-col text-xs leading-3 md:text-base">
                                 <Strong>SHARE YOUR WORKS</Strong>
+                                {{-- this part --}}
+                                @if($showGuide)
+                                    I will guide you
+                                @else
+                                    I will not guide you
+                                @endif
+                                {{-- this part --}}
                                 <small class="text-xs">Looking for something? <a wire:navigate href=""
                                         class="hover:text-blue-500 hover:underline">click search
                                     </a></small>
