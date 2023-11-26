@@ -21,7 +21,7 @@ class EditProfile extends Component
     use WithPagination;
     use WithFileUploads;
     public $bachelor_degree_data, $user;
-    public $facebook_url, $ms_url, $verifyEmail;
+    public $facebook_url, $ig_url, $verifyEmail;
     public $first_name, $last_name, $bio, $email, $phone_no, $student_id, $username, $bachelorDegreeName, $bachelor_degree_input = '', $bachelor_degree, $address, $profile_picture;
 
     public function mount()
@@ -36,7 +36,7 @@ class EditProfile extends Component
         $this->username = $this->user->username;
         $this->address = $this->user->address;
         $this->facebook_url = $this->user->facebook_url;
-        $this->ms_url = $this->user->ms_url;
+        $this->ig_url = $this->user->ig_url;
         $this->verifyEmail = $this->user->email;
         $bachelorDegree = BachelorDegree::find($this->user->bachelor_degree);
         $this->bachelorDegreeName = $bachelorDegree ? $bachelorDegree->name : null;
@@ -193,22 +193,22 @@ class EditProfile extends Component
     {
         $this->validate([
             'facebook_url' => 'required',
-            'ms_url' => 'required',
+            'ig_url' => 'required',
         ], [
             'facebook_url.required' => 'Please provide your Faceboook URL',
-            'ms_url.required' => 'Please provide your Microsoft account URL',
+            'ig_url.required' => 'Please provide your Microsoft account URL',
         ]);
 
-        if ((empty(auth()->user()->facebook_url) || empty(auth()->user()->ms_url))) {
+        if ((empty(auth()->user()->facebook_url) || empty(auth()->user()->ig_url))) {
             Auth::user()->update([
                 'facebook_url' => $this->facebook_url,
-                'ms_url' => $this->ms_url,
+                'ig_url' => $this->ig_url,
             ]);
             session()->flash('message', 'Adding social media success');
         } else {
             Auth::user()->update([
                 'facebook_url' => $this->facebook_url,
-                'ms_url' => $this->ms_url,
+                'ig_url' => $this->ig_url,
             ]);
 
             session()->flash('message', 'Edit Social media links success!');

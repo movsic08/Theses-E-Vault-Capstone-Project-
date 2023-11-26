@@ -534,10 +534,10 @@
                                     @enderror
                                 </div>
                                 <div class="flex w-full flex-col">
-                                    <label class="text-sm font-semibold" for="ms_url">Microsoft account URL</label>
+                                    <label class="text-sm font-semibold" for="ig_url">Instagram account URL</label>
                                     <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                                        wire:model.live="ms_url" id="ms_url" />
-                                    @error('ms_url')
+                                        wire:model.live="ig_url" id="ig_url" />
+                                    @error('ig_url')
                                         <small class="text-red-500">{{ $message }}</small>
                                     @enderror
                                 </div>
