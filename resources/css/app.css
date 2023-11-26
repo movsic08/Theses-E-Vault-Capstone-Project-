@@ -109,24 +109,30 @@
   background: linear-gradient(136deg, #77DEF4 0%, #5CA4E8 100%);
 }
 
+
+
+/* width */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
-  max-width: 8px;
-  min-width: 8px;
-  /* width of the entire scrollbar */
 }
 
+/* Track */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1b4;
+}
 
-
+/* Handle */
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #9e9b9c;
-  border-radius: 20px;
-  border: 3px solid #9e9b9c;
-  padding: 10px;
+  background: #b1acac;
+  border-radius: 5px;
 }
 
+/* Handle on hover */
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  /* background-color: rgb(8, 8, 48);
-  border-radius: 20px;
-  border: 3px solid rgb(10, 10, 39); */
+  background: #555;
+
 }

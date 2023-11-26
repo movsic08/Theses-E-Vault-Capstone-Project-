@@ -1,6 +1,5 @@
 <x-app-layout>
-
-    @section('title', $fullName)
+    @section('title', '@' . $username)
     {{-- @dd(auth()->user()) --}}
     <div class="container">
         <x-session_flash />
@@ -32,19 +31,42 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="p-4">
+                            <div class="px-10 py-6 lg:px-8 lg:py-4">
                                 <section class="flex w-full flex-col lg:hidden">
-                                    <h1
-                                        class="text-center text-[1.5rem] font-black text-gray-900 md:text-left md:text-[3rem]">
+                                    <h1 class="text-[1.8rem] font-black text-gray-900 md:text-left md:text-[3rem]">
                                         {{ $fullName }}</h1>
-                                    <div class="mt-3">
+                                    <div class="mt-4">
                                         <strong class="uppercase text-primary-color">username</strong>
                                         <h2
                                             class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 md:text-base">
                                             {{ '@' . $checkedAccount->username }}</h2>
                                     </div>
                                 </section>
-                                <div class="mt-3 lg:mt-0">
+                                <div class="mt-4 flex flex-col justify-between lg:mt-0">
+                                    <strong class="uppercase text-primary-color">Status</strong>
+                                    @if ($checkedAccount->is_verified == 1)
+                                        <div
+                                            class="flex w-full items-center justify-center gap-1.5 rounded-lg border border-blue-900 bg-blue-100 px-2 py-1 text-sm font-semibold capitalize text-blue-900">
+                                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M14.584 3.088a3.613 3.613 0 0 0-5.168 0l-.777.797-1.113-.014a3.613 3.613 0 0 0-3.655 3.655l.013 1.113-.795.777a3.612 3.612 0 0 0 0 5.168l.796.777-.014 1.113a3.613 3.613 0 0 0 3.655 3.655l1.113-.013.777.795a3.612 3.612 0 0 0 5.168 0l.777-.796 1.113.014a3.612 3.612 0 0 0 3.655-3.655l-.013-1.113.795-.777a3.612 3.612 0 0 0 0-5.168l-.796-.777.014-1.113a3.612 3.612 0 0 0-3.655-3.655l-1.113.013-.777-.795v-.001Zm.359 7.48-3.75 3.75a.625.625 0 0 1-.886 0l-1.875-1.875a.626.626 0 0 1 .885-.885l1.433 1.433 3.307-3.308a.626.626 0 0 1 .886.885Z">
+                                                </path>
+                                            </svg> verified
+                                        </div>
+                                    @else
+                                        <div
+                                            class="flex w-full items-center justify-center gap-1.5 rounded-lg border border-orange-500 bg-orange-100 px-2 py-1 text-sm font-semibold capitalize text-orange-500">
+                                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M13.178 3.8a1.356 1.356 0 0 0-2.352 0l-8.228 14c-.548.933.11 2.12 1.176 2.12H20.23c1.066 0 1.725-1.188 1.176-2.12l-8.228-14ZM12 7.92c.642 0 1.145.554 1.08 1.194l-.42 4.208a.662.662 0 0 1-1.32 0l-.42-4.208a1.09 1.09 0 0 1 .64-1.1c.138-.062.288-.094.44-.094Zm.002 7.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z">
+                                                </path>
+                                            </svg> unverified
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="mt-4">
                                     <strong class="uppercase text-primary-color">Department</strong>
                                     <div class="mt-1">
                                         @php
@@ -55,11 +77,11 @@
                                             }
                                         @endphp
                                         <h1
-                                            class="w-fit rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 md:text-center md:text-base">
+                                            class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 md:text-base lg:text-center">
                                             {{ $yourCourse }}</h1>
                                     </div>
                                 </div>
-                                <div class="mt-3">
+                                <div class="mt-4">
                                     @if ($checkedAccount->role_id == 1)
                                         <strong class="uppercase text-primary-color">year and level</strong>
                                         <div class="mt-1">
@@ -83,17 +105,21 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="mt-3 flex w-full items-center justify-between">
+                                <div class="mt-4 flex w-full items-center justify-between">
                                     <strong class="uppercase text-primary-color">Social Media</strong>
                                     <div class="flex items-center gap-1 text-primary-color">
-                                        <a href="http://" target="_blank" rel="noopener noreferrer">
+                                        <a class="duration-200 ease-in-out hover:text-blue-800"
+                                            href="https://{{ $checkedAccount->facebook_url }}"target="_blank"
+                                            rel="noopener noreferrer">
                                             <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M14.2 2.875A4.625 4.625 0 0 0 9.575 7.5v2.575H7.1c-.124 0-.225.1-.225.225v3.4c0 .124.1.225.225.225h2.475V20.9c0 .124.1.225.225.225h3.4c.124 0 .225-.1.225-.225v-6.975h2.497c.103 0 .193-.07.218-.17l.85-3.4a.225.225 0 0 0-.218-.28h-3.347V7.5a.775.775 0 0 1 .775-.775h2.6c.124 0 .225-.1.225-.225V3.1c0-.124-.1-.225-.225-.225h-2.6Z">
                                                 </path>
                                             </svg></a>
-                                        <a href="http://" target="_blank" rel="noopener noreferrer">
+                                        <a class="duration-200 ease-in-out hover:text-pink-600"
+                                            href="https://{{ $checkedAccount->ig_url }}" target="_blank"
+                                            rel="noopener noreferrer">
                                             <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 8.75a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5Z"></path>
@@ -128,7 +154,7 @@
                                     </div>
                                 </section>
                             </div>
-                            <div class="rounded-lg bg-white p-4 px-6 drop-shadow-lg lg:mt-4">
+                            <div class="mt-4 rounded-lg bg-white p-4 px-6 drop-shadow-lg">
                                 <div x-data="{ activeTab: 'about' }">
                                     <!-- Tab buttons -->
                                     <ul class="flex space-x-4 text-primary-color">
@@ -136,7 +162,7 @@
                                             <button @click="activeTab = 'about'" class="p-2"
                                                 :class="{
                                                     'border-b-2 border-primary-color  font-bold': activeTab === 'about',
-                                                    'duration-400font-medium ease-in-out hover:rounded-md hover:bg-primary-color hover:text-white': activeTab ===
+                                                    'duration-400 font-medium ease-in-out hover:rounded-md hover:bg-primary-color hover:text-white': activeTab ===
                                                         !'about'
                                                 }">
                                                 About
@@ -146,14 +172,14 @@
                                             <button @click="activeTab = 'document'" class="p-2"
                                                 :class="{
                                                     'border-b-2 border-primary-color  font-bold': activeTab === 'document',
-                                                    'duration-400font-medium ease-in-out hover:rounded-md hover:bg-primary-color hover:text-white': activeTab ===
+                                                    'duration-400 font-medium ease-in-out hover:rounded-md hover:bg-primary-color hover:text-white': activeTab ===
                                                         !'document'
                                                 }">
                                                 Document
                                             </button>
                                         </li>
                                     </ul>
-                                    <!-- Tab content -->
+                                    <!-- info Tab  -->
                                     <div class="mt-3" x-show="activeTab === 'about'">
                                         <div class="w-full">
                                             <div class="overflow-x-auto">
@@ -199,7 +225,7 @@
                                                                 Phone
                                                             </td>
                                                             <td class="px-6 py-2 font-medium text-gray-600">
-                                                                09678-1231-1323</td>
+                                                                {{ $checkedAccount->phone_no }}</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
@@ -213,16 +239,52 @@
                                                             <td
                                                                 class="whitespace-nowrap py-2 font-semibold text-gray-700">
                                                                 Facebook
-                                                                Link</td>
+                                                                link</td>
                                                             <td class="px-6 py-2 font-medium text-gray-600">
-                                                                Web.facebook.com/elmer.tiraoar</td>
+                                                                @if ($checkedAccount->facebook_url != null)
+                                                                    <a class="duration-300 ease-in-out hover:text-primary-color hover:underline"
+                                                                        href="https://{{ $checkedAccount->facebook_url }}"
+                                                                        target="_blank">{{ $checkedAccount->facebook_url }}</a>
+                                                                @else
+                                                                    <div
+                                                                        class="rounded-md bg-red-50 px-2 py-1 text-sm text-red-500">
+                                                                        The Facebook link
+                                                                        @if (auth()->check())
+                                                                            is currently unavailable. Please consider
+                                                                            incorporating it by updating your profile
+                                                                            information.
+                                                                        @else
+                                                                            for the user is not
+                                                                            accessible.
+                                                                        @endif
+                                                                    </div>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
                                                                 class="whitespace-nowrap py-2 font-semibold text-gray-700">
-                                                                Instargarm Link</td>
+                                                                Instagram link</td>
                                                             <td class="px-6 py-2 font-medium text-gray-600">
-                                                                instagram.com</td>
+                                                                @if ($checkedAccount->ig_url != null)
+                                                                    <a class="duration-300 ease-in-out hover:text-primary-color hover:underline"
+                                                                        href="https://{{ $checkedAccount->ig_url }}"
+                                                                        target="_blank">{{ $checkedAccount->ig_url }}</a>
+                                                                @else
+                                                                    <div
+                                                                        class="rounded-md bg-red-50 px-2 py-1 text-sm text-red-500">
+                                                                        The Instagram link
+                                                                        @if (auth()->check())
+                                                                            is currently unavailable. Please consider
+                                                                            incorporating it by updating your profile
+                                                                            information.
+                                                                        @else
+                                                                            for the user is not
+                                                                            accessible.
+                                                                        @endif
+                                                                    </div>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -230,17 +292,31 @@
 
                                         </div>
                                     </div>
-                                    <div class="mt-3 text-primary-color" x-show="activeTab === 'document'">
+                                    {{-- document tab --}}
+                                    <div class="mt-3 p-4 text-primary-color" x-show="activeTab === 'document'">
                                         @if (count($docuPostOfUser) <= 0)
                                             <div class="flex w-full flex-col items-center justify-center gap-1">
-                                                <img class="h-[10rem] md:h-[12rem] lg:h-[15rem]"
-                                                    src="{{ asset('assets/svgs/noUploadedDocumentError.svg') }}"
-                                                    alt="no docu found ico">
-                                                <h2 class="text-center text-[1.5rem] font-bold md:text-[2rem]">User has
-                                                    not uploaded any
-                                                    documents
-                                                    yet.
-                                                </h2>
+                                                <a href="{{ route('edit-profile', ['activeTab' => 'tab4']) }}">
+                                                    <img class="h-[10rem] md:h-[12rem] lg:h-[15rem]"
+                                                        src="{{ asset('assets/svgs/noUploadedDocumentError.svg') }}"
+                                                        alt="no docu found ico"></a>
+                                                @if (auth()->check() && auth()->user()->id == $checkedAccount->id)
+                                                    <a href="{{ route('edit-profile', ['activeTab' => 'tab4']) }}"
+                                                        class="rounded-lg bg-blue-700 px-2 py-1 font-medium text-white duration-200 ease-in-out hover:bg-primary-color">Upload</a>
+                                                    <h2 class="text-center text-[1.3rem] font-bold">
+                                                        Currently, no documents have been uploaded. If you wish to share
+                                                        your research works, kindly click on the 'Upload' button or the
+                                                        corresponding icon located at the top."
+                                                    </h2>
+                                                @else
+                                                    <h2 class="text-center text-[1.5rem] font-bold">
+                                                        User
+                                                        has
+                                                        not uploaded any
+                                                        documents
+                                                        yet.
+                                                    </h2>
+                                                @endif
                                             </div>
                                         @else
                                             <table class="min-w-full">

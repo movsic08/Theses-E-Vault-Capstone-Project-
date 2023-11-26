@@ -213,6 +213,7 @@ class UserController extends Controller
             'checkedAccount' => $checkedAccount,
             'fullName' => $fullName,
             'docuPostOfUser' => $docuPostOfUser,
+            'username' => $username,
         ]);
 
     }

@@ -48,7 +48,7 @@ class ReportedCommentsPanel extends Component
         if ($this->updateStatus == 2) {
             $createNotification = Notification::create([
                 'user_id' => $isUpdatedReportedComment->reporter_user_id,
-                'header_message' => '📝 Feedback on Reported Comment',
+                'header_message' => 'Feedback on Reported Comment',
                 'content_message' => 'Your reported comment "<strong>' . $mainDocuPostComment->comment_content . '</strong>" has been reviewed by an admin. It has been found not to be in violation of our guidelines. Please feel free to continue participating in our community discussions.',
                 'link' => route('view-document', ['reference' => $mainDocuPost->reference]),
                 'category' => 'comment_report_feedback',
@@ -109,7 +109,7 @@ class ReportedCommentsPanel extends Component
                     if ($isHidden) {
                         $sendNotifcationViolationConfirm = Notification::create([
                             'user_id' => $isUpdatedReportedComment->reporter_user_id,
-                            'header_message' => '🚫 Comment Report Violation Notice',
+                            'header_message' => 'Comment Report Violation Notice',
                             'content_message' => 'We have reviewed your reported comment on the document. It has been found to be in violation of our community guidelines. Here is your comment for reference: "<strong>' . $mainDocuPostComment->comment_content . '</strong>". Please review our guidelines and ensure compliance for future comments.',
                             'link' => route('view-document', ['reference' => $mainDocuPost->reference]),
                             'category' => 'comment_report_feedback',

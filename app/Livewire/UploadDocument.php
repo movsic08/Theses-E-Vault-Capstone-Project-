@@ -272,7 +272,7 @@ class UploadDocument extends Component
         DocuPost::create($inputsOfDocu);
         Notification::create([
             'user_id' => $this->user->id,
-            'header_message' => '📢 Document Pending Admin Review',
+            'header_message' => 'Document Pending Admin Review',
             'content_message' => 'Dear user, your document with the title "' . $this->title . '" has been successfully uploaded and is now pending admin review. It will be made available to the community once approved. Thank you for your contribution. 📄🔍',
             'link' => route('edit-profile', ['activeTab' => 'tab4']),
             'category' => 'docu post',
