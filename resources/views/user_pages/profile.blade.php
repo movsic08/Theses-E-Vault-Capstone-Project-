@@ -225,7 +225,7 @@
                                                                 Phone
                                                             </td>
                                                             <td class="px-6 py-2 font-medium text-gray-600">
-                                                                09678-1231-1323</td>
+                                                                {{ $checkedAccount->phone_no }}</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
@@ -264,7 +264,7 @@
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
                                                                 class="whitespace-nowrap py-2 font-semibold text-gray-700">
-                                                                Instargarm link</td>
+                                                                Instagram link</td>
                                                             <td class="px-6 py-2 font-medium text-gray-600">
                                                                 @if ($checkedAccount->ig_url != null)
                                                                     <a class="duration-300 ease-in-out hover:text-primary-color hover:underline"
