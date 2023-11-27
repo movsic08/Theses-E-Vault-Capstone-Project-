@@ -354,7 +354,7 @@ class EditProfile extends Component
         } else {
             session()->flash('message', 'You are not authorized for this, contact administrator.');
         }
-        $this->showDeleteDocuPostBox = false;
+        $this->dispatch('close-df');
     }
 
     public function closeDeletePostBox()
