@@ -70,19 +70,19 @@ class PdfViewerSecurity extends Component
                         $this->dispatch('open-pdf');
                         $findDocuData = DocuPost::where('id', $docu_post_id_decrypted)->first();
                         if ($findDocuData == null) {
-                            return request()->session()->flash('error', 'Document not found, contact admin.');
+                            return request()->session()->flash('error', 'Document link not found in database, contact admin.');
                         }
 
                         // Check if the file exists in public storage
                         $filePath = 'storage/' . $findDocuData->document_file_url; // Adjust the path accordingly
                         if (!file_exists(public_path($filePath))) {
                             $this->fileNotFound = true; // Set the variable to true
-                            request()->session()->flash('error', 'File not found in database.');
+                            request()->session()->flash('error', 'File not found in storage, contact developers.');
                             // dd('File not found in public storage');
                         }
 
                         $borrowerFullName = $this->authenticatedUser->first_name . ' ' . $this->authenticatedUser->last_name;
-                        
+
                         $isLogCreated = BorrowersLogbook::where('reference', $findDocuData->reference)
                             ->where('name', $borrowerFullName)
                             ->whereDate('created_at', now()->toDateString()) // Use now() to get the current date
@@ -101,7 +101,8 @@ class PdfViewerSecurity extends Component
                                 request()->session()->flash('message', 'logbook created');
                             }
                         }
-                        return request()->session()->flash('message', 'PDF is unlock.');
+                        $this->dispatch('open-lod');
+                        return request()->session()->flash('message', 'The PDF is now accessible and ready for use.');
                         // catalog log book
 
                     } else {

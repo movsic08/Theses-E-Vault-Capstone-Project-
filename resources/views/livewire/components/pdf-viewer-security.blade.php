@@ -8,28 +8,38 @@
                 <div class="w-[20rem] rounded-md bg-white p-4 drop-shadow-lg">
                     <h2 class="md:text2xl text-center text-lg font-extrabold text-primary-color">PDF IS LOCKED</h2>
                     <div class="my-1 rounded-md border border-blue-300 bg-blue-100 p-2 text-blue-950">
-                        <p class="text-xs font-light">If you don't have know where to find the generated key for you,
+                        <p class="text-sm font-light">If you don't have know where to find the generated key for you,
                             you can find
                             it in the view
                             document page. Just click on generate key and paste it here to unlock</p>
                     </div>
-                    <form action="" wire:submit.prevent='unlockPDFForm'>
+                    <form class="mt-3" action="" wire:submit.prevent='unlockPDFForm'>
                         <x-label-input>Enter the generated key</x-label-input>
-                        <x-input-field wire:model.live='key_input' placeholder='Key here' />
-                        @error('key_input')
-                            <small class="text-red-500">{{ $message }}</small>
-                            <br>
-                        @enderror
+                        <div class="mt-1 flex w-full flex-col">
+                            <x-input-field wire:model.live='key_input' placeholder='Key here' />
+                            @error('key_input')
+                                <small class="text-red-500">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <button
+                            class="mt-4 flex h-8 w-full items-center justify-center rounded-md bg-blue-600 px-2 py-1 text-white hover:bg-blue-800"
+                            type="submit" wire:loading.attr="disabled">
+                            <div wire:loading wire:target='unlockPDFForm'
+                                class="my-auto flex w-fit items-center justify-center rounded-full">
+                                <div class="h-4 w-4 animate-spin rounded-full border-t-2 border-white">
+                                </div>
+                            </div>
+                            <span wire:loading.remove wire:target='unlockPDFForm'>Unlock</span>
+                        </button>
 
-                        <input type="submit" value="Enter"
-                            class="mt-1 w-fit cursor-pointer rounded-md bg-blue-700 px-2 py-1 text-white duration-500 ease-in-out hover:bg-primary-color">
                     </form>
                 </div>
             </div>
         </div>
     @endif
     <section x-data="{ pdfViewer: false }" x-show="pdfViewer" x-on:open-pdf.window="pdfViewer = true" x wire:ignore>
-        <div id="pdfData" data-file-path="{{ asset('storage/' . decrypt($this->pdfFile)) }}"></div>
+        <div id="pdfData" data-file-path="{{ asset('storage/' . decrypt($this->pdfFile)) }}">
+        </div>
         {{-- data-file-path="{{ auth()->user()->is_admin == 1 ? asset('storage/' . $this->pdfFile) : asset('storage/' . decrypt($this->pdfFile)) }}"> --}}
         <div class="container relative">
             <div class="" style="height: 100%; width: 100%;">
@@ -66,10 +76,12 @@
                                     aria-labelledby="zoomDropdown">
                                     <a @click="selectedOption = 'Fit to Page'; isOpen=false;"
                                         class="dropdown-item hover-bg-gray-100 block px-4 py-2 text-sm text-gray-700"
-                                        href="#" role="menuitem" id="fitToPage">Fit to Page</a>
+                                        href="#" role="menuitem" id="fitToPage">Fit to
+                                        Page</a>
                                     <a @click="selectedOption = 'Fit to Width'; isOpen=false;"
                                         class="dropdown-item hover-bg-gray-100 block px-4 py-2 text-sm text-gray-700"
-                                        href="#" role="menuitem" id="fitToWidth">Fit to Width</a>
+                                        href="#" role="menuitem" id="fitToWidth">Fit to
+                                        Width</a>
                                 </div>
                             </div>
                         </div>
@@ -81,15 +93,31 @@
 
 
 
-                <div class="col-span-12 mt-2 overflow-auto text-center" id="scrollableCanvas">
+                <div x-data="{ loading: true }" x-on:open-lod="loading = true"
+                    class="col-span-12 mt-2 overflow-auto text-center" id="scrollableCanvas">
+                    {{-- @if (false) --}}
                     @if ($fileNotFound)
                         <div class="h-full w-full bg-white p-4">
                             <p class="text-red-500">Error: File not found in the database.</p>
                         </div>
                     @else
-                        <div class="flex items-center justify-center h-full absolute top-0 left-0 w-full" id="loadingSpinner">
-                            <div class="text-primary-color animate-loading-dots">
-                                Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                        <div x-show="loading"
+                            class="absolute left-0 top-0 flex h-full w-full items-center justify-center"
+                            id="loadingSpinner" style="display: none">
+                            <div class="container mt-20 w-[40%] rounded-xl bg-white p-10 drop-shadow-md">
+                                <div class="flex h-full flex-col items-center justify-center gap-2">
+                                    <div
+                                        class="relative h-24 w-24 animate-spin rounded-full bg-gradient-to-r from-yellow-500 to-blue-800">
+                                        <div
+                                            class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-white bg-gray-200">
+                                        </div>
+                                    </div>
+                                    <strong class="mt-2 text-primary-color md:text-lg lg:text-xl">Loading</strong>
+                                    <div class="rounded-xl bg-blue-100 px-3 py-1 text-sm text-blue-800">
+                                        This process may take some time as the file loads. The
+                                        duration depends on your
+                                        internet speed. Thank you for your patience. </div>
+                                </div>
                             </div>
                         </div>
                         <div class="h-full w-auto">
@@ -97,7 +125,7 @@
                         </div>
                     @endif
                 </div>
-                
+
 
 
             </div>
@@ -105,70 +133,33 @@
 
         <script>
             // Add this script to handle PDF loading and remove the spinner
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 const loadingSpinner = document.getElementById('loadingSpinner');
                 const pdfArea = document.getElementById('pdfArea');
-        
+
                 // Function to remove the loading spinner
                 function removeSpinner() {
                     loadingSpinner.style.display = 'none';
                 }
-        
+
                 // PDF.js code to load the PDF
-                pdfjsLib.getDocument('{{ asset('storage/' . decrypt($this->pdfFile)) }}').promise.then(function (pdfDoc) {
+                pdfjsLib.getDocument('{{ asset('storage/' . decrypt($this->pdfFile)) }}').promise.then(function(
+                    pdfDoc) {
                     const totalPages = pdfDoc.numPages;
                     document.getElementById('totalPages').textContent = totalPages;
-        
+
                     // Your existing PDF rendering code here
-        
+
                     // After rendering the PDF, remove the spinner
                     removeSpinner();
-                }).catch(function (error) {
+                }).catch(function(error) {
                     console.error('Error loading PDF:', error);
                     // Handle error if needed
                     removeSpinner(); // Make sure to remove the spinner even if there's an error
                 });
             });
         </script>
-        <style>
-            /* This is Loading Spinner Style */
 
-            /* Add this style for the Loading... animation */
-            .animate-loading-dots {
-                color: #6563ff; /* Adjust color if needed */
-                font-size: 1.5rem; /* Adjust font size if needed */
-            }
-
-            .dot {
-                animation: dot-animation 1.5s infinite;
-                margin-right: 0.2em;
-            }
-
-            @keyframes dot-animation {
-                0%, 20% {
-                    opacity: 0;
-                }
-                50% {
-                    opacity: 1;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-            
-            /* This is Loading SPinner End */
-
-            /* Hide the up and down spinner controls for the input[type=number] */
-            input[type=number]::-webkit-inner-spin-button,
-            input[type=number]::-webkit-outer-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-
-            input[type=number] {
-                -moz-appearance: textfield;
-            }
-        </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
         <script src="{{ asset('js/main.js') }}"></script>
