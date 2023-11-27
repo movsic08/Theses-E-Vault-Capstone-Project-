@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\BookmarkList;
 use App\Models\ReportedComment;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
 use App\Models\DocuPost;
 use App\Models\DocuPostComment;
 use App\Models\PdfKey;
@@ -352,14 +352,15 @@ class ViewDocuPost extends Component
                 if ($this->authenticatedUser->is_verified == 0) {
                     request()->session()->flash('message', 'Verify your account now to enjoy the full features for free.');
                 } else {
-                    $isKeyIsGEnerated = PdfKey::where('docu_post_id', $id)->exists();
+                    $isKeyGenerated = PdfKey::where('docu_post_id', $id)
+                        ->where('user_id', $this->authenticatedUser->id)
+                        ->whereDate('created_at', today())
+                        ->first();
 
-                    if ($isKeyIsGEnerated) {
-                        PdfKey::where('docu_post_id', $id)->delete();
-                        $this->keyGenerator($id);
-                    } else {
-                        $this->keyGenerator($id);
+                    if ($isKeyGenerated) {
+                        $isKeyGenerated->delete();
                     }
+                    $this->keyGenerator($id);
                 }
             }
         }
@@ -372,6 +373,7 @@ class ViewDocuPost extends Component
         } while (PdfKey::where('keys', $secureKey)->exists());
 
         $createKey = PdfKey::create([
+            'user_id' => auth()->user()->id,
             'docu_post_id' => $id,
             'keys' => $secureKey,
         ]);

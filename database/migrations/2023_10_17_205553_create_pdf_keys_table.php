@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('pdf_keys', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('docu_post_id');
             $table->string('keys');
             $table->timestamps();

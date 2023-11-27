@@ -54,7 +54,6 @@ class PdfViewerSecurity extends Component
                 if ($this->authenticatedUser->is_verified == 0) {
                     request()->session()->flash('message', 'Verify your account now, to enjoy the full features for free.');
                 } else {
-
                     // part
                     // dd('no probs');
                     $docu_post_id_decrypted = Crypt::decrypt($this->docuPostID);
@@ -64,46 +63,58 @@ class PdfViewerSecurity extends Component
                         ->first();
 
                     if ($checkPDFKey) {
-                        $this->PDFlocked = false;
-                        $this->unlockPDF = true;
+
                         $this->pdfViewerContent = '<section id="pdf_viewer_content">Your dynamic content here</section>';
                         $this->dispatch('open-pdf');
                         $findDocuData = DocuPost::where('id', $docu_post_id_decrypted)->first();
-                        if ($findDocuData == null) {
+                        if ($checkPDFKey == null) {
                             return request()->session()->flash('error', 'Document link not found in database, contact admin.');
-                        }
-
-                        // Check if the file exists in public storage
-                        $filePath = 'storage/' . $findDocuData->document_file_url; // Adjust the path accordingly
-                        if (!file_exists(public_path($filePath))) {
-                            $this->fileNotFound = true; // Set the variable to true
-                            request()->session()->flash('error', 'File not found in storage, contact developers.');
-                            // dd('File not found in public storage');
-                        }
-
-                        $borrowerFullName = $this->authenticatedUser->first_name . ' ' . $this->authenticatedUser->last_name;
-
-                        $isLogCreated = BorrowersLogbook::where('reference', $findDocuData->reference)
-                            ->where('name', $borrowerFullName)
-                            ->whereDate('created_at', now()->toDateString()) // Use now() to get the current date
-                            ->first();
-                        if ($isLogCreated) {
-                            return request()->session()->flash('message', 'PDF is unlock.');
                         } else {
-                            $createBorrowersLog = BorrowersLogbook::create([
-                                'name' => $borrowerFullName,
-                                'title' => $findDocuData->title,
-                                'author' => $findDocuData->author_1,
-                                'reference' => $findDocuData->reference,
-                                'category' => $findDocuData->document_type
-                            ]);
-                            if ($createBorrowersLog) {
-                                request()->session()->flash('message', 'logbook created');
+                            // dd($checkPDFKey->user_id . '<-userid douc-  auth id -' . auth()->user()->id);
+                            if ($checkPDFKey->user_id == auth()->user()->id) {
+                                if ($checkPDFKey->created_at->diffInHours(now()) > 24) {
+                                    return request()->session()->flash('error', 'The key is more than 24hrs, generate a new one.');
+                                } else {
+
+                                    // return ('sayo yung key');
+                                    // Check if the file exists in public storage
+                                    $filePath = 'storage/' . $findDocuData->document_file_url; // Adjust the path accordingly
+                                    if (!file_exists(public_path($filePath))) {
+                                        $this->fileNotFound = true; // Set the variable to true
+                                        return request()->session()->flash('error', 'File not found in storage, contact developers.');
+                                        // dd('File not found in public storage');
+                                    }
+
+                                    $borrowerFullName = $this->authenticatedUser->first_name . ' ' . $this->authenticatedUser->last_name;
+
+                                    $isLogCreated = BorrowersLogbook::where('reference', $findDocuData->reference)
+                                        ->where('name', $borrowerFullName)
+                                        ->whereDate('created_at', now()->toDateString()) // Use now() to get the current date
+                                        ->first();
+                                    if ($isLogCreated) {
+                                        return request()->session()->flash('message', 'PDF is unlock.');
+                                    } else {
+                                        $createBorrowersLog = BorrowersLogbook::create([
+                                            'name' => $borrowerFullName,
+                                            'title' => $findDocuData->title,
+                                            'author' => $findDocuData->author_1,
+                                            'reference' => $findDocuData->reference,
+                                            'category' => $findDocuData->document_type
+                                        ]);
+                                        if ($createBorrowersLog) {
+                                            request()->session()->flash('message', 'logbook created');
+                                        }
+                                    }
+                                    $this->PDFlocked = false;
+                                    $this->unlockPDF = true;
+                                    $this->dispatch('open-lod');
+                                    return request()->session()->flash('message', 'The PDF is now accessible and ready for use.');
+                                }
+
+                            } else {
+                                return request()->session()->flash('error', 'You cannot use someone\'s key, please generate for your own.');
                             }
                         }
-                        $this->dispatch('open-lod');
-                        return request()->session()->flash('message', 'The PDF is now accessible and ready for use.');
-                        // catalog log book
 
                     } else {
                         return request()->session()->flash('error', 'The key you entered is not matched');

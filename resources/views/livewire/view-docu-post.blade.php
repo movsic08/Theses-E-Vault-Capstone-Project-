@@ -180,7 +180,7 @@
                     </div>
                     {{-- 2nd div --}}
                     <div
-                        class="col-span-4 flex flex-row justify-between gap-6 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4 lg:flex-col lg:gap-2">
+                        class="col-span-4 flex flex-col justify-between gap-2 rounded-lg bg-white p-4 drop-shadow-lg md:flex-row lg:col-span-4 lg:flex-col lg:gap-2">
                         <div class="md:w-1/2 lg:w-full">
                             <strong class="mb-1">Citation</strong>
                             <div class="mb-2 flex w-full items-center justify-between gap-2">
@@ -201,7 +201,7 @@
                             </div>
                         </div>
                         <div
-                            class="pt-2 md:w-1/2 md:border-l md:border-slate-200 md:pl-4 lg:w-full lg:border-l-0 lg:border-t lg:border-slate-200 lg:pl-0 lg:pt-4">
+                            class="border-t border-slate-200 pt-4 md:w-1/2 md:border-l md:border-t-0 md:border-slate-200 md:pl-4 md:pt-0 lg:w-full lg:border-l-0 lg:border-t lg:border-slate-200 lg:pl-0 lg:pt-4">
                             <div class="flex w-full items-start justify-between">
                                 <strong class="uppercase">pdf viewer key</strong>
                                 <button wire:click='generatePDFKey({{ $data->id }})'
