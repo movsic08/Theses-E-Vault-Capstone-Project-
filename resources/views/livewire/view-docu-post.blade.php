@@ -9,25 +9,10 @@
         <div class="my-2 flex w-full items-center justify-between">
             <h1 class="text-sm font-medium text-primary-color lg:text-base">Document details</h1>
             <h1 class="text-xs font-light text-primary-color lg:text-sm">
-                @php
-                    $previousUrl = url()->previous();
-                    // dd($previousUrl);
-                @endphp
-                {{-- @if ($previousUrl == route('home'))
-                    <a wire:navigate class="hover:font-medium hover:text-primary-color"
-                        href="{{ route('home') }}">Home</a>
-                @elseif($previousUrl == route('user-search'))
-                    <a wire:navigate class="hover:font-medium hover:text-primary-color"
-                        href="{{ route('user-search') }}">Search</a>
-                @else
-                    default test
-                @endif --}}
-                {{ $previousUrl }}
-                >
-                {{ $data->document_type }}
-                >
+                <a href="{{ route('search-result-page', ['q' => $data->document_type]) }}" target="_blank"
+                    rel="noopener noreferrer">{{ $data->document_type }}</a>
+                <strong> > </strong>
                 {{ $data->reference }}
-            </h1>
         </div>
         <section class="relative grid grid-flow-row-dense grid-cols-4 gap-4 text-primary-color lg:mx-8">
             {{-- 1st div --}}
