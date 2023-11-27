@@ -2,7 +2,7 @@
     @section('title', $data->title)
     <x-session_flash />
 
-    @include('livewire.partials.cite-this-modal')
+    {{-- @include('livewire.partials.cite-this-modal') --}}
     <x-user_modals.report-docu-comment-modal :reportingCommentData='$reportingCommentData'></x-user_modals.report-docu-comment-modal>
 
     <div class="container">

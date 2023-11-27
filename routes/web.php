@@ -70,7 +70,13 @@ Route::middleware(['auth', 'user'])->group(function () {
 
 
     Route::get('/bookmark', Boomarks::class)->name('user-bookmark');
-
+    Route::get('/temporary-view-pdf/{title?}/{pdfFile?}', function ($title = null, $pdfFile = null) {
+        // dd('title:' . $title, 'pdffile:' . $pdfFile);
+        return view('user_pages.user-temp-pdf-viewer', [
+            'pdfFile' => $pdfFile,
+            'titleOfDocu' => $title,
+        ]);
+    })->name('view-pdf-user-temp')->where('pdfFile', '.*');
 
 });
 
