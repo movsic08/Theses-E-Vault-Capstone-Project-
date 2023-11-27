@@ -155,30 +155,40 @@
                                     </div>
                                     {{-- show password logic --}}
                                     <script>
-                                        let eyeicon = document.getElementById("eyeicon");
-                                        let eyeicon2 = document.getElementById("eyeicon2");
-                                        let password = document.getElementById("password");
-                                        let password2 = document.getElementById("password_confirmation");
-
-                                        eyeicon.onclick = function() {
-                                            if (password.type == "password") {
-                                                password.type = "text";
-                                                eyeicon.src = "{{ asset('Icons/eye-open.png') }}";
-                                            } else {
-                                                password.type = "password";
-                                                eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
+                                        function setupEyeIcons() {
+                                            let eyeicon = document.getElementById("eyeicon");
+                                            let eyeicon2 = document.getElementById("eyeicon2");
+                                            let password = document.getElementById("password");
+                                            let password2 = document.getElementById("password_confirmation");
+                                    
+                                            eyeicon.onclick = function() {
+                                                if (password.type == "password") {
+                                                    password.type = "text";
+                                                    eyeicon.src = "{{ asset('Icons/eye-open.png') }}";
+                                                } else {
+                                                    password.type = "password";
+                                                    eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
+                                                }
+                                            }
+                                    
+                                            eyeicon2.onclick = function() {
+                                                if (password2.type == "password") {
+                                                    password2.type = "text";
+                                                    eyeicon2.src = "{{ asset('Icons/eye-open.png') }}";
+                                                } else {
+                                                    password2.type = "password";
+                                                    eyeicon2.src = "{{ asset('Icons/eye-close.png') }}";
+                                                }
                                             }
                                         }
-                                        eyeicon2.onclick = function() {
-                                            if (password2.type == "password") {
-                                                password2.type = "text";
-                                                eyeicon2.src = "{{ asset('Icons/eye-open.png') }}";
-                                            } else {
-                                                password2.type = "password";
-                                                eyeicon2.src = "{{ asset('Icons/eye-close.png') }}";
-                                            }
-                                        }
+                                    
+                                        document.addEventListener("livewire:navigated", setupEyeIcons);
+                                    
+                                        // Call the function once on initial page load
+                                        setupEyeIcons();
                                     </script>
+                                    
+                                    
 
                                     {{-- show password end --}}
 

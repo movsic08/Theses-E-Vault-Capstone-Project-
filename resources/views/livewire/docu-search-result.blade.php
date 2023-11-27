@@ -78,7 +78,7 @@
                                     <option value="relevance">Relevance</option>
                                     <option value="newest">Newest</option>
                                     <option value="oldest">Oldest</option>
-                                    <option value="a-z">From A_Z</option>
+                                    <option value="a-z">From A-Z</option>
                                     <option value="z-a">From Z-A</option>
                                     <option value="most_cited">Most cited</option>
                                 </select>
