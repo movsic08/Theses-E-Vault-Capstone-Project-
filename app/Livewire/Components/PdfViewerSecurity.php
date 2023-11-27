@@ -63,7 +63,6 @@ class PdfViewerSecurity extends Component
                         ->first();
 
                     if ($checkPDFKey) {
-
                         $this->pdfViewerContent = '<section id="pdf_viewer_content">Your dynamic content here</section>';
                         $this->dispatch('open-pdf');
                         $findDocuData = DocuPost::where('id', $docu_post_id_decrypted)->first();
@@ -92,7 +91,7 @@ class PdfViewerSecurity extends Component
                                         ->whereDate('created_at', now()->toDateString()) // Use now() to get the current date
                                         ->first();
                                     if ($isLogCreated) {
-                                        return request()->session()->flash('message', 'PDF is unlock.');
+                                        request()->session()->flash('message', 'PDF is unlock.');
                                     } else {
                                         $createBorrowersLog = BorrowersLogbook::create([
                                             'name' => $borrowerFullName,
@@ -107,7 +106,7 @@ class PdfViewerSecurity extends Component
                                     }
                                     $this->PDFlocked = false;
                                     $this->unlockPDF = true;
-                                    $this->dispatch('open-lod');
+                                    // $this->dispatch('open-lod');
                                     return request()->session()->flash('message', 'The PDF is now accessible and ready for use.');
                                 }
 
