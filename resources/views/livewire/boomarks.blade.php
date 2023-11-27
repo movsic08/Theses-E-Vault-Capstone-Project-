@@ -43,9 +43,10 @@
                 <x-input-field wire:model.live='shareLink' type="text" class="mb-4 w-full rounded border p-2"
                     x-ref="shareInput" id="valueBox"></x-input-field>
             </div>
-            
-            <div class="flex w-full justify-end font-bold">
-                <button id="copyButton" class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
+
+            <div class="flex w-full justify-end font-bold" wire:ignore>
+                <button id="copyButton"
+                    class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
             </div>
             <script data-navigate-once src="{{ asset('js/copyClipboard.js') }}"></script>
 

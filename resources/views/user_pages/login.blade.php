@@ -82,14 +82,17 @@
                 {{-- FORM --}}
                 <form action="{{ route('login-process') }}" method="POST" class="my-6">
                     @csrf
-
                     <div class="flex flex-col gap-6">
                         <div class="flex flex-col">
-                            {{-- <<<<<<< HEAD --}}
                             <label class="font-medium text-gray-800" for="email">Email</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="email" name="email" id="email" placeholder="user@psu.edu.ph"
-                                @if (isset($_COOKIE['email'])) value="{{ $_COOKIE['email'] }}" @endif required"">
+                                @if (isset($_COOKIE['email'])) value="{{ $_COOKIE['email'] }}" @endif required>
+                            @error('email')
+                                <span class="w-full px-1 text-xs text-red-700">
+                                    {{ $message }}
+                                </span>
+                            @enderror
                         </div>
                         <div class="flex flex-col">
                             <label class="font-medium text-gray-800" for="password">Password</label>
