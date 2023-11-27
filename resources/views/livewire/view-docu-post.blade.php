@@ -196,7 +196,7 @@
                             <div class="relative">
                                 <x-input-field id="pdfKEY" wire:model.live='InputPDFKey' class="my-2 w-full"
                                     disabled type="text" id='valueBox'/>
-                                <button wire:click="copyKey('{{ $InputPDFKey }}')" id="copyButton">
+                                <button wire:click="copyToClip()" id="copyButton">
                                 <svg class="absolute right-3 top-4 h-6 cursor-pointer text-slate-400"
                                     fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -207,41 +207,6 @@
                                     </path>
                                 </svg>
                                 </button>
-                                {{-- <script>
-                                    // this is copy to clipboard logic begin
-                                    const COPY = document.querySelector('#copy');
-                                    const VALUE = document.querySelector('#value');
-                                
-                                    COPY.addEventListener('click', () => {
-                                        try {
-                                            if (navigator.clipboard) {
-                                                navigator.clipboard.writeText(VALUE.value);
-                                                console.log('Link copied to clipboard!');
-                                            } else {
-                                                fallbackCopyTextToClipboard(VALUE.value);
-                                            }
-                                        } catch (err) {
-                                            console.error('Error copying to clipboard:', err);
-                                        }
-                                    });
-                                
-                                    function fallbackCopyTextToClipboard(text) {
-                                        const textArea = document.createElement('textarea');
-                                        textArea.value = text;
-                                        document.body.appendChild(textArea);
-                                        textArea.select();
-                                
-                                        try {
-                                            document.execCommand('copy');
-                                            console.log('Link copied to clipboard using fallback method!');
-                                        } catch (err) {
-                                            console.error('Error copying to clipboard:', err);
-                                        }
-                                
-                                        document.body.removeChild(textArea);
-                                    }
-                                    // this is copy to clipboard logic end
-                                </script> --}}
                             </div>
                         </div>
                     </div>

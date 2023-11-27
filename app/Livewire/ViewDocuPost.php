@@ -366,23 +366,51 @@ class ViewDocuPost extends Component
         }
     }
     
-    public function copyKey($pdfKey){
-        // dd($pdfKey);
-        // if ($this->InputPDFKey == 'Generate key'){
-        //     request()->session()->flash('message', 'The key is empty please click the generate key first');
-        // }
-        // request()->session()->flash('message', 'Succesfully copied to your clipboard!!');
-        $this->copyToClip();
-    }
+    // public function copyKey($pdfKey){
+    //     dd($this->InputPDFKey);
+    //     if ($this->InputPDFKey == 'Generate key'){
+    //         request()->session()->flash('message', 'The key is empty please click the generate key first');
+    //     }
+    //     request()->session()->flash('message', 'Succesfully copied to your clipboard!!');
+    // }
 
     #[Js]
-    public function copyToClip(){
+    public function copyToClip()
+    {
         return <<<'JS'
-        console.log('hello world');
-        alert('hey its me mario im working');
-        JS;
+            const shareInput = document.getElementById('valueBox');
+            try {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(shareInput.value).then(() => {
+                        console.log('Link copied to clipboard!');
+                    }).catch((err) => {
+                        console.error('Error copying to clipboard:', err);
+                    });
+                } else {
+                    fallbackCopyTextToClipboard(shareInput.value);
+                }
+            } catch (err) {
+                console.error('Error copying to clipboard:', err);
+            }
 
+            function fallbackCopyTextToClipboard(text) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+
+                try {
+                    document.execCommand('copy');
+                    console.log('Link copied to clipboard using fallback method!');
+                } catch (err) {
+                    console.error('Error copying to clipboard:', err);
+                }
+
+                document.body.removeChild(textArea);
+            }
+        JS;
     }
+
 
     protected function keyGenerator($id)
     {

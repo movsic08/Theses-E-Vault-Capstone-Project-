@@ -52,11 +52,11 @@
             <script data-navigate-once>
                 const copyButton = document.getElementById('copyButton');
                 const shareInput = document.querySelector('[x-ref="shareInput"]');
-
+                // [x-ref="shareInput"]
                 document.addEventListener('livewire:navigated', () => {
                     console.log('navigated');
                     const copyButton2 = document.getElementById('copyButton');
-                    const shareInput2 = document.querySelector('[x-ref="shareInput"]');
+                    const shareInput2 = document.getElementById('valueBox');
 
                     copyButton2.addEventListener('click', () => {
                         copyTextToClipboard(shareInput2.value);
@@ -66,7 +66,7 @@
                 copyButton.addEventListener('click', () => {
                     copyTextToClipboard(shareInput.value);
                 });
-
+                
                 function copyTextToClipboard(text) {
                     const textArea = document.createElement('textarea');
                     textArea.value = text;
