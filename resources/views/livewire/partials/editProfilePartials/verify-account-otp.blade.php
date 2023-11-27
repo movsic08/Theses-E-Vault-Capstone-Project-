@@ -15,20 +15,38 @@
                 <label class="" for="">Enter the 6 letters to verify your account</label>
                 <div class="mt-5 flex w-full flex-row justify-evenly capitalize">
                     @for ($i = 1; $i <= 6; $i++)
-                        <input type="text"
-                            class="@error('input' . $i) border-red-600 @enderror h-10 w-10 rounded-md border-2 border-gray-300 text-center text-lg font-semibold capitalize focus:border-blue-800 focus:outline-none"
-                            maxlength="1" id="input{{ $i }}" wire:model.live="input{{ $i }}" onkeyup="fn(this, 'input{{ ($i % 6) + 1 }}')">
-                    @endfor
-                    <script>
-                        function fn(froo, too) {
-                            var len = froo.value.length;
-                            var mx = froo.getAttribute("maxlength");
+    <input
+        type="text"
+        class="@error('input' . $i) border-red-600 @enderror h-10 w-10 rounded-md border-2 border-gray-300 text-center text-lg font-semibold capitalize focus:border-blue-800 focus:outline-none"
+        maxlength="1"
+        id="input{{ $i }}"
+        wire:model.live="input{{ $i }}"
+        oninput="fn(this, 'input{{ ($i % 6) + 1 }}')"
+        onkeydown="handleBackspace(event, this, 'input{{ $i - 1 < 1 ? 6 : $i - 1 }}')"
+    >
+@endfor
 
-                            if (len == mx) {
-                                document.getElementById(too).focus();
-                            }
-                        }
-                    </script>
+{{-- this is the logic start --}}
+<script>
+    function fn(froo, too) {
+        var len = froo.value.length;
+        var mx = froo.getAttribute("maxlength");
+
+        if (len == mx) {
+            document.getElementById(too).focus();
+        }
+    }
+
+    function handleBackspace(event, froo, too) {
+        var len = froo.value.length;
+
+        // Check if the Backspace key is pressed and the input is empty
+        if (event.key === 'Backspace' && len === 0) {
+            document.getElementById(too).focus();
+        }
+    }
+</script>
+{{-- this is the logic end --}}
 
                 </div>
                 @error('validateOtp')
