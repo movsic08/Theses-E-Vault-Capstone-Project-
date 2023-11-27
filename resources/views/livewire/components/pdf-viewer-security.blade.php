@@ -104,10 +104,9 @@
                                 Contact admin for this or developer.</strong>
                         </div>
                     @else
-                        <div x-show="loading"
-                            class="absolute left-0 top-0 flex h-full w-full items-center justify-center"
-                            id="loadingSpinner" style="display: none">
-                            <div class="container mt-20 w-[40%] rounded-xl bg-white p-10 drop-shadow-md">
+                        <div x-show="loading" class="flex h-full w-full items-center justify-center" id="loadingSpinner"
+                            style="display: none">
+                            <div class="container mt-14 w-[80%] rounded-xl bg-white p-10 drop-shadow-md md:w-[40%]">
                                 <div class="flex h-full flex-col items-center justify-center gap-2">
                                     <div
                                         class="relative h-24 w-24 animate-spin rounded-full bg-gradient-to-r from-yellow-500 to-blue-800">
@@ -115,7 +114,8 @@
                                             class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-white bg-gray-200">
                                         </div>
                                     </div>
-                                    <strong class="mt-2 text-primary-color md:text-lg lg:text-xl">Loading</strong>
+                                    <strong
+                                        class="mt-2 uppercase text-primary-color md:text-lg lg:text-xl">Loading</strong>
                                     <div class="rounded-xl bg-blue-100 px-3 py-1 text-sm text-blue-800">
                                         This process may take some time as the file loads. The
                                         duration depends on your
