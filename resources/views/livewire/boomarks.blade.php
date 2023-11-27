@@ -48,42 +48,6 @@
                 <button id="copyButton" class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
             </div>
             <script data-navigate-once src="{{ asset('js/copyClipboard.js') }}"></script>
-            {{-- original logic --}}
-            {{-- <script>
-                const copyButton = document.getElementById('copyButton');
-                const shareInput = document.getElementById('valueBox');
-                copyButton.addEventListener('click', async () => {
-                    try {
-                        if (navigator.clipboard) {
-                            await navigator.clipboard.writeText(shareInput.value);
-                            console.log('Link copied to clipboard!');
-                        } else {
-                            fallbackCopyTextToClipboard(shareInput.value);
-                        }
-                    } catch (err) {
-                        console.error('Error copying to clipboard:', err);
-                    }
-                });
-            
-                function fallbackCopyTextToClipboard(text) {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-            
-                    try {
-                        document.execCommand('copy');
-                        console.log('Link copied to clipboard using fallback method!');
-                    } catch (err) {
-                        console.error('Error copying to clipboard:', err);
-                    }
-            
-                    document.body.removeChild(textArea);
-                }
-            </script> --}}
-            
-            
-            
 
         </div>
     </div>

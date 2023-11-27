@@ -34,7 +34,7 @@ function setupClipboardCopy() {
             document.body.removeChild(textArea);
         }
     } else {
-        console.error("One or more required elements not found.");
+        // console.error("One or more required elements not found.");
     }
 }
 
