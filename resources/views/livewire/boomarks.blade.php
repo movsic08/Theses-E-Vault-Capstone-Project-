@@ -43,15 +43,16 @@
                 <x-input-field wire:model.live='shareLink' type="text" class="mb-4 w-full rounded border p-2"
                     x-ref="shareInput"></x-input-field>
             </div>
-            
-            <div class="flex w-full justify-end font-bold">
-                <button id="copyButton" class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
+
+            <div class="flex w-full justify-end font-bold" wire:ignore>
+                <button id="copyButton"
+                    class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
             </div>
-            
-            <script>
+
+            <script data-navigate-once>
                 const copyButton = document.getElementById('copyButton');
                 const shareInput = document.querySelector('[x-ref="shareInput"]');
-            
+
                 copyButton.addEventListener('click', async () => {
                     try {
                         if (navigator.clipboard) {
@@ -64,24 +65,24 @@
                         console.error('Error copying to clipboard:', err);
                     }
                 });
-            
+
                 function fallbackCopyTextToClipboard(text) {
                     const textArea = document.createElement('textarea');
                     textArea.value = text;
                     document.body.appendChild(textArea);
                     textArea.select();
-            
+
                     try {
                         document.execCommand('copy');
                         console.log('Link copied to clipboard using fallback method!');
                     } catch (err) {
                         console.error('Error copying to clipboard:', err);
                     }
-            
+
                     document.body.removeChild(textArea);
                 }
             </script>
-            
+
 
         </div>
     </div>
