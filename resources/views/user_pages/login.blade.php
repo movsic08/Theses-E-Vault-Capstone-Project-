@@ -87,7 +87,7 @@
                             <label class="font-medium text-gray-800" for="email">Email</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
                                 type="email" name="email" id="email" placeholder="user@psu.edu.ph"
-                                @if (isset($_COOKIE['email'])) value="{{ $_COOKIE['email'] }}" @endif required>
+                                @if (isset($_COOKIE["email"])) value="{{ $_COOKIE['email'] }}" @endif required"">
                             @error('email')
                                 <span class="w-full px-1 text-xs text-red-700">
                                     {{ $message }}
@@ -128,7 +128,7 @@
                         </div>
                         <div class="flex items-center justify-between text-gray-500 md:text-sm lg:text-base">
                             <div class="flex flex-row gap-2">
-                                <input type="checkbox" name="" id="remember_me">
+                                <input type="checkbox" name="remember_me" id="remember_me"@if(isset($_COOKIE["email"])) checked="" @endif>
                                 <label class="text-sm font-normal md:text-xs lg:text-base" for="remember_me">Remember
                                     me</label>
                             </div>
