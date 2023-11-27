@@ -13,22 +13,20 @@
                     $previousUrl = url()->previous();
                     // dd($previousUrl);
                 @endphp
-                @if ($previousUrl == route('home'))
+                {{-- @if ($previousUrl == route('home'))
                     <a wire:navigate class="hover:font-medium hover:text-primary-color"
                         href="{{ route('home') }}">Home</a>
                 @elseif($previousUrl == route('user-search'))
                     <a wire:navigate class="hover:font-medium hover:text-primary-color"
                         href="{{ route('user-search') }}">Search</a>
-                    {{-- @elseif($previousUrl == route('search-result-page'))
-                    <a wire:navigate class="hover:font-medium hover:text-primary-color"
-                        href="{{ route('search-result-page') }}">Searched Items</a> --}}
                 @else
                     default test
-                @endif
+                @endif --}}
+                {{ $previousUrl }}
                 >
-                Thesis
+                {{ $data->document_type }}
                 >
-                234534
+                {{ $data->reference }}
             </h1>
         </div>
         <section class="relative grid grid-flow-row-dense grid-cols-4 gap-4 text-primary-color lg:mx-8">
@@ -123,12 +121,12 @@
 
             {{-- 2nd div --}}
             <div
-                class="col-span-4 flex h-fit flex-col-reverse gap-3 lg:sticky lg:left-auto lg:right-14 lg:top-[92px] lg:col-span-1 lg:flex-col">
+                class="col-span-4 flex h-fit flex-col-reverse gap-3 lg:sticky lg:left-auto lg:right-14 lg:top-[2.5rem] lg:col-span-1 lg:flex-col">
                 <div class="grid grid-cols-4 gap-3">
                     {{-- 1st div --}}
-                    <div class="col-span-2 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4">
+                    <div class="col-span-4 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4">
                         <div>
-                            <p class="font-extrabold">File</p>
+                            <strong>File</strong>
                             <div class="flex items-center justify-center">
                                 <div class="-ml-2 hidden lg:block">
                                     <svg class="h-14" viewBox="0 0 107 107" fill="none">
@@ -140,7 +138,7 @@
                                             fill="#041A32" />
                                     </svg>
                                 </div>
-                                <div class="flex w-full flex-col gap-2">
+                                <div class="flex w-full flex-row gap-2 lg:flex-col">
                                     <div class="w-full">
                                         <button wire:click="toggleBookmark"
                                             class="block w-full rounded-md bg-amber-800 p-1 text-center text-white duration-200 ease-in-out hover:bg-amber-700"
@@ -181,28 +179,48 @@
                         </div>
                     </div>
                     {{-- 2nd div --}}
-                    <div class="col-span-2 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4">
-                        <h2 class="text-right font-medium text-primary-color">Citation count</h2>
-                        <div class="flex items-center justify-center">
-                            <svg wire:click="citeMe" class="h-9 w-10 cursor-pointer rounded-md bg-blue-600 p-1"
-                                viewBox="0 0 46 46" fill="none">
-                                <path
-                                    d="M41.3996 21.4672C41.3996 30.3605 33.1618 37.5672 22.9996 37.5672C21.1788 37.571 19.3637 37.3353 17.6023 36.8657C16.2606 37.5461 13.1748 38.8514 7.98636 39.7024C7.52636 39.7771 7.17561 39.2999 7.35769 38.8705C8.17228 36.9481 8.90828 34.3855 9.12869 32.0472C6.31119 29.222 4.59961 25.519 4.59961 21.4672C4.59961 12.5796 12.8413 5.36719 22.9996 5.36719C33.1618 5.36719 41.3996 12.5777 41.3996 21.4672ZM21.1462 18.6305C20.9948 18.4046 20.82 18.1951 20.6249 18.0057C20.3175 17.6883 19.9509 17.4343 19.5458 17.2582L19.5266 17.2505C18.9821 16.9971 18.3887 16.8663 17.7882 16.8672C15.584 16.8672 13.8015 18.5845 13.8015 20.7024C13.8015 22.8184 15.584 24.5358 17.7882 24.5358C18.5779 24.5358 19.3119 24.3154 19.9291 23.9359C19.6148 24.8309 19.0321 25.7854 18.0661 26.7419C17.9752 26.8308 17.9035 26.9374 17.8553 27.055C17.8072 27.1727 17.7836 27.299 17.7862 27.4262C17.7887 27.5533 17.8172 27.6786 17.87 27.7942C17.9227 27.9099 17.9986 28.0136 18.0929 28.0989C18.2868 28.2754 18.5407 28.3714 18.8028 28.3671C19.065 28.3628 19.3156 28.2586 19.5036 28.0759C22.5722 25.0207 22.6546 21.7317 21.6694 19.5524C21.5241 19.2301 21.3489 18.9202 21.1462 18.6305ZM29.8996 23.9359C29.5872 24.8309 29.0026 25.7854 28.0366 26.7419C27.9456 26.8308 27.8738 26.9374 27.8256 27.0552C27.7775 27.173 27.754 27.2994 27.7567 27.4266C27.7594 27.5538 27.7882 27.6791 27.8413 27.7947C27.8944 27.9104 27.9706 28.0139 28.0654 28.0989C28.2589 28.2753 28.5125 28.3712 28.7743 28.3669C29.0361 28.3626 29.2865 28.2585 29.4741 28.0759C32.5427 25.0207 32.6251 21.7317 31.6399 19.5524C31.4946 19.2301 31.3195 18.9221 31.1167 18.6324C30.9653 18.4059 30.7906 18.1958 30.5954 18.0057C30.2881 17.6882 29.9215 17.4342 29.5163 17.2582L29.4971 17.2505C28.9532 16.9974 28.3605 16.8665 27.7606 16.8672C25.5603 16.8672 23.7739 18.5845 23.7739 20.7024C23.7739 22.8184 25.5603 24.5358 27.7606 24.5358C28.5167 24.5381 29.2585 24.3304 29.9034 23.9359H29.8996Z"
-                                    fill="white" />
-                            </svg>
-                            <div class="flex w-full items-center justify-center">
-                                <h2 class="mx-2 text-2xl font-bold">{{ $data->citation_count }}</h2>
+                    <div
+                        class="col-span-4 flex flex-row justify-between gap-6 rounded-lg bg-white p-4 drop-shadow-lg lg:col-span-4 lg:flex-col lg:gap-2">
+                        <div class="md:w-1/2 lg:w-full">
+                            <strong class="mb-1">Citation</strong>
+                            <div class="mb-2 flex w-full items-center justify-between gap-2">
+                                <button
+                                    class="mt-1 flex h-fit cursor-pointer items-center gap-1 rounded-md bg-blue-600 px-3 py-2 font-medium text-white focus:outline-none"
+                                    wire:click="citeMe">
+                                    <span>
+                                        Cite this</span>
+                                    <svg class="h-6" viewBox="0 0 46 46" fill="none">
+                                        <path
+                                            d="M41.3996 21.4672C41.3996 30.3605 33.1618 37.5672 22.9996 37.5672C21.1788 37.571 19.3637 37.3353 17.6023 36.8657C16.2606 37.5461 13.1748 38.8514 7.98636 39.7024C7.52636 39.7771 7.17561 39.2999 7.35769 38.8705C8.17228 36.9481 8.90828 34.3855 9.12869 32.0472C6.31119 29.222 4.59961 25.519 4.59961 21.4672C4.59961 12.5796 12.8413 5.36719 22.9996 5.36719C33.1618 5.36719 41.3996 12.5777 41.3996 21.4672ZM21.1462 18.6305C20.9948 18.4046 20.82 18.1951 20.6249 18.0057C20.3175 17.6883 19.9509 17.4343 19.5458 17.2582L19.5266 17.2505C18.9821 16.9971 18.3887 16.8663 17.7882 16.8672C15.584 16.8672 13.8015 18.5845 13.8015 20.7024C13.8015 22.8184 15.584 24.5358 17.7882 24.5358C18.5779 24.5358 19.3119 24.3154 19.9291 23.9359C19.6148 24.8309 19.0321 25.7854 18.0661 26.7419C17.9752 26.8308 17.9035 26.9374 17.8553 27.055C17.8072 27.1727 17.7836 27.299 17.7862 27.4262C17.7887 27.5533 17.8172 27.6786 17.87 27.7942C17.9227 27.9099 17.9986 28.0136 18.0929 28.0989C18.2868 28.2754 18.5407 28.3714 18.8028 28.3671C19.065 28.3628 19.3156 28.2586 19.5036 28.0759C22.5722 25.0207 22.6546 21.7317 21.6694 19.5524C21.5241 19.2301 21.3489 18.9202 21.1462 18.6305ZM29.8996 23.9359C29.5872 24.8309 29.0026 25.7854 28.0366 26.7419C27.9456 26.8308 27.8738 26.9374 27.8256 27.0552C27.7775 27.173 27.754 27.2994 27.7567 27.4266C27.7594 27.5538 27.7882 27.6791 27.8413 27.7947C27.8944 27.9104 27.9706 28.0139 28.0654 28.0989C28.2589 28.2753 28.5125 28.3712 28.7743 28.3669C29.0361 28.3626 29.2865 28.2585 29.4741 28.0759C32.5427 25.0207 32.6251 21.7317 31.6399 19.5524C31.4946 19.2301 31.3195 18.9221 31.1167 18.6324C30.9653 18.4059 30.7906 18.1958 30.5954 18.0057C30.2881 17.6882 29.9215 17.4342 29.5163 17.2582L29.4971 17.2505C28.9532 16.9974 28.3605 16.8665 27.7606 16.8672C25.5603 16.8672 23.7739 18.5845 23.7739 20.7024C23.7739 22.8184 25.5603 24.5358 27.7606 24.5358C28.5167 24.5381 29.2585 24.3304 29.9034 23.9359H29.8996Z"
+                                            fill="white" />
+                                    </svg></button>
+                                <div class="flex flex-col items-center gap-1 rounded-md bg-blue-100 px-2">
+                                    <strong>Citation Count</strong>
+                                    <h1>{{ $data->citation_count }}</h1>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex flex-col gap-1 md:gap-2">
-                            <div class="flex flex-col justify-between gap-1 md:flex-row">
-                                <strong class="">PDF unlocker
-                                    key</strong>
+                        <div
+                            class="pt-2 md:w-1/2 md:border-l md:border-slate-200 md:pl-4 lg:w-full lg:border-l-0 lg:border-t lg:border-slate-200 lg:pl-0 lg:pt-4">
+                            <div class="flex w-full items-start justify-between">
+                                <strong class="uppercase">pdf viewer key</strong>
                                 <button wire:click='generatePDFKey({{ $data->id }})'
-                                    class="rounded-md bg-blue-800 px-1 text-xs text-white duration-300 ease-in-out hover:bg-primary-color 2xl:text-sm">Generate
+                                    class="rounded-md bg-blue-800 px-3 py-2 text-xs text-white duration-300 ease-in-out hover:bg-primary-color 2xl:text-sm">Generate
                                     key</button>
                             </div>
-                            <x-input-field id="pdfKEY" wire:model.live='InputPDFKey' disabled type="text" />
+                            <div class="relative">
+                                <x-input-field id="pdfKEY" wire:model.live='InputPDFKey' class="my-2 w-full"
+                                    disabled type="text" />
+                                <svg class="absolute right-3 top-4 h-6 cursor-pointer text-slate-400"
+                                    fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.25 9A5.75 5.75 0 0 1 9 3.25h7.013a.75.75 0 0 1 0 1.5H9A4.25 4.25 0 0 0 4.75 9v7.107a.75.75 0 0 1-1.5 0V9Z">
+                                    </path>
+                                    <path
+                                        d="M18.403 6.793a44.372 44.372 0 0 0-9.806 0 2.011 2.011 0 0 0-1.774 1.76 42.581 42.581 0 0 0 0 9.893 2.01 2.01 0 0 0 1.774 1.76c3.241.363 6.565.363 9.806 0a2.01 2.01 0 0 0 1.774-1.76 42.579 42.579 0 0 0 0-9.893 2.011 2.011 0 0 0-1.774-1.76Z">
+                                    </path>
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>

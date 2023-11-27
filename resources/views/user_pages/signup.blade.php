@@ -132,71 +132,53 @@
                                     </div>
                                     <div class="flex flex-col">
                                         <x-label-input for="password">Password</x-label-input>
-                                        <div class="input-box">
-                                        <x-input-field class="w-full" type="password" name="password"
-                                            id="password" />
-                                        @error('password')
-                                            <span class="w-full text-xs text-red-700">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                        <img src="{{ asset('Icons/eye-close.png') }}" id="eyeicon">
+                                        <div class="relative">
+                                            <x-input-field class="w-full" type="password" name="password"
+                                                id="password" />
+                                            @error('password')
+                                                <span class="w-full text-xs text-red-700">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                            <img class="absolute right-2 top-2 h-5"
+                                                src="{{ asset('Icons/eye-close.png') }}" id="eyeicon">
                                         </div>
                                     </div>
                                     <div class="flex flex-col">
                                         <x-label-input for="password_confirmation">Confirm password</x-label-input>
-                                        <div class="input-box">
-                                        <x-input-field class="w-full" type="password" name="password_confirmation"
-                                            id="password_confirmation" />
-                                            <img src="{{ asset('Icons/eye-close.png') }}" id="eyeicon2">
+                                        <div class="relative">
+                                            <x-input-field class="w-full" type="password"
+                                                name="password_confirmation" id="password_confirmation" />
+                                            <img class="absolute right-2 top-2 h-5"
+                                                src="{{ asset('Icons/eye-close.png') }}" id="eyeicon2">
                                         </div>
                                     </div>
                                     {{-- show password logic --}}
+                                    <script>
+                                        let eyeicon = document.getElementById("eyeicon");
+                                        let eyeicon2 = document.getElementById("eyeicon2");
+                                        let password = document.getElementById("password");
+                                        let password2 = document.getElementById("password_confirmation");
 
-                                    <style>
-                                        .input-box{
-                                            align-items: center;
-                                            display: flex;
+                                        eyeicon.onclick = function() {
+                                            if (password.type == "password") {
+                                                password.type = "text";
+                                                eyeicon.src = "{{ asset('Icons/eye-open.png') }}";
+                                            } else {
+                                                password.type = "password";
+                                                eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
+                                            }
                                         }
-            
-                                        .input-box input{
-                                            width: 100%;
-                                            padding: 10px 0;
-                                            border 0;
-                                            outline: 0;
+                                        eyeicon2.onclick = function() {
+                                            if (password2.type == "password") {
+                                                password2.type = "text";
+                                                eyeicon2.src = "{{ asset('Icons/eye-open.png') }}";
+                                            } else {
+                                                password2.type = "password";
+                                                eyeicon2.src = "{{ asset('Icons/eye-close.png') }}";
                                             }
-                                            
-                                            .input-box img{
-                                            width: 10%;
-                                            cursor: pointer;
-                                            }
-                                        </style>
-                                            
-                                        <script>
-                                                let eyeicon = document.getElementById("eyeicon");
-                                                let eyeicon2 = document.getElementById("eyeicon2");
-                                                let password = document.getElementById("password");
-                                                let password2 = document.getElementById("password_confirmation");
-
-                                                eyeicon.onclick = function() {
-                                                    if (password.type == "password") {
-                                                        password.type = "text";
-                                                        eyeicon.src = "{{ asset('Icons/eye-open.png') }}";
-                                                    } else {
-                                                        password.type = "password";
-                                                        eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
-                                                    }
-                                                }
-                                                eyeicon2.onclick = function() {
-                                                    if (password2.type == "password") {
-                                                        password2.type = "text";
-                                                        eyeicon2.src = "{{ asset('Icons/eye-open.png') }}";
-                                                    } else {
-                                                        password2.type = "password";
-                                                        eyeicon2.src = "{{ asset('Icons/eye-close.png') }}";
-                                                    }
-                                                }
-                                        </script>
+                                        }
+                                    </script>
 
                                     {{-- show password end --}}
 

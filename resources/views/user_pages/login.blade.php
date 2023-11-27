@@ -85,76 +85,38 @@
 
                     <div class="flex flex-col gap-6">
                         <div class="flex flex-col">
-{{-- <<<<<<< HEAD --}}
+                            {{-- <<<<<<< HEAD --}}
                             <label class="font-medium text-gray-800" for="email">Email</label>
                             <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                type="email" name="email" id="email" placeholder="user@psu.edu.ph" @if(isset($_COOKIE["email"])) value="{{ $_COOKIE["email"]}}" @endif required"">
+                                type="email" name="email" id="email" placeholder="user@psu.edu.ph"
+                                @if (isset($_COOKIE['email'])) value="{{ $_COOKIE['email'] }}" @endif required"">
                         </div>
                         <div class="flex flex-col">
                             <label class="font-medium text-gray-800" for="password">Password</label>
-                            <div class="input-box">
-                            <input class="h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
-                                type="password" name="password" id="password" @if(isset($_COOKIE["password"])) value="{{ $_COOKIE["password"]}}" @endif required"">
-                                <img src="{{ asset('Icons/eye-close.png') }}" id="eyeicon">
+                            <div class="relative w-full">
+                                <input class="h-9 w-full rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950"
+                                    type="password" name="password" id="password"
+                                    @if (isset($_COOKIE['password'])) value="{{ $_COOKIE['password'] }}" @endif
+                                    required"">
+                                <img class="absolute right-2 top-2 h-5" src="{{ asset('Icons/eye-close.png') }}"
+                                    id="eyeicon">
                             </div>
                             {{-- show password logic begin --}}
-                            <style>
-                            .input-box{
-                                align-items: center;
-                                display: flex;
-                            }
-
-                            .input-box input{
-                                width: 100%;
-                                padding: 10px 0;
-                                border 0;
-                                outline: 0;
-                                }
-                                
-                                .input-box img{
-                                width: 10%;
-                                cursor: pointer;
-                                }
-                            </style>
-                                
                             <script>
-                                    let eyeicon = document.getElementById("eyeicon");
-                                    let password = document.getElementById("password");
-                                
-                                    eyeicon.onclick = function() {
-                                        if (password.type == "password") {
-                                            password.type = "text";
-                                            eyeicon.src = "{{ asset('Icons/eye-open.png') }}";
-                                        } else {
-                                            password.type = "password";
-                                            eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
-                                        }
+                                let eyeicon = document.getElementById("eyeicon");
+                                let password = document.getElementById("password");
+
+                                eyeicon.onclick = function() {
+                                    if (password.type == "password") {
+                                        password.type = "text";
+                                        eyeicon.src = "{{ asset('Icons/eye-open.png') }}";
+                                    } else {
+                                        password.type = "password";
+                                        eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
                                     }
+                                }
                             </script>
                             {{-- show password logic end --}}
-                                
-{{-- =======
-<div class="flex flex-col">
-    <x-label-input for="email">Email</x-label-input>
-    <x-input-field class="w-full h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950" 
-                    type="email" name="email" id="email" 
-                    placeholder="user@psu.edu.ph" 
-                    value="{{ old('email') }}" @if(isset($_COOKIE["email"])) value="{{ $_COOKIE["email"]}}" @endif required />
-    @error('email')
-        <span class="w-full px-1 text-xs text-red-700">
-            {{ $message }}
-        </span>
-    @enderror
-</div>
-<div class="flex flex-col">
-    <x-label-input for="password">Password</x-label-input>
-    <x-input-field class="w-full h-9 rounded-md border-2 bg-gray-200 px-1 focus:outline-blue-950" 
-                    type="password" name="password" id="password" 
-                    placeholder="Password" 
-                    @if(isset($_COOKIE["password"])) value="{{ $_COOKIE["password"]}}" @endif required />
-</div>
-
->>>>>>> master --}}
                             @error('password')
                                 <span class="w-full px-1 text-xs text-red-700">
                                     {{ $message }}
