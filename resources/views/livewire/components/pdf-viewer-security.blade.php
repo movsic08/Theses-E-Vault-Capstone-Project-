@@ -95,10 +95,13 @@
 
                 <div x-data="{ loading: true }" x-on:open-lod="loading = true"
                     class="col-span-12 mt-2 overflow-auto text-center" id="scrollableCanvas">
-                    {{-- @if (false) --}}
+
                     @if ($fileNotFound)
-                        <div class="h-full w-full bg-white p-4">
-                            <p class="text-red-500">Error: File not found in the database.</p>
+                        <div class="container h-full w-full rounded-xl bg-white p-4">
+                            <strong class="container rounded-xl bg-red-100 px-3 py-2 text-center text-red-500">Error:
+                                File not
+                                found in the database.
+                                Contact admin for this or developer.</strong>
                         </div>
                     @else
                         <div x-show="loading"
