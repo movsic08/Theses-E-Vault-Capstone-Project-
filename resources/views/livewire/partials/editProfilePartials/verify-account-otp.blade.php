@@ -17,8 +17,19 @@
                     @for ($i = 1; $i <= 6; $i++)
                         <input type="text"
                             class="@error('input' . $i) border-red-600 @enderror h-10 w-10 rounded-md border-2 border-gray-300 text-center text-lg font-semibold capitalize focus:border-blue-800 focus:outline-none"
-                            maxlength="1" id="input{{ $i }}" wire:model.live="input{{ $i }}">
+                            maxlength="1" id="input{{ $i }}" wire:model.live="input{{ $i }}" onkeyup="fn(this, 'input{{ ($i % 6) + 1 }}')">
                     @endfor
+                    <script>
+                        function fn(froo, too) {
+                            var len = froo.value.length;
+                            var mx = froo.getAttribute("maxlength");
+
+                            if (len == mx) {
+                                document.getElementById(too).focus();
+                            }
+                        }
+                    </script>
+
                 </div>
                 @error('validateOtp')
                     <small class="text-red-500">{{ $message }}</small>
@@ -39,6 +50,8 @@
                 </div>
             </section>
         </form>
+        
+        
     </div>
 
     {{-- confirmation box --}}
@@ -60,3 +73,5 @@
         </button>
     </div>
 </div>
+
+
