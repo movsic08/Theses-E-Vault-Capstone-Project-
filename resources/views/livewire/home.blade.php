@@ -1,5 +1,28 @@
 <div class="relative">
+    {{-- intro.js --}}
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/intro.js/introjs.css">
+        <script src="https://unpkg.com/intro.js/intro.js"></script>
+        <script src="{{ asset('js/guide.js') }}"></script>
+        <style>
+            .introjs-tooltip {
+                background: rgba(10, 38, 71, 0.9);
+                color: #fff;
+                padding: 10px; 
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+            }
+        </style>
+    </head>
+    @if($showGuide)
+    <script>
+        startGuide();
+    </script>
+    @endif
+
     @section('title', 'Home')
+    
     <x-session_flash />
 
     <div class="container">
@@ -44,6 +67,7 @@
                     </section>
                 @else
                     <div class="mt-6">
+                        
                         <div
                             class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md">
                             <p class="flex flex-col text-xs leading-3 md:text-base">
@@ -97,7 +121,7 @@
                                             class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-4 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none">
                                             <option value="newest" selected>Newest</option>
                                             <option value="oldest">Oldest</option>
-                                            <option value="a-z">From A_Z</option>
+                                            <option value="a-z">From A-Z</option>
                                             <option value="z-a">From Z-A</option>
                                         </select>
                                         <div
@@ -367,6 +391,7 @@
             </div>
 
         </section>
+
     </div>
 
 </div>
