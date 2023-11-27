@@ -36,13 +36,10 @@ function setupClipboardCopy() {
     } else {
         console.error("One or more required elements not found.");
     }
-}
 
-// Add an event listener for Livewire navigation
-document.addEventListener("livewire:navigated", () => {
-    // console.log("Livewire navigation");
-    // Call the setup function when the document is ready
-    setupClipboardCopy();
     // Re-initialize the Flowbite library or any other logic needed after navigation
     initFlowbite();
-});
+}
+
+// Call the setup function when the document is ready
+document.addEventListener("DOMContentLoaded", setupClipboardCopy);

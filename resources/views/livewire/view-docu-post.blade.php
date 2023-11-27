@@ -2,7 +2,7 @@
     @section('title', $data->title)
     <x-session_flash />
 
-    @include('livewire.partials.cite-this-modal')
+    {{-- @include('livewire.partials.cite-this-modal') --}}
     <x-user_modals.report-docu-comment-modal :reportingCommentData='$reportingCommentData'></x-user_modals.report-docu-comment-modal>
 
     <div class="container">
@@ -195,8 +195,8 @@
                             </div>
                             <div class="relative">
                                 <x-input-field id="pdfKEY" wire:model.live='InputPDFKey' class="my-2 w-full"
-                                    disabled type="text" id='value'/>
-                                <button wire:click="copyKey('{{ $InputPDFKey }}')" id="copy">
+                                    disabled type="text" id='valueBox'/>
+                                <button wire:click="copyKey('{{ $InputPDFKey }}')" id="copyButton">
                                 <svg class="absolute right-3 top-4 h-6 cursor-pointer text-slate-400"
                                     fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -207,7 +207,7 @@
                                     </path>
                                 </svg>
                                 </button>
-                                <script>
+                                {{-- <script>
                                     // this is copy to clipboard logic begin
                                     const COPY = document.querySelector('#copy');
                                     const VALUE = document.querySelector('#value');
@@ -241,7 +241,7 @@
                                         document.body.removeChild(textArea);
                                     }
                                     // this is copy to clipboard logic end
-                                </script>
+                                </script> --}}
                             </div>
                         </div>
                     </div>

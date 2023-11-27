@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Livewire;
-
+use Livewire\Attributes\Js;
 use App\Models\BookmarkList;
 use App\Models\ReportedComment;
 use Illuminate\Support\Str;
@@ -368,11 +368,20 @@ class ViewDocuPost extends Component
     
     public function copyKey($pdfKey){
         // dd($pdfKey);
-        if ($this->InputPDFKey == 'Generate key'){
-            request()->session()->flash('message', 'The key is empty please click the generate key first');
-        }
+        // if ($this->InputPDFKey == 'Generate key'){
+        //     request()->session()->flash('message', 'The key is empty please click the generate key first');
+        // }
+        // request()->session()->flash('message', 'Succesfully copied to your clipboard!!');
+        $this->copyToClip();
+    }
 
-        request()->session()->flash('message', 'Succesfully copied to your clipboard!!');
+    #[Js]
+    public function copyToClip(){
+        return <<<'JS'
+        console.log('hello world');
+        alert('hey its me mario im working');
+        JS;
+
     }
 
     protected function keyGenerator($id)
