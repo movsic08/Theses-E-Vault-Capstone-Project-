@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="{{ url('icons/logo.svg') }}" type="image/x-icon">
+    
     @stack('livewire:scripts')
     <script src="{{ asset('js/jQuery.js') }}"></script>
     <link
@@ -71,9 +72,10 @@
         </section> --}}
 
         </div>
-        @livewireScripts
+        {{-- Flowbite --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.js" integrity="sha512-Y9Uk9SbwwPXkLHrtpS/aoD0SjErNdsy5EDhW8roeCDg6EBPxmvLbTUGZCvmG2xTyDlGiGLYqGv0953K8+5MgXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
+        @livewireScripts     
 </body>
 
 </html>

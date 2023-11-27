@@ -364,6 +364,15 @@ class ViewDocuPost extends Component
             }
         }
     }
+    
+    public function copyKey($pdfKey){
+        // dd($pdfKey);
+        if ($this->InputPDFKey == 'Generate key'){
+            request()->session()->flash('message', 'The key is empty please click the generate key first');
+        }
+
+        request()->session()->flash('message', 'Succesfully copied to your clipboard!!');
+    }
 
     protected function keyGenerator($id)
     {

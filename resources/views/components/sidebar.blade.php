@@ -110,7 +110,7 @@
                 {{-- bookmark --}}
                 <div
                     class="{{ request()->routeIs('user-bookmark') ? 'bg-gray-800 rounded-full text-white' : '' }} mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                    <a wire:navigate href="{{ route('user-bookmark') }}" class="flex items-center">
+                    <a wire:navigate href="{{ route('user-bookmark') }}" class="flex items-center" >
                         <div class="relative">
                             <svg class="relative" width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                                 <path
