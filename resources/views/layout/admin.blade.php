@@ -99,7 +99,7 @@
     </style>
     <div class="flex w-full max-w-full flex-col">
         {{-- navbar --}}
-        <x-admin.admin_NavBar />
+        <x-admin.admin_navbar />
         <x-session_flash />
 
         {{ $slot }}
