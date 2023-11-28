@@ -2,40 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+.display-none {
+    @apply hidden;
+}
+
 @keyframes indexBounce {
+    0%,
+    100% {
+        transform: translateY(15%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
 
-  0%,
-  100% {
-    transform: translateY(15%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
+    50% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
 }
 
 .animate-indexBounce {
-  animation: indexBounce 3s infinite ease-in-out;
+    animation: indexBounce 3s infinite ease-in-out;
 }
 
 @keyframes tbounce {
+    0%,
+    100% {
+        transform: translateY(-10%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
 
-  0%,
-  100% {
-    transform: translateY(-10%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
+    50% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
 }
 
 .animate-tbounce {
-  animation: tbounce 4s infinite ease-in-out;
+    animation: tbounce 4s infinite ease-in-out;
 }
 
 /* 
@@ -43,50 +45,52 @@
   background: linear-gradient(107deg, #D9F0FF 3.72%, #E3E5E5 107.94%);
 } */
 
-
-
-
 @keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
+    0% {
+        background-position: 0% 50%;
+    }
 
-  25% {
-    background-position: 100% 50%;
-  }
+    25% {
+        background-position: 100% 50%;
+    }
 
-  50% {
-    background-position: 0% 50%;
-  }
+    50% {
+        background-position: 0% 50%;
+    }
 
-  75% {
-    background-position: 100% 50%;
-  }
+    75% {
+        background-position: 100% 50%;
+    }
 
-  100% {
-    background-position: 0% 50%;
-  }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .animated-gradient {
-  background: linear-gradient(90deg, #0fffc1, #7e0fff);
-  background-size: 200% 200%;
-  animation: gradientAnimation 10s linear infinite;
-  /* Set the height for the example */
+    background: linear-gradient(90deg, #0fffc1, #7e0fff);
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s linear infinite;
+    /* Set the height for the example */
 }
 
-
-
 .gradient-bg-light {
-  background-color: hsla(231, 76%, 97%, 1);
-  background-image:
-    radial-gradient(at 13% 80%, hsla(206, 81%, 93%, 1) 0px, transparent 50%),
-    radial-gradient(at 77% 1%, hsla(200, 77%, 91%, 1) 0px, transparent 50%),
-    radial-gradient(at 22% 37%, hsla(189, 50%, 89%, 1) 0px, transparent 50%),
-    radial-gradient(at 61% 60%, hsla(216, 100%, 82%, 1) 0px, transparent 50%),
-    radial-gradient(at 53% 90%, hsla(204, 80%, 90%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 52%, hsla(193, 100%, 91%, 1) 0px, transparent 50%),
-    radial-gradient(at 54% 0%, hsla(213, 63%, 81%, 1) 0px, transparent 50%);
+    background-color: hsla(231, 76%, 97%, 1);
+    background-image: radial-gradient(
+            at 13% 80%,
+            hsla(206, 81%, 93%, 1) 0px,
+            transparent 50%
+        ),
+        radial-gradient(at 77% 1%, hsla(200, 77%, 91%, 1) 0px, transparent 50%),
+        radial-gradient(at 22% 37%, hsla(189, 50%, 89%, 1) 0px, transparent 50%),
+        radial-gradient(
+            at 61% 60%,
+            hsla(216, 100%, 82%, 1) 0px,
+            transparent 50%
+        ),
+        radial-gradient(at 53% 90%, hsla(204, 80%, 90%, 1) 0px, transparent 50%),
+        radial-gradient(at 0% 52%, hsla(193, 100%, 91%, 1) 0px, transparent 50%),
+        radial-gradient(at 54% 0%, hsla(213, 63%, 81%, 1) 0px, transparent 50%);
 }
 
 /* .gradient-bg-light {
@@ -106,9 +110,8 @@
 } */
 
 .signup-gradient {
-  background: linear-gradient(136deg, #77DEF4 0%, #5CA4E8 100%);
+    background: linear-gradient(136deg, #77def4 0%, #5ca4e8 100%);
 }
-
 
 /* 
 /* width */
@@ -117,23 +120,22 @@
 }  */
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  max-width: 8px;
+    width: 8px;
+    max-width: 8px;
 }
 
 /* Track */
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1b4;
+    background: #f1f1f1b4;
 }
 
 /* Handle */
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #b1acac;
-  border-radius: 5px;
+    background: #b1acac;
+    border-radius: 5px;
 }
 
 /* Handle on hover */
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555;
-
+    background: #555;
 }

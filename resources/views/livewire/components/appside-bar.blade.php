@@ -134,18 +134,27 @@
         </section>
         {{-- lower --}}
         <div class="items-center-remover flex flex-col gap-3 pt-2 text-sm">
-            <a wire:navigate href=""
+            {{-- darkmode switch start--}}
+            
+            <div 
                 class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="darkmode">
                 <div class="relative w-fit">
-                    <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
+                    <img class="moon cursor-pointer" id="darkmodeSwitch" alt=""
+                        data-sun-src="{{ asset('Icons/icon-sun.svg') }}"
+                        data-moon-src="{{ asset('Icons/icon-moon.svg') }}"
+                         />
+                </div>
+                <p class="hideName block pl-2 md:hidden" id="modeType">Type</p>
+            </div>    
+            {{-- <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M12 11.807A9.002 9.002 0 0 1 10.049 2a9.942 9.942 0 0 0-5.12 2.735c-3.905 3.905-3.905 10.237 0 14.142 3.906 3.906 10.237 3.905 14.143 0a9.946 9.946 0 0 0 2.735-5.119A9.004 9.004 0 0 1 12 11.807Z">
                         </path>
-                    </svg>
-                </div>
-                <p class="hideName block pl-2 md:hidden">Dark</p>
-            </a>
+                    </svg> --}}   
+            {{-- darkmode switch end --}}
+            
+            
             <a wire:navigate href="{{ route('help-and-support') }}"
                 class="{{ request()->routeIs('help-and-support') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="helpSupport">
                 <div class="relative w-fit">

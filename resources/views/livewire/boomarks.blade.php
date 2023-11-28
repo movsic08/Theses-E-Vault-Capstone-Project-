@@ -45,46 +45,9 @@
             </div>
 
             <div class="flex w-full justify-end font-bold">
-                <button id="copyButton"
+                <button wire:click="copyToClip" id="copyButton"
                     class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
             </div>
-
-            <script data-navigate-once>
-                const copyButton = document.getElementById('copyButton');
-                const shareInput = document.querySelector('[x-ref="shareInput"]');
-                // [x-ref="shareInput"]
-                document.addEventListener('livewire:navigated', () => {
-                    console.log('navigated');
-                    const copyButton2 = document.getElementById('copyButton');
-                    const shareInput2 = document.getElementById('valueBox');
-
-                    copyButton2.addEventListener('click', () => {
-                        copyTextToClipboard(shareInput2.value);
-                    });
-                });
-
-                copyButton.addEventListener('click', () => {
-                    copyTextToClipboard(shareInput.value);
-                });
-                
-                function copyTextToClipboard(text) {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-
-                    try {
-                        document.execCommand('copy');
-                        console.log('Link copied to clipboard!');
-                    } catch (err) {
-                        console.error('Error copying to clipboard:', err);
-                    }
-
-                    document.body.removeChild(textArea);
-                }
-            </script>
-
-
         </div>
     </div>
 

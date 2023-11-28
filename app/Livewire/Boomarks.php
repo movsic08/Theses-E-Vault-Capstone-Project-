@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\BookmarkList;
 use App\Models\DocuPost;
 use Livewire\Component;
+use Livewire\Attributes\Js;
 
 class Boomarks extends Component
 {
@@ -37,6 +38,47 @@ class Boomarks extends Component
 
     }
     public $shareLink;
+
+    public function messagesuc(){
+        session()->flash('message', 'copy success');
+    }
+    #[Js]
+    public function copyToClip()
+    {
+        return <<<'JS'
+            const shareInput = document.getElementById('valueBox');
+            try {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(shareInput.value).then(() => {
+                        console.log('Link copied to clipboard!');
+                    }).catch((err) => {
+                        console.error('Error copying to clipboard:', err);
+                    });
+                } else {
+                    fallbackCopyTextToClipboard(shareInput.value);
+                }
+            } catch (err) {
+                console.error('Error copying to clipboard:', err);
+            }
+
+            function fallbackCopyTextToClipboard(text) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+
+                try {
+                    document.execCommand('copy');
+                    console.log('Link copied to clipboard using fallback method!');
+                } catch (err) {
+                    console.error('Error copying to clipboard:', err);
+                }
+
+                document.body.removeChild(textArea);
+            }
+        JS;
+    }
+
     public function toggleShare($reference)
     {
         $this->shareLink = route('view-document', ['reference' => $reference]);

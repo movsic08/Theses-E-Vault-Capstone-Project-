@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Livewire\Components;
-
+use Livewire\Attributes\Js;
 use App\Models\Notification;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Illuminate\Support\Facades\Cookie;
 
 class AppsideBar extends Component
 {
@@ -24,4 +25,12 @@ class AppsideBar extends Component
         ]);
     }
 
+
+    #[Js]
+    public function setDarkmode()
+    {
+        return <<<'JS'
+            
+        JS;
+    }
 }
