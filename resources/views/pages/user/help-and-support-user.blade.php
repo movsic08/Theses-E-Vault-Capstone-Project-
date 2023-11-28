@@ -45,7 +45,7 @@
                                     your account on the Theses Kiosk website.</small>
                             </div>
                         </a>
-                        <a href="#" wire:navigate
+                        <a href="{{ route('using-theses-kiosk-help-center') }}" wire:navigate
                             class="col-span-6 flex h-[17rem] w-[17rem] flex-col items-center justify-center rounded-lg bg-white p-6 drop-shadow-lg duration-300 hover:bg-blue-100 md:col-span-3 lg:col-span-2">
                             <img class="h-[6rem]" src="{{ asset('icons/logo.svg') }}" alt="logo">
                             <div class="mt-6 min-h-[6rem]">
@@ -55,7 +55,7 @@
                                     website.</small>
                             </div>
                         </a>
-                        <a href="#" wire:navigate
+                        <a href="{{ route('reporting-help-center') }}" wire:navigate
                             class="col-span-6 flex h-[17rem] w-[17rem] flex-col items-center justify-center rounded-lg bg-white p-6 drop-shadow-lg duration-300 hover:bg-blue-100 md:col-span-3 lg:col-span-2">
                             <svg class="h-full rounded-3xl text-primary-color" fill="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">

@@ -39,9 +39,18 @@ Route::prefix('help')->group(function () {
     Route::get('/main', function () {
         return view('pages.user.help-and-support-user');
     })->name('help-and-support');
+
     Route::get('/account-management', function () {
         return view('pages.user.help-and-support-pages.account-help-support');
     })->name('account-help-center');
+
+    Route::get('/using-theses-kiosk', function () {
+        return view('pages.user.help-and-support-pages.using-theses-kiosk-help-support');
+    })->name('using-theses-kiosk-help-center');
+
+    Route::get('/reporting', function () {
+        return view('pages.user.help-and-support-pages.reporting-help-support');
+    })->name('reporting-help-center');
 
 
 });
@@ -148,12 +157,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/analytics', function () {
         return view('pages.admin.analytics');
     })->name('admin-analytics');
-
-
-
-
-
-
 
     Route::get('/reported-comments', function () {
         return view('pages.admin.reported_comments');
