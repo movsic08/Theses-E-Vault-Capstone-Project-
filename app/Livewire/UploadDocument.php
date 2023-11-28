@@ -92,13 +92,7 @@ class UploadDocument extends Component
         }
     }
 
-    // public function incrementProgress()
-    // {
-    //     $this->progressPercent += 4;
 
-    //     // Emit a Livewire event to update the progress bar in the JavaScript
-    //     $this->dispatch('updateProgressBar', $this->progressPercent);
-    // }
 
     public $authorAPA;
 
@@ -121,11 +115,11 @@ class UploadDocument extends Component
 
         $authorAPA = implode(', ', $authors);
 
-        $publicationLocation = 'Pangasinan State University - AC';
+        // $publicationLocation = 'Pangasinan State University - AC';
         $retrieveURL = route('view-document', ['reference' => $this->docuReference]);
 
         $year = date('Y', strtotime($this->date_of_approval));
-        $this->recommended_citation = $authorAPA . ' (' . $year . '). ' . $this->title . '. ' . $this->document_type . '. ' . $publicationLocation . '. ' . $retrieveURL;
+        $this->recommended_citation = $authorAPA . ' (' . $year . '). ' . $this->title . '. Retrieved from Theses Kiosk website: ' . $retrieveURL;
     }
 
     public function convertAuthorName($name)
@@ -142,15 +136,8 @@ class UploadDocument extends Component
             return $name = $formattedName;
         }
     }
-    public $showProgressBox = false;
-    public $progressPercent = 0;
-    public $progressInfo = '';
-    public $is_Success = false;
 
-    public function closeShowProgressBox()
-    {
-        $this->showProgressBox = false;
-    }
+
 
     public function boot()
     {
@@ -273,17 +260,16 @@ class UploadDocument extends Component
         Notification::create([
             'user_id' => $this->user->id,
             'header_message' => 'Document Pending Admin Review',
-            'content_message' => 'Dear user, your document with the title "' . $this->title . '" has been successfully uploaded and is now pending admin review. It will be made available to the community once approved. Thank you for your contribution. 📄🔍',
+            'content_message' => 'Dear user, your document with the title "' . $this->title . '" has been successfully uploaded and is now pending admin review. It will be made available to the community once approved. Thank you for your contribution📄🔍.',
             'link' => route('edit-profile', ['activeTab' => 'tab4']),
             'category' => 'docu post',
         ]);
 
 
-        $this->progressInfo = 'Success';
         if (auth()->user()->is_admin) {
             return redirect()->route('admin-docu-post-panel');
         } else {
-            $this->is_Success = true;
+            $this->dispatch('open-suc');
         }
 
 
@@ -293,7 +279,7 @@ class UploadDocument extends Component
 
     public function uploadPdfFileBox()
     {
-        $this->showUploadPdfBox = !$this->showUploadPdfBox;
+        $this->dispatch('open-pdf');
     }
 
     public function render()

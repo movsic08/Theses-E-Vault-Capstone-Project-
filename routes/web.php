@@ -35,12 +35,28 @@ Route::get('/skeleton', function () {
 // Route::post('/logout', 'logout')->name('user.logout');
 // Route::post('/login/process', 'loginProcess')->name('login-process');
 // });
+Route::prefix('help')->group(function () {
+    Route::get('/main', function () {
+        return view('pages.user.help-and-support-user');
+    })->name('help-and-support');
 
+    Route::get('/account-management', function () {
+        return view('pages.user.help-and-support-pages.account-help-support');
+    })->name('account-help-center');
+
+    Route::get('/using-theses-kiosk', function () {
+        return view('pages.user.help-and-support-pages.using-theses-kiosk-help-support');
+    })->name('using-theses-kiosk-help-center');
+
+    Route::get('/reporting', function () {
+        return view('pages.user.help-and-support-pages.reporting-help-support');
+    })->name('reporting-help-center');
+
+
+});
 Route::post('/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
-Route::get('/help-and-suport', function () {
-    // return 404;
-})->name('help-and-support');
+
 Route::post('/login/process', [UserController::class, 'loginProcess'])->name('login-process');
 Route::get('/profile/{username?}', [UserController::class, 'viewUser'])->name('user-profile');
 
@@ -70,7 +86,13 @@ Route::middleware(['auth', 'user'])->group(function () {
 
 
     Route::get('/bookmark', Boomarks::class)->name('user-bookmark');
-
+    Route::get('/temporary-view-pdf/{title?}/{pdfFile?}', function ($title = null, $pdfFile = null) {
+        // dd('title:' . $title, 'pdffile:' . $pdfFile);
+        return view('user_pages.user-temp-pdf-viewer', [
+            'pdfFile' => $pdfFile,
+            'titleOfDocu' => $title,
+        ]);
+    })->name('view-pdf-user-temp')->where('pdfFile', '.*');
 
 });
 
@@ -135,12 +157,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/analytics', function () {
         return view('pages.admin.analytics');
     })->name('admin-analytics');
-
-
-
-
-
-
 
     Route::get('/reported-comments', function () {
         return view('pages.admin.reported_comments');

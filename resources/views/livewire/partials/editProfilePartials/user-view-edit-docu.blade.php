@@ -4,66 +4,32 @@
       class="fixed inset-0 z-40 mx-2 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm"
       style="display: none">
       @if (isset($dataItem))
-          <section
+          <section x-data="{ uploaded: false }"
               class="custom-scrollbar relative mt-[3rem] h-[90%] w-fit overflow-y-auto rounded-lg bg-white drop-shadow-xl md:w-[50%] lg:w-[40%]">
               <div
                   class="sticky right-0 top-0 z-20 -mt-4 flex w-full items-center justify-center bg-white bg-opacity-50 py-1 backdrop-blur-xl">
                   <div class="flex items-center justify-center">
                       <x-label-input for='' class="mr-1">Status</x-label-input>
-                      @if ($editing)
-                          <select id="program" wire:model.live='updating_status'
-                              class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                              <option value="0">Pending</option>
-                              <option value="1">Approved</option>
-                              <option value="2">Disapproved</option>
-                              <option value="3">Revision needed</option>
-                              <option value="4">Out of span</option>
-                          </select>
-                      @else
-                          <h2 class="my-1 w-fit rounded-md border p-1 text-center">
-                              @if ($dataItem->status == 0)
-                                  Pending
-                              @elseif($dataItem->status == 1)
-                                  Approved
-                              @elseif($dataItem->status == 2)
-                                  For revision
-                              @elseif($dataItem->status == 3)
-                                  Outof span
-                              @elseif($dataItem->status == 4)
-                                  Deleted by admin
-                              @else
-                                  Can't define status, Error
-                              @endif
-                              approved
-                          </h2>
-                      @endif
+                      <h2 class="my-1 w-fit rounded-md border p-1 text-center">
+                          @if ($dataItem->status == 0)
+                              Pending
+                          @elseif($dataItem->status == 1)
+                              Approved
+                          @elseif($dataItem->status == 2)
+                              For revision
+                          @elseif($dataItem->status == 3)
+                              Outof span
+                          @elseif($dataItem->status == 4)
+                              Deleted by admin
+                          @else
+                              Can't define status, Error
+                          @endif
+                      </h2>
                   </div>
               </div>
 
               <div class="relative w-full px-10 pb-8 pt-5 text-gray-800">
-                  <div wire:loading.delay wire:target="saveEdit"
-                      class="fixed inset-0 right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-300 bg-opacity-50">
-                      <div class="absolute inset-0 flex items-center justify-center">
-                          <div class="mx-auto w-fit rounded-lg bg-white text-center text-gray-600 drop-shadow-lg">
-                              <div class="rounded-t-xl bg-primary-color p-8 px-10 py-3 font-semibold text-white">
-                                  <h1>Processing</h1>
-                              </div>
-                              <div class="flex flex-col gap-2 px-10 pb-8 pt-3">
-                                  <img class="h-10" src="{{ asset('icons/logo.svg') }}" alt="Icon Description">
-                                  <h3 class="text-xs md:text-base">Uploading is on the process, please wait.</h3>
-                                  <div class="flex flex-col items-center justify-center gap-2">
-                                      <div class="h-8 w-8 animate-spin rounded-md border-4 border-t-4 border-blue-500">
-                                      </div>
-                                      <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                                          <div id="progress-bar"
-                                              class="h-2.5 animate-pulse rounded-full bg-primary-color"
-                                              style="width: 100%"></div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+
                   <section class="flex flex-col gap-1">
                       @if ($editing)
                           <x-label-input for='tite' class="mr-1">Title</x-label-input>
@@ -170,8 +136,7 @@
                       </div>
                       <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46"
-                                  fill="none">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
                                   <path
                                       d="M4.6001 35.8789C4.6001 36.7939 4.96358 37.6714 5.61058 38.3184C6.25758 38.9654 7.1351 39.3289 8.0501 39.3289H37.9501C38.8651 39.3289 39.7426 38.9654 40.3896 38.3184C41.0366 37.6714 41.4001 36.7939 41.4001 35.8789V19.7789C41.4001 18.8639 41.0366 17.9864 40.3896 17.3394C39.7426 16.6924 38.8651 16.3289 37.9501 16.3289H8.0501C7.1351 16.3289 6.25758 16.6924 5.61058 17.3394C4.96358 17.9864 4.6001 18.8639 4.6001 19.7789V35.8789ZM9.2001 12.8789C9.2001 13.1839 9.32126 13.4764 9.53692 13.6921C9.75259 13.9077 10.0451 14.0289 10.3501 14.0289H35.6501C35.9551 14.0289 36.2476 13.9077 36.4633 13.6921C36.6789 13.4764 36.8001 13.1839 36.8001 12.8789C36.8001 12.5739 36.6789 12.2814 36.4633 12.0657C36.2476 11.8501 35.9551 11.7289 35.6501 11.7289H10.3501C10.0451 11.7289 9.75259 11.8501 9.53692 12.0657C9.32126 12.2814 9.2001 12.5739 9.2001 12.8789ZM13.8001 8.27891C13.8001 8.58391 13.9213 8.87641 14.1369 9.09208C14.3526 9.30775 14.6451 9.42891 14.9501 9.42891H31.0501C31.3551 9.42891 31.6476 9.30775 31.8633 9.09208C32.0789 8.87641 32.2001 8.58391 32.2001 8.27891C32.2001 7.97391 32.0789 7.6814 31.8633 7.46573C31.6476 7.25007 31.3551 7.12891 31.0501 7.12891H14.9501C14.6451 7.12891 14.3526 7.25007 14.1369 7.46573C13.9213 7.6814 13.8001 7.97391 13.8001 8.27891Z"
                                       fill="#4B3D3D" />
@@ -194,8 +159,7 @@
                       </div>
                       <div class="{{ $editing ? 'items-start' : 'items-center' }} col-span-1 flex flex-grow">
                           <div class="w-fit rounded-md bg-slate-200 p-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46"
-                                  fill="none">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 46 46" fill="none">
                                   <path
                                       d="M12.2189 3.83203C12.5366 3.83203 12.8413 3.95824 13.066 4.18289C13.2906 4.40755 13.4168 4.71224 13.4168 5.02995V6.22786H32.5835V5.02995C32.5835 4.71224 32.7097 4.40755 32.9344 4.18289C33.159 3.95824 33.4637 3.83203 33.7814 3.83203C34.0991 3.83203 34.4038 3.95824 34.6285 4.18289C34.8531 4.40755 34.9793 4.71224 34.9793 5.02995V6.22786H37.3752C38.646 6.22786 39.8648 6.7327 40.7634 7.63131C41.662 8.52992 42.1668 9.7487 42.1668 11.0195V37.3737C42.1668 38.6445 41.662 39.8633 40.7634 40.7619C39.8648 41.6605 38.646 42.1654 37.3752 42.1654H8.62516C7.35433 42.1654 6.13555 41.6605 5.23694 40.7619C4.33833 39.8633 3.8335 38.6445 3.8335 37.3737V11.0195C3.8335 9.7487 4.33833 8.52992 5.23694 7.63131C6.13555 6.7327 7.35433 6.22786 8.62516 6.22786H11.021V5.02995C11.021 4.71224 11.1472 4.40755 11.3719 4.18289C11.5965 3.95824 11.9012 3.83203 12.2189 3.83203ZM36.0661 11.0195H9.93041C9.21166 11.0195 8.62516 11.5562 8.62516 12.2174V14.6133C8.62516 15.2745 9.20975 15.8112 9.93041 15.8112H36.0718C36.7906 15.8112 37.3771 15.2745 37.3771 14.6133V12.2174C37.3771 11.5562 36.7925 11.0195 36.068 11.0195H36.0661ZM29.8369 25.0457C29.9484 24.9343 30.0369 24.8021 30.0973 24.6565C30.1577 24.5109 30.1888 24.3549 30.1889 24.1973C30.189 24.0397 30.158 23.8836 30.0978 23.738C30.0376 23.5923 29.9492 23.46 29.8379 23.3485C29.7265 23.237 29.5942 23.1485 29.4487 23.0881C29.3031 23.0277 29.1471 22.9966 28.9895 22.9965C28.8319 22.9964 28.6758 23.0274 28.5302 23.0876C28.3845 23.1478 28.2522 23.2362 28.1407 23.3475L21.8022 29.6917L19.0576 26.9413C18.8295 26.7308 18.5288 26.6167 18.2185 26.6229C17.9081 26.6291 17.6123 26.7552 17.3928 26.9746C17.1733 27.1941 17.0473 27.49 17.041 27.8003C17.0348 28.1107 17.1489 28.4114 17.3594 28.6394L20.9532 32.2313C21.0645 32.3431 21.1968 32.4319 21.3425 32.4924C21.4882 32.553 21.6444 32.5842 21.8022 32.5842C21.96 32.5842 22.1163 32.553 22.262 32.4924C22.4077 32.4319 22.54 32.3431 22.6513 32.2313L29.8388 25.0438L29.8369 25.0457Z"
                                       fill="#4B3D3D" />
@@ -584,7 +548,7 @@
                               @endif
                           </div>
                           @if ($editing)
-                              <section x-data="{ uploading: false, progress: 0 }" x-data="{ uploaded: false }"
+                              <section x-data="{ uploading: false, progress: 0 }"
                                   x-on:livewire-upload-start="uploading = true; progress = 0"
                                   x-on:livewire-upload-finish="uploading = false; uploaded = true"
                                   x-on:livewire-upload-error="uploading = false; progress = 0"
@@ -626,15 +590,17 @@
                       <button wire:click='toggleEdit({{ $dataItem->id }})'
                           class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Edit</button>
                   @endif
-                  <button
-                      class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">
-                      Remark
-                  </button>
                   @if ($editing)
                       <button wire:click='saveEdit({{ $dataItem->id }})'
-                          class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Save</button>
+                          class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">
+                          <div wire:loading wire:target='saveEdit'
+                              class="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                              role="status">
+                          </div>
+                          <span wire:loading.remove wire:target='saveEdit'>Save</span>
+                      </button>
                   @else
-                      <button x-on:click="showDocu = false"
+                      <button x-on:click="showDocu = false" @click="uploaded = false"
                           class="w-full rounded-md bg-blue-500 p-1 font-medium text-white duration-200 ease-in-out hover:bg-blue-700">Close</button>
                   @endif
 

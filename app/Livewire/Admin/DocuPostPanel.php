@@ -275,7 +275,7 @@ class DocuPostPanel extends Component
             if ($this->updating_status == 1) {
                 Notification::create([
                     'user_id' => $this->userID_updating,
-                    'header_message' => '🎉 Your document has been approved! ',
+                    'header_message' => 'Your document has been approved! ',
                     'content_message' => 'Congratulations! Your document entitled "<strong>' . $this->updating_title . '</strong>" has been approved. 📄👍',
                     'link' => route('view-document', ['reference' => $this->updating_reference]),
                     'category' => 'docu post',
@@ -283,7 +283,7 @@ class DocuPostPanel extends Component
             } elseif ($this->updating_status == 2) {
                 Notification::create([
                     'user_id' => $this->userID_updating,
-                    'header_message' => '❌ Document Disapproval ',
+                    'header_message' => 'Document Disapproval ',
                     'content_message' => 'We regret to inform you that your document entitled "<strong>' . $this->updating_title . '</strong>" has been disapproved. Contact the librarian for more information. 📄😞',
                     'link' => route('edit-profile', ['activeTab' => 'tab4']),
                     'category' => 'docu post',
@@ -291,7 +291,7 @@ class DocuPostPanel extends Component
             } elseif ($this->updating_status == 3) {
                 Notification::create([
                     'user_id' => $this->userID_updating,
-                    'header_message' => '📝 Revision Needed',
+                    'header_message' => 'Revision Needed',
                     'content_message' => 'Your document entitled "<strong>' . $this->updating_title . '</strong>" requires revision. Please review and make necessary changes before resubmitting. 📄🔍',
                     'link' => route('edit-profile', ['activeTab' => 'tab4']),
                     'category' => 'docu post',
@@ -299,7 +299,7 @@ class DocuPostPanel extends Component
             } elseif ($this->updating_status == 4) {
                 Notification::create([
                     'user_id' => $this->userID_updating,
-                    'header_message' => '🚫 Out of Specified Span',
+                    'header_message' => 'Out of Specified Span',
                     'content_message' => 'We regret to inform you that your document entitled "<strong>' . $this->updating_title . '</strong>" is out of the specified span. Please review and make necessary changes. 📄📆',
                     'link' => route('edit-profile', ['activeTab' => 'tab4']),
                     'category' => 'docu post',

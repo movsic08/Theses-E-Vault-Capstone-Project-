@@ -61,6 +61,7 @@
     @endif --}}
     @include('livewire.partials.editProfilePartials.upload-profile')
 
+    @include('livewire.partials.editProfilePartials.user-view-edit-docu')
     {{-- confirmation delete box --}}
     @include('livewire.partials.editProfilePartials.delete-account-box')
 
@@ -68,29 +69,28 @@
     @include('livewire.partials.editProfilePartials.verify-account-otp')
 
 
-    @if ($showDeleteDocuPostBox)
+    <div x-data="{ deleteFile: false }" x-show="deleteFile" x-on:open-df.window="deleteFile = true"
+        x-on:close-df.window="deleteFile = false" x-on:keydown.escape.window="deleteFile = false"
+        x-transition:enter.duration.400ms x-transition:leave.duration.300ms @click.away="deleteFile = false"
+        class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm"
+        style="display: none">
         <div
-            class="fixed right-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
-            <div
-                class="mx-3 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg md:w-3/5 lg:w-4/12">
-                <h2><strong>Are you sure you want to delete your uploaded document?</strong></h2>
-                <form action="" wire:submit="deleteDocuPostYes">
-                    <input type="text" hidden wire:model="deletedPostID " value="{{ $docuPostID }}">
-                    <input type="text" hidden wire:model="userPostID" value="{{ $userPostID }}">
-                    <h1><em>{{ $postitle }}</em></h1>
-                    <h1> {{ $docuPostID }}</h1>
-                    <div class="flex w-full flex-col items-center justify-center gap-2 md:flex-row">
-                        <button
-                            class="w-full rounded-md border border-red-700 bg-white p-2 duration-200 hover:bg-red-100"
-                            wire:click.prevent="closeDeletePostBox">Close</button>
-                        <button
-                            class="w-full rounded-md bg-red-700 p-2 text-white duration-300 ease-in-out hover:bg-red-900"
-                            type="submit">Yes</button>
-                    </div>
-                </form>
-            </div>
+            class="mx-3 mt-16 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center text-gray-600 drop-shadow-lg md:w-3/5 lg:w-4/12">
+            <h2><strong>Are you sure you want to delete your uploaded document?</strong></h2>
+            <form action="" wire:submit="deleteDocuPostYes">
+                <input type="text" hidden wire:model="userPostID" value="{{ $userPostID }}">
+                <h1>{{ $postitle }}</h1>
+                <div class="mt-4 flex w-full flex-col items-center justify-center gap-2 md:flex-row">
+                    <div class="w-full cursor-pointer rounded-md border border-red-700 bg-white p-2 duration-200 hover:bg-red-100"
+                        @click=" deleteFile  = false ">Close</div>
+                    <button
+                        class="w-full rounded-md bg-red-700 p-2 text-white duration-300 ease-in-out hover:bg-red-900"
+                        type="submit">Yes</button>
+                </div>
+            </form>
         </div>
-    @endif
+    </div>
+
 
     <x-session_flash />
     <div class="container mb-4">
