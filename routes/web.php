@@ -35,12 +35,19 @@ Route::get('/skeleton', function () {
 // Route::post('/logout', 'logout')->name('user.logout');
 // Route::post('/login/process', 'loginProcess')->name('login-process');
 // });
+Route::prefix('help')->group(function () {
+    Route::get('/main', function () {
+        return view('pages.user.help-and-support-user');
+    })->name('help-and-support');
+    Route::get('/account-management', function () {
+        return view('pages.user.help-and-support-pages.account-help-support');
+    })->name('account-help-center');
 
+
+});
 Route::post('/create', [UserController::class, 'create'])->name('user.create');
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
-Route::get('/help-and-suport', function () {
-    return view('pages.user.help-and-support-user');
-})->name('help-and-support');
+
 Route::post('/login/process', [UserController::class, 'loginProcess'])->name('login-process');
 Route::get('/profile/{username?}', [UserController::class, 'viewUser'])->name('user-profile');
 

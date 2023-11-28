@@ -5,7 +5,7 @@
         class="relative grid flex-grow grid-flow-row-dense grid-cols-7 gap-4 overflow-hidden px-7 py-2 text-primary-color md:mx-8 md:my-2 md:px-0">
         <!-- Row 1, Column 1 -->
         <div class="z-10 col-span-7 flex flex-col justify-center md:col-span-7 lg:col-span-4">
-            <h1 class="text-6xl font-black md:text-7xl">THESIS <span class="text-secondary-color">KIOSK</span></h1>
+            <h1 class="text-6xl font-black md:text-8xl">THESIS <span class="text-secondary-color">KIOSK</span></h1>
         </div>
         <!-- Row 2, Column 1 -->
         <div
