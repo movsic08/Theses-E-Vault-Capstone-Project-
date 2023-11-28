@@ -16,10 +16,7 @@ use Livewire\Component;
 class ViewDocuPost extends Component
 {
     public $citation;
-    public function citeMe()
-    {
-        $this->dispatch('open-shr');
-    }
+
 
     public $parameter, $data, $authenticatedUser;
 
@@ -36,7 +33,11 @@ class ViewDocuPost extends Component
     {
         $this->data->update(['view_count' => \DB::raw('COALESCE(view_count, 0) + 1')]);
     }
-
+    public function citeMe()
+    {
+        $this->dispatch('open-shr');
+        $this->data->increment('citation_count');
+    }
     public $isBookmarked;
 
     public function checkBookmark()
@@ -334,11 +335,12 @@ class ViewDocuPost extends Component
     }
 
     public $InputPDFKey = 'Generate key';
+    protected $debug = true;
 
     public function generatePDFKey($id)
     {
         if (!auth()->check()) {
-            request()->session()->flash('message', 'You need to sign in first');
+            return request()->session()->flash('message', 'You need to sign in first');
         } else {
             $checkInfoData = empty($this->authenticatedUser->last_name && $this->authenticatedUser->first_name && $this->authenticatedUser->last_name &&
                 $this->authenticatedUser->address &&
@@ -347,10 +349,10 @@ class ViewDocuPost extends Component
                 $this->authenticatedUser->bachelor_degree);
 
             if ($checkInfoData) {
-                request()->session()->flash('message', 'Account information details are incomplete, fill out now here.');
+                return request()->session()->flash('message', 'Account information details are incomplete, fill out now here.');
             } else {
                 if ($this->authenticatedUser->is_verified == 0) {
-                    request()->session()->flash('message', 'Verify your account now to enjoy the full features for free.');
+                    return request()->session()->flash('message', 'Verify your account now to enjoy the full features for free.');
                 } else {
                     $isKeyGenerated = PdfKey::where('docu_post_id', $id)
                         ->where('user_id', $this->authenticatedUser->id)
@@ -360,7 +362,7 @@ class ViewDocuPost extends Component
                     if ($isKeyGenerated) {
                         $isKeyGenerated->delete();
                     }
-                    $this->keyGenerator($id);
+                    return $this->keyGenerator($id);
                 }
             }
         }

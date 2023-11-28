@@ -2,8 +2,9 @@
     @section('title', $data->title)
     <x-session_flash />
 
-    {{-- @include('livewire.partials.cite-this-modal') --}}
-    <x-user_modals.report-docu-comment-modal :reportingCommentData='$reportingCommentData'></x-user_modals.report-docu-comment-modal>
+    @include('livewire.partials.cite-this-modal')
+    @include('components.user_modals.report-docu-comment-modal')
+    {{-- <x-user_modals.report-docu-comment-modal :reportingCommentData='$reportingCommentData'></x-user_modals.report-docu-comment-modal> --}}
 
     <div class="container">
         <div class="my-2 flex w-full items-center justify-between">
@@ -189,7 +190,7 @@
                             class="border-t border-slate-200 pt-4 md:w-1/2 md:border-l md:border-t-0 md:border-slate-200 md:pl-4 md:pt-0 lg:w-full lg:border-l-0 lg:border-t lg:border-slate-200 lg:pl-0 lg:pt-4">
                             <div class="flex w-full items-start justify-between">
                                 <strong class="uppercase">pdf viewer key</strong>
-                                <button wire:click='generatePDFKey({{ $data->id }})'
+                                <button wire:click.prevent='generatePDFKey({{ $data->id }})'
                                     class="rounded-md bg-blue-800 px-3 py-2 text-xs text-white duration-300 ease-in-out hover:bg-primary-color 2xl:text-sm">Generate
                                     key</button>
                             </div>
@@ -257,81 +258,8 @@
             </div>
         </section>
         {{-- comment --}}
-        <div class="lg:hidden">
-            <section class="mt-4 flex flex-col gap-2">
-                <div class="col-span-4 rounded-lg bg-white p-6 drop-shadow-lg lg:col-span-3">
-                    <form action="">
-                        <div class="flex w-full items-center justify-center gap-2">
-                            <textarea class="w-full rounded-lg border-2 border-primary-color bg-gray-100 p-2" name=""
-                                placeholder="What's on your mind?" id="autoresizing"></textarea>
-                            <script type="text/javascript">
-                                $('#autoresizing').on('input', function() {
-                                    this.style.height = 'auto';
-
-                                    this.style.height =
-                                        (this.scrollHeight) + 'px';
-                                });
-                            </script>
-                            <input class="w-fit rounded-lg bg-primary-color p-2 text-white" type="submit"
-                                value="Comment">
-                        </div>
-                    </form>
-                </div>
-                {{-- comment area --}}
-                @foreach ($comments as $commentsItem)
-                    @php
-                        $commentAuthorDetails = App\Models\User::where('id', $commentsItem->user_id)->first();
-                        $fullname = $commentAuthorDetails->first_name . ' ' . $commentAuthorDetails->last_name;
-
-                    @endphp
-                    <div class="rounded-xl bg-white px-4 py-2 drop-shadow-md" wire:poll.10s="$refresh">
-                        <div class="flex w-full">
-                            <img src="{{ empty($commentAuthorDetails->profile_picture) ? asset('assets/default_profile.png') : asset('storage/' . $commentAuthorDetails->profile_picture) }}"
-                                class="mr-2 h-8 w-8 rounded-full object-cover" alt="user profile" srcset="">
-                            <div class="w-full">
-                                <div class="flex w-full flex-col leading-tight">
-                                    <div class="flex w-full justify-between">
-                                        <strong>{{ $fullname }}</strong>
-                                        @if ($commentAuthorDetails->role_id == 1)
-                                            <span>Student</span>
-                                        @elseif($commentAuthorDetails->role_id == 1)
-                                            <span>Faculty</span>
-                                        @else
-                                            <span>ERROR!</span>
-                                        @endif
-
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <small>{{ Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
-                                        <small>BSIT</small>
-                                    </div>
-
-                                </div>
-                                <div class="my-2 rounded-md bg-slate-50 py-1">
-                                    <p class="px-1">{{ $commentsItem->comment_content }}</p>
-                                </div>
-                                <div class="flex w-full justify-start">
-                                    <ul class="flex gap-2 text-xs">
-                                        <li
-                                            class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                            Edit</li>
-                                        <li wire:click='deleteComment({{ $commentsItem->id }})'
-                                            class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                            Delete</li>
-                                        <li
-                                            class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                            Reply</li>
-                                        <li wire:click='showReportBox({{ $commentsItem->id }})'
-                                            class="cursor-pointer transition duration-200 ease-in-out hover:font-semibold">
-                                            Report</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                @endforeach
-            </section>
+        <div class="mt-4 lg:hidden">
+            @include('livewire.partials.comment-area-mobile-version')
         </div>
     </div>
 </div>

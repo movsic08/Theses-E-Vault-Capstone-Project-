@@ -1,5 +1,6 @@
 <div class="relative">
     {{-- intro.js --}}
+
     <head>
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/intro.js/introjs.css">
         <script src="https://unpkg.com/intro.js/intro.js"></script>
@@ -8,21 +9,21 @@
             .introjs-tooltip {
                 background: rgba(10, 38, 71, 0.9);
                 color: #fff;
-                padding: 10px; 
+                padding: 10px;
                 border-radius: 10px;
                 backdrop-filter: blur(10px);
                 z-index: 1000;
             }
         </style>
     </head>
-    @if($showGuide)
-    <script>
-        startGuide();
-    </script>
+    @if ($showGuide)
+        <script>
+            startGuide();
+        </script>
     @endif
 
     @section('title', 'Home')
-    
+
     <x-session_flash />
 
     <div class="container">
@@ -67,7 +68,7 @@
                     </section>
                 @else
                     <div class="mt-6">
-                        
+
                         <div
                             class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md">
                             <p class="flex flex-col text-xs leading-3 md:text-base">
