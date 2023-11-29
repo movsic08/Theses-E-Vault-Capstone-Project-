@@ -121,7 +121,7 @@
                  <div x-show="openTab === 'profile'" class="text-primary-color">
                      <!-- profile Settings Content -->
                      <h2 class="mb-4 text-2xl font-bold capitalize">profile Settings</h2>
-                     @include('livewire\admin\components\setting-partials\edit-admin-profile-partials')
+                     @include('livewire.admin.components.setting-partials.edit-admin-profile-partials')
                  </div>
                  <div x-show="openTab === 'password'" class="text-primary-color">
                      <!-- password Settings Content -->
@@ -138,12 +138,12 @@
                  <div x-show="openTab === 'documentType'" class="text-primary-color">
                      <!-- documentType Settings Content -->
                      <h2 class="mb-4 text-2xl font-bold capitalize">documentType Settings</h2>
-                     @include('livewire\admin\components\setting-partials\documentTypes-partials')
+                     @include('livewire.admin.components.setting-partials.documentTypes-partials')
                  </div>
                  <div x-show="openTab === 'watermarkConfig'" class="text-primary-color">
                      <!-- watermarkConfig Settings Content -->
                      <h2 class="mb-4 text-2xl font-bold capitalize">watermarkConfig Settings</h2>
-                     @include('livewire\admin\components\setting-partials\watermark-partials')
+                     @include('livewire.admin.components.setting-partials.watermark-partials')
                  </div>
                  <div x-show="openTab === 'filterWords'" class="text-primary-color">
                      <!-- filterWords Settings Content -->
