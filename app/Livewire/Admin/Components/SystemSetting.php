@@ -128,7 +128,7 @@ class SystemSetting extends Component
             'email' => 'required|email|unique:users,email,' . Auth::id(),
         ], [
             'bachelor_degree_input.required' => 'Please select your department',
-            'staff_id.regex' => 'The staff ID must be in the format "XX-AC-XXXX".',
+            'staff_id.regex' => 'The Employee ID must be in the format "XX-AC-XXXX".',
             'phone_no.regex' => 'This phone number must start with "09" and have 11 digits.',
             'phone_no.unique' => 'This phone number has already been taken.',
             'staff_id.unique' => 'This staff ID has already been taken, if you think this is mistaken contact admin.',

@@ -190,8 +190,8 @@ class EditProfile extends Component
     public function addUrl()
     {
         $this->validate([
-            'facebook_url' => 'url',
-            'ig_url' => 'url',
+            'facebook_url' => 'nullable|url',
+            'ig_url' => 'nullable|url',
         ], [
             'facebook_url.url' => 'The Facebook URL is not valid',
             'ig_url.url' => 'The Instagram URL is not valid',
