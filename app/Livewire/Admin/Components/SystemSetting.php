@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Components;
 
 use App\Models\BachelorDegree;
+use App\Models\DocuPostType;
 use App\Models\SettingWatermark;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -181,10 +182,97 @@ class SystemSetting extends Component
             $this->reset('confirmationInput');
         });
     }
+
+    public function openAddNewDocumentType()
+    {
+        $this->dispatch('open-ndt');
+    }
+    public function cancelNewDocumentType()
+    {
+        $this->dispatch('close-ndt');
+    }
+    public $docuType = 'default', $bgColor = "#0A2647", $textColor = "#FFFFFF";
+
+    public function returnDefaultValueDocuType()
+    {
+        $this->docuType = 'default';
+        $this->bgColor = "#0A2647";
+        $this->textColor = "#FFFFFF";
+        $this->currentEditingDocuTypeId = '';
+        $this->editingDocuType = false;
+    }
+
+    public function saveEditingDocuType()
+    {
+        $this->validate([
+            'docuType' => 'required|not_in:default', // Replace 'not default value' with 'not_in:default'
+            'bgColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that bgColor is a valid hex color code
+            'textColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that textColor is a valid hex color code
+        ], [
+            'docuType.not_in' => 'Enter a new document type.'
+        ]);
+        $isUpdated = DocuPostType::where('id', $this->currentEditingDocuTypeId)->update([
+            'document_type_name' => $this->docuType,
+            'text_color' => $this->textColor,
+            'bg_color' => $this->bgColor
+        ]);
+
+        if ($isUpdated) {
+            session()->flash('success', 'Update success.');
+            $this->returnDefaultValueDocuType();
+            return $this->dispatch('close-ndt');
+        } else {
+            $this->dispatch('close-ndt');
+            $this->returnDefaultValueDocuType();
+            return session()->flash('error', 'Something went wrong in saving, contact developer.');
+        }
+    }
+
+    public $currentEditingDocuTypeId;
+    public function editDocuType($id)
+    {
+        $editingDataDocuType = DocuPostType::where('id', $id)->first();
+        if ($editingDataDocuType) {
+            $this->dispatch('open-ndt');
+            $this->editingDocuType = true;
+            $this->docuType = $editingDataDocuType->document_type_name;
+            $this->bgColor = $editingDataDocuType->bg_color;
+            $this->textColor = $editingDataDocuType->text_color;
+            $this->currentEditingDocuTypeId = $editingDataDocuType->id;
+        } else {
+            return session()->flash('error', 'Retrieving data error, contact dev.');
+        }
+    }
+    public function addDocumentType()
+    {
+        $this->validate([
+            'docuType' => 'required|not_in:default', // Replace 'not default value' with 'not_in:default'
+            'bgColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that bgColor is a valid hex color code
+            'textColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that textColor is a valid hex color code
+        ], [
+            'docuType.not_in' => 'Enter a new document type.'
+        ]);
+        $isAdded = DocuPostType::create([
+            'document_type_name' => $this->docuType,
+            'text_color' => $this->textColor,
+            'bg_color' => $this->bgColor
+        ]);
+
+        if ($isAdded) {
+            session()->flash('success', 'Added successfully.');
+            return $this->dispatch('close-ndt');
+        } else {
+            $this->dispatch('close-ndt');
+            return session()->flash('error', 'Something went wrong, contact developer.');
+        }
+
+    }
+
     public function addWatermark()
     {
         $this->dispatch('open-wat');
     }
+
     public function closeAddWatermark()
     {
 
@@ -306,17 +394,54 @@ class SystemSetting extends Component
         return view('livewire.placeholder.setting-skeleton');
     }
 
+    public $deletingDocuId, $docuTypeNameTemp;
+    public function deleteDocuType($id)
+    {
+
+        $findData = DocuPostType::where('id', $id)->first();
+        if ($findData) {
+            $this->docuTypeNameTemp = $findData->document_type_name;
+
+        } else {
+            return session()->flash('error', 'Somethig went wrong in showing delete, contact dev.');
+        }
+        $this->deletingDocuId = $id;
+        $this->dispatch('open-de');
+    }
+
+    public function closeDeleteDocuType()
+    {
+        $this->dispatch('close-de');
+        $this->docuTypeNameTemp = '';
+        $this->deletingDocuId = '';
+    }
+
+    public $editingDocuType = false;
+    public function deleteDocuTypeConfirmed()
+    {
+        $isDeleted = DocuPostType::where('id', $this->deletingDocuId)->delete();
+        if ($isDeleted) {
+            $this->closeDeleteDocuType();
+            return session()->flash('success', 'Delete success.');
+        } else {
+            return session()->flash('error', 'Somethig went wrong in deleting, contact dev.');
+        }
+
+    }
+
     public function render()
     {
         $currentWatermark = SettingWatermark::where('is_set', 1)->first();
         $watermarkList = SettingWatermark::latest()->paginate(5);
         $bachelor_degree_data = BachelorDegree::get();
+        $documentTypes = DocuPostType::get();
         $user = auth()->user();
         return view('livewire.admin.components.system-setting', [
             'user' => $user,
             'watermarkList' => $watermarkList,
             'currentWatermark' => $currentWatermark,
             'bachelor_degree_data' => $bachelor_degree_data,
+            'documentTypes' => $documentTypes
         ]);
     }
 }
