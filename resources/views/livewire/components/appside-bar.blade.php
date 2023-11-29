@@ -139,7 +139,7 @@
             <div 
                 class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="darkmode">
                 <div class="relative w-fit">
-                    <img class="moon cursor-pointer" id="darkmodeSwitch" alt=""
+                    <img class="moon h-8 cursor-pointer" id="darkmodeSwitch" alt=""
                         data-sun-src="{{ asset('Icons/icon-sun.svg') }}"
                         data-moon-src="{{ asset('Icons/icon-moon.svg') }}"
                          />
