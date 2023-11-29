@@ -167,9 +167,10 @@ class SystemSetting extends Component
             Auth::user()->delete();
             return redirect()->route('login')->with('message', 'Your account deleted successfully.');
         } else {
+            session()->flash('error', 'The image must be in PNG format to have a transparency background.');
             return $this->dispatch('close-dla', function () {
                 $this->reset('confirmationInput');
-                session()->flash('error', 'The image must be in PNG format to have a transparency background.');
+
             });
         }
         // dd($adminUserCount);
