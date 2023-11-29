@@ -4,6 +4,8 @@ namespace App\Livewire\Admin\Components;
 
 use App\Models\BachelorDegree;
 use App\Models\DocuPostType;
+use App\Models\FilterWord;
+use App\Models\LoginLog;
 use App\Models\SettingWatermark;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -429,19 +431,30 @@ class SystemSetting extends Component
 
     }
 
+    public $editingFilterWords = false, $sensitiveWord;
+
+    // public function addNewSensitiveWord()
+    // {
+
+    // }
+
     public function render()
     {
         $currentWatermark = SettingWatermark::where('is_set', 1)->first();
         $watermarkList = SettingWatermark::latest()->paginate(5);
         $bachelor_degree_data = BachelorDegree::get();
         $documentTypes = DocuPostType::latest()->paginate(5);
+        $loginlogs = LoginLog::latest()->paginate(6);
+        $filterwords = FilterWord::latest()->paginate(6);
         $user = auth()->user();
         return view('livewire.admin.components.system-setting', [
             'user' => $user,
             'watermarkList' => $watermarkList,
             'currentWatermark' => $currentWatermark,
             'bachelor_degree_data' => $bachelor_degree_data,
-            'documentTypes' => $documentTypes
+            'documentTypes' => $documentTypes,
+            'loginlogs' => $loginlogs,
+            'filterwords' => $filterwords,
         ]);
     }
 }

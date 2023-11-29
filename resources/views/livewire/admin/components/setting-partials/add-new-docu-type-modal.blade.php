@@ -19,16 +19,16 @@
               </div>
 
               <div class="my-2 flex w-full flex-col px-2">
-                  <x-label-input class="">Document type </x-label-input>
-                  <x-input-field type="text" class="w-full" wire:model.live="docuType" />
+                  <x-label-input for="docuType" class="">Document type </x-label-input>
+                  <x-input-field type="text" for="docuType" class="w-full" wire:model.live="docuType" />
                   @error('docuType')
                       <small class="text-red-500">{{ $message }}</small>
                   @enderror
-                  <x-label-input class="mt-2">Text color</x-label-input>
-                  <x-input-field type="color" wire:model.live="textColor" class="h-10 w-full" />
+                  <x-label-input class="mt-2" for="textColor">Text color</x-label-input>
+                  <x-input-field type="color" id="textColor" wire:model.live="textColor" class="h-10 w-full" />
 
-                  <x-label-input class="mt-2">Background color</x-label-input>
-                  <x-input-field type="color" class="h-10 w-full" wire:model.live="bgColor" />
+                  <x-label-input class="mt-2" for="bgColor">Background color</x-label-input>
+                  <x-input-field type="color" id="bgColor" class="h-10 w-full" wire:model.live="bgColor" />
               </div>
 
               <div class="mt-6 flex w-full flex-col gap-2 md:flex-row">

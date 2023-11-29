@@ -14,8 +14,11 @@
          {{-- delete docu type modal --}}
          @include('livewire.admin.components.setting-partials.delete-document-type-modal')
 
+         {{-- add new filter words modal --}}
+         @include('livewire.admin.components.setting-partials.add-edit-filter-words')
 
-         <div x-data="{ openTab: 'documentType' }"
+
+         <div x-data="{ openTab: 'filterWords' }"
              class="mt-2 flex h-fit min-h-[36rem] flex-col rounded-xl bg-white drop-shadow-xl md:h-[30rem] lg:h-[36rem] lg:flex-row">
              <!-- Sidebar -->
              <div class="flex w-full capitalize lg:w-1/5 lg:border-r lg:border-slate-200">
@@ -127,30 +130,33 @@
                      <h2 class="mb-4 text-xl font-bold capitalize">profile Settings</h2>
                      @include('livewire.admin.components.setting-partials.edit-admin-profile-partials')
                  </div>
+
                  <div x-show="openTab === 'password'" class="text-primary-color">
                      <!-- password Settings Content -->
                      <h2 class="mb-4 text-xl font-bold capitalize">password Settings</h2>
                      @include('livewire.admin.components.setting-partials.securityTab-partials')
                  </div>
 
-
                  <div x-show="openTab === 'documentType'" class="text-primary-color">
                      <!-- documentType Settings Content -->
-
                      @include('livewire.admin.components.setting-partials.documentTypes-partials')
                  </div>
+
                  <div x-show="openTab === 'watermarkConfig'" class="text-primary-color">
                      <!-- watermarkConfig Settings Content -->
                      <h2 class="mb-4 text-xl font-bold capitalize">watermarkConfig Settings</h2>
                      @include('livewire.admin.components.setting-partials.watermark-partials')
                  </div>
+
                  <div x-show="openTab === 'filterWords'" class="text-primary-color">
                      <!-- filterWords Settings Content -->
-                     <h2 class="mb-4 text-xl font-semibold capitalize">filterWords Settings</h2>
+                     @include('livewire.admin.components.setting-partials.filter-words-setting-partials')
                  </div>
+
                  <div x-show="openTab === 'loginLogs'" class="text-primary-color">
                      <!-- loginLogs Settings Content -->
                      <h2 class="mb-4 text-xl font-semibold capitalize">Login logs Settings</h2>
+                     @include('livewire.admin.components.setting-partials.login-logs-partials')
                  </div>
              </div>
          </div>
