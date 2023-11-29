@@ -17,11 +17,11 @@
 
             <p class="mb-2">Copy the link below:</p>
             <textarea class="custom-scrollbar w-full rounded-md border border-gray-400 p-2 text-sm outline-primary-color"
-                type="text" wire:model.live="citation" rows="8" placeholder="Abstract or summary of your work"></textarea>
+                id="citeTxt" type="text" wire:model.live="citation" rows="8" placeholder="Abstract or summary of your work"></textarea>
 
         </div>
         <div class="flex w-full justify-end font-bold">
-            <button class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
+            <button wire:click="copyCite" class="rounded bg-blue-500 px-4 py-2 text-white duration-300 hover:bg-blue-800">Copy Link</button>
         </div>
 
     </div>

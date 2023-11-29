@@ -59,15 +59,16 @@ class BorrowedBooks extends Component
                 $dataToDump[] = [
                     'Date' => $borrower->created_at->format('M d Y'),
                     'Name' => $borrower->name,
-                    'Course and Year Level' => 'N/A', // Replace with the actual value from your data
-                    'Category of Collections' => $borrower->category,
+                    'Course and Year Level' => $borrower->course_year_level,
+                    'Category' => $borrower->category,
+                    'Collections' => $borrower->collection,
                     'Title' => $borrower->title,
                     'Authors' => $borrower->author,
                     'Reference' => $borrower->reference,
                 ];
             }
         }
-
+        // dd($dataToDump);
         // Create a new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
@@ -78,7 +79,8 @@ class BorrowedBooks extends Component
             'Date',
             'Name',
             'Course and Year Level',
-            'Category of Collections',
+            'Category',
+            'Collections',
             'Title',
             'Authors',
             'Reference',

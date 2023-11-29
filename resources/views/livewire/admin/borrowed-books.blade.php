@@ -23,7 +23,6 @@
                         <option selected value="all">General</option>
                         <option value="month-and-year-only">Student</option>
                         <option value="month-and-year-only">Employee</option>
-
                     </select>
                 </div>
                 <div class="mr-2 flex items-center">
@@ -31,7 +30,8 @@
                     <x-input-field class="ml-2" wire:model.live='findByDate' type="date" name=""
                         id="Date" />
                 </div>
-                <div class="rounded-md bg-green-950 p-2 text-white">Excel</div>
+                <button wire:click="exportFilev2" class="rounded-md bg-green-950 p-2 text-white">Excel</button>
+                </div>
                 <div class="rounded-md bg-sky-950 p-2 text-white">Summary</div>
             </div>
         </div>
