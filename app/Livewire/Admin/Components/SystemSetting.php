@@ -167,7 +167,7 @@ class SystemSetting extends Component
             Auth::user()->delete();
             return redirect()->route('login')->with('message', 'Your account deleted successfully.');
         } else {
-            session()->flash('error', 'The image must be in PNG format to have a transparency background.');
+            session()->flash('error', 'Deleting the admin account is not allowed as it is the only admin account.');
             return $this->dispatch('close-dla', function () {
                 $this->reset('confirmationInput');
 
