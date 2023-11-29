@@ -64,7 +64,7 @@ class BorrowedBooks extends Component
                 $dataToDump[] = [
                     'Date' => $borrower->created_at->format('M d Y'),
                     'Name' => $borrower->name,
-                    'Course and Year Level' => $borrower->course_year_level,
+                    'YEAR LEVEL AND COURSE' => $borrower->course_year_level,
                     'Category' => $borrower->category,
                     'Collections' => $borrower->collection,
                     'Title' => $borrower->title,
@@ -83,7 +83,7 @@ class BorrowedBooks extends Component
         $columnNames = [
             'Date',
             'Name',
-            'Course and Year Level',
+            'YEAR LEVEL AND COURSE',
             'Category',
             'Collections',
             'Title',
