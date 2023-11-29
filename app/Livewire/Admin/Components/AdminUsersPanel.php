@@ -301,11 +301,25 @@ class AdminUsersPanel extends Component
 
     public function deleteUser($userID)
     {
-        $userVerification = User::where('id', $userID)->first();
 
-        if (auth()->user()->is_admin == 1 && $userVerification->is_admin == 1) {
-            request()->session()->flash('error', 'You cannot delete your own account');
+        $userVerification = User::where('id', $userID)->first();
+        $adminUserCount = User::where('is_admin', 1)->count();
+        if (auth()->user()->is_admin == 1 && $userVerification->is_admin == 1 && $userVerification->id == auth()->user()->id) {
+            $this->dispatch('close-del', );
+            return request()->session()->flash('error', 'You cannot delete your own account, go to admin setting for your deletion.');
         } else {
+
+            if ($userVerification->is_admin == 1) {
+                if ($adminUserCount > 1) {
+                    $userVerification->delete();
+                    request()->session()->flash('success', 'User deleted successfully.');
+                    return $this->dispatch('close-del');
+                } else {
+                    session()->flash('error', 'Deleting the admin account is not allowed as it is the only admin account.');
+                    return $this->dispatch('close-del');
+                }
+            }
+
             $isDeleted = $userVerification->delete();
 
             if ($isDeleted) {

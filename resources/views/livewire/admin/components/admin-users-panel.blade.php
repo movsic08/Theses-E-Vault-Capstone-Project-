@@ -1,6 +1,5 @@
 <div class="">
     <div class="container">
-    hello
         {{-- modal for adding new department --}}
         @if ($newDepartmentBox)
             <div

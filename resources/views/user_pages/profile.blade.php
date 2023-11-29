@@ -109,7 +109,8 @@
                                     <strong class="uppercase text-primary-color">Social Media</strong>
                                     <div class="flex items-center gap-1 text-primary-color">
                                         <a class="duration-200 ease-in-out hover:text-blue-800"
-                                            href="https://{{ $checkedAccount->facebook_url }}"target="_blank"
+                                            href="{{ $checkedAccount->facebook_url == null ? '#' : $checkedAccount->facebook_url }}"
+                                            {{ $checkedAccount->facebook_url == null ? '' : 'target="_blank"' }}
                                             rel="noopener noreferrer">
                                             <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +119,8 @@
                                                 </path>
                                             </svg></a>
                                         <a class="duration-200 ease-in-out hover:text-pink-600"
-                                            href="https://{{ $checkedAccount->ig_url }}" target="_blank"
+                                            href="{{ $checkedAccount->ig_url == null ? '#' : $checkedAccount->ig_url }}"
+                                            {{ $checkedAccount->ig_url == null ? '' : 'target="_blank"' }}
                                             rel="noopener noreferrer">
                                             <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">

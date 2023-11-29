@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::create('login_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('is_admin')->default(0);
             $table->timestamp('login_time');
             $table->timestamps();

@@ -116,7 +116,8 @@
     </div>
     <div class="flex gap-6 text-primary-color">
         <div class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg md:w-1/2">
-            <a href="https://{{ $user->facebook_url }}" target="_blank"
+            <a href="{{ $user->facebook_url == null ? '#' : $user->facebook_url }}"
+                {{ $user->facebook_url == null ? '' : 'target="_blank"' }}
                 class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-blue-600">
                 <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -128,7 +129,8 @@
             </a>
         </div>
         <div class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg md:w-1/2">
-            <a href="https://{{ $user->ig_url }}" target="_blank"
+            <a href="{{ $user->ig_url == null ? '#' : $user->ig_url }}"
+                {{ $user->ig_url == null ? '' : 'target="_blank"' }}
                 class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-pink-600">
                 <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">

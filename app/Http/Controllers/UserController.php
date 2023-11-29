@@ -15,13 +15,15 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function register(){
+    public function register()
+    {
         return view('user_pages.signup');
     }
 
     //creating account
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $validated = $request->validate([
             'username' => ['required', 'min:4', Rule::unique('users', 'username')],
             'first_name' => ['required', 'min:2'],
@@ -72,7 +74,8 @@ class UserController extends Controller
 
     //logout
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $is_admin = auth()->user()->is_admin;
         auth()->logout();
 
@@ -89,13 +92,15 @@ class UserController extends Controller
 
     //login
 
-    public function login(){
+    public function login()
+    {
         return view('user_pages.login');
     }
 
     //loginProcess
 
-    public function loginProcess(Request $request){
+    public function loginProcess(Request $request)
+    {
         $validated = $request->validate([
             'email' => ['required', 'email'],
             'password' => 'required',
@@ -119,7 +124,7 @@ class UserController extends Controller
                 // Set cookies for email and password if "Remember Me" is checked
                 setcookie("email", $validated['email']);
                 setcookie("password", $validated['password']);
-            }else{
+            } else {
                 setcookie("email", "");
                 setcookie("password", "");
             }
@@ -127,18 +132,18 @@ class UserController extends Controller
             $request->session()->regenerate();
             $user = auth()->user();
 
-            // $existingLog = LoginLog::where('user_id', auth()->user()->id)
-            //     ->whereDate('login_time', Carbon::today())
-            //     ->first();
+            $existingLog = LoginLog::where('user_id', auth()->user()->id)
+                ->whereDate('login_time', Carbon::today())
+                ->first();
 
-            // // If no existing log, create a new one
-            // if (!$existingLog) {
-            //     LoginLog::create([
-            //         'user_id' => auth()->user()->id,
-            //         'login_time' => now(),
-            //         'is_admin' => auth()->user()->is_admin == 1
-            //     ]);
-            // }
+            // If no existing log, create a new one
+            if (!$existingLog) {
+                LoginLog::create([
+                    'user_id' => auth()->user()->id,
+                    'login_time' => now(),
+                    'is_admin' => auth()->user()->is_admin == 1
+                ]);
+            }
 
             if ($user->is_admin) {
                 return redirect()->route('admin-home')->with('message', 'Welcome back, Admin ' . $user->email . '!');
@@ -146,20 +151,22 @@ class UserController extends Controller
                 return redirect()->intended(route('home'))->with('message', 'Welcome back, ' . $user->email . '!');
             }
         }
-        
+
         return back()->withErrors(['email' => 'You entered invalid credentials'])->onlyInput('email');
     }
 
     // show all student
 
-    public function studentList(){
+    public function studentList()
+    {
         $users = User::all();
         $bachelor_degree = BachelorDegree::all();
         // dd( $users );
         return view('admin.pages.user-list', compact('users', 'bachelor_degree'))->with('title', 'List of users');
     }
 
-    public function addNewUser(Request $request){
+    public function addNewUser(Request $request)
+    {
         // dd( $request );
         $validated = $request->validate([
             'username' => ['required', 'min:4'],
@@ -187,7 +194,8 @@ class UserController extends Controller
 
     }
 
-    public function viewUser($username){
+    public function viewUser($username)
+    {
         // dd( $username );
 
         $checkedAccount = User::where('username', $username)

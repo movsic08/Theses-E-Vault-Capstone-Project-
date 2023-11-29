@@ -2,13 +2,19 @@
 
 namespace App\Livewire\Admin\Components;
 
+use App\Models\BachelorDegree;
+use App\Models\DocuPostType;
+use App\Models\FilterWord;
+use App\Models\LoginLog;
 use App\Models\SettingWatermark;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Hash;
 
 class SystemSetting extends Component
 {
@@ -17,15 +23,8 @@ class SystemSetting extends Component
 
     #[Url()]
     public $tab = 'profile';
-
-    public function switchTab($tab)
-    {
-        $this->tab = $tab;
-        // $this->dispatch('popstate', $tab);
-    }
-
-
-    public $first_name, $last_name, $phone_no, $staff_id, $username, $bio, $address, $email;
+    public $first_name, $last_name, $phone_no, $staff_id, $username, $bio, $address, $email, $bachelor_degree_input = '';
+    public $profile_picture;
     public function mount()
     {
         $user = auth()->user();
@@ -35,10 +34,79 @@ class SystemSetting extends Component
         $this->phone_no = $user->phone_no;
         $this->staff_id = $user->staff_id;
         $this->username = $user->username;
+        $this->bachelor_degree_input = $user->bachelor_degree;
         $this->bio = $user->bio;
         $this->address = $user->address;
         $this->email = $user->email;
     }
+    public function switchTab($tab)
+    {
+        $this->tab = $tab;
+        // $this->dispatch('popstate', $tab);
+    }
+
+    public function showProfileUpload()
+    {
+        $this->dispatch('open-dp');
+    }
+    public function changeProfile()
+    {
+        $user = auth()->user();
+        if ($this->profile_picture) {
+            $this->validate([
+                'profile_picture' => 'image|max:4024',
+            ]);
+            $extension = $this->profile_picture->getClientOriginalExtension();
+            $currentDate = date('MjY');
+            $customFileName = $user->last_name . '-' . $user->first_name . $currentDate . '.' . $extension;
+            // $imagePath = $this->profile_picture->storeAs( 'profile_pictures', $customFileName, 'public' );
+            $imagePath = $this->profile_picture->storeAs('profile_pictures', $customFileName, 'public');
+            Auth::user()->update(['profile_picture' => $imagePath]);
+
+            // $this->dispatch('profilePictureUpdated');
+            $user->refresh();
+            request()->session()->flash('message', 'Profile picture changed successfully.');
+        } else {
+            request()->session()->flash('message', 'There is problem uploading your image, try again.');
+        }
+
+        return $this->dispatch('close-dp');
+    }
+    public function closeProfile()
+    {
+        $this->dispatch('close-dp', function () {
+            $this->reset($this->profile_picture);
+            // }
+        });
+    }
+    public $current_password, $password, $password_confirmation;
+    public function changePassword()
+    {
+        $this->validate(
+            [
+                'current_password' => 'required',
+                'password' => ['required', 'min:8', 'confirmed', 'different:current_password'],
+            ],
+            [
+                'password.confirmed' => 'Password is not match!',
+            ]
+        );
+
+        $user = Auth::user();
+        if (Hash::check($this->current_password, $user->password)) {
+            $user->update([
+                'password' => Hash::make($this->password),
+            ]);
+            session()->flash('message', 'Password changed successfully.');
+        } else {
+            session()->flash('message', 'Incorrect old password.');
+        }
+        $this->reset(['current_password', 'password', 'password_confirmation']);
+
+    }
+
+
+
     // public function boot()
     // {
     //     $user = auth()->user();
@@ -59,20 +127,22 @@ class SystemSetting extends Component
             'username' => ['required', 'min:2'],
             'bio' => ['required', 'min:2'],
             'address' => ['required', 'min:5'],
-            // 'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'bachelor_degree_input' => ['required'],
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
         ], [
-            'staff_id.regex' => 'The staff ID must be in the format "XX-AC-XXXX".',
+            'bachelor_degree_input.required' => 'Please select your department',
+            'staff_id.regex' => 'The Employee ID must be in the format "XX-AC-XXXX".',
             'phone_no.regex' => 'This phone number must start with "09" and have 11 digits.',
             'phone_no.unique' => 'This phone number has already been taken.',
             'staff_id.unique' => 'This staff ID has already been taken, if you think this is mistaken contact admin.',
         ]);
 
-        // dd('dito 2');
 
         $isUpdated = Auth::user()->update([
             'first_name' => ucfirst($this->first_name),
             'last_name' => ucfirst($this->last_name),
-            // 'email' => $this->email,
+            'email' => $this->email,
+            'bachelor_degree' => $this->bachelor_degree_input,
             'bio' => $this->bio,
             'phone_no' => $this->phone_no,
             'staff_id' => $this->staff_id,
@@ -88,11 +158,123 @@ class SystemSetting extends Component
 
 
     }
+    public $confirmationInput;
+    public function showdelBox()
+    {
+        $this->dispatch('open-dla');
+    }
+    public function deletemyAccount()
+    {
+        $adminUserCount = User::where('is_admin', 1)->count();
+        if ($adminUserCount > 1) {
+            Auth::user()->delete();
+            return redirect()->route('login')->with('message', 'Your account deleted successfully.');
+        } else {
+            session()->flash('error', 'Deleting the admin account is not allowed as it is the only admin account.');
+            return $this->dispatch('close-dla', function () {
+                $this->reset('confirmationInput');
+
+            });
+        }
+        // dd($adminUserCount);
+    }
+    public function closeDelBox()
+    {
+        $this->dispatch('close-dla', function () {
+            $this->reset('confirmationInput');
+        });
+    }
+
+    public function openAddNewDocumentType()
+    {
+        $this->dispatch('open-ndt');
+    }
+    public function cancelNewDocumentType()
+    {
+        $this->dispatch('close-ndt');
+    }
+    public $docuType = 'default', $bgColor = "#0A2647", $textColor = "#FFFFFF";
+
+    public function returnDefaultValueDocuType()
+    {
+        $this->docuType = 'default';
+        $this->bgColor = "#0A2647";
+        $this->textColor = "#FFFFFF";
+        $this->currentEditingDocuTypeId = '';
+        $this->editingDocuType = false;
+    }
+
+    public function saveEditingDocuType()
+    {
+        $this->validate([
+            'docuType' => 'required|not_in:default', // Replace 'not default value' with 'not_in:default'
+            'bgColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that bgColor is a valid hex color code
+            'textColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that textColor is a valid hex color code
+        ], [
+            'docuType.not_in' => 'Enter a new document type.'
+        ]);
+        $isUpdated = DocuPostType::where('id', $this->currentEditingDocuTypeId)->update([
+            'document_type_name' => $this->docuType,
+            'text_color' => $this->textColor,
+            'bg_color' => $this->bgColor
+        ]);
+
+        if ($isUpdated) {
+            session()->flash('success', 'Update success.');
+            $this->returnDefaultValueDocuType();
+            return $this->dispatch('close-ndt');
+        } else {
+            $this->dispatch('close-ndt');
+            $this->returnDefaultValueDocuType();
+            return session()->flash('error', 'Something went wrong in saving, contact developer.');
+        }
+    }
+
+    public $currentEditingDocuTypeId;
+    public function editDocuType($id)
+    {
+        $editingDataDocuType = DocuPostType::where('id', $id)->first();
+        if ($editingDataDocuType) {
+            $this->dispatch('open-ndt');
+            $this->editingDocuType = true;
+            $this->docuType = $editingDataDocuType->document_type_name;
+            $this->bgColor = $editingDataDocuType->bg_color;
+            $this->textColor = $editingDataDocuType->text_color;
+            $this->currentEditingDocuTypeId = $editingDataDocuType->id;
+        } else {
+            return session()->flash('error', 'Retrieving data error, contact dev.');
+        }
+    }
+    public function addDocumentType()
+    {
+        $this->validate([
+            'docuType' => 'required|not_in:default', // Replace 'not default value' with 'not_in:default'
+            'bgColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that bgColor is a valid hex color code
+            'textColor' => 'required|regex:/#[a-fA-F0-9]{6}/', // Validate that textColor is a valid hex color code
+        ], [
+            'docuType.not_in' => 'Enter a new document type.'
+        ]);
+        $isAdded = DocuPostType::create([
+            'document_type_name' => $this->docuType,
+            'text_color' => $this->textColor,
+            'bg_color' => $this->bgColor
+        ]);
+
+        if ($isAdded) {
+            session()->flash('success', 'Added successfully.');
+            return $this->dispatch('close-ndt');
+        } else {
+            $this->dispatch('close-ndt');
+            return session()->flash('error', 'Something went wrong, contact developer.');
+        }
+
+    }
 
     public function addWatermark()
     {
         $this->dispatch('open-wat');
     }
+
     public function closeAddWatermark()
     {
 
@@ -214,15 +396,65 @@ class SystemSetting extends Component
         return view('livewire.placeholder.setting-skeleton');
     }
 
+    public $deletingDocuId, $docuTypeNameTemp;
+    public function deleteDocuType($id)
+    {
+
+        $findData = DocuPostType::where('id', $id)->first();
+        if ($findData) {
+            $this->docuTypeNameTemp = $findData->document_type_name;
+
+        } else {
+            return session()->flash('error', 'Somethig went wrong in showing delete, contact dev.');
+        }
+        $this->deletingDocuId = $id;
+        $this->dispatch('open-de');
+    }
+
+    public function closeDeleteDocuType()
+    {
+        $this->dispatch('close-de');
+        $this->docuTypeNameTemp = '';
+        $this->deletingDocuId = '';
+    }
+
+    public $editingDocuType = false;
+    public function deleteDocuTypeConfirmed()
+    {
+        $isDeleted = DocuPostType::where('id', $this->deletingDocuId)->delete();
+        if ($isDeleted) {
+            $this->closeDeleteDocuType();
+            return session()->flash('success', 'Delete success.');
+        } else {
+            return session()->flash('error', 'Somethig went wrong in deleting, contact dev.');
+        }
+
+    }
+
+    public $editingFilterWords = false, $sensitiveWord;
+
+    // public function addNewSensitiveWord()
+    // {
+
+    // }
+
     public function render()
     {
         $currentWatermark = SettingWatermark::where('is_set', 1)->first();
         $watermarkList = SettingWatermark::latest()->paginate(5);
+        $bachelor_degree_data = BachelorDegree::get();
+        $documentTypes = DocuPostType::latest()->paginate(5);
+        $loginlogs = LoginLog::latest()->paginate(6);
+        $filterwords = FilterWord::latest()->paginate(6);
         $user = auth()->user();
         return view('livewire.admin.components.system-setting', [
             'user' => $user,
             'watermarkList' => $watermarkList,
             'currentWatermark' => $currentWatermark,
+            'bachelor_degree_data' => $bachelor_degree_data,
+            'documentTypes' => $documentTypes,
+            'loginlogs' => $loginlogs,
+            'filterwords' => $filterwords,
         ]);
     }
 }

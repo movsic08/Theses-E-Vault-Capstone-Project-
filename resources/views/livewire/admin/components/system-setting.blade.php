@@ -1,18 +1,33 @@
  <div class="container">
      <x-session_flash />
      <div class= "mx-4 text-gray-800 md:mx-8 lg:mx-10">
-         <h1 class="text-lg font-bold md:md:text-xl">Settings</h1>
-         <span>Manage account details and customize website preferences </span>
+         <h1 class="text-lg font-bold text-gray-800 md:md:text-xl">Settings</h1>
+         <span class="font-medium">Manage account details and customize website preferences </span>
 
-         <div x-data="{ openTab: 'profile' }"
-             class="mt-2 flex h-fit max-h-[36rem] rounded-xl bg-white drop-shadow-xl md:h-[30rem] md:flex-row lg:h-[36rem]">
+         {{-- confirmation delete box --}}
+         @include('livewire.partials.editProfilePartials.delete-account-box')
+
+         @include('livewire.partials.editProfilePartials.upload-profile')
+         {{-- add new document type modal --}}
+         @include('livewire.admin.components.setting-partials.add-new-docu-type-modal')
+
+         {{-- delete docu type modal --}}
+         @include('livewire.admin.components.setting-partials.delete-document-type-modal')
+
+         {{-- add new filter words modal --}}
+         @include('livewire.admin.components.setting-partials.add-edit-filter-words')
+
+
+         <div x-data="{ openTab: 'filterWords' }"
+             class="mt-2 flex h-fit min-h-[36rem] flex-col rounded-xl bg-white drop-shadow-xl md:h-[30rem] lg:h-[36rem] lg:flex-row">
              <!-- Sidebar -->
-             <div class="w-1/5 capitalize">
-                 <ul class="flex flex-col gap-1 p-4">
-                     <small class="hidden font-medium uppercase text-gray-500 md:block">account</small>
-                     <li>
+             <div class="flex w-full capitalize lg:w-1/5 lg:border-r lg:border-slate-200">
+                 <ul
+                     class="custom-scrollbar flex flex-row items-center gap-2 overflow-x-auto px-4 py-2 lg:flex-col lg:items-start lg:justify-start lg:gap-1 lg:p-4">
+                     <small class="hidden font-medium uppercase text-gray-500 lg:block">account</small>
+                     <li class="w-full">
                          <a @click="openTab = 'profile'" :class="{ 'bg-gray-100 font-bold': openTab === 'profile' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex w-full cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-blue-200 p-1 text-blue-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -25,9 +40,9 @@
                              profile
                          </a>
                      </li>
-                     <li>
+                     <li class="w-full">
                          <a @click="openTab = 'password'" :class="{ 'bg-gray-100 font-bold': openTab === 'password' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex w-full cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-orange-200 p-1 text-orange-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -39,30 +54,15 @@
                              password
                          </a>
                      </li>
-                     <div class="mt-2">
-                         <small class="hidden font-medium uppercase text-gray-500 md:block">System setting</small>
-                         <li>
-                             <a @click="openTab = 'general'"
-                                 :class="{ 'bg-gray-100 font-bold': openTab === 'general' }"
-                                 class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
-                                 <div class="rounded-md bg-gray-200 p-1 text-gray-900">
-                                     <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                         <path d="M8.75 12a3.25 3.25 0 1 1 6.5 0 3.25 3.25 0 0 1-6.5 0Z"></path>
-                                         <path fill-rule="evenodd"
-                                             d="M11.46 1.838a.75.75 0 0 1 1.08 0L15.111 4.5h3.638a.75.75 0 0 1 .75.75v3.638l2.662 2.573a.75.75 0 0 1 0 1.078L19.5 15.111v3.639a.75.75 0 0 1-.75.75h-3.638l-2.573 2.661a.75.75 0 0 1-1.078 0L8.889 19.5H5.25a.75.75 0 0 1-.75-.75v-3.64l-2.66-2.57a.75.75 0 0 1 0-1.078L4.5 8.888V5.25a.75.75 0 0 1 .75-.75h3.64l2.572-2.662ZM12 7.25a4.75 4.75 0 1 0 0 9.5 4.75 4.75 0 0 0 0-9.5Z"
-                                             clip-rule="evenodd"></path>
-                                     </svg>
-                                 </div>
-                                 general
-                             </a>
-                         </li>
+                     <div class="lg:mt-2">
+                         <small class="hidden font-medium uppercase text-gray-500 lg:block">System setting</small>
+
                      </div>
-                     <li>
+                     <li class="w-full">
                          <a @click="openTab = 'documentType'"
                              :class="{ 'bg-gray-100 font-bold': openTab === 'documentType' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
-                             <div class="rounded-md bg-sky-200 p-1 text-sky-900">
+                             class="flex w-full cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-gray-200 p-1 text-gray-700">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
                                      <path
@@ -73,10 +73,10 @@
                              document type
                          </a>
                      </li>
-                     <li>
+                     <li class="w-full">
                          <a @click="openTab = 'watermarkConfig'"
                              :class="{ 'bg-gray-100 font-bold': openTab === 'watermarkConfig' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex w-full cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-sky-200 p-1 text-sky-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -91,37 +91,72 @@
                              watermark Config
                          </a>
                      </li>
+                     <li class="w-full">
+                         <a @click="openTab = 'filterWords'"
+                             :class="{ 'bg-gray-100 font-bold': openTab === 'filterWords' }"
+                             class="flex w-full cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-red-200 p-1 text-red-900">
+                                 <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                     <path
+                                         d="M18.523 4.226a58.727 58.727 0 0 0-13.046 0 1.373 1.373 0 0 0-.915 2.229l3.769 4.659A7.5 7.5 0 0 1 10 15.83v3.142a.75.75 0 0 0 .306.605l2.77 2.032a.58.58 0 0 0 .924-.468V15.83a7.5 7.5 0 0 1 1.669-4.717l3.769-4.66a1.373 1.373 0 0 0-.915-2.228Z">
+                                     </path>
+                                 </svg>
+                             </div>
+                             Filter words
+                         </a>
+                     </li>
+                     <li class="w-full">
+                         <a @click="openTab = 'loginLogs'" :class="{ 'bg-gray-100 font-bold': openTab === 'loginLogs' }"
+                             class="flex w-full cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-blue-200 p-1 text-blue-900">
+                                 <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                     <path fill-rule="evenodd"
+                                         d="M2 3.25a.625.625 0 0 1 .625-.625h2.5a.625.625 0 0 1 0 1.25h-2.5A.625.625 0 0 1 2 3.25Zm5 0a.625.625 0 0 1 .625-.625h12.5a.625.625 0 1 1 0 1.25h-12.5A.625.625 0 0 1 7 3.25Zm-5 2.5a.625.625 0 0 1 .625-.625h2.5a.625.625 0 0 1 0 1.25h-2.5A.625.625 0 0 1 2 5.75Zm5 0a.625.625 0 0 1 .625-.625h11.25a.625.625 0 1 1 0 1.25H7.625A.625.625 0 0 1 7 5.75Zm-5 2.5a.625.625 0 0 1 .625-.625h2.5a.625.625 0 0 1 0 1.25h-2.5A.625.625 0 0 1 2 8.25Zm5 0a.625.625 0 0 1 .625-.625h13.75a.625.625 0 1 1 0 1.25H7.625A.625.625 0 0 1 7 8.25Zm-5 2.5a.625.625 0 0 1 .625-.625h2.5a.625.625 0 1 1 0 1.25h-2.5A.625.625 0 0 1 2 10.75Zm5 0a.625.625 0 0 1 .625-.625h10a.624.624 0 1 1 0 1.25h-10A.625.625 0 0 1 7 10.75Zm-5 2.5a.625.625 0 0 1 .625-.625h2.5a.625.625 0 1 1 0 1.25h-2.5A.625.625 0 0 1 2 13.25Zm5 0a.625.625 0 0 1 .625-.625h10a.624.624 0 1 1 0 1.25h-10A.625.625 0 0 1 7 13.25Zm-5 2.5a.625.625 0 0 1 .625-.625h2.5a.625.625 0 1 1 0 1.25h-2.5A.625.625 0 0 1 2 15.75Zm5 0a.625.625 0 0 1 .625-.625h12.5a.624.624 0 1 1 0 1.25h-12.5A.625.625 0 0 1 7 15.75Zm-5 2.5a.625.625 0 0 1 .625-.625h2.5a.625.625 0 1 1 0 1.25h-2.5A.625.625 0 0 1 2 18.25Zm5 0a.625.625 0 0 1 .625-.625h7.5a.624.624 0 1 1 0 1.25h-7.5A.625.625 0 0 1 7 18.25Zm-5 2.5a.625.625 0 0 1 .625-.625h2.5a.625.625 0 1 1 0 1.25h-2.5A.625.625 0 0 1 2 20.75Zm5 0a.625.625 0 0 1 .625-.625h13.75a.624.624 0 1 1 0 1.25H7.625A.625.625 0 0 1 7 20.75Z"
+                                         clip-rule="evenodd"></path>
+                                 </svg>
+                             </div>
+                             Login logs
+                         </a>
+                     </li>
                  </ul>
              </div>
 
              <!-- Content Area -->
-             <div class="flex-1 p-8">
-                 <div x-show="openTab === 'profile'" class="text-gray-700">
+             <div class="custom-scrollbar my-2 flex-1 overflow-auto px-4 lg:px-6 lg:py-2">
+                 <div x-show="openTab === 'profile'" class="text-primary-color">
                      <!-- profile Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">profile Settings</h2>
-                     @include('livewire\admin\components\setting-partials\edit-admin-profile-partials')
+                     <h2 class="mb-4 text-xl font-bold capitalize">profile Settings</h2>
+                     @include('livewire.admin.components.setting-partials.edit-admin-profile-partials')
                  </div>
-                 <div x-show="openTab === 'password'" class="text-gray-700">
+
+                 <div x-show="openTab === 'password'" class="text-primary-color">
                      <!-- password Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">password Settings</h2>
-                     <p>Your password settings content goes here.</p>
+                     <h2 class="mb-4 text-xl font-bold capitalize">password Settings</h2>
+                     @include('livewire.admin.components.setting-partials.securityTab-partials')
                  </div>
 
-                 <div x-show="openTab === 'general'" class="text-gray-700">
-                     <!-- general Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">general Settings</h2>
-                     <p>Your general settings content goes here.</p>
-                 </div>
-
-                 <div x-show="openTab === 'documentType'" class="text-gray-700">
+                 <div x-show="openTab === 'documentType'" class="text-primary-color">
                      <!-- documentType Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">documentType Settings</h2>
-                     @include('livewire\admin\components\setting-partials\documentTypes-partials')
+                     @include('livewire.admin.components.setting-partials.documentTypes-partials')
                  </div>
-                 <div x-show="openTab === 'watermarkConfig'" class="text-gray-700">
+
+                 <div x-show="openTab === 'watermarkConfig'" class="text-primary-color">
                      <!-- watermarkConfig Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">watermarkConfig Settings</h2>
-                     @include('livewire\admin\components\setting-partials\watermark-partials')
+                     <h2 class="mb-4 text-xl font-bold capitalize">watermarkConfig Settings</h2>
+                     @include('livewire.admin.components.setting-partials.watermark-partials')
+                 </div>
+
+                 <div x-show="openTab === 'filterWords'" class="text-primary-color">
+                     <!-- filterWords Settings Content -->
+                     @include('livewire.admin.components.setting-partials.filter-words-setting-partials')
+                 </div>
+
+                 <div x-show="openTab === 'loginLogs'" class="text-primary-color">
+                     <!-- loginLogs Settings Content -->
+                     <h2 class="mb-4 text-xl font-semibold capitalize">Login logs Settings</h2>
+                     @include('livewire.admin.components.setting-partials.login-logs-partials')
                  </div>
              </div>
          </div>

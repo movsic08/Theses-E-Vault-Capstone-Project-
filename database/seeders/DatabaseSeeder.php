@@ -7,13 +7,15 @@ use App\Models\User;
 // Import the User model
 use Database\Factories\UserFactory;
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
     /**
-    * Seed the application's database.
-    */
+     * Seed the application's database.
+     */
 
-    public function run() {
-        \App\Models\User::factory( 100 )->create();
+    public function run()
+    {
+        \App\Models\User::factory(5)->create();
         // Use the fully qualified namespace
     }
 }
