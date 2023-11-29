@@ -9,5 +9,5 @@ class BorrowersLogbook extends Model
 {
     use HasFactory;
     protected $table = 'borrowers_logbooks'; // Set the table name
-    protected $fillable = ['name', 'author', 'reference', 'title', 'category'];
+    protected $fillable = ['name', 'author', 'reference', 'title', 'category', 'collection', 'course_year_level'];
 }

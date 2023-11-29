@@ -20,7 +20,7 @@
          {{-- delete sensitive word modal --}}
          @include('livewire.admin.components.setting-partials.delete-senstive-word-modal')
 
-         <div x-data="{ openTab: 'filterWords' }"
+         <div x-data="{ openTab: 'profile' }"
              class="mt-2 flex h-fit min-h-[36rem] flex-col rounded-xl bg-white drop-shadow-xl md:h-[30rem] lg:h-[36rem] lg:flex-row">
              <!-- Sidebar -->
              <div class="flex w-full capitalize lg:w-1/5 lg:border-r lg:border-slate-200">

@@ -85,6 +85,9 @@ class PdfViewerSecurity extends Component
                                     }
 
                                     $borrowerFullName = $this->authenticatedUser->first_name . ' ' . $this->authenticatedUser->last_name;
+                                    $collection = $this->authenticatedUser->role_id == 1 ? 'Student' : 'Employee';
+                                    $course_year_level = $this->authenticatedUser->year . ' - ' . $this->authenticatedUser->section . ' ' . $this->authenticatedUser->bachelor_degree;
+
 
                                     $isLogCreated = BorrowersLogbook::where('reference', $findDocuData->reference)
                                         ->where('name', $borrowerFullName)
@@ -93,16 +96,18 @@ class PdfViewerSecurity extends Component
                                     if ($isLogCreated) {
                                         request()->session()->flash('message', 'PDF is unlock.');
                                     } else {
-                                        $createBorrowersLog = BorrowersLogbook::create([
+
+
+                                        BorrowersLogbook::create([
                                             'name' => $borrowerFullName,
                                             'title' => $findDocuData->title,
                                             'author' => $findDocuData->author_1,
+                                            'collection' => $collection,
+                                            'course_year_level' => $course_year_level,
                                             'reference' => $findDocuData->reference,
                                             'category' => $findDocuData->document_type
                                         ]);
-                                        if ($createBorrowersLog) {
-                                            request()->session()->flash('message', 'logbook created');
-                                        }
+
                                     }
                                     $this->PDFlocked = false;
                                     $this->unlockPDF = true;
