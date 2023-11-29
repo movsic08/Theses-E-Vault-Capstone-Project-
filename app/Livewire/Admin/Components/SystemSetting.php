@@ -4,12 +4,14 @@ namespace App\Livewire\Admin\Components;
 
 use App\Models\BachelorDegree;
 use App\Models\SettingWatermark;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Hash;
 
 class SystemSetting extends Component
 {
@@ -74,7 +76,31 @@ class SystemSetting extends Component
             // }
         });
     }
+    public $current_password, $password, $password_confirmation;
+    public function changePassword()
+    {
+        $this->validate(
+            [
+                'current_password' => 'required',
+                'password' => ['required', 'min:8', 'confirmed', 'different:current_password'],
+            ],
+            [
+                'password.confirmed' => 'Password is not match!',
+            ]
+        );
 
+        $user = Auth::user();
+        if (Hash::check($this->current_password, $user->password)) {
+            $user->update([
+                'password' => Hash::make($this->password),
+            ]);
+            session()->flash('message', 'Password changed successfully.');
+        } else {
+            session()->flash('message', 'Incorrect old password.');
+        }
+        $this->reset(['current_password', 'password', 'password_confirmation']);
+
+    }
 
 
 
@@ -129,7 +155,31 @@ class SystemSetting extends Component
 
 
     }
-
+    public $confirmationInput;
+    public function showdelBox()
+    {
+        $this->dispatch('open-dla');
+    }
+    public function deletemyAccount()
+    {
+        $adminUserCount = User::where('is_admin', 1)->count();
+        if ($adminUserCount > 1) {
+            Auth::user()->delete();
+            return redirect()->route('login')->with('message', 'Your account deleted successfully.');
+        } else {
+            return $this->dispatch('close-dla', function () {
+                $this->reset('confirmationInput');
+                session()->flash('error', 'The image must be in PNG format to have a transparency background.');
+            });
+        }
+        // dd($adminUserCount);
+    }
+    public function closeDelBox()
+    {
+        $this->dispatch('close-dla', function () {
+            $this->reset('confirmationInput');
+        });
+    }
     public function addWatermark()
     {
         $this->dispatch('open-wat');

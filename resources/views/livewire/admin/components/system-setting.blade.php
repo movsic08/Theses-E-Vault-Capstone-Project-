@@ -4,10 +4,11 @@
          <h1 class="text-lg font-bold text-gray-800 md:md:text-xl">Settings</h1>
          <span class="font-medium">Manage account details and customize website preferences </span>
 
-
+         {{-- confirmation delete box --}}
+         @include('livewire.partials.editProfilePartials.delete-account-box')
 
          @include('livewire.partials.editProfilePartials.upload-profile')
-         <div x-data="{ openTab: 'profile' }"
+         <div x-data="{ openTab: 'password' }"
              class="mt-2 flex h-fit min-h-[36rem] flex-col rounded-xl bg-white drop-shadow-xl md:h-[30rem] lg:h-[36rem] lg:flex-row">
              <!-- Sidebar -->
              <div class="flex w-full capitalize lg:w-1/5 lg:border-r lg:border-slate-200">
@@ -126,7 +127,7 @@
                  <div x-show="openTab === 'password'" class="text-primary-color">
                      <!-- password Settings Content -->
                      <h2 class="mb-4 text-2xl font-bold capitalize">password Settings</h2>
-                     <p>Your password settings content goes here.</p>
+                     @include('livewire.admin.components.setting-partials.securityTab-partials')
                  </div>
 
                  <div x-show="openTab === 'general'" class="text-primary-color">
