@@ -4,8 +4,9 @@
          <h1 class="text-lg font-bold text-gray-800 md:md:text-xl">Settings</h1>
          <span class="font-medium">Manage account details and customize website preferences </span>
 
-         @include('livewire.partials.editProfilePartials.upload-profile')
 
+
+         @include('livewire.partials.editProfilePartials.upload-profile')
          <div x-data="{ openTab: 'profile' }"
              class="mt-2 flex h-fit min-h-[36rem] flex-col rounded-xl bg-white drop-shadow-xl md:h-[30rem] lg:h-[36rem] lg:flex-row">
              <!-- Sidebar -->
