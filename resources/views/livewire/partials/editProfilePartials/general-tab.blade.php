@@ -56,7 +56,7 @@
                      <option value="" selected>Select block</option>
                      <option class="text-sm" value="A">A</option>
                      <option class="text-sm" value="B">B</option>
-                     <option class="text-sm" value="C">III</option>
+                     <option class="text-sm" value="C">C</option>
                      <option class="text-sm" value="D">D</option>
                  </select>
                  @error('section')

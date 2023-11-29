@@ -148,6 +148,9 @@ class UploadDocument extends Component
     }
     public function uploadDocument()
     {
+        if (auth()->user()->is_verified == 0) {
+            return session()->flash('error', 'Your account is not verified, can\'t procceed. Verify you account first.');
+        }
 
         $rules = array_merge(
             $this->tab1Rules,

@@ -4,6 +4,7 @@ namespace App\Livewire;
 use Livewire\Attributes\Js;
 use App\Models\BookmarkList;
 use App\Models\ReportedComment;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\DocuPost;
@@ -28,6 +29,7 @@ class ViewDocuPost extends Component
         $this->data = DocuPost::where('reference', $this->parameter)->first();
         $this->citation = $this->data->recommended_citation;
     }
+
 
     public function booted()
     {

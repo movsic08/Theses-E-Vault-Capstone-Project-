@@ -43,7 +43,7 @@
                                 <div class="flex w-full flex-col items-center justify-center">
                                     <div class="flex flex-col items-center justify-center gap-2">
                                         <img class="h-[7rem]" src="{{ asset('icons/logo.svg') }}" alt="">
-                                        <strong class="text-5xl font-black uppercase text-primary-color">Thesis
+                                        <strong class="text-5xl font-black uppercase text-primary-color">Theses
                                             <span class="text-secondary-color">Kiosk</span></strong>
                                     </div>
                                     <div class="mt-4 flex w-full flex-col items-center gap-2">

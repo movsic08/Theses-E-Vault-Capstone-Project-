@@ -15,14 +15,15 @@
                     <span
                         class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
                 </div>
-              
+
                 <div class="mr-2 flex items-center">
                     <x-label-input class="mr-2">Items</x-label-input>
-                    <select x-model="itemCategory"
+                    <select x-model="itemCategory" wire:model.live='categoryQuery'
                         class="block h-9 w-fit rounded-lg border border-gray-300 bg-gray-50 px-2 py-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                        <option selected value="all">General</option>
-                        <option value="month-and-year-only">Student</option>
-                        <option value="month-and-year-only">Employee</option>
+                        <option selected value="all">All</option>
+                        <option value="student">Student</option>
+                        <option value="employee">Employee</option>
+
                     </select>
                 </div>
                 <div class="mr-2 flex items-center">
@@ -50,7 +51,7 @@
                         </th>
                         <th
                             class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            Course and year level
+                            year level and Course
                         </th>
                         <th
                             class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
@@ -80,9 +81,6 @@
                 <tbody class="divide-y divide-gray-200 rounded-xl bg-white">
                     @foreach ($borrowerBooksLists as $item)
                         <tr>
-                            @php
-                                $borrowerType = rand(0, 1) ? 'Employee' : 'Student';
-                            @endphp
                             <td class="whitespace-nowrap px-6 py-4 text-sm font-medium leading-5 text-gray-500">
                                 {{ \Carbon\Carbon::parse($item->created_att)->format('M d Y') }}
                             </td>
@@ -92,16 +90,10 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                @if ($borrowerType === 'Student')
-                                    {{ ['I', 'II', 'III', 'IV'][rand(0, 3)] . '-' . ['A', 'B', 'C'][rand(0, 2)] }}
-                                @elseif ($borrowerType === 'Employee')
-                                    {{ $item->course }}
-                                @endif
-
-
+                                {{ $item->course_year_level }}
                             </td>
                             <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                {{ $borrowerType }}
+                                {{ $item->collection }}
                             </td>
                             <td class="px-6 py-4 text-sm leading-5 text-gray-500">
                                 {{ $item->category }}

@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('author');
             $table->string('reference');
+            $table->string('colletion');
+            $table->string('course_year_level');
             $table->string('title');
             $table->string('category');
             $table->timestamps(); // Adds created_at and updated_at columns

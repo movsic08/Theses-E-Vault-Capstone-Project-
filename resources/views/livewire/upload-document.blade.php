@@ -1,4 +1,5 @@
 <div class="relative">
+    <x-session_flash />
     <div wire:loading.block wire:target="uploadDocument"
         class="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
         <div class="absolute inset-0 flex items-center justify-center">

@@ -11,20 +11,25 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class BorrowedBooks extends Component
 {
-    public $findByDate;
+    public $findByDate, $categoryQuery = 'all';
     public function render()
     {
         $today = now();
         $query = BorrowersLogbook::query(); // Create a query builder instance
-        $borrowerBooksLists = $query->get(); // Get all records first
+        $borrowerBooksLists = $query->get();
 
         if ($this->findByDate) {
             $query->whereDate('created_at', $this->findByDate); // Apply the date filter
-            $borrowerBooksLists = $query->get(); // Get the filtered results
         } else {
             $query->whereDate('created_at', $today);
             $borrowerBooksLists = $query->get();
         }
+
+        if ($this->categoryQuery != 'all') {
+            $query->where('collection', $this->categoryQuery);
+            $borrowerBooksLists = $query->get();
+        }
+
         return view('livewire.admin.borrowed-books', compact('borrowerBooksLists'));
     }
 
@@ -37,24 +42,24 @@ class BorrowedBooks extends Component
         $query = BorrowersLogbook::query(); // Create a query builder instance
         $borrowerBooksLists = $query->get(); // Get all records first
 
-        
+
         // If a specific date is selected, apply the date filter
         if ($this->findByDate) {
-            $filename = 'Logbook_' . $this->findByDate. '.xlsx';
+            $filename = 'Logbook_' . $this->findByDate . '.xlsx';
             $query->whereDate('created_at', $this->findByDate);
             $borrowerBooksLists = $query->get(); // Get the filtered results
         } else {
-            $filename = 'Logbook_'.$today->format('m-d-Y').'.xlsx';
+            $filename = 'Logbook_' . $today->format('m-d-Y') . '.xlsx';
             $query->whereDate('created_at', $today);
             $borrowerBooksLists = $query->get();
         }
 
-        
+
         // Create an array for data to be exported
         $dataToDump = [];
 
         // Populate the data array
-        if($borrowerBooksLists->count() != 0){
+        if ($borrowerBooksLists->count() != 0) {
             foreach ($borrowerBooksLists as $borrower) {
                 $dataToDump[] = [
                     'Date' => $borrower->created_at->format('M d Y'),
@@ -136,5 +141,5 @@ class BorrowedBooks extends Component
 
         return $response;
     }
-    
+
 }

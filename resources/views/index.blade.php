@@ -5,16 +5,17 @@
         class="relative grid flex-grow grid-flow-row-dense grid-cols-7 gap-4 overflow-hidden px-7 py-2 text-primary-color md:mx-8 md:my-2 md:px-0">
         <!-- Row 1, Column 1 -->
         <div class="z-10 col-span-7 flex flex-col justify-center md:col-span-7 lg:col-span-4">
-            <h1 class="text-6xl font-black md:text-8xl">THESIS <span class="text-secondary-color">KIOSK</span></h1>
+            <h1 class="text-6xl font-black uppercase md:text-8xl">Theses <span class="text-secondary-color">KIOSK</span>
+            </h1>
         </div>
         <!-- Row 2, Column 1 -->
         <div
             class="justify-centermd:col-span-3 z-10 col-span-7 flex items-center md:col-span-4 md:items-start md:justify-center lg:col-span-4">
-            <p class="text-xl font-light md:text-2xl">Welcome to Thesis Kiosk!, a dedicated platform designed to showcase
+            <p class="text-xl font-light md:text-2xl">Welcome to Theses Kiosk!, a dedicated platform designed to showcase
                 exceptional
                 research and
                 scholarly works. Be inspired by the groundbreaking discoveries, critical
-                analyses, and creative endeavors presented by talented undergraduate researchers from esteemed
+                analyses, and creative endeavors researchers from esteemed
                 institutions. Begin your journey of exploration today. </p>
         </div>
         <!-- Row 1, Column 2 -->

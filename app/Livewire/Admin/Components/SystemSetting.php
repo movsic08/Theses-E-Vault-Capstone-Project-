@@ -433,10 +433,93 @@ class SystemSetting extends Component
 
     public $editingFilterWords = false, $sensitiveWord;
 
-    // public function addNewSensitiveWord()
-    // {
+    public function addNewSensitiveWord()
+    {
+        $this->validate(
+            [
+                'sensitiveWord' => 'required|min:2',
+            ],
+            [
+                'sensitiveWord.required' => 'This field should not be empty.',
+                'sensitiveWord.min' => 'This field should not be less than 2.',
+            ]
+        );
 
-    // }
+        $isCreated = FilterWord::create([
+            'word' => $this->sensitiveWord
+        ]);
+
+        if ($isCreated) {
+            if ($this->editingFilterWords) {
+                session()->flash('success', 'Editing success.');
+            } else {
+                session()->flash('success', 'Editing success.');
+            }
+
+        } else {
+            session()->flash('error', 'Adding new sensitive word failed, contact dev.');
+        }
+        $this->closeAddNewSensitiveWord();
+    }
+
+    public function closeAddNewSensitiveWord()
+    {
+        $this->dispatch('close-fw');
+        $this->resetSensitveWord();
+    }
+    public function openAddNewSensitiveWord()
+    {
+        $this->dispatch('open-fw');
+    }
+    public function resetSensitveWord()
+    {
+        $this->sensitiveWord = null;
+    }
+
+    public $deletingSenstiveWordID, $sensitiveWordTemp;
+    public function showDeleteSensitiveWordBox($id)
+    {
+        $this->deletingSenstiveWordID = $id;
+        $findData = FilterWord::where('id', $id)->first();
+
+        if ($findData == null) {
+            return session()->flash('error', 'Retrieving data error, contact dev.');
+        } else {
+            $this->sensitiveWordTemp = $findData->word;
+        }
+        $this->dispatch('open-sw');
+    }
+
+    public function closedeleteSW()
+    {
+        $this->sensitiveWordTemp = '';
+        $this->deletingSenstiveWordID = '';
+        $this->dispatch('close-sw');
+    }
+
+    public function deleteSWConfirmed()
+    {
+        $isDeleted = FilterWord::where('id', $this->deletingSenstiveWordID)->delete();
+        if ($isDeleted) {
+            $this->closedeleteSW();
+            return session()->flash('success', 'Delete success.');
+        } else {
+            return $this->closedeleteSW();
+        }
+    }
+
+    public function editSensitiveWord($id)
+    {
+        $findData = FilterWord::where('id', $id)->first();
+        if ($findData == null) {
+            return session()->flash('error', 'Retrieving data error, contact dev.');
+        } else {
+            $this->editingFilterWords = true;
+            $this->sensitiveWord = $findData->word;
+            $this->dispatch('open-fw');
+        }
+
+    }
 
     public function render()
     {
@@ -444,7 +527,7 @@ class SystemSetting extends Component
         $watermarkList = SettingWatermark::latest()->paginate(5);
         $bachelor_degree_data = BachelorDegree::get();
         $documentTypes = DocuPostType::latest()->paginate(5);
-        $loginlogs = LoginLog::latest()->paginate(6);
+        $loginlogs = LoginLog::latest()->paginate(8);
         $filterwords = FilterWord::latest()->paginate(6);
         $user = auth()->user();
         return view('livewire.admin.components.system-setting', [
