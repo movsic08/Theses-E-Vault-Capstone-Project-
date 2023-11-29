@@ -214,83 +214,86 @@
                 {{-- 3rd div chart and anlaytics --}}
                 <div class="col-span-10 grid grid-cols-10 gap-6">
                     <div class="col-span-4 flex flex-col gap-3">
-                        {{-- file total --}}
-                        <div
-                            class="flex items-center justify-between rounded-2xl bg-primary-color p-2 text-slate-50 drop-shadow-lg">
-                            <div class="flex items-center gap-2">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
-                                    </path>
-                                    <path
-                                        d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
-                                    </path>
-                                </svg>
-                                <strong class="text-4xl">{{ $totalFiles }}</strong>
-                            </div>
-                            <strong class="rounded-xl bg-blue-900 px-3 py-2 text-lg">
-                                Files Uploaded
-                            </strong>
-                        </div>
-                        {{-- file lists --}}
-                        @foreach ($folderInfo as $info)
+                        <div class="flex h-full flex-col justify-between rounded-2xl bg-white p-4 drop-shadow-lg">
+                            {{-- file total --}}
                             <div
-                                class="flex w-full items-center justify-between rounded-2xl bg-white p-2 drop-shadow-lg">
-                                <div class="flex items-center gap-1">
-                                    @php
-                                        $lowercaseFolderName = Str::lower($info['folderName']);
-                                    @endphp
-                                    @if ($lowercaseFolderName == 'pdf_uploads')
-                                        <img src="{{ asset('assets/svgs/pdf.svg') }}" class="h-[3rem] max-h-[3rem]"
-                                            alt="PDF icon">
-                                    @elseif ($lowercaseFolderName == 'profile_pictures')
-                                        <img src="{{ asset('assets/svgs/img.svg') }}" class="h-[3rem] max-h-[3rem]"
-                                            alt="Image icon">
-                                    @elseif ($lowercaseFolderName == 'watermarks')
-                                        <img src="{{ asset('assets/svgs/watermark.svg') }}"
-                                            class="h-[3rem] max-h-[3rem]" alt="Watermark icon">
-                                    @else
-                                        <img src="{{ asset('assets/svgs/folder.svg') }}" class="h-[3rem] max-h-[3rem]"
-                                            alt="Folder icon">
-                                    @endif
-                                    <strong class="h-fit rounded-lg text-blue-800">
-                                        {{ $info['folderName'] }}
-                                    </strong>
+                                class="flex items-center justify-between rounded-2xl bg-primary-color p-2 text-slate-50 drop-shadow-lg">
+                                <div class="flex items-center gap-2">
+                                    <svg class="h-8" fill="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
+                                        </path>
+                                        <path
+                                            d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
+                                        </path>
+                                    </svg>
+                                    <strong class="">Files Uploaded</strong>
                                 </div>
-                                <div class="h-fit rounded-lg bg-blue-100 px-2 py-1 font-bold text-blue-800">
-                                    {{ $info['fileCount'] }}
-                                </div>
+                                <strong class="rounded-xl bg-blue-900 px-3 py-2 text-lg">
+                                    {{ $totalFiles }}
+                                </strong>
                             </div>
-                        @endforeach
-
+                            {{-- file lists --}}
+                            @foreach ($folderInfo as $info)
+                                <div
+                                    class="flex w-full items-center justify-between rounded-2xl bg-blue-50 px-2 py-1 drop-shadow">
+                                    <div class="flex items-center gap-1">
+                                        @php
+                                            $lowercaseFolderName = Str::lower($info['folderName']);
+                                        @endphp
+                                        @if ($lowercaseFolderName == 'pdf_uploads')
+                                            <img src="{{ asset('assets/svgs/pdf.svg') }}"
+                                                class="h-[2.3rem] max-h-[2.3rem]" alt="PDF icon">
+                                        @elseif ($lowercaseFolderName == 'profile_pictures')
+                                            <img src="{{ asset('assets/svgs/img.svg') }}"
+                                                class="h-[2.3rem] max-h-[2.3rem]" alt="Image icon">
+                                        @elseif ($lowercaseFolderName == 'watermarks')
+                                            <img src="{{ asset('assets/svgs/watermark.svg') }}"
+                                                class="h-[2.3rem] max-h-[2.3rem]" alt="Watermark icon">
+                                        @else
+                                            <img src="{{ asset('assets/svgs/folder.svg') }}"
+                                                class="h-[2.3rem] max-h-[2.3rem]" alt="Folder icon">
+                                        @endif
+                                        <strong class="h-fit rounded-lg text-blue-950">
+                                            {{ $info['folderName'] }}
+                                        </strong>
+                                    </div>
+                                    <div
+                                        class="h-fit min-w-[3rem] rounded-lg bg-blue-200 px-2 py-1 text-center font-bold text-blue-950">
+                                        {{ $info['fileCount'] }}
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="col-span-6 flex flex-col gap-6">
                         {{-- created new users --}}
                         <div class="rounded-2xl bg-white p-4 text-gray-500 drop-shadow-lg">
-                            <h1 class="mb-1 text-lg font-semibold uppercase">Newly Created Users</h1>
+                            <h1 class="mb-1 text-lg font-extrabold uppercase text-primary-color">Newly
+                                Created Users
+                            </h1>
                             <div class="custom-scrollbar flex w-full flex-col overflow-x-auto">
                                 <table class="w-full">
                                     <thead>
-                                        <th>
-                                            <tr>
-                                                <td class="px-1">Name</td>
-                                                <td class="px-1">
-                                                    Email
-                                                </td>
-                                                <td class="px-1">Status</td>
-                                                <td class="px-1">Created</td>
-                                            </tr>
+                                        <tr>
+                                            <td class="px-1 font-bold text-gray-800">Name</td>
+                                            <td class="px-1 font-bold text-gray-800">
+                                                Email
+                                            </td>
+                                            <td class="px-1 font-bold text-gray-800">Status</td>
+                                            <td class="px-1 font-bold text-gray-800">Created</td>
+                                        </tr>
                                         </th>
                                     </thead>
                                     <tbody class="w-full">
                                         @foreach ($latestAccounts as $item)
                                             <tr class="">
                                                 <td class="whitespace-nowrap px-1 py-2">
-                                                    <div class="flex items-center gap-1">
-                                                        <img class="h-7 w-7 rounded-full object-cover"
-                                                            src="{{ asset('assets/default_profile.png') }}"
-                                                            alt="">
+                                                    <div class="> <img class= flex items-center gap-1"h-7 w-7
+                                                        rounded-full object-cover"
+                                                        src="{{ asset('assets/default_profile.png') }}"
+                                                        alt="">
                                                         <p class="whitespace-nowrap">
                                                             @if (empty($item->first_name) && empty($item->last_name))
                                                                 <i class="text-red-600">Unfinish</i>
@@ -338,55 +341,56 @@
                     <table class="min-w-full bg-white">
                         <thead class="bg-gray-100 py-1">
                             <tr>
-                                <th class="border-r border-gray-300 px-4 py-2">Title</th>
-                                <th class="border-r border-gray-300 px-4 py-2">Author</th>
-                                <th class="border-r border-gray-300 px-2 py-2">Document Type</th>
-                                <th class="border-r border-gray-300 px-4 py-2">Status</th>
-                                <th class="border-r border-gray-300 px-1 py-2">Date Created</th>
+                                <th class="px-4 py-2 text-left text-primary-color">Title</th>
+                                <th class="px-4 py-2 text-primary-color">Author</th>
+                                <th class="px-2 py-2 text-primary-color">Document Type</th>
+                                <th class="px-4 py-2 text-primary-color">Status</th>
+                                <th class="px-1 py-2 text-primary-color">Date Created</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($latestDocuPostData as $item)
                                 <tr class="bg-gray-50">
-                                    <td
-                                        class="border-r border-gray-300 px-4 py-2 font-semibold duration-300 ease-in hover:text-primary-color">
+                                    <td class="px-4 py-2 font-semibold duration-300 ease-in hover:text-primary-color">
                                         <a wire:navigate
                                             href="{{ route('admin-view-document', ['reference' => $item->reference]) }}">
                                             {{ $item->title }}
                                         </a>
                                     </td>
-                                    <td class="whitespace-nowrap border-r border-gray-300 px-4 py-2">
+                                    <td class="whitespace-nowrap px-4 py-2">
                                         {{ $item->author_1 }}
                                     </td>
-                                    <td class="border-r border-gray-300 px-2 py-2 text-center">
+                                    <td class="px-2 py-2 text-center">
                                         {{ $item->document_type }}
                                     </td>
-                                    <td class="border-r border-gray-300 px-4 py-2 text-center font-medium">
+                                    <td class="px-4 py-2 text-center text-sm font-medium">
                                         @if ($item->status == 0)
-                                            <span class="text-center text-yellow-500">
+                                            <span
+                                                class="rounded-md bg-yellow-100 px-2 py-1 text-center text-yellow-500">
                                                 Pending
                                             </span>
                                         @elseif ($item->status == 1)
-                                            <span class="text-center text-green-600">
+                                            <span class="rounded-md bg-green-100 px-2 py-1 text-center text-green-600">
                                                 Approved
                                             </span>
                                         @elseif ($item->status == 2)
-                                            <span class="text-center text-orange-500">
+                                            <span
+                                                class="rounded-md bg-orange-100 px-2 py-1 text-center text-orange-500">
                                                 Disapproved
                                             </span>
                                         @elseif ($item->status == 3)
-                                            <span class="text-center text-red-500">
+                                            <span class="rounded-md bg-red-100 px-2 py-1 text-center text-red-500">
                                                 Revision
                                             </span>
                                         @elseif ($item->status == 4)
-                                            <span class="text-center text-gray-900">
+                                            <span class="rounded-md bg-gray-100 px-2 py-1 text-center text-gray-900">
                                                 Out of Span
                                             </span>
                                         @endif
 
 
                                     </td>
-                                    <td class="border-r border-gray-300 px-1 py-2 text-sm">
+                                    <td class="whitespace-nowrap border-gray-300 px-1 py-2 text-center text-sm">
                                         {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                                     </td>
                                 </tr>
