@@ -36,11 +36,11 @@
                 <h2 class="text-[1.7rem] font-bold text-white">Alaminos City Campus</h2>
                 <div class="mt-2" x-data="{
                     paragraphs: [
-                        'The gateway to a world of knowledge at your fingertips. We believe that knowledge should be easily accessible and available to all. With Thesis Kiosk, we\'re here to make that a reality.',
+                        'The gateway to a world of knowledge at your fingertips. We believe that knowledge should be easily accessible and available to all. With Theses Kiosk, we\'re here to make that a reality.',
                         'Whether you\'re a student or instructor, our platform simplifies the way you discover, access, and contribute to a wealth of academic works.',
-                        'Your Key to a World of Wisdom. We\'re the doorway to boundless knowledge, where every click opens a new chapter in your academic journey. At Thesis Kiosk, we\'re all about making knowledge accessible, simple, and inspiring.',
+                        'Your Key to a World of Wisdom. We\'re the doorway to boundless knowledge, where every click opens a new chapter in your academic journey. At Theses Kiosk, we\'re all about making knowledge accessible, simple, and inspiring.',
                         'Join us in reshaping the way you connect with the wealth of academic insights, where discovery is just a click away.',
-                        'We are your gateway to unlocking the profound insights within research and theses. At Thesis Kiosk, we\'re dedicated to revolutionizing the way you engage with academia, making it an accessible and enriching experience.'
+                        'We are your gateway to unlocking the profound insights within research and theses. At Theses Kiosk, we\'re dedicated to revolutionizing the way you engage with academia, making it an accessible and enriching experience.'
                     ],
                     currentParagraph: '',
                     currentIndex: 0,
@@ -70,7 +70,7 @@
             <div class="flex flex-col rounded-l-lg rounded-r-lg bg-white p-8 drop-shadow-lg md:w-1/2 md:rounded-l-none">
                 <div class="mt-4 flex items-center justify-center gap-2">
                     <img src="{{ asset('icons/logo.svg') }}" alt="App Ico" srcset="">
-                    <h1 class="text-2xl font-bold uppercase text-primary-color">Thesis Kiosk</h1>
+                    <h1 class="text-2xl font-bold uppercase text-primary-color">Theses Kiosk</h1>
                 </div>
                 <div class="my-4">
                     <p class="text-gray-500">

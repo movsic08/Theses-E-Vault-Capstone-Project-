@@ -51,7 +51,7 @@
                                 <img class="h-10 w-10" src="{{ asset('assets/svgs/notification/comment_report.svg') }}"
                                     alt="comment ico">
                             @endif
-                            <section>
+                            <section class="ml-1">
                                 <strong class="text-primary-color">{{ $item->header_message }}</strong>
                                 <p class="my-1 text-sm text-gray-800 md:text-base">
                                     {!! $item->content_message !!}
