@@ -100,7 +100,7 @@
                 <!-- chart 2nd div -->
                 <div class="col-span-10 grid grid-cols-10 gap-6" wire:ignore>
                     {{-- line graph (usage) --}}
-                    <div class="col-span-7 rounded-2xl bg-white p-4 drop-shadow-lg">
+                    <div class="col-span-10 rounded-2xl bg-white p-4 drop-shadow-lg lg:col-span-7">
                         <!-- component -->
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
 
@@ -181,7 +181,7 @@
                         </script>
                     </div>
                     {{-- donut chart (reported comments) --}}
-                    <div class="col-span-3 h-full rounded-2xl bg-white p-4 drop-shadow-lg">
+                    <div class="col-span-10 h-full rounded-2xl bg-white p-4 drop-shadow-lg lg:col-span-3">
                         <canvas class="h-full w-full" id="chartDoughtnut"></canvas>
                         <!-- Chart pie -->
                         <script>
@@ -213,9 +213,10 @@
                 </div>
                 {{-- 3rd div chart and anlaytics --}}
                 <div class="col-span-10 grid grid-cols-10 gap-6">
-                    <div class="col-span-4 flex flex-col gap-3">
-                        <div class="flex h-full flex-col justify-between rounded-2xl bg-white p-4 drop-shadow-lg">
+                    <div class="col-span-10 flex flex-col gap-3 lg:col-span-4">
+                        <div class="flex h-full flex-col gap-4 rounded-2xl bg-white p-4 drop-shadow-lg">
                             {{-- file total --}}
+                            <strong class="text-lg font-black uppercase text-primary-color">Uploaded file info</strong>
                             <div
                                 class="flex items-center justify-between rounded-2xl bg-primary-color p-2 text-slate-50 drop-shadow-lg">
                                 <div class="flex items-center gap-2">
@@ -267,7 +268,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="col-span-6 flex flex-col gap-6">
+                    <div class="col-span-10 flex flex-col gap-6 lg:col-span-6">
                         {{-- created new users --}}
                         <div class="rounded-2xl bg-white p-4 text-gray-500 drop-shadow-lg">
                             <h1 class="mb-1 text-lg font-extrabold uppercase text-primary-color">Newly
@@ -288,8 +289,8 @@
                                     </thead>
                                     <tbody class="w-full">
                                         @foreach ($latestAccounts as $item)
-                                            <tr class="">
-                                                <td class="whitespace-nowrap px-1 py-2">
+                                            <tr class="mt-10">
+                                                <td class="whitespace-nowrap px-1 py-3">
                                                     <div class="> <img class= flex items-center gap-1"h-7 w-7
                                                         rounded-full object-cover"
                                                         src="{{ asset('assets/default_profile.png') }}"
@@ -304,10 +305,10 @@
                                                         </p>
                                                     </div>
                                                 </td>
-                                                <td class="whitespace-nowrap px-1 py-2">
+                                                <td class="whitespace-nowrap px-1 py-3">
                                                     <p> {{ $item->email }}</p>
                                                 </td>
-                                                <td class="whitespace-nowrap px-1 py-2">
+                                                <td class="whitespace-nowrap px-1 py-3">
                                                     @if ($item->is_verified == 1)
                                                         <div
                                                             class="rounded-full bg-green-100 px-1 py-1 text-center text-xs font-semibold uppercase text-green-800">
@@ -321,7 +322,7 @@
                                                     @endif
 
                                                 </td>
-                                                <td class="whitespace-nowrap px-1 py-2 text-center">
+                                                <td class="whitespace-nowrap px-1 py-3 text-center">
                                                     {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                                                 </td>
                                             </tr>
@@ -337,7 +338,7 @@
                 </div>
                 <!-- 3rd div created documents -->
                 <div
-                    class="col-span-10 overflow-x-auto rounded-2xl border border-gray-300 bg-white text-gray-500 drop-shadow-lg xl:col-span-10">
+                    class="custom-scrollbar col-span-10 overflow-x-auto rounded-2xl border border-gray-300 bg-white text-gray-500 drop-shadow-lg xl:col-span-10">
                     <table class="min-w-full bg-white">
                         <thead class="bg-gray-100 py-1">
                             <tr>

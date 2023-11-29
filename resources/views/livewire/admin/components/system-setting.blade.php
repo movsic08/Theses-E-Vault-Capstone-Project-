@@ -91,6 +91,24 @@
                              watermark Config
                          </a>
                      </li>
+                     <li>
+                         <a @click="openTab = 'filterWords'"
+                             :class="{ 'bg-gray-100 font-bold': openTab === 'filterWords' }"
+                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             <div class="rounded-md bg-sky-200 p-1 text-sky-900">
+                                 <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                     <path fill-rule="evenodd"
+                                         d="M11.052 3.36c.576-.606.948-.96.948-.96.13.436.28.85.445 1.246.974 2.335 2.488 4.02 3.836 5.52 1.572 1.75 2.919 3.248 2.919 5.234a7.2 7.2 0 0 1-14.4 0c0-3.998 4.296-8.98 6.252-11.04Zm.495 1.226a37.473 37.473 0 0 0-2.194 2.602C8.48 8.328 7.629 9.598 7 10.872c-.635 1.288-1 2.494-1 3.528 0 0 3 1.8 6 .6 3-1.2 6-.6 6-.6 0-1.44-.955-2.588-2.617-4.44l-.036-.038c-1.247-1.39-2.747-3.056-3.8-5.336Z"
+                                         clip-rule="evenodd"></path>
+                                     <path fill-rule="evenodd"
+                                         d="M7.863 11.732c.984-1.97 2.06-3.304 2.512-3.756l.85.85c-.348.347-1.354 1.572-2.289 3.443l-1.073-.537Z"
+                                         clip-rule="evenodd"></path>
+                                 </svg>
+                             </div>
+                             Filter words
+                         </a>
+                     </li>
                  </ul>
              </div>
 
@@ -98,30 +116,34 @@
              <div class="flex-1 p-8">
                  <div x-show="openTab === 'profile'" class="text-gray-700">
                      <!-- profile Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">profile Settings</h2>
+                     <h2 class="mb-4 text-2xl font-semibold capitalize">profile Settings</h2>
                      @include('livewire\admin\components\setting-partials\edit-admin-profile-partials')
                  </div>
                  <div x-show="openTab === 'password'" class="text-gray-700">
                      <!-- password Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">password Settings</h2>
+                     <h2 class="mb-4 text-2xl font-semibold capitalize">password Settings</h2>
                      <p>Your password settings content goes here.</p>
                  </div>
 
                  <div x-show="openTab === 'general'" class="text-gray-700">
                      <!-- general Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">general Settings</h2>
+                     <h2 class="mb-4 text-2xl font-semibold capitalize">general Settings</h2>
                      <p>Your general settings content goes here.</p>
                  </div>
 
                  <div x-show="openTab === 'documentType'" class="text-gray-700">
                      <!-- documentType Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">documentType Settings</h2>
+                     <h2 class="mb-4 text-2xl font-semibold capitalize">documentType Settings</h2>
                      @include('livewire\admin\components\setting-partials\documentTypes-partials')
                  </div>
                  <div x-show="openTab === 'watermarkConfig'" class="text-gray-700">
                      <!-- watermarkConfig Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold">watermarkConfig Settings</h2>
+                     <h2 class="mb-4 text-2xl font-semibold capitalize">watermarkConfig Settings</h2>
                      @include('livewire\admin\components\setting-partials\watermark-partials')
+                 </div>
+                 <div x-show="openTab === 'filterWords'" class="text-gray-700">
+                     <!-- filterWords Settings Content -->
+                     <h2 class="mb-4 text-2xl font-semibold capitalize">filterWords Settings</h2>
                  </div>
              </div>
          </div>
