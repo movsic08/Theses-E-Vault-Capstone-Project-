@@ -2,7 +2,7 @@
 
         <section class="container">
             <div class="my-2">
-                <h2>Dashboard</h2>
+                <strong class="text-primary-color">Dashboard</strong>
             </div>
             <div class="mb-6 grid grid-cols-10 gap-6">
                 {{-- 1st div --}}

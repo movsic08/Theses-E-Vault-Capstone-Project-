@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Components;
 
+use App\Models\BachelorDegree;
 use App\Models\SettingWatermark;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
@@ -17,15 +18,8 @@ class SystemSetting extends Component
 
     #[Url()]
     public $tab = 'profile';
-
-    public function switchTab($tab)
-    {
-        $this->tab = $tab;
-        // $this->dispatch('popstate', $tab);
-    }
-
-
-    public $first_name, $last_name, $phone_no, $staff_id, $username, $bio, $address, $email;
+    public $first_name, $last_name, $phone_no, $staff_id, $username, $bio, $address, $email, $bachelor_degree_input = '';
+    public $profile_picture;
     public function mount()
     {
         $user = auth()->user();
@@ -35,10 +29,55 @@ class SystemSetting extends Component
         $this->phone_no = $user->phone_no;
         $this->staff_id = $user->staff_id;
         $this->username = $user->username;
+        $this->bachelor_degree_input = $user->bachelor_degree;
         $this->bio = $user->bio;
         $this->address = $user->address;
         $this->email = $user->email;
     }
+    public function switchTab($tab)
+    {
+        $this->tab = $tab;
+        // $this->dispatch('popstate', $tab);
+    }
+
+    public function showProfileUpload()
+    {
+        $this->dispatch('open-dp');
+    }
+    public function changeProfile()
+    {
+        $user = auth()->user();
+        if ($this->profile_picture) {
+            $this->validate([
+                'profile_picture' => 'image|max:4024',
+            ]);
+            $extension = $this->profile_picture->getClientOriginalExtension();
+            $currentDate = date('MjY');
+            $customFileName = $user->last_name . '-' . $user->first_name . $currentDate . '.' . $extension;
+            // $imagePath = $this->profile_picture->storeAs( 'profile_pictures', $customFileName, 'public' );
+            $imagePath = $this->profile_picture->storeAs('profile_pictures', $customFileName, 'public');
+            Auth::user()->update(['profile_picture' => $imagePath]);
+
+            // $this->dispatch('profilePictureUpdated');
+            $user->refresh();
+            request()->session()->flash('message', 'Profile picture changed successfully.');
+        } else {
+            request()->session()->flash('message', 'There is problem uploading your image, try again.');
+        }
+
+        return $this->dispatch('close-dp');
+    }
+    public function closeProfile()
+    {
+        $this->dispatch('close-dp', function () {
+            $this->reset($this->profile_picture);
+            // }
+        });
+    }
+
+
+
+
     // public function boot()
     // {
     //     $user = auth()->user();
@@ -59,20 +98,22 @@ class SystemSetting extends Component
             'username' => ['required', 'min:2'],
             'bio' => ['required', 'min:2'],
             'address' => ['required', 'min:5'],
-            // 'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'bachelor_degree_input' => ['required'],
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
         ], [
+            'bachelor_degree_input.required' => 'Please select your department',
             'staff_id.regex' => 'The staff ID must be in the format "XX-AC-XXXX".',
             'phone_no.regex' => 'This phone number must start with "09" and have 11 digits.',
             'phone_no.unique' => 'This phone number has already been taken.',
             'staff_id.unique' => 'This staff ID has already been taken, if you think this is mistaken contact admin.',
         ]);
 
-        // dd('dito 2');
 
         $isUpdated = Auth::user()->update([
             'first_name' => ucfirst($this->first_name),
             'last_name' => ucfirst($this->last_name),
-            // 'email' => $this->email,
+            'email' => $this->email,
+            'bachelor_degree' => $this->bachelor_degree_input,
             'bio' => $this->bio,
             'phone_no' => $this->phone_no,
             'staff_id' => $this->staff_id,
@@ -218,11 +259,13 @@ class SystemSetting extends Component
     {
         $currentWatermark = SettingWatermark::where('is_set', 1)->first();
         $watermarkList = SettingWatermark::latest()->paginate(5);
+        $bachelor_degree_data = BachelorDegree::get();
         $user = auth()->user();
         return view('livewire.admin.components.system-setting', [
             'user' => $user,
             'watermarkList' => $watermarkList,
             'currentWatermark' => $currentWatermark,
+            'bachelor_degree_data' => $bachelor_degree_data,
         ]);
     }
 }

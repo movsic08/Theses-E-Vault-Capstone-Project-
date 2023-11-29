@@ -1,18 +1,21 @@
  <div class="container">
      <x-session_flash />
      <div class= "mx-4 text-gray-800 md:mx-8 lg:mx-10">
-         <h1 class="text-lg font-bold md:md:text-xl">Settings</h1>
-         <span>Manage account details and customize website preferences </span>
+         <h1 class="text-lg font-bold text-gray-800 md:md:text-xl">Settings</h1>
+         <span class="font-medium">Manage account details and customize website preferences </span>
+
+         @include('livewire.partials.editProfilePartials.upload-profile')
 
          <div x-data="{ openTab: 'profile' }"
-             class="mt-2 flex h-fit max-h-[36rem] rounded-xl bg-white drop-shadow-xl md:h-[30rem] md:flex-row lg:h-[36rem]">
+             class="mt-2 flex h-fit min-h-[36rem] flex-col rounded-xl bg-white drop-shadow-xl md:h-[30rem] lg:h-[36rem] lg:flex-row">
              <!-- Sidebar -->
-             <div class="w-1/5 capitalize">
-                 <ul class="flex flex-col gap-1 p-4">
-                     <small class="hidden font-medium uppercase text-gray-500 md:block">account</small>
+             <div class="flex w-full capitalize lg:w-1/5 lg:border-r lg:border-slate-200">
+                 <ul
+                     class="custom-scrollbar flex flex-row items-center gap-2 overflow-x-auto px-4 py-2 lg:flex-col lg:items-start lg:justify-start lg:gap-1 lg:p-4">
+                     <small class="hidden font-medium uppercase text-gray-500 lg:block">account</small>
                      <li>
                          <a @click="openTab = 'profile'" :class="{ 'bg-gray-100 font-bold': openTab === 'profile' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-blue-200 p-1 text-blue-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +30,7 @@
                      </li>
                      <li>
                          <a @click="openTab = 'password'" :class="{ 'bg-gray-100 font-bold': openTab === 'password' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-orange-200 p-1 text-orange-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -39,12 +42,12 @@
                              password
                          </a>
                      </li>
-                     <div class="mt-2">
-                         <small class="hidden font-medium uppercase text-gray-500 md:block">System setting</small>
+                     <div class="lg:mt-2">
+                         <small class="hidden font-medium uppercase text-gray-500 lg:block">System setting</small>
                          <li>
                              <a @click="openTab = 'general'"
                                  :class="{ 'bg-gray-100 font-bold': openTab === 'general' }"
-                                 class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                                 class="flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                                  <div class="rounded-md bg-gray-200 p-1 text-gray-900">
                                      <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +64,7 @@
                      <li>
                          <a @click="openTab = 'documentType'"
                              :class="{ 'bg-gray-100 font-bold': openTab === 'documentType' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-sky-200 p-1 text-sky-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +79,7 @@
                      <li>
                          <a @click="openTab = 'watermarkConfig'"
                              :class="{ 'bg-gray-100 font-bold': openTab === 'watermarkConfig' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-sky-200 p-1 text-sky-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +97,7 @@
                      <li>
                          <a @click="openTab = 'filterWords'"
                              :class="{ 'bg-gray-100 font-bold': openTab === 'filterWords' }"
-                             class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
+                             class="flex cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 duration-300 ease-in-out hover:bg-gray-100">
                              <div class="rounded-md bg-sky-200 p-1 text-sky-900">
                                  <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -113,35 +116,35 @@
              </div>
 
              <!-- Content Area -->
-             <div class="flex-1 p-8">
-                 <div x-show="openTab === 'profile'" class="text-gray-700">
+             <div class="custom-scrollbar my-2 flex-1 overflow-auto px-4 lg:px-6 lg:py-2">
+                 <div x-show="openTab === 'profile'" class="text-primary-color">
                      <!-- profile Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold capitalize">profile Settings</h2>
+                     <h2 class="mb-4 text-2xl font-bold capitalize">profile Settings</h2>
                      @include('livewire\admin\components\setting-partials\edit-admin-profile-partials')
                  </div>
-                 <div x-show="openTab === 'password'" class="text-gray-700">
+                 <div x-show="openTab === 'password'" class="text-primary-color">
                      <!-- password Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold capitalize">password Settings</h2>
+                     <h2 class="mb-4 text-2xl font-bold capitalize">password Settings</h2>
                      <p>Your password settings content goes here.</p>
                  </div>
 
-                 <div x-show="openTab === 'general'" class="text-gray-700">
+                 <div x-show="openTab === 'general'" class="text-primary-color">
                      <!-- general Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold capitalize">general Settings</h2>
+                     <h2 class="mb-4 text-2xl font-bold capitalize">general Settings</h2>
                      <p>Your general settings content goes here.</p>
                  </div>
 
-                 <div x-show="openTab === 'documentType'" class="text-gray-700">
+                 <div x-show="openTab === 'documentType'" class="text-primary-color">
                      <!-- documentType Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold capitalize">documentType Settings</h2>
+                     <h2 class="mb-4 text-2xl font-bold capitalize">documentType Settings</h2>
                      @include('livewire\admin\components\setting-partials\documentTypes-partials')
                  </div>
-                 <div x-show="openTab === 'watermarkConfig'" class="text-gray-700">
+                 <div x-show="openTab === 'watermarkConfig'" class="text-primary-color">
                      <!-- watermarkConfig Settings Content -->
-                     <h2 class="mb-4 text-2xl font-semibold capitalize">watermarkConfig Settings</h2>
+                     <h2 class="mb-4 text-2xl font-bold capitalize">watermarkConfig Settings</h2>
                      @include('livewire\admin\components\setting-partials\watermark-partials')
                  </div>
-                 <div x-show="openTab === 'filterWords'" class="text-gray-700">
+                 <div x-show="openTab === 'filterWords'" class="text-primary-color">
                      <!-- filterWords Settings Content -->
                      <h2 class="mb-4 text-2xl font-semibold capitalize">filterWords Settings</h2>
                  </div>
