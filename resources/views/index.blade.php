@@ -15,7 +15,7 @@
                 exceptional
                 research and
                 scholarly works. Be inspired by the groundbreaking discoveries, critical
-                analyses, and creative endeavors presented by talented undergraduate researchers from esteemed
+                analyses, and creative endeavors researchers from esteemed
                 institutions. Begin your journey of exploration today. </p>
         </div>
         <!-- Row 1, Column 2 -->

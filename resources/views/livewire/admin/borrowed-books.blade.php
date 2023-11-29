@@ -31,7 +31,7 @@
                     <x-input-field class="ml-2" wire:model.live='findByDate' type="date" name=""
                         id="Date" />
                 </div>
-                <div class="rounded-md bg-green-950 p-2 text-white">Excel</div>
+                <div class="rounded-md bg-green-950 p-2 text-white" wire:click='exportFilev2'>Excel</div>
                 <div class="rounded-md bg-sky-950 p-2 text-white">Summary</div>
             </div>
         </div>
