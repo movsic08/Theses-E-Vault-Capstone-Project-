@@ -434,7 +434,7 @@ class SystemSetting extends Component
         $currentWatermark = SettingWatermark::where('is_set', 1)->first();
         $watermarkList = SettingWatermark::latest()->paginate(5);
         $bachelor_degree_data = BachelorDegree::get();
-        $documentTypes = DocuPostType::get();
+        $documentTypes = DocuPostType::latest()->paginate(5);
         $user = auth()->user();
         return view('livewire.admin.components.system-setting', [
             'user' => $user,

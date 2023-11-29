@@ -43,21 +43,21 @@
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         <div class="mt-1 w-fit rounded-full px-2 py-1 font-medium text-white"
-                                            style="background-color: {{ $bgColor }}; color: {{ $textColor }}">
+                                            style="background-color: {{ $item->bg_color }}; color: {{ $item->text_color }}">
                                             {{ $item->document_type_name }}
                                         </div>
 
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <div>
+                                        <div class="flex items-center gap-1">
                                             <div class="h-4 w-4" style="background-color: {{ $item->text_color }}">
                                             </div> {{ $item->text_color }}
                                         </div>
 
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <div class="w-1/2 rounded-full" style="background-color:{{ $item->bg_color }} ">
-                                            {{ $item->bg_color }}
+                                        <div class="h-5 w-1/2 rounded-full"
+                                            style="background-color:{{ $item->bg_color }} ">
                                         </div>
 
                                     </td>
@@ -84,7 +84,11 @@
                                 </tr>
                             @endforeach
                         </tbody>
+
                     </table>
+                    <div class="mt-2 flex w-full items-center justify-center">
+                        {{ $documentTypes->links() }}
+                    </div>
                 </div>
             </div>
         </div>
