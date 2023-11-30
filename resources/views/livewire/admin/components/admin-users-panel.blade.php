@@ -370,13 +370,16 @@
             <h1 class="font-black text-primary-color">Accounts</h1>
             <div class="my-2 flex flex-col justify-between gap-2 md:flex-row">
                 <div class="my-1 mt-2 flex gap-6 text-xs text-primary-color md:mt-3 lg:text-base">
-                    <button
+                    <button wire:click.prevent='allUsers'
                         class="{{ $currentQuery == 'allUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">All
                         users</button>
-                    <button
-                        class="{{ $currentQuery == 'verifiedUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">Verified</button>
-                    <button
-                        class="{{ $currentQuery == 'unverifiedUsers' ? 'border-b-2 border-primary-color font-bold' : '' }}">Unverified</button>
+                    <button wire:click.prevent='queryAdmin'
+                        class="{{ $currentQuery == 'admin' ? 'border-b-2 border-primary-color font-bold' : '' }}">Admin</button>
+                    <button wire:click.prevent='queryVerified'
+                        class="{{ $currentQuery == '1' ? 'border-b-2 border-primary-color font-bold' : '' }}">Verified</button>
+                    <button wire:click.prevent='queryUnverified'
+                        class="{{ $currentQuery == '0' ? 'border-b-2 border-primary-color font-bold' : '' }}">Unverified</button>
+
                 </div>
                 <div class="flex gap-4 text-xs lg:text-base">
                     <div wire:click='openNewDepartmentBox'

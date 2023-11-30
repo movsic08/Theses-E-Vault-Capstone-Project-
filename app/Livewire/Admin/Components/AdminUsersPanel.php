@@ -22,7 +22,7 @@ class AdminUsersPanel extends Component
         return view('livewire.placeholder.admin-users-skeleton');
     }
 
-    public $currentQuery;
+
 
     public function mount()
     {
@@ -467,7 +467,26 @@ class AdminUsersPanel extends Component
         return $this->profilePictureOption = false;
     }
 
-    public $hasData;
+    public $hasData, $currentQuery = 'allUsers';
+
+    public function queryVerified()
+    {
+        $this->currentQuery = 1;
+    }
+    public function queryUnverified()
+    {
+        $this->currentQuery = 0;
+    }
+
+    public function queryAdmin()
+    {
+        $this->currentQuery = 'admin';
+    }
+
+    public function allUsers()
+    {
+        $this->currentQuery = 'allUsers';
+    }
     public function render()
     {
         // sleep(1);
@@ -493,8 +512,16 @@ class AdminUsersPanel extends Component
         if ($this->program != "all") {
             $currentListData = $currentListData->where('bachelor_degree', $this->program);
         }
+        if ($this->currentQuery == 'admin') {
+            $currentListData = $currentListData->where('is_admin', 1);
+
+        }
         if ($this->selectedDate) {
             $currentListData = $currentListData->whereDate('created_at', $this->selectedDate);
+        }
+
+        if ($this->currentQuery != 'allUsers') {
+            $currentListData = $currentListData->where('is_verified', $this->currentQuery);
         }
 
         $currentListData = $currentListData->paginate($this->paginate);
