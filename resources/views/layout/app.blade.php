@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="{{ url('icons/logo.svg') }}" type="image/x-icon">
-    
+
     @stack('livewire:scripts')
-    
+
     <script src="{{ asset('js/jQuery.js') }}"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -75,10 +75,10 @@
         </div>
         {{-- Flowbite
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.js" integrity="sha512-Y9Uk9SbwwPXkLHrtpS/aoD0SjErNdsy5EDhW8roeCDg6EBPxmvLbTUGZCvmG2xTyDlGiGLYqGv0953K8+5MgXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-        
-        <script wire:ignore src="{{ asset('js/darkmode.js') }}" defer></script> 
+
+
         @livewireScripts
-        
+
 </body>
 
 </html>

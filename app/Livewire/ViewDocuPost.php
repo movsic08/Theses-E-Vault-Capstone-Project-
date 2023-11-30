@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire;
+
 use Livewire\Attributes\Js;
 use App\Models\BookmarkList;
 use App\Models\ReportedComment;
@@ -369,7 +370,7 @@ class ViewDocuPost extends Component
             }
         }
     }
-    
+
     // public function copyKey($pdfKey){
     //     dd($this->InputPDFKey);
     //     if ($this->InputPDFKey == 'Generate key'){

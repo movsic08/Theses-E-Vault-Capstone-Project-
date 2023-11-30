@@ -79,6 +79,7 @@
 
                                      @endphp
                                      <small>{{ \Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
+                                     {{ dump($commentAuthorDetails->created_at) }}
 
                                      <small>{{ $course }}</small>
                                  </div>

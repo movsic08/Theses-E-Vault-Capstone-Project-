@@ -1,5 +1,8 @@
 <div class="relative hidden md:block" wire:ignore>
     <script src="{{ asset('js/sideBar.js') }}"></script>
+
+    <script wire:ignore src="{{ asset('js/darkmode.js') }}" defer></script>
+
     <div class="sticky top-0 z-50">
         {{-- <script>
             var isExpanded = {{ $isExpanded }};
@@ -30,7 +33,8 @@
             <div class="items-center-remover flex flex-col items-center gap-3 pt-2 text-sm">
                 @auth
                     <a wire:navigate href="{{ route('user-notification') }}"
-                        class="{{ request()->routeIs('user-notification') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="notification" >
+                        class="{{ request()->routeIs('user-notification') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2"
+                        id="notification">
                         <div class="relative w-fit">
                             <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +71,8 @@
                 @endauth
                 {{-- HOME --}}
                 <a wire:navigate href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="home">
+                    class="{{ request()->routeIs('home') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2"
+                    id="home">
                     <div class="relative">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -79,7 +84,8 @@
                 </a>
                 {{-- search --}}
                 <a wire:navigate href="{{ route('user-search') }}"
-                    class="{{ request()->routeIs('user-search') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="search">
+                    class="{{ request()->routeIs('user-search') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2"
+                    id="search">
                     <div class="relative">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M10.8 10.8a2.4 2.4 0 1 1 4.8 0 2.4 2.4 0 0 1-4.8 0Z"></path>
@@ -92,7 +98,8 @@
                 </a>
                 {{-- catalogue --}}
                 <a wire:navigate href="{{ route('user-catalogue') }}"
-                    class="{{ request()->routeIs('user-catalogue') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="catalogue">
+                    class="{{ request()->routeIs('user-catalogue') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2"
+                    id="catalogue">
                     <div class="relative flex items-center justify-center">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +112,8 @@
                 </a>
                 {{-- bookmark --}}
                 <a wire:navigate href="{{ route('user-bookmark') }}"
-                    class="{{ request()->routeIs('user-bookmark') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="bookmark">
+                    class="{{ request()->routeIs('user-bookmark') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2"
+                    id="bookmark">
                     <div class="relative">
                         <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -118,7 +126,8 @@
                 @auth
                     {{-- user/profile --}}
                     <a wire:navigate href="{{ route('user-profile', ['username' => auth()->user()->username]) }}"
-                        class="{{ request()->routeIs('user-profile') && request()->route('username') === auth()->user()->username ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2" id="user">
+                        class="{{ request()->routeIs('user-profile') && request()->route('username') === auth()->user()->username ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} flex items-center rounded-xl p-2"
+                        id="user">
                         <div class="relative">
                             <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 3.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"></path>
@@ -134,29 +143,29 @@
         </section>
         {{-- lower --}}
         <div class="items-center-remover flex flex-col gap-3 pt-2 text-sm">
-            {{-- darkmode switch start--}}
-            
-            <div 
-                class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="darkmode">
+            {{-- darkmode switch start --}}
+
+            <div class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2"
+                id="darkmode">
                 <div class="relative w-fit">
-                    <img class="moon h-8 cursor-pointer" id="darkmodeSwitch" alt=""
+                    <img class="moon h-7 cursor-pointer text-gray-700" id="darkmodeSwitch" alt=""
                         data-sun-src="{{ asset('Icons/icon-sun.svg') }}"
-                        data-moon-src="{{ asset('Icons/icon-moon.svg') }}"
-                         />
+                        data-moon-src="{{ asset('Icons/icon-moon.svg') }}" />
                 </div>
                 <p class="hideName block pl-2 md:hidden" id="modeType">Type</p>
-            </div>    
+            </div>
             {{-- <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M12 11.807A9.002 9.002 0 0 1 10.049 2a9.942 9.942 0 0 0-5.12 2.735c-3.905 3.905-3.905 10.237 0 14.142 3.906 3.906 10.237 3.905 14.143 0a9.946 9.946 0 0 0 2.735-5.119A9.004 9.004 0 0 1 12 11.807Z">
                         </path>
-                    </svg> --}}   
+                    </svg> --}}
             {{-- darkmode switch end --}}
-            
-            
+
+
             <a wire:navigate href="{{ route('help-and-support') }}"
-                class="{{ request()->routeIs('help-and-support') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2" id="helpSupport">
+                class="{{ request()->routeIs('help-and-support') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2"
+                id="helpSupport">
                 <div class="relative w-fit">
                     <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +179,8 @@
             @auth
                 {{-- logout --}}
                 <form action="{{ route('user.logout') }}"
-                    class="flex cursor-pointer rounded-xl p-2 duration-500 ease-in-out hover:bg-slate-300" method="POST" id="logout">
+                    class="flex cursor-pointer rounded-xl p-2 duration-500 ease-in-out hover:bg-slate-300" method="POST"
+                    id="logout">
                     @csrf
                     <button type="submit">
                         <div class="relative">

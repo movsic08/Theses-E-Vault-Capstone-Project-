@@ -9,9 +9,6 @@ $(document).ready(function () {
     // Retrieve the isExpanded state from sessionStorage
     var isExpanded = sessionStorage.getItem("isExpanded") === "true";
 
-    // updateUI();
-    // Function to update the UI based on the isExpanded state
-    // function updateUI() {
     if (isExpanded) {
         sidebarBtn.css({
             transform: "rotate(180deg)",
@@ -30,9 +27,6 @@ $(document).ready(function () {
             // transition: "transform 1s",
         });
     }
-    // }
-
-    // Call the updateUI function to set the initial UI state
 
     sidebarBtn.on("click", function () {
         isExpanded = !isExpanded; // Toggle the flag value
