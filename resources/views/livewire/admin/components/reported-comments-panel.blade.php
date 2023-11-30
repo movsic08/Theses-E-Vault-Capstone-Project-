@@ -189,7 +189,7 @@
                                         </td>
                                         <td class="whitespace-normal p-2 font-medium capitalize text-primary-color">
                                             <div class="flex items-center justify-center gap-1">
-                                                @if ($userReported != null)
+                                                @if ($commentData != null)
                                                     <span wire:click='showBox({{ $item->id }})'
                                                         class="cursor-pointer rounded-md bg-sky-600 p-1 duration-500 ease-in-out hover:bg-sky-800">
                                                         <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
