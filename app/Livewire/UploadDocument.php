@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\DocuPost;
+use App\Models\DocuPostType;
 use App\Models\Notification;
 use App\Models\SettingWatermark;
 use Illuminate\Support\Facades\Auth;
@@ -293,7 +294,11 @@ class UploadDocument extends Component
             $idAdmin = false;
         }
 
+        $documentTypes = DocuPostType::all();
+
         $layout = $idAdmin ? 'layout.admin' : 'layout.app';
-        return view('livewire.upload-document')->layout($layout);
+        return view('livewire.upload-document', [
+            'documentTypes' => $documentTypes,
+        ])->layout($layout);
     }
 }
