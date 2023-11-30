@@ -162,7 +162,7 @@
                                                             $imgLinkReporter = $userReporter->profile_picture;
                                                         }
                                                         if ($userReporter->first_name == null && $userReporter->last_name == null) {
-                                                            $fullNameReporter = 'Deleted user';
+                                                            $fullNameReporter = '<strong class="text-red-700">Deleted user</strong';
                                                         } else {
                                                             $fullNameReporter = $userReporter->first_name . ' ' . $userReporter->last_name;
                                                         }
@@ -189,31 +189,34 @@
                                         </td>
                                         <td class="whitespace-normal p-2 font-medium capitalize text-primary-color">
                                             <div class="flex items-center justify-center gap-1">
-                                                <span wire:click='showBox({{ $item->id }})'
-                                                    class="cursor-pointer rounded-md bg-sky-600 p-1 duration-500 ease-in-out hover:bg-sky-800">
-                                                    <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
-                                                        fill="currentColor" viewBox="0 0 24 24"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M12 14.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z">
-                                                        </path>
-                                                        <path fill-rule="evenodd"
-                                                            d="M.55 12C2.078 7.132 6.626 3.6 12 3.6s9.922 3.532 11.45 8.4c-1.528 4.868-6.076 8.4-11.45 8.4S2.078 16.868.55 12Zm16.25 0a4.8 4.8 0 1 1-9.6 0 4.8 4.8 0 0 1 9.6 0Z"
-                                                            clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </span>
-                                                <span wire:click='addMarkReport({{ $item->id }})'
-                                                    class="hover: cursor-pointer rounded-md bg-yellow-600 p-1 duration-500 ease-in-out hover:bg-yellow-800">
-                                                    <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
-                                                        fill="currentColor" viewBox="0 0 24 24"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd"
-                                                            d="M8.25 5A2.75 2.75 0 0 1 11 2.25h2A2.75 2.75 0 0 1 15.75 5v2a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 7V5ZM11 3.75c-.69 0-1.25.56-1.25 1.25v1.25h4.5V5c0-.69-.56-1.25-1.25-1.25h-2Z"
-                                                            clip-rule="evenodd"></path>
-                                                        <path fill-rule="evenodd"
-                                                            d="M6.487 4.929c.126-.06.267.036.266.176L6.75 7A2.25 2.25 0 0 0 9 9.25h6A2.25 2.25 0 0 0 17.25 7V5.104c0-.14.14-.236.267-.175A3.498 3.498 0 0 1 19.5 8.085v10.49a3.39 3.39 0 0 1-2.972 3.365 36.639 36.639 0 0 1-9.056 0A3.391 3.391 0 0 1 4.5 18.575V8.085a3.5 3.5 0 0 1 1.987-3.156ZM15 12a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 9 12h6Zm-1 3a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 9 15h5Z"
-                                                            clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </span>
+                                                @if ($userReported != null)
+                                                    <span wire:click='showBox({{ $item->id }})'
+                                                        class="cursor-pointer rounded-md bg-sky-600 p-1 duration-500 ease-in-out hover:bg-sky-800">
+                                                        <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
+                                                            fill="currentColor" viewBox="0 0 24 24"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M12 14.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z">
+                                                            </path>
+                                                            <path fill-rule="evenodd"
+                                                                d="M.55 12C2.078 7.132 6.626 3.6 12 3.6s9.922 3.532 11.45 8.4c-1.528 4.868-6.076 8.4-11.45 8.4S2.078 16.868.55 12Zm16.25 0a4.8 4.8 0 1 1-9.6 0 4.8 4.8 0 0 1 9.6 0Z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <span wire:click='addMarkReport({{ $item->id }})'
+                                                        class="hover: cursor-pointer rounded-md bg-yellow-600 p-1 duration-500 ease-in-out hover:bg-yellow-800">
+                                                        <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
+                                                            fill="currentColor" viewBox="0 0 24 24"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M8.25 5A2.75 2.75 0 0 1 11 2.25h2A2.75 2.75 0 0 1 15.75 5v2a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 7V5ZM11 3.75c-.69 0-1.25.56-1.25 1.25v1.25h4.5V5c0-.69-.56-1.25-1.25-1.25h-2Z"
+                                                                clip-rule="evenodd"></path>
+                                                            <path fill-rule="evenodd"
+                                                                d="M6.487 4.929c.126-.06.267.036.266.176L6.75 7A2.25 2.25 0 0 0 9 9.25h6A2.25 2.25 0 0 0 17.25 7V5.104c0-.14.14-.236.267-.175A3.498 3.498 0 0 1 19.5 8.085v10.49a3.39 3.39 0 0 1-2.972 3.365 36.639 36.639 0 0 1-9.056 0A3.391 3.391 0 0 1 4.5 18.575V8.085a3.5 3.5 0 0 1 1.987-3.156ZM15 12a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 9 12h6Zm-1 3a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 9 15h5Z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </span>
+                                                @endif
+
                                                 <span wire:click='showDel({{ $item->id }})'
                                                     class="hover: cursor-pointer rounded-md bg-red-600 p-1 duration-500 ease-in-out hover:bg-red-800">
                                                     <svg class="min-h-[1.1rem] min-w-[1.1rem] text-white"
