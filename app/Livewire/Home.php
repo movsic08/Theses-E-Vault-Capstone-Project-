@@ -51,7 +51,7 @@ class Home extends Component
 
         $this->bachelorDegree = BachelorDegree::all();
 
-        $latestDocuPostData = DocuPost::where('status', 1)->latest()->take(8)->get();
+        $latestDocuPostData = DocuPost::where('status', 1)->latest()->take(5)->get();
 
         $mostViewedDocu = DocuPost::orderBy('view_count', 'desc')
             ->take(5)

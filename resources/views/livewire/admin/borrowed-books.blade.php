@@ -31,90 +31,91 @@
                     <x-input-field class="ml-2" wire:model.live='findByDate' type="date" name=""
                         id="Date" />
                 </div>
-                <button wire:click="exportFilev2" class="rounded-md bg-green-950 p-2 text-white">Excel</button>
-                </div>
-                <div class="rounded-md bg-sky-950 p-2 text-white">Summary</div>
+                <button wire:click="exportFilev2"
+                    class="mr-2 rounded-md bg-green-950 p-2 text-white duration-300 hover:bg-green-600">Excel</button>
             </div>
+            <div class="rounded-md bg-sky-950 p-2 text-white">Summary</div>
         </div>
-        <div class="mb-6 mt-2 rounded-lg drop-shadow-md">
-            <table class="min-w-full divide-y rounded-lg">
-                <!-- Table Head -->
-                <thead>
-                    <tr>
-                        <th
-                            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            Date
-                        </th>
-                        <th
-                            class="bg-gray-50 px-2 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            Name
-                        </th>
-                        <th
-                            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            year level and Course
-                        </th>
-                        <th
-                            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            Category
-                        </th>
-                        <th
-                            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            Collections
-                        </th>
-                        <th
-                            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            Title
-                        </th>
-                        <th
-                            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            Author/s
-                        </th>
-                        <th
-                            class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
-                            reference
-                        </th>
-                    </tr>
-                </thead>
-
-
-                <!-- Table Body -->
-                <tbody class="divide-y divide-gray-200 rounded-xl bg-white">
-                    @foreach ($borrowerBooksLists as $item)
-                        <tr>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm font-medium leading-5 text-gray-500">
-                                {{ \Carbon\Carbon::parse($item->created_att)->format('M d Y') }}
-                            </td>
-                            <td class="px-2 py-4 text-sm leading-5 text-gray-500">
-                                <span class="whitespace-nowrap">
-                                    {{ $item->name }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                {{ $item->course_year_level }}
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                {{ $item->collection }}
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                {{ $item->category }}
-                            </td>
-
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                {{ $item->title }}
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                <span class="whitespace-nowrap">
-                                    {{ $item->author }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-500">
-                                {{ $item->reference }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
     </div>
+    <div class="mb-6 mt-2 rounded-lg drop-shadow-md">
+        <table class="min-w-full divide-y rounded-lg">
+            <!-- Table Head -->
+            <thead>
+                <tr>
+                    <th
+                        class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        Date
+                    </th>
+                    <th
+                        class="bg-gray-50 px-2 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        Name
+                    </th>
+                    <th
+                        class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        year level and Course
+                    </th>
+                    <th
+                        class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        Category
+                    </th>
+                    <th
+                        class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        Collections
+                    </th>
+                    <th
+                        class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        Title
+                    </th>
+                    <th
+                        class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        Author/s
+                    </th>
+                    <th
+                        class="bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase leading-4 tracking-wider text-gray-500">
+                        reference
+                    </th>
+                </tr>
+            </thead>
+
+
+            <!-- Table Body -->
+            <tbody class="divide-y divide-gray-200 rounded-xl bg-white">
+                @foreach ($borrowerBooksLists as $item)
+                    <tr>
+                        <td class="whitespace-nowrap px-6 py-4 text-sm font-medium leading-5 text-gray-500">
+                            {{ \Carbon\Carbon::parse($item->created_att)->format('M d Y') }}
+                        </td>
+                        <td class="px-2 py-4 text-sm leading-5 text-gray-500">
+                            <span class="whitespace-nowrap">
+                                {{ $item->name }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-500">
+                            {{ $item->course_year_level }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-500">
+                            {{ $item->collection }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-500">
+                            {{ $item->category }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-500">
+                            {{ $item->title }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-500">
+                            <span class="whitespace-nowrap">
+                                {{ $item->author }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-500">
+                            {{ $item->reference }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+</div>
 </div>

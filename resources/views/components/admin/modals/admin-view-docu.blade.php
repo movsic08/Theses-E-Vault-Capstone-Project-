@@ -567,7 +567,7 @@
                           </div>
                           <div class="flex w-full items-center gap-1">
                               @if (!empty($dataItem->document_file_url))
-                                  <a href="{{ route('view-pdf-user-temp', [
+                                  <a href="{{ route('view-pdf-admin', [
                                       'title' => $dataItem->title,
                                       'pdfFile' => $dataItem->document_file_url,
                                       //   'docuPostID' => $dataItem->id,

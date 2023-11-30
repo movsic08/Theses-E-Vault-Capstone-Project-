@@ -70,7 +70,7 @@
                     <div class="mt-6">
 
                         <div
-                            class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md">
+                            class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md dark:bg-slate-800">
                             <p class="flex flex-col text-xs leading-3 md:text-base">
                                 <Strong>SHARE YOUR WORKS</Strong>
                                 <small class="text-xs">Looking for something? <a wire:navigate href=""
@@ -371,7 +371,7 @@
                                     d="M18 5.1a1.8 1.8 0 1 1 3.6 0v13.2a1.8 1.8 0 1 1-3.6 0v-.257c-2.594-1.49-5.388-2.211-8.294-2.5l.486 3.255a1.202 1.202 0 0 1-1.18 1.422h-.657a1.2 1.2 0 0 1-1.1-.719l-2.22-4.188-.242-.004A2.416 2.416 0 0 1 2.4 12.9v-2.4a2.424 2.424 0 0 1 2.39-2.415 89.561 89.561 0 0 0 2.98-.09c3.652-.185 7.378-1.02 10.23-2.64V5.1Zm1.2 0v13.2a.6.6 0 1 0 1.2 0V5.1a.6.6 0 1 0-1.2 0ZM18 6.72c-2.812 1.446-6.25 2.21-9.6 2.44v5.079c.216.012.431.026.645.043 3.081.227 6.111.893 8.955 2.392V6.72ZM7.2 14.178V9.222c-.796.029-1.593.05-2.39.062A1.224 1.224 0 0 0 3.6 10.5v2.4c0 .66.538 1.202 1.208 1.21.798.01 1.595.032 2.392.068Zm-.788 1.17 1.93 3.644.013.03h.657l-.002-.018-.532-3.559a80.97 80.97 0 0 0-2.066-.098Z">
                                 </path>
                             </svg>
-                            <strong>top 8 Latest uploaded</strong>
+                            <strong>top 5 Latest uploaded</strong>
                         </div>
                         @if ($latestDocuPostData == null)
                             <section class="p-4">
@@ -385,7 +385,8 @@
                         @else
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($latestDocuPostData as $item)
-                                    <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
+                                    <div
+                                        class="my-3 flex max-h-[10rem] gap-1 overflow-y-auto rounded-lg bg-blue-50 px-2 py-1">
                                         @php
                                             $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $item->document_type)->first();
                                             // dump($findDocuTypeConfig);
