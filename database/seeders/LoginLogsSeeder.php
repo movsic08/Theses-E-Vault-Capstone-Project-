@@ -16,8 +16,8 @@ class LoginLogsSeeder extends Seeder
         DB::table('login_logs')->truncate();
 
         // Generate sample login logs for September to November 2023
-        $startDate = Carbon::parse('2023-09-01');
-        $endDate = Carbon::parse('2023-11-30');
+        $startDate = Carbon::parse('2023-10-25');
+        $endDate = Carbon::parse('2023-12-2');
 
         while ($startDate <= $endDate) {
             // For each day, simulate logins for some users

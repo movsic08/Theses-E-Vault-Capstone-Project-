@@ -2,18 +2,16 @@
 
 namespace App\Livewire\Admin;
 
-use App\Charts\SampleChart;
-use App\Charts\UserLogInsChart;
+use App\Models\LoginLog;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Models\DocuPost;
 use App\Models\ReportedComment;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-
-use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use Livewire\Component;
 
-use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Component
 {
@@ -94,7 +92,7 @@ class Dashboard extends Component
 
         $uploadFilesCount = DocuPost::whereIn('status', [1, 2])
             ->count();
-        $reportedComments = ReportedComment::where('report_status', 0)->count();
+
 
         $pendingPost = DocuPost::where('status', 0)->count();
 
@@ -103,6 +101,25 @@ class Dashboard extends Component
         $totalFiles = $this->getTotalFilesInPublicStorage();
 
         $folderInfo = $this->getFolderInfoInPublic();
+        $fixedReportedComment = ReportedComment::where('report_status', 1)->count();
+        $notFixedReportedComments = ReportedComment::where('report_status', 0)->count();
+
+        $thisWeekMonday = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $thisWeekTuesday = Carbon::now()->startOfWeek()->addDays(1)->format('Y-m-d');
+        $thisWeekWednesday = Carbon::now()->startOfWeek()->addDays(2)->format('Y-m-d');
+        $thisWeekThursday = Carbon::now()->startOfWeek()->addDays(3)->format('Y-m-d');
+        $thisWeekFriday = Carbon::now()->startOfWeek()->addDays(4)->format('Y-m-d');
+        $thisWeekSaturday = Carbon::now()->startOfWeek()->addDays(5)->format('Y-m-d');
+        $thisWeekSunday = Carbon::now()->startOfWeek()->addDays(6)->format('Y-m-d');
+
+        // Get the count of logins for each day of the week
+        $loginCountMonday = LoginLog::whereDate('login_time', $thisWeekMonday)->count();
+        $loginCountTuesday = LoginLog::whereDate('login_time', $thisWeekTuesday)->count();
+        $loginCountWednesday = LoginLog::whereDate('login_time', $thisWeekWednesday)->count();
+        $loginCountThursday = LoginLog::whereDate('login_time', $thisWeekThursday)->count();
+        $loginCountFriday = LoginLog::whereDate('login_time', $thisWeekFriday)->count();
+        $loginCountSaturday = LoginLog::whereDate('login_time', $thisWeekSaturday)->count();
+        $loginCountSunday = LoginLog::whereDate('login_time', $thisWeekSunday)->count();
 
         return view('livewire.admin.dashboard', [
             'latestAccounts' => $latestAccounts,
@@ -111,13 +128,18 @@ class Dashboard extends Component
             'verifiedAccountCount' => $verifiedAccountCount,
             'uploadFilesCount' => $uploadFilesCount,
             'latestDocuPostData' => $latestDocuPostData,
-            'reportedComments' => $reportedComments,
+            'notFixedReportedComments' => $notFixedReportedComments,
             'pendingPost' => $pendingPost,
             'totalFiles' => $totalFiles,
-
+            'fixedReportedComment' => $fixedReportedComment,
             'folderInfo' => $folderInfo,
-
-
+            'loginCountMonday' => $loginCountMonday,
+            'loginCountTuesday' => $loginCountTuesday,
+            'loginCountWednesday' => $loginCountWednesday,
+            'loginCountThursday' => $loginCountThursday,
+            'loginCountFriday' => $loginCountFriday,
+            'loginCountSaturday' => $loginCountSaturday,
+            'loginCountSunday' => $loginCountSunday
         ])->layout('layout.admin');
     }
 }

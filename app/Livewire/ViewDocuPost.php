@@ -205,6 +205,7 @@ class ViewDocuPost extends Component
 
     public function toggleReplyBox($commentId, $commentMainAuthor)
     {
+
         $this->showReplyBox = true;
         $this->targetReply = $commentId;
 

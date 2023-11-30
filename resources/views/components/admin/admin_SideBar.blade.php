@@ -7,7 +7,7 @@
                 <img height="30" width="30" src="{{ asset('icons/logo.svg') }}" alt="logo" srcset="">
                 <h1 class="hideName block text-sm md:hidden">ThesisKIosk</h1>
                 <button id="sidebarBtn" class="absolute -right-7 z-40 hidden md:block">
-                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="" width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-4.375 9.375a.625.625 0 1 0 0 1.25h7.241l-2.684 2.682a.627.627 0 0 0 .886.885l3.75-3.75a.625.625 0 0 0 0-.885l-3.75-3.75a.626.626 0 1 0-.886.886l2.684 2.682H7.625Z">
                         </path>

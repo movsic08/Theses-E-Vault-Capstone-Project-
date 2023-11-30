@@ -4,6 +4,7 @@
             <div class="my-2">
                 <strong class="text-primary-color">Dashboard</strong>
             </div>
+
             <div class="mb-6 grid grid-cols-10 gap-6">
                 {{-- 1st div --}}
                 <div
@@ -96,14 +97,24 @@
                             fill="#B799FF" fill-opacity="0.15" />
                     </svg>
                 </div>
+                <script>
+                    var fixedReportedComment = <?php echo json_encode($fixedReportedComment); ?>;
+                    var notFixedReportedComments = <?php echo json_encode($notFixedReportedComments); ?>;
 
+                    var loginCountMonday = <?php echo json_encode($loginCountMonday); ?>;
+                    var loginCountTuesday = <?php echo json_encode($loginCountTuesday); ?>;
+                    var loginCountWednesday = <?php echo json_encode($loginCountWednesday); ?>;
+                    var loginCountThursday = <?php echo json_encode($loginCountThursday); ?>;
+                    var loginCountFriday = <?php echo json_encode($loginCountFriday); ?>;
+                    var loginCountSaturday = <?php echo json_encode($loginCountSaturday); ?>;
+                    var loginCountSunday = <?php echo json_encode($loginCountSunday); ?>;
+                </script>
                 <!-- chart 2nd div -->
                 <div class="col-span-10 grid grid-cols-10 gap-6" wire:ignore>
                     {{-- line graph (usage) --}}
                     <div class="col-span-10 rounded-2xl bg-white p-4 drop-shadow-lg lg:col-span-7">
                         <!-- component -->
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-
                         <style>
                             @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
                             @import url(https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css);
@@ -147,7 +158,10 @@
                                                 backgroundColor: "rgba(102, 126, 234, 0.25)",
                                                 borderColor: "rgba(102, 126, 234, 1)",
                                                 pointBackgroundColor: "rgba(102, 126, 234, 1)",
-                                                data: [10, 5, 27, 40, 31, 20, 25],
+                                                data: [loginCountMonday, loginCountTuesday, loginCountWednesday,
+                                                    loginCountThursday, loginCountFriday, loginCountSaturday,
+                                                    loginCountSunday
+                                                ],
                                                 tension: 0.3,
                                             }],
                                         },
@@ -189,7 +203,7 @@
                                 labels: ["Fixed reports", "Remaining reports"],
                                 datasets: [{
                                     label: "My First Dataset",
-                                    data: [300, 50],
+                                    data: [fixedReportedComment, notFixedReportedComments],
                                     backgroundColor: [
                                         "#748E63",
                                         "#FA7070",
@@ -367,24 +381,27 @@
                                     <td class="px-4 py-2 text-center text-sm font-medium">
                                         @if ($item->status == 0)
                                             <span
-                                                class="rounded-md bg-yellow-100 px-2 py-1 text-center text-yellow-500">
+                                                class="whitespace-nowrap rounded-md bg-yellow-100 px-2 py-1 text-center text-yellow-500">
                                                 Pending
                                             </span>
                                         @elseif ($item->status == 1)
-                                            <span class="rounded-md bg-green-100 px-2 py-1 text-center text-green-600">
+                                            <span
+                                                class="whitespace-nowrap rounded-md bg-green-100 px-2 py-1 text-center text-green-600">
                                                 Approved
                                             </span>
                                         @elseif ($item->status == 2)
                                             <span
-                                                class="rounded-md bg-orange-100 px-2 py-1 text-center text-orange-500">
+                                                class="whitespace-nowrap rounded-md bg-orange-100 px-2 py-1 text-center text-orange-500">
                                                 Disapproved
                                             </span>
                                         @elseif ($item->status == 3)
-                                            <span class="rounded-md bg-red-100 px-2 py-1 text-center text-red-500">
+                                            <span
+                                                class="whitespace-nowrap rounded-md bg-red-100 px-2 py-1 text-center text-red-500">
                                                 Revision
                                             </span>
                                         @elseif ($item->status == 4)
-                                            <span class="rounded-md bg-gray-100 px-2 py-1 text-center text-gray-900">
+                                            <span
+                                                class="whitespace-nowrap rounded-md bg-gray-100 px-2 py-1 text-center text-gray-900">
                                                 Out of Span
                                             </span>
                                         @endif
