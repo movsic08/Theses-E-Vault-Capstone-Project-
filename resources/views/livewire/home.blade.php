@@ -189,7 +189,7 @@
                                         @endphp
                                         <a href=" {{ route('search-result-page', ['q' => $docuData->document_type]) }} "
                                             target="_blank"
-                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : $findDocuTypeConfig->bg_color . ' ' . $findDocuTypeConfig->text_color }} h-fit w-fit rounded-full px-2 py-1">
+                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : 'bg-[' . $findDocuTypeConfig->bg_color . '] text-[' . $findDocuTypeConfig->text_color . ']' }} h-fit w-fit rounded-full px-2 py-1">
                                             {{ $docuData->document_type }}
                                         </a>
                                         <a href=" {{ route('search-result-page', ['q' => $docuData->course]) }} "
