@@ -188,8 +188,9 @@
                                             // dump($findDocuTypeConfig);
                                         @endphp
                                         <a href=" {{ route('search-result-page', ['q' => $docuData->document_type]) }} "
+                                            style="background-color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->bg_color }}; color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->text_color }}"
                                             target="_blank"
-                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : 'bg-[' . $findDocuTypeConfig->bg_color . '] text-[' . $findDocuTypeConfig->text_color . ']' }} h-fit w-fit rounded-full px-2 py-1">
+                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : '' }} h-fit w-fit rounded-full px-2 py-1">
                                             {{ $docuData->document_type }}
                                         </a>
                                         <a href=" {{ route('search-result-page', ['q' => $docuData->course]) }} "
