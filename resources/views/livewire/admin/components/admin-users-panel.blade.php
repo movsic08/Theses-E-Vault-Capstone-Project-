@@ -539,7 +539,7 @@
                                             {{ \Carbon\Carbon::parse($currentListDataValue->created_at)->format('M d Y') }}
                                         </td>
                                         <td class="whitespace-normal px-1 py-2">
-                                            @if ($currentListDataValue->is_verified == 0)
+                                            @if ($currentListDataValue->is_verified == 0 && $currentListDataValue->is_admin == 0)
                                                 <div
                                                     class="flex w-fit min-w-[6.6rem] flex-row items-center justify-center gap-1 rounded-xl bg-yellow-700 p-1 text-white">
                                                     <svg class="h-4" viewBox="0 0 23 23" fill="none">

@@ -521,6 +521,10 @@ class AdminUsersPanel extends Component
         }
 
         if ($this->currentQuery != 'allUsers') {
+            if ($this->currentQuery == 0) {
+                $currentListData = $currentListData->where('is_verified', $this->currentQuery)
+                    ->where('is_admin', 0);
+            }
             $currentListData = $currentListData->where('is_verified', $this->currentQuery);
         }
 
