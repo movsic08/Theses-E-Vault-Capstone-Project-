@@ -40,16 +40,13 @@ class BorrowedBooks extends Component
         $filename = 'logbook.xlsx';
         $today = now();
         $query = BorrowersLogbook::query(); // Create a query builder instance
-        $borrowerBooksLists = $query->get(); // Get all records first
+        $borrowerBooksLists = $query->get();
 
-
-        // If a specific date is selected, apply the date filter
         if ($this->findByDate) {
-            $filename = 'Logbook_' . $this->findByDate . '.xlsx';
             $query->whereDate('created_at', $this->findByDate);
-            $borrowerBooksLists = $query->get(); // Get the filtered results
+	        $filename = 'Logbook_' . $this->findByDate . '.xlsx';
         } else {
-            $filename = 'Logbook_' . $today->format('m-d-Y') . '.xlsx';
+	        $filename = 'Logbook_' . $today->format('m-d-Y') . '.xlsx';
             $query->whereDate('created_at', $today);
             $borrowerBooksLists = $query->get();
         }
