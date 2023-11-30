@@ -34,7 +34,7 @@
                 <button wire:click="exportFilev2"
                     class="mr-2 rounded-md bg-green-950 p-2 text-white duration-300 hover:bg-green-600">Excel</button>
             </div>
-            <div class="rounded-md bg-sky-950 p-2 text-white">Summary</div>
+            {{-- <div class="rounded-md bg-sky-950 p-2 text-white">Summary</div> --}}
         </div>
     </div>
     <div class="mb-6 mt-2 rounded-lg drop-shadow-md">

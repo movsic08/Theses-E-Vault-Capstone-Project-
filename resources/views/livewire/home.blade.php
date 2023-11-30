@@ -70,7 +70,7 @@
                     <div class="mt-6">
 
                         <div
-                            class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md dark:bg-slate-800">
+                            class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md dark:border-none dark:bg-slate-800 dark:text-slate-50">
                             <p class="flex flex-col text-xs leading-3 md:text-base">
                                 <Strong>SHARE YOUR WORKS</Strong>
                                 <small class="text-xs">Looking for something? <a wire:navigate href=""

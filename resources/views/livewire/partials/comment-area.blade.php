@@ -65,7 +65,6 @@
                                  <div class="flex gap-2">
                                      @php
                                          $commentorInfo = \App\Models\User::find($commentsItem->user_id);
-
                                          $bachelorDegree = \App\Models\BachelorDegree::where('name', $commentorInfo->bachelor_degree)->first();
 
                                          if ($bachelorDegree) {
@@ -78,9 +77,7 @@
                                          // $timeAgo = $commentDate->diffForHumans();
 
                                      @endphp
-                                     <small>{{ \Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
-                                     {{ dump($commentAuthorDetails->created_at) }}
-
+                                     <small>{{ \Carbon\Carbon::parse($commentsItem->created_at)->diffForHumans() }}</small>
                                      <small>{{ $course }}</small>
                                  </div>
 
@@ -214,7 +211,7 @@
                                                  }
                                              @endphp
 
-                                             <small>{{ \Carbon\Carbon::parse($commentAuthorDetails->created_at)->diffForHumans() }}</small>
+                                             <small>{{ \Carbon\Carbon::parse($replyCommentsItem->created_at)->diffForHumans() }}</small>
                                              <small>{{ $degreeName }}</small>
                                          </div>
 

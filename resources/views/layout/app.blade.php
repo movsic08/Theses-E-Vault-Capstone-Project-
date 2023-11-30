@@ -54,7 +54,8 @@
     </style>
 </head>
 
-<body class="gradient-bg-light custom-scrollbar m-0 flex scroll-smooth p-0 font-poppins dark:bg-primary-color">
+<body id='bodyTag'
+    class="gradient-bg-light custom-scrollbar m-0 flex scroll-smooth p-0 font-poppins dark:bg-primary-color">
     {{-- sidebar --}}
     {{-- <x-sidebar /> --}}
     <livewire:components.appside-bar>

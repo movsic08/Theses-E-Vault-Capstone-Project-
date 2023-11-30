@@ -117,7 +117,7 @@
     {{-- Setting --}}
     <div>
         <div class="text-sm font-semibold">
-            <div class="mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
+            {{-- <div class="mx-1 my-2 rounded-xl p-1 px-3 py-2.5 duration-500">
                 <a wire:navigate href="" class="flex items-center">
                     <div class="relative">
                         <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
@@ -130,7 +130,7 @@
 
                     <p class="hideName block pl-2 text-sm md:hidden">Dark</p>
                 </a>
-            </div>
+            </div> --}}
 
 
             @auth

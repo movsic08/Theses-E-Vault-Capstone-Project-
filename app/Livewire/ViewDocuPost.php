@@ -198,9 +198,6 @@ class ViewDocuPost extends Component
         }
     }
 
-
-
-
     public $showReplyBox = false;
     public $targetReply = null;
     public $replyingTo;
