@@ -79,7 +79,7 @@ class ReportedCommentsPanel extends Component
                         'status' => 0,
                     ]);
                     if ($isHidden) {
-                        request()->session()->flash('success', 'Na update na din sa document comment');
+                        request()->session()->flash('success', 'Updating status success');
 
                     } else {
                         $this->somethingWentWrong();
@@ -121,11 +121,11 @@ class ReportedCommentsPanel extends Component
                                 $this->resolving = false;
                             });
                             request()->session()->flash('success', 'Comment violation confirm success.');
-                            $isUpdatedReportedComment->delete();
+                            // $isUpdatedReportedComment->delete();
                         } else {
                             $this->somethingWentWrong();
                         }
-                        request()->session()->flash('success', 'Na update na din sa document comment');
+                        request()->session()->flash('success', 'Status of comment, updated.');
                     } else {
                         $this->somethingWentWrong();
                     }
@@ -138,7 +138,7 @@ class ReportedCommentsPanel extends Component
             }
         }
 
-        $this->closeBox();
+        return $this->closeBox();
     }
 
 
@@ -158,7 +158,7 @@ class ReportedCommentsPanel extends Component
     {
         $this->dispatch('close-box', function () {
             $this->resolving = false;
-            $this->updateStatus = '';
+            $this->updateStatus = null;
             $this->currentData = null;
         });
     }
@@ -201,7 +201,7 @@ class ReportedCommentsPanel extends Component
     {
         sleep(1); // Optional sleep
 
-        $query = ReportedComment::with('comment')->latest();
+        $query = ReportedComment::orderBy('report_status')->latest();
 
         if (isset($this->search)) {
             $query->whereHas('comment', function ($subquery) {

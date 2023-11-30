@@ -516,7 +516,7 @@ class ViewDocuPost extends Component
         $this->closeReportBox();
 
         if ($createCommentReport) {
-            request()->session()->flash('success', 'Report created in the database');
+            request()->session()->flash('success', 'Report created ');
         } else {
             request()->session()->flash('error', 'Creating report failed, contact devs.');
         }

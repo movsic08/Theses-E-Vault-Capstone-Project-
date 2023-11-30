@@ -10,10 +10,6 @@
                 <div class="flex flex-col items-center justify-center gap-2">
                     <div class="h-8 w-8 animate-spin rounded-md border-4 border-t-4 border-blue-500">
                     </div>
-                    <div class="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                        <div id="progress-bar" class="h-2.5 animate-pulse rounded-full bg-primary-color"
-                            style="width: 100%"></div>
-                    </div>
                 </div>
             </div>
         </div>

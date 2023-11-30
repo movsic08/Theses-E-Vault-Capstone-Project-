@@ -1,8 +1,7 @@
 <div>
 
-    <x-admin.modals.view-reported-comment :currentData='$currentData' :resolving='$resolving'></x-admin.modals.view-reported-comment>
-    <x-admin.modals.deleting-reported-comment :delData='$delData'></x-admin.modals.deleting-reported-comment>
-
+    @include('components.admin.modals.deleting-reported-comment')
+    @include('components.admin.modals.view-reported-comment')
     <x-session_flash />
     <section class="container">
         <div class="px-4">

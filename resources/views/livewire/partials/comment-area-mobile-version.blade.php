@@ -33,7 +33,7 @@
              @if ($commentsItem->status == 1)
                  <section class="ml-12 mt-2 rounded-xl bg-white px-4 py-2 drop-shadow-md md:px-6 md:py-4">
                      <div class="h-full w-full rounded-md bg-red-100 p-1 font-light text-red-500">
-                         <i class="">This comment has beed
+                         <i class="">This comment has been
                              deleted due to violation of community standard.</i>
                      </div>
                  </section>
@@ -140,7 +140,7 @@
                      @if ($replyCommentsItem->status == 1)
                          <section class="ml-5 mt-2 rounded-xl bg-white px-4 py-2 drop-shadow-md md:px-6 md:py-4">
                              <div class="h-full w-full rounded-md bg-red-100 p-1 font-light text-red-500">
-                                 <i class="">This comment has beed
+                                 <i class="">This comment has been
                                      deleted due to violation of community standard.</i>
                              </div>
                          </section>
