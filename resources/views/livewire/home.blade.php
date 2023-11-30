@@ -343,9 +343,14 @@
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($mostViewedDocu as $item)
                                     <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
+                                        @php
+                                            $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $docuData->document_type)->first();
+                                            // dump($findDocuTypeConfig);
+                                        @endphp
                                         <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
                                             target="_blank"
-                                            class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
+                                            style="background-color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->bg_color }}; color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->text_color }}"
+                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : '' }} rounded-lg px-1 text-sm duration-200 ease-in-out">{{ $item->document_type }}</a>
                                         <a href="{{ route('view-document', ['reference' => $item->reference]) }}"
                                             class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
                                         </a>
@@ -381,9 +386,14 @@
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($latestDocuPostData as $item)
                                     <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
+                                        @php
+                                            $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $item->document_type)->first();
+                                            // dump($findDocuTypeConfig);
+                                        @endphp
                                         <a href=" {{ route('search-result-page', ['q' => $item->document_type]) }} "
                                             target="_blank"
-                                            class="rounded-lg bg-blue-500 px-1 text-sm text-white duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
+                                            style="background-color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->bg_color }}; color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->text_color }}"
+                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : '' }} rounded-lg px-1 text-sm duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
                                         <a href="{{ route('view-document', ['reference' => $item->reference]) }}"
                                             class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
                                         </a>
