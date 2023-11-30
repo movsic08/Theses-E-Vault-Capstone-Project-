@@ -291,7 +291,7 @@
                                                 <div class="mt-1 flex">
                                                     <li class=>
                                                     </li>
-                                                    <span>f you attempt to enter your Student ID and you receive the
+                                                    <span>If you attempt to enter your Student ID and you receive the
                                                         error message <span
                                                             class="rounded-lg bg-red-100 px-2 py-1 text-red-500"> “This
                                                             student ID has

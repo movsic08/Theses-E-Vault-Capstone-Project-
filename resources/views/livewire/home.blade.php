@@ -184,11 +184,12 @@
                                     </div>
                                     <div class="mt-3 flex flex-col gap-2 text-xs font-medium md:flex-row md:text-sm">
                                         @php
-                                            $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $docuData->document_type);
+                                            $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $docuData->document_type)->first();
+                                            // dump($findDocuTypeConfig);
                                         @endphp
                                         <a href=" {{ route('search-result-page', ['q' => $docuData->document_type]) }} "
                                             target="_blank"
-                                            class="{{ $findDocuTypeConfig == null ? $findDocuTypeConfig->bg_color . ' ' . $findDocuTypeConfig->text_color : 'bg-sky-700 text-white' }} h-fit w-fit rounded-full px-2 py-1">
+                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : $findDocuTypeConfig->bg_color . ' ' . $findDocuTypeConfig->text_color }} h-fit w-fit rounded-full px-2 py-1">
                                             {{ $docuData->document_type }}
                                         </a>
                                         <a href=" {{ route('search-result-page', ['q' => $docuData->course]) }} "
