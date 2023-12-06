@@ -287,7 +287,21 @@
                                                         d="M2 4.917a2.5 2.5 0 0 1 2.5-2.5h15a2.5 2.5 0 0 1 2.5 2.5v10a2.5 2.5 0 0 1-2.5 2.5h-3.125a1.25 1.25 0 0 0-1 .5L13 21.083a1.25 1.25 0 0 1-2 0l-2.375-3.166a1.25 1.25 0 0 0-1-.5H4.5a2.5 2.5 0 0 1-2.5-2.5v-10Zm8.992 3.457a2.113 2.113 0 0 0-.283-.34 1.835 1.835 0 0 0-.586-.405l-.01-.005a2.231 2.231 0 0 0-.945-.207C7.97 7.417 7 8.349 7 9.501c0 1.15.97 2.082 2.168 2.082a2.22 2.22 0 0 0 1.163-.325c-.171.487-.487 1.005-1.012 1.525a.507.507 0 0 0 .013.738.56.56 0 0 0 .768-.013c1.668-1.661 1.713-3.447 1.176-4.632a3.077 3.077 0 0 0-.284-.5v-.002Zm4.758 2.884c-.17.487-.488 1.005-1.012 1.525a.507.507 0 0 0 .014.738.56.56 0 0 0 .767-.013c1.667-1.661 1.712-3.447 1.177-4.632a3.08 3.08 0 0 0-.285-.5 2.114 2.114 0 0 0-.284-.342 1.832 1.832 0 0 0-.586-.405l-.01-.005a2.23 2.23 0 0 0-.944-.207c-1.196 0-2.167.932-2.167 2.084 0 1.15.971 2.082 2.168 2.082a2.22 2.22 0 0 0 1.163-.325h-.001Z">
                                                     </path>
                                                 </svg>
-                                                <span>{{ $docuData->citation_count }}</span>
+                                                @php
+                                                    $citationCount = $docuData->citation_count;
+
+                                                    if ($citationCount >= 1000000) {
+                                                        $formattedCitationCount = number_format(round($citationCount / 1000000, 1), 1) . 'M';
+                                                    } elseif ($citationCount >= 1000) {
+                                                        $formattedCitationCount = number_format(round($citationCount / 1000, 1), 1) . 'k';
+                                                    } else {
+                                                        $formattedCitationCount = $citationCount;
+                                                    }
+                                                @endphp
+
+
+                                                <span>{{ $formattedCitationCount }}</span>
+
                                             </div>
                                             <div class="flex items-center gap-2">
                                                 <svg width="22" height="22" fill="currentColor"
@@ -297,7 +311,20 @@
                                                         d="M2.4 11.64S6 5.04 12 5.04s9.6 6.6 9.6 6.6-3.6 6.6-9.6 6.6-9.6-6.6-9.6-6.6Zm9.6 4.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z">
                                                     </path>
                                                 </svg>
-                                                <span>{{ $docuData->view_count == null ? '0' : $docuData->view_count }}</span>
+                                                @php
+                                                    $viewCount = $docuData->view_count;
+
+                                                    if ($viewCount >= 1000000) {
+                                                        $formattedviewCount = number_format(round($viewCount / 1000000, 1), 1) . 'M';
+                                                    } elseif ($viewCount >= 1000) {
+                                                        $formattedviewCount = number_format(round($viewCount / 1000, 1), 1) . 'k';
+                                                    } else {
+                                                        $formattedviewCount = $viewCount;
+                                                    }
+                                                @endphp
+
+
+                                                <span>{{ $formattedviewCount === null ? '0' : $formattedviewCount }}</span>
                                             </div>
                                         </div>
                                     </div>

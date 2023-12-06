@@ -14,11 +14,11 @@
                     Welcome to our
                     comprehensive Help and Support
                     Center for Theses
-                    Kiosk
+                    E-Vault
                     Website. Whether you're a user seeking assistance or an administrator looking for insights, our
                     resources cover some topics, including troubleshooting, user guides, and feature highlights.
                     Explore our carefully curated content to enhance your understanding and optimize your interaction
-                    with the Theseses Kiosk Website.</p>
+                    with the Theses E-Vault Website.</p>
             </div>
 
             <div class="mb-5 mt-8 flex w-full items-center justify-center">
@@ -42,16 +42,16 @@
                             <div class="mt-6 min-h-[6rem]">
                                 <strong class="text-lg uppercase"> Account</strong>
                                 <small class="flex leading-tight">Explore essential tips and instructions for managing
-                                    your account on the Theses Kiosk website.</small>
+                                    your account on the Theses E-Vault website.</small>
                             </div>
                         </a>
                         <a href="{{ route('using-theses-kiosk-help-center') }}" wire:navigate
                             class="col-span-6 flex h-[17rem] w-[17rem] flex-col items-center justify-center rounded-lg bg-white p-6 drop-shadow-lg duration-300 hover:bg-blue-100 md:col-span-3 lg:col-span-2">
                             <img class="h-[6rem]" src="{{ asset('icons/logo.svg') }}" alt="logo">
                             <div class="mt-6 min-h-[6rem]">
-                                <strong class="text-lg uppercase"> Using Theses Kisok</strong>
+                                <strong class="text-lg uppercase"> Using Theses E-Vault</strong>
                                 <small class="flex leading-tight">This resource provides invaluable tips and detailed
-                                    instructions to enhance your proficiency when navigating theses kiosk
+                                    instructions to enhance your proficiency when navigating Theses E-Vault
                                     website.</small>
                             </div>
                         </a>

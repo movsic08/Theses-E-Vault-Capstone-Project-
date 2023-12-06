@@ -44,7 +44,7 @@
                                     <div class="flex flex-col items-center justify-center gap-2">
                                         <img class="h-[7rem]" src="{{ asset('icons/logo.svg') }}" alt="">
                                         <strong class="text-5xl font-black uppercase text-primary-color">Theses
-                                            <span class="text-secondary-color">Kiosk</span></strong>
+                                            <span class="text-secondary-color">E-Vault</span></strong>
                                     </div>
                                     <div class="mt-4 flex w-full flex-col items-center gap-2">
                                         <h1 class="text-center text-2xl font-extrabold leading-tight">Explore research
@@ -160,7 +160,7 @@
                                             let eyeicon2 = document.getElementById("eyeicon2");
                                             let password = document.getElementById("password");
                                             let password2 = document.getElementById("password_confirmation");
-                                    
+
                                             eyeicon.onclick = function() {
                                                 if (password.type == "password") {
                                                     password.type = "text";
@@ -170,7 +170,7 @@
                                                     eyeicon.src = "{{ asset('Icons/eye-close.png') }}";
                                                 }
                                             }
-                                    
+
                                             eyeicon2.onclick = function() {
                                                 if (password2.type == "password") {
                                                     password2.type = "text";
@@ -181,14 +181,14 @@
                                                 }
                                             }
                                         }
-                                    
+
                                         document.addEventListener("livewire:navigated", setupEyeIcons);
-                                    
+
                                         // Call the function once on initial page load
                                         setupEyeIcons();
                                     </script>
-                                    
-                                    
+
+
 
                                     {{-- show password end --}}
 

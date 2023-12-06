@@ -219,10 +219,17 @@ class EditProfile extends Component
     public function verifyMyEmail()
     {
         $this->validate([
-            'verifyEmail' => ['required', 'email', 'regex:/^[A-Za-z0-9._%+-]+@psu\.edu\.ph$/i'],
+            'verifyEmail' => [
+                'required',
+                'email',
+                'regex:/^[A-Za-z0-9._%+-]+@psu\.edu\.ph$/i',
+                ($this->verifyEmail == $this->user->email) ? '' : 'unique:users,email'
+            ],
         ], [
             'verifyEmail.regex' => 'Use your institutional account to verify your account.',
+            'verifyEmail.unique' => 'This email is already in use.'
         ]);
+
 
         $email = $this->verifyEmail;
         $user = auth()->user();
@@ -311,7 +318,7 @@ class EditProfile extends Component
 
                 // $this->enterOtpBox = false;
                 // $this->verifiedBox = true;
-                $this->dispatch('close-me');
+                $this->dispatch('close-va');
                 $this->dispatch('entOtp');
                 // session()->flash('message', 'Account verified successfully.');
             }
