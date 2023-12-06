@@ -14,19 +14,8 @@ $(document).ready(function () {
         sessionStorage.setItem("dark", isDark ? "true" : "false");
         if (!isDark) {
             $("html").removeClass("dark");
-            // $("body").addClass("gradient-bg-light");
-            // $("body").css({
-            //     "background-color": "",
-            //     "background-image": "",
-            // });
         } else {
             $("html").addClass("dark");
-            // $("body").removeClass("gradient-bg-light");
-            // $("body").css({
-            //     "background-color": "hsla(240, 100%, 0%, 1)",
-            //     "background-image":
-            //         "radial-gradient(at 0% 100%, hsla(264, 63%, 7%, 1) 0px, transparent 50%), radial-gradient(at 98% 3%, hsla(204, 94%, 7%, 1) 0px, transparent 50%), radial-gradient(at 27% 36%, hsla(211, 85%, 8%, 1) 0px, transparent 50%), radial-gradient(at 78% 18%, hsla(218, 95%, 9%, 1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(209, 42%, 9%, 1) 0px, transparent 50%), radial-gradient(at 100% 73%, hsla(240, 63%, 6%, 1) 0px, transparent 50%), radial-gradient(at 0% 100%, hsla(225, 73%, 9%, 1) 0px, transparent 50%), radial-gradient(at 70% 79%, hsla(240, 59%, 12%, 1) 0px, transparent 50%), radial-gradient(at 1% 9%, hsla(225, 75%, 9%, 1) 0px, transparent 50%)",
-            // });
         }
 
         console.log(sessionStorage.getItem("dark"));
