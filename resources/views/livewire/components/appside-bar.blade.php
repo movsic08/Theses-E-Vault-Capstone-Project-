@@ -1,14 +1,11 @@
 <div class="relative hidden md:block" wire:ignore>
     <script src="{{ asset('js/sideBar.js') }}"></script>
-
-    <script wire:ignore src="{{ asset('js/darkmode.js') }}" defer></script>
-
     <div class="sticky top-0 z-50">
         {{-- <script>
             var isExpanded = {{ $isExpanded }};
         </script>
         <strong>{{ $isExpanded }}</strong> --}}
-        <button id="sidebarBtn" class="absolute -right-4 top-4 hidden text-gray-600 md:block">
+        <button id="sidebarBtn" class="absolute -right-4 top-4 hidden text-gray-600 dark:text-white md:block">
             <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24">
                 <path
                     d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-4.375 9.375a.625.625 0 1 0 0 1.25h7.241l-2.684 2.682a.627.627 0 0 0 .886.885l3.75-3.75a.625.625 0 0 0 0-.885l-3.75-3.75a.626.626 0 1 0-.886.886l2.684 2.682H7.625Z">
@@ -143,24 +140,21 @@
         </section>
         {{-- lower --}}
         <div class="items-center-remover flex flex-col gap-3 pt-2 text-sm">
-            {{-- darkmode switch start --}}
 
-            <div class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2"
+            <button
+                class="{{ request()->routeIs('') ? ' bg-slate-200' : 'hover:bg-slate-300  duration-500 ease-in-out' }} relative flex rounded-xl p-2"
                 id="darkmode">
                 <div class="relative w-fit">
-                    <img class="moon h-7 cursor-pointer text-gray-700" id="darkmodeSwitch" alt=""
-                        data-sun-src="{{ asset('Icons/icon-sun.svg') }}"
-                        data-moon-src="{{ asset('Icons/icon-moon.svg') }}" />
-                </div>
-                <p class="hideName block pl-2 md:hidden" id="modeType">Type</p>
-            </div>
-            {{-- <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
+                    <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M12 11.807A9.002 9.002 0 0 1 10.049 2a9.942 9.942 0 0 0-5.12 2.735c-3.905 3.905-3.905 10.237 0 14.142 3.906 3.906 10.237 3.905 14.143 0a9.946 9.946 0 0 0 2.735-5.119A9.004 9.004 0 0 1 12 11.807Z">
                         </path>
-                    </svg> --}}
-            {{-- darkmode switch end --}}
+                    </svg>
+                </div>
+                <p class="hideName block pl-2 md:hidden" id="modeType">Dark</p>
+            </button>
+
 
 
             <a wire:navigate href="{{ route('help-and-support') }}"

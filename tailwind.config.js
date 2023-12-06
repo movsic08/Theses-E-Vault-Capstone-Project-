@@ -59,5 +59,35 @@ export default {
             // Add other utility classes here if you want to support dark mode for other properties
         },
     },
-    plugins: [],
+    plugins: [
+        function ({ addUtilities }) {
+            const newUtilities = {
+                ".custom-background": {
+                    "background-color": "hsla(240, 100%, 0%, 1)",
+                    "background-image":
+                        "radial-gradient(at 0% 100%, hsla(264, 63%, 7%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 98% 3%, hsla(204, 94%, 7%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 27% 36%, hsla(211, 85%, 8%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 78% 18%, hsla(218, 95%, 9%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 0% 50%, hsla(209, 42%, 9%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 100% 73%, hsla(240, 63%, 6%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 0% 100%, hsla(225, 73%, 9%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 70% 79%, hsla(240, 59%, 12%, 1) 0px, transparent 50%), " +
+                        "radial-gradient(at 1% 9%, hsla(225, 75%, 9%, 1) 0px, transparent 50%)",
+                },
+                ".light-background": {
+                    "background-color": "hsla(231, 76%, 97%, 1)",
+                    "background-image":
+                        "radial-gradient(at 13% 80%, hsla(206, 81%, 93%, 1) 0px, transparent 50% ), " +
+                        "radial-gradient(at 77% 1%, hsla(200, 77%, 91%, 1) 0px, transparent 50%)," +
+                        "radial-gradient(at 22% 37%, hsla(189, 50%, 89%, 1) 0px, transparent 50%)," +
+                        "radial-gradient(at 61% 60%, hsla(216, 100%, 82%, 1) 0px, transparent 50%)," +
+                        "radial-gradient(at 53% 90%, hsla(204, 80%, 90%, 1) 0px, transparent 50%)," +
+                        "radial-gradient(at 0% 52%, hsla(193, 100%, 91%, 1) 0px, transparent 50%)," +
+                        "radial-gradient(at 54% 0%, hsla(213, 63%, 81%, 1) 0px, transparent 50%)",
+                },
+            };
+            addUtilities(newUtilities, ["responsive", "hover"]);
+        },
+    ],
 };

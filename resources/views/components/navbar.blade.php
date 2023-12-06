@@ -2,20 +2,19 @@
     <div class="container text-base font-semibold text-blue-950">
         <div class="flex w-full items-center justify-between md:p-2">
             @php
+                $currentTime = now();
+                $hour = $currentTime->hour;
 
-                $currentHour = now()->hour; // Get the current hour of the day
-
-                if ($currentHour >= 5 && $currentHour < 12) {
-                    $greeting = 'morning';
-                } elseif ($currentHour >= 12 && $currentHour < 17) {
-                    $greeting = 'afternoon'; // Changed the upper limit to 17 (5 PM) for afternoon
+                if ($hour >= 5 && $hour < 12) {
+                    $greeting = 'Good morning';
+                } elseif ($hour >= 12 && $hour < 18) {
+                    $greeting = 'Good afternoon';
                 } else {
-                    $greeting = 'evening'; // For hours from 17 (5 PM) onwards
+                    $greeting = 'Good evening';
                 }
-
             @endphp
 
-            <h1 class="">Good {{ $greeting }},
+            <h1 class=""> {{ $greeting }},
                 @auth
                     @if (empty(auth()->user()->first_name))
                         {{ auth()->user()->username }}
