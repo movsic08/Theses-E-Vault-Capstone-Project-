@@ -1,5 +1,5 @@
 <section class="flex w-full flex-col gap-6 lg:w-2/5">
-    <div class="flex min-h-[25.5rem] flex-col justify-between rounded-xl bg-white p-8 drop-shadow-lg">
+    <div class="flex min-h-[25.5rem] flex-col justify-between rounded-xl bg-white p-8 drop-shadow-lg dark:bg-slate-800">
         <div class="flex flex-col items-center justify-center gap-2">
             <div class="relative">
                 @if ($user->profile_picture)
@@ -26,37 +26,37 @@
                     <span>First and last name missing</span>
                 </p>
             @else
-                <h3 class="text-xl font-bold text-gray-800 md:text-2xl">
+                <h3 class="text-xl font-bold text-gray-500 dark:text-slate-100 md:text-2xl">
                     {{ $user->first_name }} {{ $user->last_name }}
                 </h3>
             @endif
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Username</p>
+            <p class="font-bold text-gray-700 dark:text-slate-400">Username</p>
             @if ($user->username == null)
                 <p class="text-red-500 md:ml-4">Username is empty.</p>
             @else
-                <p class="whitespace-normal text-gray-500 md:pl-4">
+                <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-4">
                     {{ $user->username }}
                 </p>
             @endif
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Student ID</p>
+            <p class="font-bold text-gray-700 dark:text-slate-400">Student ID</p>
             @if ($user->student_id == null)
                 <p class="text-red-500 md:ml-4">Student ID is empty.</p>
             @else
-                <p class="whitespace-normal text-gray-500 md:pl-4">
+                <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-4">
                     {{ $user->student_id }}
                 </p>
             @endif
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Year </p>
+            <p class="font-bold text-gray-700 dark:text-slate-400">Year </p>
             @if ($user->year == null)
                 <p class="text-red-500 md:ml-4">Year is empty.</p>
             @else
-                <p class="whitespace-normal text-gray-500 md:pl-[4rem]">
+                <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-[4rem]">
                     {{ $user->year }} @if ($user->section != null)
                         - {{ $user->section }}
                     @endif
@@ -64,62 +64,63 @@
             @endif
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Email</p>
-            <p class="whitespace-normal text-gray-500 md:pl-14">
+            <p class="font-bold text-gray-700 dark:text-slate-400">Email</p>
+            <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-14">
                 {{ $user->email }}
             </p>
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Phone</p>
+            <p class="font-bold text-gray-700 dark:text-slate-400">Phone</p>
             @if ($user->phone_no == null)
                 <div class="text-red-500 md:ml-12">
                     Phone number is empty.
                 </div>
             @else
-                <p class="whitespace-normal text-gray-500 md:pl-12">
+                <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-12">
                     {{ $user->phone_no }}
                 </p>
             @endif
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Address</p>
+            <p class="font-bold text-gray-700 dark:text-slate-400">Address</p>
             @if ($user->address == null)
                 <p class="text-red-500 md:ml-8">Address is empty.</p>
             @else
-                <p class="whitespace-normal text-gray-500 md:pl-8">
+                <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-8">
                     {{ $user->address }}
                 </p>
             @endif
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Bachelor</p>
+            <p class="font-bold text-gray-700 dark:text-slate-400">Bachelor</p>
             @if ($user->bachelor_degree === null)
                 <p class="text-red-500 md:ml-7">
                     Bachelor degree is empty.
                 </p>
             @else
-                <p class="whitespace-normal text-gray-500 md:pl-7">
+                <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-7">
                     {{ $user->bachelor_degree }}
                 </p>
             @endif
         </div>
         <div class="mt-4 flex flex-col md:flex-row">
-            <p class="font-bold text-gray-700">Bio</p>
+            <p class="font-bold text-gray-700 dark:text-slate-400">Bio</p>
             @if ($user->bio == null)
                 <p class="text-red-500 md:ml-[4.9rem]">Bio is empty.</p>
             @else
-                <p class="whitespace-normal text-gray-500 md:pl-[4.9rem]">
+                <p class="whitespace-normal text-gray-500 dark:text-slate-100 md:pl-[4.9rem]">
                     {{ $user->bio }}
                 </p>
             @endif
         </div>
     </div>
     <div class="flex gap-6 text-primary-color">
-        <div class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg md:w-1/2">
+        <div
+            class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg dark:bg-slate-800 md:w-1/2">
             <a href="{{ $user->facebook_url == null ? '#' : $user->facebook_url }}"
                 {{ $user->facebook_url == null ? '' : 'target="_blank"' }}
-                class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-blue-600">
-                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-blue-600 dark:text-slate-100">
+                <svg width="46" height="46" class="dark:text-slate-300" fill="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M22.08 12.539c0-5.335-4.298-9.66-9.6-9.66-5.304.001-9.602 4.325-9.602 9.661 0 4.82 3.511 8.817 8.1 9.541v-6.75H8.542v-2.79h2.438v-2.13c0-2.421 1.434-3.758 3.627-3.758 1.05 0 2.149.188 2.149.188v2.376h-1.21c-1.192 0-1.564.745-1.564 1.51v1.812h2.661l-.425 2.791H13.98v6.75c4.59-.725 8.1-4.72 8.1-9.541Z">
@@ -128,11 +129,12 @@
                 Facebook
             </a>
         </div>
-        <div class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg md:w-1/2">
+        <div
+            class="flex h-fit w-full items-center justify-center rounded-lg bg-white p-4 drop-shadow-lg dark:bg-slate-800 md:w-1/2">
             <a href="{{ $user->ig_url == null ? '#' : $user->ig_url }}"
                 {{ $user->ig_url == null ? '' : 'target="_blank"' }}
-                class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-pink-600">
-                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                class="flex flex-col items-center justify-center gap-1 duration-300 ease-in-out hover:text-pink-600 dark:text-slate-100">
+                <svg width="46" height="46" class="dark:text-slate-300" fill="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 8.75a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5Z"></path>
                     <path fill-rule="evenodd"

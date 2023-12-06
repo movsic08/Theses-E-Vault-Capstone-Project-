@@ -566,7 +566,6 @@ class EditProfile extends Component
                 'language' => $this->updating_language,
                 'physical_description' => $this->updating_physical_description,
                 'document_type' => $this->updating_document_type,
-                'format' => $this->updating_format,
                 'panel_chair' => $this->updating_panel_chair,
                 'panel_member_1' => $this->updating_panel_member_1,
                 'panel_member_2' => $this->updating_panel_member_2,

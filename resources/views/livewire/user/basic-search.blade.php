@@ -3,7 +3,7 @@
         <div class="mt-14 flex h-full flex-col items-center justify-center md:mt-[6rem] md:p-2">
             <img class="h-[5rem]" src="{{ asset('icons/logo.svg') }}" alt="logo">
             <h2
-                class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-white md:text-2xl lg:mx-[10rem] lg:text-4xl">
+                class="mx-[2rem] mt-7 text-center text-lg font-extrabold text-primary-color dark:text-slate-100 md:text-2xl lg:mx-[10rem] lg:text-4xl">
                 UNLOCKING
                 ACADEMIC
                 INSIGHTS:
@@ -17,7 +17,7 @@
 
                 <div class="flex items-center justify-center" for="search-docu">
                     <input
-                        class="h-8 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-md focus:border-gray-400 focus:outline-none md:h-10 md:w-[27rem] lg:h-14 lg:w-[62.8rem]"
+                        class="h-8 w-[18rem] rounded-l-full border-b-2 border-l-2 border-t-2 px-4 font-medium drop-shadow-md focus:border-gray-400 focus:outline-none dark:border-gray-800 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-gray-700 md:h-10 md:w-[27rem] lg:h-14 lg:w-[62.8rem]"
                         wire:keydown.enter='findResult' type="search" id="search-docu" wire:model.live='search'
                         placeholder="Search">
                     <button wire:click='findResult'
@@ -38,7 +38,7 @@
                 </div>
 
                 <a href="{{ route('user-advanced-search') }}" wire:navigate
-                    class="w-fit rounded-md bg-blue-500 px-2 py-1 text-xs text-white duration-200 ease-in-out hover:bg-blue-700 md:text-base">Advanced
+                    class="w-fit rounded-md bg-blue-700 px-2 py-1 text-xs text-white duration-200 ease-in-out hover:bg-blue-800 md:text-base">Advanced
                     search</a>
             </div>
             {{-- <div class="mt-2 w-full">
@@ -68,7 +68,7 @@
         </div>
     </section>
 
-    <svg class="svg-bg -z-10 h-full w-full dark:bg-primary-color" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    <svg class="svg-bg -z-10 h-full w-full dark:dark-background" version="1.1" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1600 900"
         preserveAspectRatio="xMidYMax slice">
         <defs>

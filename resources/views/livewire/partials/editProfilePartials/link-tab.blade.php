@@ -1,7 +1,7 @@
    <div
-       class="flex min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white p-4 px-8 py-6 text-gray-600 drop-shadow-lg md:gap-4 lg:min-h-[30rem]">
+       class="flex min-h-[26.5rem] w-full flex-col justify-between gap-0 rounded-b-lg bg-white p-4 px-8 py-6 text-gray-600 drop-shadow-lg dark:bg-slate-800 dark:text-slate-100 md:gap-4 lg:min-h-[30rem]">
        <section>
-           <h2 class="mb-2 font-bold uppercase text-gray-800">Link your social media account.</h2>
+           <h2 class="mb-2 font-bold uppercase text-gray-800 dark:text-slate-100">Link your social media account.</h2>
            <form wire:submit="addUrl" class="flex flex-col gap-3 md:gap-4 lg:gap-5">
                <div class="flex w-full flex-col">
                    <x-label-input for="fb_url">Facebook account URL</x-label-input>
@@ -33,7 +33,7 @@
 
        </section>
        <section class="border-t border-slate-200 pt-4">
-           <h2 class="mb-2 font-bold uppercase text-gray-800">Account Verification</h2>
+           <h2 class="mb-2 font-bold uppercase text-gray-800 dark:text-slate-100">Account Verification</h2>
            <form wire:submit="verifyMyEmail">
                <div class="flex h-fit items-center justify-center">
                    @php

@@ -4,17 +4,18 @@
     <div x-data="{ delItem: false, }" x-show="delItem" x-on:open-del.window="delItem = true"
         x-on:close-del.window="delItem = false" x-on:keydown.escape.window="delItem = false"
         x-transition:enter.duration.400ms x-transition:leave.duration.300ms
-        class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm dark:bg-opacity-0"
         style="display: none">
         <div
-            class="mx-3 mt-20 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center font-medium text-gray-600 drop-shadow-lg md:w-1/3">
-            <strong class="text-red-600">{{ $title }}</strong> will be removed from your bookmark list. Are you
+            class="mx-3 mt-20 flex w-fit flex-col gap-1 rounded-xl bg-white px-10 py-8 text-center font-medium text-gray-600 drop-shadow-lg dark:bg-slate-700 dark:text-slate-200 md:w-1/3">
+            <strong class="text-red-600 dark:text-red-500">{{ $title }}</strong> will be removed from your
+            bookmark list. Are you
             sure you want to remove this?
             <div class="mt-2 flex w-full flex-col gap-2 md:flex-row">
                 <button wire:click='removeFromList'
                     class="w-full rounded-md bg-red-500 p-2 font-medium text-white duration-200 hover:bg-red-800 md:w-1/2">Yes</button>
                 <div wire:click='closeConfirmationBox'
-                    class="w-full cursor-pointer rounded-md border border-primary-color p-2 text-center font-medium duration-200 hover:bg-primary-color hover:text-white md:w-1/2">
+                    class="w-full cursor-pointer rounded-md border border-primary-color p-2 text-center font-medium duration-200 hover:bg-primary-color hover:text-white dark:border-gray-600 dark:text-gray-100 md:w-1/2">
                     No
                 </div>
             </div>
@@ -23,15 +24,16 @@
     <div x-data="{ shareItem: false, }" x-show="shareItem" x-on:open-shr.window="shareItem = true"
         x-on:close-shr.window="shareItem = false" x-on:keydown.escape.window="shareItem = false"
         x-transition:enter.duration.400ms x-transition:leave.duration.300ms
-        class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex items-start justify-center bg-gray-300 bg-opacity-25 backdrop-blur-sm dark:bg-opacity-0"
         style="display: none">
         <div
-            class="mx-3 mt-20 flex w-fit flex-col gap-1 rounded-xl bg-white px-8 py-6 text-center font-medium text-gray-600 drop-shadow-lg md:w-1/3">
+            class="mx-3 mt-20 flex w-fit flex-col gap-1 rounded-xl bg-white px-8 py-6 text-center font-medium text-gray-600 drop-shadow-lg dark:bg-slate-800 dark:text-slate-100 md:w-1/3">
             <!-- Modal Header -->
             <div class="mb-4 flex items-center justify-between">
-                <h2 class="text-xl font-semibold text-primary-color">Share Link</h2>
+                <h2 class="text-xl font-semibold text-primary-color dark:text-slate-100">Share Link</h2>
                 <span @click="shareItem = false" class="cursor-pointer">
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="h-6 w-6 dark:text-slate-100" fill="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM8.693 7.808a.626.626 0 1 0-.885.885L11.116 12l-3.308 3.307a.626.626 0 1 0 .885.885L12 12.884l3.307 3.308a.627.627 0 0 0 .885-.885L12.884 12l3.308-3.307a.627.627 0 0 0-.885-.885L12 11.116 8.693 7.808Z">
                         </path>
@@ -40,7 +42,8 @@
             <!--  Body -->
             <div>
                 <p class="mb-2 text-left">Copy the link below:</p>
-                <x-input-field wire:model.live='shareLink' type="text" class="mb-4 w-full rounded border p-2"
+                <x-input-field wire:model.live='shareLink' type="text"
+                    class="mb-4 w-full rounded border p-2 dark:border-none dark:bg-gray-700 dark:text-slate-100"
                     x-ref="shareInput" id="valueBox"></x-input-field>
             </div>
 
@@ -53,17 +56,19 @@
 
     @if (count($bookmarkLists) === 0)
         <section
-            class="my-5 flex h-[34.5rem] w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-6 drop-shadow-lg">
+            class="my-5 flex h-[34.5rem] w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-6 drop-shadow-lg dark:bg-slate-800">
             <img class="h-[15rem]" src="{{ asset('assets\svgs\noBookmarkFound.svg') }}" alt="no bookmark found svg"
                 srcset="">
-            <h1 class="text-center text-[1.8rem] font-black capitalize text-primary-color md:text-[3rem]">No bookmark
+            <h1
+                class="text-center text-[1.8rem] font-black capitalize text-primary-color dark:text-stone-100 md:text-[3rem]">
+                No bookmark
                 yet
             </h1>
         </section>
     @else
         <div class="md:container">
             <section class="flex flex-col gap-4 pb-6 lg:mx-[8rem]">
-                <div class="flex w-full justify-between text-primary-color">
+                <div class="flex w-full justify-between text-primary-color dark:text-slate-100">
                     <div class="flex items-center gap-1">
                         <strong class="">Bookmark List</strong>
                         <div class="flex h-full flex-col items-center justify-center gap-2">
@@ -87,12 +92,13 @@
                             ->where('status', 1)
                             ->first();
                     @endphp
-                    @if (true)
-                        <div class="flex flex-col rounded-xl bg-white px-4 py-2 shadow-md md:flex-row md:px-6 md:py-4">
+                    @if ($docuPost != null)
+                        <div
+                            class="flex flex-col rounded-xl bg-white px-4 py-2 shadow-md dark:bg-slate-800 md:flex-row md:px-6 md:py-4">
                             <div class="mr-1 flex flex-grow items-center justify-start">
                                 <a wire:navigate
                                     href="{{ route('view-document', ['reference' => $docuPost->reference]) }}"
-                                    class="font-semibold text-primary-color">{{ $docuPost->title }}</a>
+                                    class="font-semibold text-primary-color dark:text-slate-100">{{ $docuPost->title }}</a>
                             </div>
                             <div class="flex flex-row items-center justify-end gap-1 md:justify-center">
                                 <button wire:click='toggleShare("{{ $docuPost->reference }}")'
@@ -127,9 +133,11 @@
                             </div>
                         </div>
                     @else
-                        <div class="flex flex-row gap-1 rounded-xl bg-white px-4 py-2 shadow-md md:px-6 md:py-4">
+                        <div
+                            class="flex flex-row gap-1 rounded-xl bg-white px-4 py-2 shadow-md dark:bg-slate-800 md:px-6 md:py-4">
                             <div class="mr-1 flex flex-grow items-center justify-start">
-                                <div class="w-full rounded-xl border-red-800 bg-red-100 px-2 py-1 italic text-red-800">
+                                <div
+                                    class="w-full rounded-xl border-red-800 bg-red-100 px-2 py-1 italic text-red-800 dark:bg-red-900 dark:text-red-50">
                                     Document not found, it has been moved or deleted.</div>
                             </div>
                             <div class="flex flex-row items-center justify-end gap-1 md:justify-center">

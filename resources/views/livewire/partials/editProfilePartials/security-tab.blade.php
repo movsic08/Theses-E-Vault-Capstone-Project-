@@ -1,6 +1,6 @@
  <form wire:submit="changePassword" wire:loading.class="loading">
      <div
-         class="flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-3 rounded-b-lg bg-white p-4 px-8 py-6 text-gray-600 drop-shadow-lg md:gap-4 lg:gap-5">
+         class="flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-3 rounded-b-lg bg-white p-4 px-8 py-6 text-gray-600 drop-shadow-lg dark:bg-slate-800 md:gap-4 lg:gap-5">
          <div class="flex w-full flex-col">
              <x-label-input for="currentPassword">Current
                  password</x-label-input>
@@ -40,8 +40,8 @@
              </div>
          </div>
          <section class="flex flex-col gap-3 border-t border-gray-200 pt-3 md:gap-4 lg:gap-5">
-             <strong class="text-red-800">Delete Account</strong>
-             <p class="rounded-md border-red-800 bg-red-50 p-2 text-sm text-red-800">
+             <strong class="text-red-800 dark:text-red-500">Delete Account</strong>
+             <p class="rounded-md border-red-800 bg-red-50 p-2 text-sm text-red-800 dark:bg-red-950 dark:text-red-500">
                  Once your account is deleted, all of its resources
                  and data will be permanently deleted. Before
                  deleting your account, please download any data or

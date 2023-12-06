@@ -56,7 +56,7 @@
 </head>
 
 <body id='bodyTag'
-    class="custom-scrollbar m-0 flex scroll-smooth p-0 font-poppins light-background dark:custom-background">
+    class="custom-scrollbar m-0 flex scroll-smooth p-0 font-poppins light-background dark:dark-background">
     {{-- sidebar --}}
     {{-- <x-sidebar /> --}}
     <livewire:components.appside-bar>

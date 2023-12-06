@@ -34,14 +34,13 @@ class UploadDocument extends Component
 
     public $currentTab = 1;
 
-    public $title, $format, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4, $author5, $author6, $author7;
+    public $title, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4, $author5, $author6, $author7;
     public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload, $pdf_path;
 
     protected $tab1Rules = [
         'title' => 'required|min:3|unique:docu_posts,title',
         'document_type' => 'required|min:3',
         'date_of_approval' => 'required|date',
-        'format' => 'required|min:2',
         'physical_description' => 'required|min:6',
         'language' => 'required|min:3',
         'panel_chair' => 'required|min:3',
@@ -228,7 +227,6 @@ class UploadDocument extends Component
             'user_id' => $this->user->id,
             'reference' => $this->docuReference,
             'title' => $this->title,
-            'format' => $this->format,
             'course' => $this->bachelor_degree_value,
             'document_type' => $this->document_type,
             'date_of_approval' => $this->date_of_approval,

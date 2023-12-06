@@ -1,5 +1,5 @@
  <form wire:submit="editProfile">
-     <div class="tab-content flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-3 rounded-b-lg bg-white px-8 py-6 text-gray-600 drop-shadow-lg md:gap-4 lg:min-h-[30rem] lg:gap-5"
+     <div class="tab-content flex max-h-fit min-h-[26.5rem] w-full flex-col justify-between gap-3 rounded-b-lg bg-white px-8 py-6 text-gray-600 drop-shadow-lg dark:bg-slate-800 dark:text-slate-100 md:gap-4 lg:min-h-[30rem] lg:gap-5"
          id="tab-1">
          <div class="flex w-full flex-col gap-3 md:flex-row md:gap-4 lg:gap-5">
              <div class="flex w-full flex-col md:mb-0 md:w-1/2">
@@ -37,7 +37,7 @@
              <div class="flex w-full flex-col md:w-1/2">
                  <x-label-input for="year">Year</x-label-input>
                  <select wire:model.live="year" id="year"
-                     class="w-full rounded-md border border-gray-300 bg-slate-100 px-3 py-2 text-sm text-gray-600">
+                     class="w-full rounded-md border border-gray-300 bg-slate-100 px-3 py-2 text-sm text-gray-600 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100">
                      <option value="" selected>Select year</option>
                      <option class="text-sm" value="I">I</option>
                      <option class="text-sm" value="II">II</option>
@@ -52,7 +52,7 @@
              <div class="flex w-full flex-col md:w-1/2">
                  <x-label-input for="section">Section</x-label-input>
                  <select wire:model.live="section" id="section"
-                     class="w-full rounded-md border border-gray-300 bg-slate-100 px-3 py-2 text-sm text-gray-600">
+                     class="w-full rounded-md border border-gray-300 bg-slate-100 px-3 py-2 text-sm text-gray-600 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100">
                      <option value="" selected>Select block</option>
                      <option class="text-sm" value="A">A</option>
                      <option class="text-sm" value="B">B</option>
@@ -76,7 +76,7 @@
          <div class="flex w-full flex-col">
              <x-label-input for="bachelor_degree">Bachelor Degree</x-label-input>
              <select wire:model.live="bachelor_degree_input" id="bachelor-degree"
-                 class="w-full rounded-md border border-gray-300 bg-slate-100 px-3 py-2 text-sm text-gray-600">
+                 class="w-full rounded-md border border-gray-300 bg-slate-100 px-3 py-2 text-sm text-gray-600 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100">
                  <option value="" selected>Select course</option>
                  @foreach ($bachelor_degree_data as $degree)
                      <option class="text-sm" value="{{ $degree->name }}">
@@ -98,7 +98,8 @@
          </div>
          <div class="flex w-full flex-col">
              <x-label-input for='bio'>Bio</x-label-input>
-             <textarea class="rounded-md border border-gray-400 bg-slate-100 px-3 py-2 text-sm focus:outline-primary-color"
+             <textarea
+                 class="rounded-md border border-gray-400 bg-slate-100 px-3 py-2 text-sm focus:outline-primary-color dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100"
                  type="text" wire:model.live="bio" rows="4" id="abstract_or_summary" id="bio" placeholder="About you"></textarea>
              @error('bio')
                  <small class="text-red-500">{{ $message }}</small>

@@ -2,7 +2,7 @@
     @section('title', 'Catologue')
     <section class="container">
         <div class="p-2">
-            <h2 class="text-[1.2rem] font-semibold text-primary-color">Document Types</h2>
+            <h2 class="text-[1.2rem] font-semibold text-primary-color dark:text-slate-100">Document Types</h2>
             <section
                 class="grid w-full grid-cols-1 justify-between gap-2 overflow-x-auto md:grid-cols-2 md:flex-row md:gap-4 lg:grid-cols-4 lg:gap-8 xl:grid-cols-4">
                 @foreach ($document_types as $index => $itemDocumentType)
@@ -119,7 +119,7 @@
                         class="{{ $bgColors[$index % count($bgColors)] }} relative mb-3 flex overflow-hidden rounded-2xl p-2 drop-shadow-lg">
                         <div class="ml-5 flex flex-grow flex-col gap-2">
 
-                            <h1 class="mt-2 text-[1.5rem] font-bold text-white">{{ $itemDocumentType }}</h1>
+                            <h1 class="mt-2 text-[1.5rem] font-bold capitalize text-white">{{ $itemDocumentType }}</h1>
                             <a wire:navigate href="{{ route('search-result-page', ['q' => $itemDocumentType]) }}"
                                 class="mb-2 mt-8 w-fit rounded-md px-1 py-2 font-semibold text-white backdrop-blur-sm duration-200 ease-in-out hover:bg-white hover:bg-opacity-25 hover:backdrop-blur-sm">View
                                 documents</a>
@@ -136,7 +136,7 @@
                 @endforeach
             </section>
 
-            <h2 class="mt-2 text-[1.2rem] font-semibold text-primary-color">Collections</h2>
+            <h2 class="mt-2 text-[1.2rem] font-semibold text-primary-color dark:text-slate-100">Collections</h2>
             <section class="mt-2">
                 <div class="grid w-full grid-flow-dense grid-cols-2 gap-4 pb-4">
                     @foreach ($degree_lists as $itemDegree)
@@ -144,16 +144,16 @@
                             $itemCount = \App\Models\DocuPost::where('course', $itemDegree)->count();
                         @endphp
                         <a href=" {{ route('search-result-page', ['q' => $itemDegree]) }} "
-                            class="col-span-2 flex h-full w-full items-center gap-2 rounded-lg bg-white p-2 px-3 shadow-md duration-300 ease-in-out hover:bg-slate-200 md:col-span-1">
+                            class="col-span-2 flex h-full w-full items-center gap-2 rounded-lg bg-white p-2 px-3 shadow-md duration-300 ease-in-out hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 md:col-span-1">
                             <div
-                                class="ml-4 mr-4 flex h-[1rem] w-[1rem] items-center justify-center rounded-lg bg-sky-700 p-6 font-medium text-white">
+                                class="ml-4 mr-4 flex h-[1rem] w-[1rem] items-center justify-center rounded-lg bg-sky-700 p-6 font-medium text-white dark:text-slate-200">
                                 <span> {{ $itemCount }}</span>
                             </div>
                             <div class="flex h-full flex-col justify-center">
-                                <h1 class="text-base font-semibold text-sky-700">
+                                <h1 class="text-base font-semibold text-sky-700 dark:text-sky-200">
                                     {{ $itemDegree }}
                                 </h1>
-                                <p class="whitespace-wrap text-sm font-light text-gray-500">
+                                <p class="whitespace-wrap text-sm font-light text-gray-500 dark:text-slate-200">
                                     Research works submitted to the {{ $itemDegree }}.
                                 </p>
                             </div>

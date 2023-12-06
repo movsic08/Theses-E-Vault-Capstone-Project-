@@ -6,6 +6,7 @@
     </div>
     <div class="container h-full w-full">
 
+
         @if ($checkedAccount !== null)
             <div class="mt-2 lg:container">
                 <div class="relative mb-6 h-full w-full">
@@ -16,7 +17,7 @@
                             alt="UserProfile">
                     </div>
                     <div class="z-10 flex w-full flex-col gap-2 md:gap-4 lg:flex-row lg:gap-8">
-                        <div class="h-fit w-full rounded-lg bg-white drop-shadow-lg lg:w-2/5">
+                        <div class="h-fit w-full rounded-lg bg-white drop-shadow-lg dark:bg-slate-900 lg:w-2/5">
                             <div class="relative h-full w-full">
                                 <img class="h-[20rem] w-full rounded-t-lg object-cover"
                                     src="{{ $checkedAccount->profile_picture ? asset('storage/' . $checkedAccount->profile_picture) : asset('assets/default_profile.png') }}"
@@ -33,20 +34,22 @@
                             </div>
                             <div class="px-10 py-6 lg:px-8 lg:py-4">
                                 <section class="flex w-full flex-col lg:hidden">
-                                    <h1 class="text-[1.8rem] font-black text-gray-900 md:text-left md:text-[3rem]">
+                                    <h1
+                                        class="text-[1.8rem] font-black text-gray-900 dark:text-slate-200 md:text-left md:text-[3rem]">
                                         {{ $fullName }}</h1>
                                     <div class="mt-4">
-                                        <strong class="uppercase text-primary-color">username</strong>
+                                        <strong
+                                            class="uppercase text-primary-color dark:text-slate-100">username</strong>
                                         <h2
-                                            class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 md:text-base">
+                                            class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 dark:bg-slate-700 dark:text-slate-100 md:text-base">
                                             {{ '@' . $checkedAccount->username }}</h2>
                                     </div>
                                 </section>
                                 <div class="mt-4 flex flex-col justify-between lg:mt-0">
-                                    <strong class="uppercase text-primary-color">Status</strong>
+                                    <strong class="uppercase text-primary-color dark:text-slate-100">Status</strong>
                                     @if ($checkedAccount->is_verified == 1)
                                         <div
-                                            class="flex w-full items-center justify-center gap-1.5 rounded-lg border border-blue-900 bg-blue-100 px-2 py-1 text-sm font-semibold capitalize text-blue-900">
+                                            class="flex w-full items-center justify-center gap-1.5 rounded-lg border border-blue-900 bg-blue-100 px-2 py-1 text-sm font-semibold capitalize text-blue-900 dark:bg-slate-700 dark:text-blue-500">
                                             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -56,7 +59,7 @@
                                         </div>
                                     @else
                                         <div
-                                            class="flex w-full items-center justify-center gap-1.5 rounded-lg border border-orange-500 bg-orange-100 px-2 py-1 text-sm font-semibold capitalize text-orange-500">
+                                            class="flex w-full items-center justify-center gap-1.5 rounded-lg border border-orange-500 bg-orange-100 px-2 py-1 text-sm font-semibold capitalize text-orange-500 dark:bg-orange-800 dark:text-orange-100">
                                             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -67,7 +70,7 @@
                                     @endif
                                 </div>
                                 <div class="mt-4">
-                                    <strong class="uppercase text-primary-color">Department</strong>
+                                    <strong class="uppercase text-primary-color dark:text-slate-100">Department</strong>
                                     <div class="mt-1">
                                         @php
                                             if (empty($checkedAccount->bachelor_degree)) {
@@ -77,13 +80,14 @@
                                             }
                                         @endphp
                                         <h1
-                                            class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 md:text-base lg:text-center">
+                                            class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 dark:bg-slate-700 dark:text-slate-100 md:text-base lg:text-center">
                                             {{ $yourCourse }}</h1>
                                     </div>
                                 </div>
                                 <div class="mt-4">
                                     @if ($checkedAccount->role_id == 1)
-                                        <strong class="uppercase text-primary-color">year and level</strong>
+                                        <strong class="uppercase text-primary-color dark:text-slate-100">year and
+                                            level</strong>
                                         <div class="mt-1">
                                             @php
                                                 if (empty($checkedAccount->year)) {
@@ -93,21 +97,23 @@
                                                 }
                                             @endphp
                                             <h1
-                                                class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 md:text-base">
+                                                class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-sm font-semibold text-blue-900 dark:bg-slate-700 dark:text-slate-100 md:text-base">
                                                 {{ $yAndL }}</h1>
                                         </div>
                                     @else
-                                        <strong class="uppercase text-primary-color">Account role</strong>
+                                        <strong class="uppercase text-primary-color dark:text-slate-100">Account
+                                            role</strong>
                                         <div class="mt-1">
                                             <h1
-                                                class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-xs font-semibold text-blue-900 md:text-base">
+                                                class="w-full rounded-md bg-blue-50 px-3 py-1 text-left text-xs font-semibold text-blue-900 dark:bg-slate-700 dark:text-slate-100 md:text-base">
                                                 Employee</h1>
                                         </div>
                                     @endif
                                 </div>
                                 <div class="mt-4 flex w-full items-center justify-between">
-                                    <strong class="uppercase text-primary-color">Social Media</strong>
-                                    <div class="flex items-center gap-1 text-primary-color">
+                                    <strong class="uppercase text-primary-color dark:text-slate-100">Social
+                                        Media</strong>
+                                    <div class="flex items-center gap-1 text-primary-color dark:text-slate-100">
                                         <a class="duration-200 ease-in-out hover:text-blue-800"
                                             href="{{ $checkedAccount->facebook_url == null ? '#' : $checkedAccount->facebook_url }}"
                                             {{ $checkedAccount->facebook_url == null ? '' : 'target="_blank"' }}
@@ -156,15 +162,15 @@
                                     </div>
                                 </section>
                             </div>
-                            <div class="mt-4 rounded-lg bg-white p-4 px-6 drop-shadow-lg">
+                            <div class="mt-4 rounded-lg bg-white p-4 px-6 drop-shadow-lg dark:bg-slate-900">
                                 <div x-data="{ activeTab: 'about' }">
                                     <!-- Tab buttons -->
-                                    <ul class="flex space-x-4 text-primary-color">
+                                    <ul class="flex space-x-4 text-primary-color dark:text-slate-100">
                                         <li>
                                             <button @click="activeTab = 'about'" class="p-2"
                                                 :class="{
-                                                    'border-b-2 border-primary-color  font-bold': activeTab === 'about',
-                                                    'duration-400 font-medium ease-in-out hover:rounded-md hover:bg-primary-color hover:text-white': activeTab ===
+                                                    'border-b-2 border-primary-color dark:border-slate-700  font-bold': activeTab === 'about',
+                                                    'duration-400 font-medium ease-in-out hover:rounded-md dark:hover:text-slate-400 hover:bg-primary-color hover:text-white': activeTab ===
                                                         !'about'
                                                 }">
                                                 About
@@ -173,8 +179,8 @@
                                         <li>
                                             <button @click="activeTab = 'document'" class="p-2"
                                                 :class="{
-                                                    'border-b-2 border-primary-color  font-bold': activeTab === 'document',
-                                                    'duration-400 font-medium ease-in-out hover:rounded-md hover:bg-primary-color hover:text-white': activeTab ===
+                                                    'border-b-2 border-primary-color dark:border-slate-700  font-bold': activeTab === 'document',
+                                                    'duration-400 font-medium ease-in-out hover:rounded-md dark:hover:text-slate-400 hover:bg-primary-color hover:text-white': activeTab ===
                                                         !'document'
                                                 }">
                                                 Document
@@ -189,67 +195,75 @@
                                                     <tbody>
                                                         <tr>
                                                             <td
-                                                                class="whitespace-nowrap py-2 text-lg font-bold text-gray-800">
+                                                                class="whitespace-nowrap py-2 text-lg font-bold text-gray-800 dark:text-slate-100">
                                                                 BASIC
                                                                 INFORMATION</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
-                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700">
+                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700 dark:text-slate-200">
                                                                 Student
                                                                 Id</td>
-                                                            <td class="px-6 py-2 font-medium text-gray-600">
+                                                            <td
+                                                                class="px-6 py-2 font-medium text-gray-600 dark:text-slate-300">
                                                                 {{ $checkedAccount->student_id }}</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
-                                                            <td class="py-2 align-top font-semibold text-gray-700">Bio
+                                                            <td
+                                                                class="py-2 align-top font-semibold text-gray-700 dark:text-slate-200">
+                                                                Bio
                                                             </td>
-                                                            <td class="px-6 py-2 font-medium text-gray-600">
+                                                            <td
+                                                                class="px-6 py-2 font-medium text-gray-600 dark:text-slate-300">
                                                                 {{ $checkedAccount->bio }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td
-                                                                class="whitespace-nowrap py-2 text-lg font-bold text-gray-800">
+                                                                class="whitespace-nowrap py-2 text-lg font-bold text-gray-800 dark:text-slate-200">
                                                                 CONTACT
                                                                 INFORMATION</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
-                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700">
+                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700 dark:text-slate-200">
                                                                 Email
                                                             </td>
-                                                            <td class="px-6 py-2 font-medium text-gray-600">
+                                                            <td
+                                                                class="px-6 py-2 font-medium text-gray-600 dark:text-slate-300">
                                                                 {{ $checkedAccount->email }}</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
-                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700">
+                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700 dark:text-slate-200">
                                                                 Phone
                                                             </td>
-                                                            <td class="px-6 py-2 font-medium text-gray-600">
+                                                            <td
+                                                                class="px-6 py-2 font-medium text-gray-600 dark:text-slate-300">
                                                                 {{ $checkedAccount->phone_no }}</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
-                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700">
+                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700 dark:text-slate-200">
                                                                 Address
                                                             </td>
-                                                            <td class="px-6 py-2 font-medium text-gray-600">
+                                                            <td
+                                                                class="px-6 py-2 font-medium text-gray-600 dark:text-slate-300">
                                                                 {{ $checkedAccount->address }}</td>
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
-                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700">
+                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700 dark:text-slate-200">
                                                                 Facebook
                                                                 link</td>
-                                                            <td class="px-6 py-2 font-medium text-gray-600">
+                                                            <td
+                                                                class="px-6 py-2 font-medium text-gray-600 dark:text-slate-300">
                                                                 @if ($checkedAccount->facebook_url != null)
-                                                                    <a class="duration-300 ease-in-out hover:text-primary-color hover:underline"
+                                                                    <a class="duration-300 ease-in-out hover:text-primary-color hover:underline dark:hover:text-slate-500"
                                                                         href="https://{{ $checkedAccount->facebook_url }}"
                                                                         target="_blank">{{ $checkedAccount->facebook_url }}</a>
                                                                 @else
                                                                     <div
-                                                                        class="rounded-md bg-red-50 px-2 py-1 text-sm text-red-500">
+                                                                        class="rounded-md bg-red-50 px-2 py-1 text-sm text-red-500 dark:bg-slate-800">
                                                                         The Facebook link
                                                                         @if (auth()->check())
                                                                             is currently unavailable. Please consider
@@ -265,16 +279,17 @@
                                                         </tr>
                                                         <tr class="flex flex-col lg:table-row">
                                                             <td
-                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700">
+                                                                class="whitespace-nowrap py-2 font-semibold text-gray-700 dark:text-slate-200">
                                                                 Instagram link</td>
-                                                            <td class="px-6 py-2 font-medium text-gray-600">
+                                                            <td
+                                                                class="px-6 py-2 font-medium text-gray-600 dark:text-slate-100">
                                                                 @if ($checkedAccount->ig_url != null)
-                                                                    <a class="duration-300 ease-in-out hover:text-primary-color hover:underline"
+                                                                    <a class="duration-300 ease-in-out hover:text-primary-color hover:underline dark:hover:text-slate-500"
                                                                         href="https://{{ $checkedAccount->ig_url }}"
                                                                         target="_blank">{{ $checkedAccount->ig_url }}</a>
                                                                 @else
                                                                     <div
-                                                                        class="rounded-md bg-red-50 px-2 py-1 text-sm text-red-500">
+                                                                        class="rounded-md bg-red-50 px-2 py-1 text-sm text-red-500 dark:bg-slate-800">
                                                                         The Instagram link
                                                                         @if (auth()->check())
                                                                             is currently unavailable. Please consider
@@ -295,7 +310,8 @@
                                         </div>
                                     </div>
                                     {{-- document tab --}}
-                                    <div class="mt-3 p-4 text-primary-color" x-show="activeTab === 'document'">
+                                    <div class="mt-3 p-4 text-primary-color dark:text-slate-100"
+                                        x-show="activeTab === 'document'">
                                         @if (count($docuPostOfUser) <= 0)
                                             <div class="flex w-full flex-col items-center justify-center gap-1">
                                                 <a href="{{ route('edit-profile', ['activeTab' => 'tab4']) }}">
@@ -304,7 +320,7 @@
                                                         alt="no docu found ico"></a>
                                                 @if (auth()->check() && auth()->user()->id == $checkedAccount->id)
                                                     <a href="{{ route('edit-profile', ['activeTab' => 'tab4']) }}"
-                                                        class="rounded-lg bg-blue-700 px-2 py-1 font-medium text-white duration-200 ease-in-out hover:bg-primary-color">Upload</a>
+                                                        class="rounded-lg bg-blue-700 px-2 py-1 font-medium text-slate-100 duration-200 ease-in-out hover:bg-primary-color">Upload</a>
                                                     <h2 class="text-center text-[1.3rem] font-bold">
                                                         Currently, no documents have been uploaded. If you wish to share
                                                         your research works, kindly click on the 'Upload' button or the
@@ -398,7 +414,7 @@
         @else
             <div class="mt-12 flex h-fit w-full justify-center overflow-hidden">
                 <div
-                    class="flex h-fit flex-col items-center justify-center rounded-lg bg-white p-20 text-gray-600 drop-shadow-lg">
+                    class="flex h-fit flex-col items-center justify-center rounded-lg bg-white p-20 text-gray-600 drop-shadow-lg dark:bg-slate-900 dark:text-slate-100">
                     <img class="h-[10rem] md:h-[12rem] lg:h-[15rem]"
                         src="{{ asset('assets/svgs/userNotFoundError.svg') }}" alt="user not found ico">
                     <h2 class="text-[2rem] font-bold">This content isn't available at the moment</h2>

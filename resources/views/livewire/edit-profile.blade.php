@@ -94,28 +94,28 @@
 
     <x-session_flash />
     <div class="container mb-4">
-        <h1 class="font-bold text-primary-color">Account information</h1>
+        <h1 class="font-bold text-primary-color dark:text-slate-100">Account information</h1>
     </div>
 
     <section class="container flex flex-col gap-6 lg:flex-row">
         @include('livewire.partials.editProfilePartials.account-info-box')
         <section class="w-full lg:w-3/5">
             <div
-                class="flex flex-row gap-6 rounded-t-lg border-b border-gray-300 bg-white px-8 text-gray-600 md:gap-10 lg:gap-14">
+                class="flex flex-row gap-6 rounded-t-lg border-b border-gray-300 bg-white px-8 text-gray-600 dark:bg-slate-800 dark:text-slate-100 md:gap-10 lg:gap-14">
                 <button wire:click="setActiveTab('tab1')"
-                    class="{{ $activeTab === 'tab1' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab1' ? 'border-b-4 text-primary-color dark:border-slate-400 dark:text-slate-300 border-primary-color py-3 pt-5 font-bold' : '' }}">
                     General
                 </button>
                 <button wire:click="setActiveTab('tab2')"
-                    class="{{ $activeTab === 'tab2' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab2' ? 'border-b-4 text-primary-color dark:border-slate-400 dark:text-slate-300 border-primary-color py-3 pt-5 font-bold' : '' }}">
                     Security
                 </button>
                 <button wire:click="setActiveTab('tab3')"
-                    class="{{ $activeTab === 'tab3' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab3' ? 'border-b-4 text-primary-color dark:border-slate-400 dark:text-slate-300 border-primary-color py-3 pt-5 font-bold' : '' }}">
                     Links
                 </button>
                 <button wire:click="setActiveTab('tab4')"
-                    class="{{ $activeTab === 'tab4' ? 'border-b-4 text-primary-color border-primary-color py-3 pt-5 font-bold' : '' }}">
+                    class="{{ $activeTab === 'tab4' ? 'border-b-4 text-primary-color dark:border-slate-400 dark:text-slate-300 border-primary-color py-3 pt-5 font-bold' : '' }}">
                     Files
                 </button>
             </div>

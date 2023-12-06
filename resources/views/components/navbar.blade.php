@@ -1,4 +1,4 @@
-<section class="sticky top-0 z-30 bg-opacity-70 py-2 backdrop-blur-xl md:py-0">
+<section class="sticky top-0 z-30 bg-opacity-70 py-2 backdrop-blur-md md:py-0">
     <div class="container text-base font-semibold text-blue-950 dark:text-slate-100">
         <div class="flex w-full items-center justify-between md:p-2">
             @php

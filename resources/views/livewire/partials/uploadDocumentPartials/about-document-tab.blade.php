@@ -48,8 +48,9 @@
               </div>
               <div class="flex flex-col md:w-1/2">
                   <x-label-input for='document_type'>Document Type</x-label-input>
-                  <select class="rounded-md border border-gray-400 p-2 text-sm" wire:model="document_type"
-                      id="document_type">
+                  <select
+                      class="rounded-md border border-gray-400 p-2 text-sm dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100"
+                      wire:model="document_type" id="document_type">
                       @foreach ($documentTypes as $item)
                           <option selected value="{{ $item->document_type_name }}">{{ $item->document_type_name }}
                           </option>
@@ -62,19 +63,11 @@
           </div>
           <div class="flex w-full flex-col gap-2 md:mt-2 md:gap-4 lg:flex-row">
               <div class="flex w-full flex-col gap-2 md:flex-row md:gap-4 lg:w-1/2">
-                  <div class="flex flex-col md:w-1/2">
+                  <div class="flex w-full flex-col">
                       <x-label-input for='date_of_approval'>Date of approval</x-label-input>
                       <x-input-field class="w-full" type="date" wire:model.live="date_of_approval"
                           id="date_of_approval" />
                       @error('date_of_approval')
-                          <small class="text-red-500">{{ $message }}</small>
-                      @enderror
-                  </div>
-                  <div class="flex flex-col md:w-1/2">
-                      <x-label-input for='format'>Format</x-label-input>
-                      <x-input-field class="w-full" type="text" wire:model.live="format" id="format"
-                          placeholder="Eg. Electronic" />
-                      @error('format')
                           <small class="text-red-500">{{ $message }}</small>
                       @enderror
                   </div>
@@ -92,8 +85,8 @@
                   <div class="flex flex-col md:w-1/2">
                       <x-label-input for="language">
                           Language</x-label-input>
-                      <input class="rounded-md border border-gray-400 p-2 text-sm" type="text"
-                          wire:model.live="language" id="language" placeholder="English" />
+                      <x-input-field class="w-full" type="text" wire:model.live="language" id="language"
+                          placeholder="English" />
                       @error('language')
                           <small class="text-red-500">{{ $message }}</small>
                       @enderror

@@ -1,9 +1,10 @@
 <div class="relative">
     <x-session_flash />
     <div wire:loading.block wire:target="uploadDocument"
-        class="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm">
+        class="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-600 bg-opacity-25 backdrop-blur-sm dark:bg-opacity-0">
         <div class="absolute inset-0 flex items-center justify-center">
-            <div class="mx-auto w-fit rounded-lg bg-white text-center text-gray-600 drop-shadow-lg">
+            <div
+                class="mx-auto w-fit rounded-lg bg-white text-center text-gray-600 drop-shadow-lg dark:bg-slate-800 dark:text-slate-100">
                 <div class="rounded-t-xl bg-primary-color p-8 px-10 py-3 font-semibold text-white">
                     <h1>Processing</h1>
                 </div>
@@ -31,31 +32,32 @@
 
     <div class="container">
         <div class="md:px-6">
-            <section class="my-3 flex h-max w-full overflow-y-auto rounded-lg bg-white drop-shadow-lg">
+            <section
+                class="my-3 flex h-max w-full overflow-y-auto rounded-lg bg-white drop-shadow-lg dark:bg-slate-800">
                 <form class="flex w-full flex-col" wire:submit='uploadDocument' action="">
                     <section
-                        class="w-full gap-1 border-b border-gray-400 text-xs text-gray-600 md:justify-between md:text-sm">
+                        class="w-full gap-1 border-b border-gray-400 text-xs text-gray-600 dark:text-slate-100 md:justify-between md:text-sm">
                         <div class="flex justify-between px-8">
                             <div
-                                class="{{ $currentTab == 1 ? 'text-primary-color font-bold border-b-2 border-primary-color ' : '' }} flex items-center py-3">
+                                class="{{ $currentTab == 1 ? 'text-primary-color dark:text-slate-300 font-bold border-b-2 border-primary-color  dark:border-slate-300' : '' }} flex items-center py-3">
                                 <p
-                                    class="{{ $currentTab == 1 ? 'bg-primary-color   ' : '' }} flex h-4 w-4 items-center justify-center rounded-full bg-gray-600 text-xs text-white">
+                                    class="{{ $currentTab == 1 ? 'bg-primary-color dark:bg-slate-700   ' : '' }} flex h-4 w-4 items-center justify-center rounded-full bg-gray-600 text-xs text-white">
                                     1
                                 </p>
                                 <p class="ml-2">About Document</p>
                             </div>
                             <div
-                                class="py-3{{ $currentTab == 2 ? 'text-primary-color font-bold border-b-2 border-primary-color ' : '' }} flex items-center">
+                                class="py-3{{ $currentTab == 2 ? 'text-primary-color dark:text-slate-300 font-bold border-b-2 border-primary-color  dark:border-slate-300' : '' }} flex items-center">
                                 <p
-                                    class="{{ $currentTab == 2 ? 'bg-primary-color' : '' }} flex h-4 w-4 items-center justify-center rounded-full bg-gray-600 text-xs text-white">
+                                    class="{{ $currentTab == 2 ? 'bg-primary-color dark:bg-slate-700' : '' }} flex h-4 w-4 items-center justify-center rounded-full bg-gray-600 text-xs text-white">
                                     2
                                 </p>
                                 <p class="ml-2">Finalization</p>
                             </div>
                             <div
-                                class="py-3{{ $currentTab == 3 ? 'text-primary-color font-bold border-b-2 border-primary-color ' : '' }} flex items-center">
+                                class="py-3{{ $currentTab == 3 ? 'text-primary-color dark:text-slate-300 font-bold border-b-2 border-primary-color  dark:border-slate-300' : '' }} flex items-center">
                                 <p
-                                    class="{{ $currentTab == 3 ? 'bg-primary-color' : '' }} flex h-4 w-4 items-center justify-center rounded-full bg-gray-600 text-xs text-white">
+                                    class="{{ $currentTab == 3 ? 'bg-primary-color dark:bg-slate-700' : '' }} flex h-4 w-4 items-center justify-center rounded-full bg-gray-600 text-xs text-white">
                                     3
                                 </p>
                                 <p class="ml-2">Preview</p>
@@ -75,7 +77,7 @@
 
                     <div class="relative flex justify-end gap-2 px-8 py-4">
                         <div wire:loading wire:target='changeTab, uploadDocument'
-                            class="mt-2 h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                            class="mt-2 h-4 w-4 animate-spin rounded-full border-4 border-solid border-primary-color border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] dark:border-slate-400"
                             role="status">
                             <span
                                 class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>

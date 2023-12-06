@@ -1,5 +1,5 @@
   <div
-      class="flex min-h-[26.5rem] w-full flex-col gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg md:gap-4 lg:h-[30rem]">
+      class="flex min-h-[26.5rem] w-full flex-col gap-0 rounded-b-lg bg-white p-4 px-6 py-4 text-gray-600 drop-shadow-lg dark:bg-slate-800 dark:text-slate-100 md:gap-4 lg:h-[30rem]">
       @php
           $user = auth()->user();
           $areTheyEmpty = empty($user->first_name) || empty($user->last_name) || empty($user->address) || empty($user->phone_no);
@@ -12,7 +12,8 @@
 
               <p class="mt-4">Your account information is incomplete. Please complete the required information <a
                       href="{{ route('edit-profile', 'tab1') }}" wire:navigate
-                      class="font-bold text-primary-color underline">here</a> and to proceed with the account
+                      class="font-bold text-primary-color underline dark:text-slate-100">here</a> and to proceed with the
+                  account
                   verification
                   process. Once verified, you will be able to upload files</p>
           </div>
@@ -23,7 +24,7 @@
                       alt="incomplete details ico">
                   <p>You have filled in the required information but have not yet been verified. Please proceed to
                       verify your account. You can click <a href="{{ route('edit-profile', 'tab3') }}" wire:navigate
-                          class="font-bold text-primary-color underline">here.</a></p>
+                          class="font-bold text-primary-color underline dark:text-slate-100">here.</a></p>
               </section>
           @else
               @if (count($docu_posts) > 0)
@@ -48,7 +49,7 @@
                           <div class="overflow-x-auto">
                               <table class="min-w-full">
                                   <thead>
-                                      <tr class="my-2 font-semibold text-gray-800">
+                                      <tr class="my-2 font-semibold text-gray-800 dark:text-slate-100">
                                           <th scope="col" class="text-start">Title</th>
                                           <th scope="col" class="text-center">Date Uploaded</th>
                                           <th scope="col" class="text-center">Status</th>
@@ -89,7 +90,7 @@
                                                   <div
                                                       class="flex flex-col items-center justify-center gap-1 md:flex-row">
                                                       <svg wire:click='viewDocuPost({{ $docuPost->id }})'
-                                                          class="h-7 cursor-pointer rounded-md bg-primary-color p-1 text-white duration-200 ease-in-out hover:bg-blue-900"
+                                                          class="h-7 cursor-pointer rounded-md bg-primary-color p-1 text-white duration-200 ease-in-out hover:bg-blue-900 dark:bg-slate-700"
                                                           fill="currentColor" viewBox="0 0 24 24"
                                                           xmlns="http://www.w3.org/2000/svg">
                                                           <path d="M15 11.64a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
@@ -129,7 +130,8 @@
                   </section>
               @else
                   <div class="container flex h-full w-full flex-col items-center justify-center text-center">
-                      <div class="flex h-36 w-36 items-center justify-center rounded-full bg-gray-200">
+                      <div
+                          class="flex h-36 w-36 items-center justify-center rounded-full bg-gray-200 dark:bg-slate-600">
                           <svg xmlns="http://www.w3.org/2000/svg" height="80" viewBox="0 0 113 113" fill="none">
                               <path
                                   d="M4.30044 42.0087L10.5201 92.8941C10.6953 94.3772 11.4089 95.7444 12.5255 96.736C13.6421 97.7277 15.084 98.2749 16.5774 98.2737H96.4308C97.9249 98.2748 99.3674 97.7269 100.484 96.7343C101.601 95.7417 102.314 94.3734 102.488 92.8895L108.698 42.0087C108.742 41.6427 108.708 41.2716 108.598 40.9198C108.488 40.568 108.305 40.2436 108.06 39.9681C107.815 39.6926 107.514 39.4721 107.178 39.3214C106.842 39.1707 106.477 39.0931 106.108 39.0938H6.89507C6.52614 39.0933 6.16129 39.1709 5.82451 39.3215C5.48774 39.4722 5.18667 39.6924 4.94113 39.9678C4.6956 40.2431 4.51114 40.5673 4.39991 40.9191C4.28869 41.2709 4.25784 41.6422 4.30044 42.0087Z"
@@ -143,7 +145,7 @@
                           share, kindly
                           consider uploading a new file below.</p>
                       <a href="{{ route('user-upload-document-form') }}"
-                          class="rounded-lg bg-blue-800 px-3 py-2 text-sm text-white duration-200 ease-in-out hover:bg-primary-color">UPLOAD
+                          class="rounded-lg bg-blue-800 px-3 py-2 text-sm font-bold text-white duration-200 ease-in-out hover:bg-primary-color">UPLOAD
                           FILE</a>
                   </div>
               @endif

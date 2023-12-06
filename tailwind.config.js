@@ -62,7 +62,7 @@ export default {
     plugins: [
         function ({ addUtilities }) {
             const newUtilities = {
-                ".custom-background": {
+                ".dark-background": {
                     "background-color": "hsla(240, 100%, 0%, 1)",
                     "background-image":
                         "radial-gradient(at 0% 100%, hsla(264, 63%, 7%, 1) 0px, transparent 50%), " +
