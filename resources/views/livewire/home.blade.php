@@ -33,13 +33,13 @@
                 {{-- @if (!is_null($skeletonData)) --}}
                 @if ($docuPostData == null)
                     <section
-                        class="bg-primary relative z-10 flex h-[35.2rem] items-center justify-center rounded-lg border border-gray-300 bg-white p-5 py-[120px] text-gray-700 drop-shadow-lg">
+                        class="bg-primary relative z-10 flex h-[35.2rem] items-center justify-center rounded-lg border border-gray-300 bg-white p-5 py-[120px] text-gray-700 drop-shadow-lg dark:border-none dark:bg-slate-700">
                         <div class="container mx-auto">
                             <div class="-mx-4 flex">
                                 <div class="w-full px-4">
                                     <div class="mx-auto flex max-w-[400px] flex-col items-center text-center">
-                                        <svg class="h-[10rem] text-gray-700" fill="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                        <svg class="h-[10rem] text-gray-700 dark:text-slate-300" fill="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M14 2.25a.25.25 0 0 1 .25.25v5.647c0 .414.336.75.75.75h4.5a.25.25 0 0 1 .25.25V19A2.75 2.75 0 0 1 17 21.75H7A2.75 2.75 0 0 1 4.25 19V5A2.75 2.75 0 0 1 7 2.25h7Z">
                                             </path>
@@ -47,10 +47,10 @@
                                                 d="M16.086 2.638c-.143-.115-.336.002-.336.186v4.323c0 .138.112.25.25.25h3.298c.118 0 .192-.124.124-.22L16.408 2.98a1.748 1.748 0 0 0-.322-.342Z">
                                             </path>
                                         </svg>
-                                        <h4 class="mb-3 text-[22px] font-semibold leading-tight">
+                                        <h4 class="mb-3 text-[22px] font-semibold leading-tight dark:text-slate-100">
                                             Oops! There is no upload Document yet.
                                         </h4>
-                                        <p class="mb-8 text-lg">
+                                        <p class="mb-8 text-lg dark:text-slate-100">
                                             If
                                             you find it
                                             as bug or something went wrong. Contact
@@ -58,7 +58,7 @@
                                             administrator immediately. Thank you for your cooperation.
                                         </p>
                                         <a href="{{ route('user.logout') }}"
-                                            class="hover:text-primary inline-block rounded-lg border bg-primary-color px-8 py-3 text-center text-base font-semibold text-white transition">
+                                            class="hover:text-primary inline-block rounded-lg border bg-primary-color px-8 py-3 text-center text-base font-semibold text-white transition dark:bg-sky-800 dark:text-slate-100">
                                             Logout
                                         </a>
                                     </div>
@@ -70,7 +70,7 @@
                     <div class="mt-6">
 
                         <div
-                            class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md dark:border-none dark:bg-slate-800 dark:text-slate-50">
+                            class="mb-3 flex w-full items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 drop-shadow-md dark:border-none dark:bg-slate-800 dark:text-slate-100">
                             <p class="flex flex-col text-xs leading-3 md:text-base">
                                 <Strong>SHARE YOUR WORKS</Strong>
                                 <small class="text-xs">Looking for something? <a wire:navigate href=""
@@ -78,7 +78,7 @@
                                     </a></small>
                             </p>
                             <a wire:navigate href="{{ route('user-upload-document-form') }}"
-                                class="flex h-fit items-center gap-1 rounded-full bg-primary-color px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-blue-800">
+                                class="flex h-fit items-center gap-1 rounded-full bg-primary-color px-2 py-1 font-semibold text-white duration-300 ease-in-out hover:bg-blue-800 dark:border-none dark:bg-sky-800">
                                 <svg class="hidden h-5 w-5 md:block" fill="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -92,11 +92,12 @@
                             class="mb-2 mt-3 flex w-full items-center justify-start gap-2 border-t border-gray-300 pt-2">
                             <section class="flex w-full justify-between gap-2 text-sm lg:w-fit lg:justify-normal">
                                 <div
-                                    class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm">
-                                    <label for="items" class="mr-1 font-medium text-primary-color">Items: </label>
+                                    class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm dark:border-none dark:bg-slate-800">
+                                    <label for="items"
+                                        class="mr-1 font-medium text-primary-color dark:text-slate-100">Items: </label>
                                     <div class="relative">
                                         <select id="items" wire:model.live='items'
-                                            class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-1 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none">
+                                            class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-1 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none dark:border-none dark:bg-slate-700 dark:text-slate-100">
                                             <option value="5">5</option>
                                             <option value="15">15</option>
                                             <option value="20">20</option>
@@ -106,8 +107,9 @@
                                         </select>
                                         <div
                                             class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-                                            <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="h-5 w-5 text-gray-500 dark:text-slate-100" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M19 9l-7 7-7-7"></path>
                                             </svg>
@@ -115,11 +117,12 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm">
-                                    <label for="sortBy" class="mr-1 font-medium text-primary-color">Sort by: </label>
+                                    class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm dark:border-none dark:bg-slate-800">
+                                    <label for="sortBy"
+                                        class="mr-1 font-medium text-primary-color dark:text-sky-50">Sort by: </label>
                                     <div class="relative">
                                         <select id="sortBy" wire:model.live='sort_by'
-                                            class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-4 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none">
+                                            class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-4 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none dark:border-none dark:bg-slate-700 dark:text-slate-100">
                                             <option value="newest" selected>Newest</option>
                                             <option value="oldest">Oldest</option>
                                             <option value="a-z">From A-Z</option>
@@ -127,8 +130,9 @@
                                         </select>
                                         <div
                                             class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-                                            <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="h-5 w-5 text-gray-500 dark:text-slate-100" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M19 9l-7 7-7-7"></path>
                                             </svg>
@@ -140,25 +144,27 @@
                         <div class="relative mt-4 space-y-6">
                             <div wire:loading wire:target='searchNewDocu, sort_by, items'
                                 class="absolute z-30 h-full w-full bg-opacity-20 backdrop-blur">
-                                <div class="container mt-20 w-fit rounded-xl bg-white p-14 drop-shadow-md">
+                                <div
+                                    class="container mt-20 w-fit rounded-xl bg-white p-14 drop-shadow-md dark:bg-slate-700 dark:bg-none">
                                     <div class="flex h-full flex-col items-center justify-center gap-2">
                                         <div
                                             class="relative h-24 w-24 animate-spin rounded-full bg-gradient-to-r from-yellow-500 to-blue-800">
                                             <div
-                                                class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-white bg-gray-200">
+                                                class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-white bg-gray-200 dark:border-none dark:bg-slate-700">
                                             </div>
                                         </div>
-                                        <strong class="text-primary-color md:text-lg lg:text-xl">Searching...</strong>
+                                        <strong
+                                            class="text-primary-color dark:text-slate-100 md:text-lg lg:text-xl">Searching...</strong>
                                     </div>
                                 </div>
                             </div>
                             @foreach ($docuPostData as $docuData)
                                 <section
-                                    class="rounded-xl bg-white p-5 drop-shadow-lg duration-500 ease-in-out hover:-translate-y-1">
+                                    class="rounded-xl bg-white p-5 drop-shadow-lg duration-500 ease-in-out hover:-translate-y-1 dark:bg-slate-800">
                                     <div class="relative flex w-full items-start gap-2 border-b border-gray-300 pb-3">
                                         <a wire:navigate
                                             href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
-                                            class="pr-4 text-base font-bold md:text-lg">
+                                            class="pr-4 text-base font-bold dark:text-sky-200 md:text-lg">
                                             {{ $docuData->title }}
                                         </a>
                                         @php
@@ -167,7 +173,7 @@
                                                 ->count();
                                         @endphp
 
-                                        <svg class="sticky right-4 top-[1.2rem] max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700 lg:absolute lg:right-0 lg:top-0"
+                                        <svg class="sticky right-4 top-[1.2rem] max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] cursor-pointer text-gray-700 dark:text-sky-50 lg:absolute lg:right-0 lg:top-0"
                                             wire:click.prevent="bookmarkItem({{ $docuData->id }}, '{{ $docuData->reference }}')"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             @if ($checkBookmark > 0)
@@ -195,17 +201,17 @@
                                         </a>
                                         <a href=" {{ route('search-result-page', ['q' => $docuData->course]) }} "
                                             target="_blank"
-                                            class="h-fit w-fit rounded-full border-blue-700 bg-blue-100 px-2 py-1 text-blue-700">
+                                            class="h-fit w-fit rounded-full border-blue-700 bg-blue-100 px-2 py-1 text-blue-700 dark:bg-slate-700 dark:text-blue-200">
                                             {{ $docuData->course }}
                                         </a>
                                     </div>
                                     <p
-                                        class="my-2 line-clamp-4 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-sm md:line-clamp-5 md:text-base">
+                                        class="my-2 line-clamp-4 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-sm dark:border-none dark:bg-slate-600 dark:text-slate-100 md:line-clamp-5 md:text-base">
                                         {{ $docuData->abstract_or_summary }}
                                     </p>
 
                                     <div class="flex items-start pb-2">
-                                        <svg class="mr-1 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem]"
+                                        <svg class="mr-1 max-h-[1.5rem] min-h-[1.5rem] min-w-[1.5rem] max-w-[1.5rem] dark:text-slate-100"
                                             fill="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -215,43 +221,51 @@
                                                 d="M4.431 11.272a1.2 1.2 0 0 1-.351-.848V4.32a1.2 1.2 0 0 0-1.2 1.2v5.504c0 .318.126.623.351.848l8.4 8.4a1.2 1.2 0 0 0 1.697 0l.052-.052-8.949-8.948Z">
                                             </path>
                                         </svg>
-                                        <p class="text-sm font-medium text-gray-600">
+                                        <p class="text-sm font-medium text-gray-600 dark:text-slate-100">
                                             <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_1]) }} "
-                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600">
+                                                target="_blank"
+                                                class="px-1 hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-500 dark:hover:text-blue-300">
                                                 {{ $docuData->keyword_1 . ($docuData->keyword_1 ? ', ' : '') }}</a>
                                             <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_2]) }} "
-                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                target="_blank"
+                                                class="dark:hover:bg-gray-5 dark:hover:text-blue-30000 px-1 hover:bg-gray-100 hover:text-blue-600"
                                                 target="_blank" rel="noopener noreferrer">
                                                 {{ $docuData->keyword_2 . ($docuData->keyword_2 ? ', ' : '') }}</a>
                                             <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_3]) }} "
-                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                target="_blank"
+                                                class="px-1 hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-500 dark:hover:text-blue-300"
                                                 target="_blank" rel="noopener noreferrer">
                                                 {{ $docuData->keyword_3 . ($docuData->keyword_3 ? ', ' : '') }}</a>
                                             <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_4]) }} "
-                                                target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                target="_blank"
+                                                class="px-1 hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-500 dark:hover:text-blue-300"
                                                 target="_blank" rel="noopener noreferrer">
                                                 {{ $docuData->keyword_4 . ($docuData->keyword_4 ? ', ' : '') }}</a>
                                             @if ($docuData->keyword_5 != null)
                                                 <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_5]) }} "
-                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank"
+                                                    class="px-1 hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-500 dark:hover:text-blue-300"
                                                     target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_5 . ($docuData->keyword_6 || $docuData->keyword_7 || $docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_6 != null)
                                                 <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_6]) }} "
-                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank"
+                                                    class="dark:hover:bg-gray-5 dark:hover:text-blue-30000 px-1 hover:bg-gray-100 hover:text-blue-600"
                                                     target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_6 . ($docuData->keyword_7 || $docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_7 != null)
                                                 <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_7]) }} "
-                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank"
+                                                    class="dark:hover:bg-gray-5 dark:hover:text-blue-30000 px-1 hover:bg-gray-100 hover:text-blue-600"
                                                     target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_7 . ($docuData->keyword_8 ? ', ' : '') }}</a>
                                             @endif
                                             @if ($docuData->keyword_8 != null)
                                                 <a href=" {{ route('search-result-page', ['q' => $docuData->keyword_8]) }} "
-                                                    target="_blank" class="px-1 hover:bg-gray-100 hover:text-blue-600"
+                                                    target="_blank"
+                                                    class="dark:hover:bg-gray-5 dark:hover:text-blue-30000 px-1 hover:bg-gray-100 hover:text-blue-600"
                                                     target="_blank" rel="noopener noreferrer">
                                                     {{ $docuData->keyword_8 }}</a>
                                             @endif
@@ -261,9 +275,10 @@
                                     <div class="flex items-center justify-between border-t border-slate-200 pt-2">
                                         <div class="flex items-center gap-2">
                                             <a href="{{ route('view-document', ['reference' => $docuData->reference]) }}"
-                                                class="cursor-pointer rounded-full bg-sky-100 p-1">
-                                                <svg width="24" height="24" fill="currentColor"
-                                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                class="cursor-pointer rounded-full bg-sky-100 p-1 dark:bg-gray-700">
+                                                <svg class="dark:text-slate-100" width="24" height="24"
+                                                    fill="currentColor" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M9.027 14.91c.168-.099.352-.195.551-.286-.168.25-.348.493-.54.727-.336.404-.597.62-.762.687a.312.312 0 0 1-.042.014.338.338 0 0 1-.031-.053c-.067-.132-.065-.26.048-.432.127-.198.383-.425.776-.658Zm2.946-1.977c-.142.03-.284.06-.427.094a25.2 25.2 0 0 0 .6-1.26c.19.351.394.695.612 1.03-.26.038-.523.083-.785.136Zm3.03 1.127a4.662 4.662 0 0 1-.522-.492c.274.006.521.026.735.065.38.068.559.176.621.25.02.021.031.049.032.077a.524.524 0 0 1-.072.24.368.368 0 0 1-.113.15.128.128 0 0 1-.083.017c-.108-.003-.31-.08-.598-.307Zm-2.67-5.695c-.048.293-.13.629-.24.995a5.82 5.82 0 0 1-.106-.416c-.092-.423-.105-.756-.056-.986.046-.212.132-.298.236-.34a.621.621 0 0 1 .174-.048.71.71 0 0 1 .038.238c.006.146-.008.332-.046.558v-.001Z">
                                                     </path>
@@ -274,12 +289,12 @@
                                             </a>
                                             <div class="h-5 border-r border-slate-400 pr-1 text-gray-500">
                                             </div>
-                                            <p class="font-medium text-gray-500">
+                                            <p class="font-medium text-gray-500 dark:text-slate-100">
                                                 {{ \Carbon\Carbon::parse($docuData->date_of_approval)->format('M Y') }}
 
                                             </p>
                                         </div>
-                                        <div class="mr-2 flex gap-3 font-medium text-gray-500">
+                                        <div class="mr-2 flex gap-3 font-medium text-gray-500 dark:text-sky-50">
                                             <div class="flex items-center gap-2">
                                                 <svg width="20" height="20" fill="currentColor"
                                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -342,9 +357,10 @@
             <div class="sticky right-0 top-[4.3rem] col-span-5 h-fit lg:col-span-2">
                 <div class="flex flex-col gap-2 md:gap-6">
                     {{-- 1st section sticky --}}
-                    <section class="rounded-xl border border-blue-100 bg-white drop-shadow-lg">
+                    <section
+                        class="rounded-xl border border-blue-100 bg-white drop-shadow-lg dark:border-none dark:bg-slate-800">
                         <div
-                            class="flex items-center gap-1 rounded-t-xl bg-primary-color px-4 py-2 text-left text-sm uppercase text-white md:text-base lg:text-base">
+                            class="flex items-center gap-1 rounded-t-xl bg-primary-color px-4 py-2 text-left text-sm uppercase text-white dark:text-slate-50 md:text-base lg:text-base">
                             <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -362,14 +378,15 @@
                                 <div class="mt-2 flex flex-col items-center justify-center gap-1">
                                     <img class="h-52" src="{{ asset('assets/svgs/undraw_empty_re_opql.svg') }}"
                                         alt="svg file" srcset="">
-                                    <p class="text-righ text-xl font-bold text-primary-color">Currently, there are no
+                                    <p class="text-righ text-xl font-bold text-primary-color dark:text-slate-50">
+                                        Currently, there are no
                                         trending posts.</p>
                                 </div>
                             </section>
                         @else
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($mostViewedDocu as $item)
-                                    <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1">
+                                    <div class="my-3 flex gap-1 rounded-lg bg-blue-50 px-2 py-1 dark:bg-slate-700">
                                         @php
                                             $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $docuData->document_type)->first();
                                             // dump($findDocuTypeConfig);
@@ -379,7 +396,7 @@
                                             style="background-color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->bg_color }}; color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->text_color }}"
                                             class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : '' }} rounded-lg px-1 text-sm duration-200 ease-in-out">{{ $item->document_type }}</a>
                                         <a href="{{ route('view-document', ['reference' => $item->reference]) }}"
-                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
+                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline dark:text-slate-100">{{ $item->title }}
                                         </a>
                                     </div>
                                 @endforeach
@@ -388,7 +405,8 @@
 
                     </section>
                     {{-- 2nd section sticky --}}
-                    <section class="rounded-xl border border-blue-100 bg-white drop-shadow-lg">
+                    <section
+                        class="rounded-xl border border-blue-100 bg-white drop-shadow-lg dark:border-none dark:bg-slate-800">
                         <div
                             class="flex items-center gap-1 rounded-t-xl bg-primary-color px-4 py-2 text-left text-sm uppercase text-white md:text-base lg:text-base">
                             <svg class="h-5" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -405,7 +423,8 @@
                                 <div class="mt-2 flex flex-col items-center justify-center gap-1">
                                     <img class="h-52" src="{{ asset('assets/svgs/undraw_empty_re_opql.svg') }}"
                                         alt="svg file" srcset="">
-                                    <p class="text-righ text-xl font-bold text-primary-color">Currently, there are no
+                                    <p class="text-righ text-xl font-bold text-primary-color dark:text-slate-100">
+                                        Currently, there are no
                                         trending posts.</p>
                                 </div>
                             </section>
@@ -413,7 +432,7 @@
                             <div class="custom-scrollbar h-full overflow-y-auto px-2 pb-2">
                                 @foreach ($latestDocuPostData as $item)
                                     <div
-                                        class="my-3 flex max-h-[10rem] gap-1 overflow-y-auto rounded-lg bg-blue-50 px-2 py-1">
+                                        class="my-3 flex max-h-[10rem] gap-1 overflow-y-auto rounded-lg bg-blue-50 px-2 py-1 dark:bg-slate-700">
                                         @php
                                             $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $item->document_type)->first();
                                             // dump($findDocuTypeConfig);
@@ -423,7 +442,7 @@
                                             style="background-color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->bg_color }}; color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->text_color }}"
                                             class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : '' }} rounded-lg px-1 text-sm duration-200 ease-in-out hover:bg-blue-800">{{ $item->document_type }}</a>
                                         <a href="{{ route('view-document', ['reference' => $item->reference]) }}"
-                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline">{{ $item->title }}
+                                            class="line-clamp-1 text-sm font-medium text-primary-color duration-200 ease-in-out hover:underline dark:text-slate-100">{{ $item->title }}
                                         </a>
                                     </div>
                                 @endforeach

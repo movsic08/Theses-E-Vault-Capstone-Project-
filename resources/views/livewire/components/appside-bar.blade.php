@@ -22,7 +22,7 @@
                     <img class="max-h-[2rem] min-h-[2rem] min-w-[2rem] max-w-[2rem]" src="{{ asset('icons/logo.svg') }}"
                         alt="logo" srcset="">
                 </div>
-                <strong class="hideName block whitespace-nowrap pl-2 text-xs dark:text-slate-50 md:hidden">Thesis
+                <strong class="hideName block whitespace-nowrap pl-2 text-xs dark:text-slate-50 md:hidden">Theses
                     <span class="text-secondary-color">E-Vault</span> </strong>
             </a>
 
