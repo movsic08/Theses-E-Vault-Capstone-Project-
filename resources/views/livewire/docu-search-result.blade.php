@@ -6,9 +6,10 @@
     <div class="mb-4 mt-3 md:container md:mx-3">
         <div class="relative mb-8 flex flex-col gap-4 lg:flex-row lg:gap-8">
             <section class="flex w-full flex-col gap-4">
-                <div class="flex w-full items-center justify-between text-primary-color">
+                <div class="flex w-full items-center justify-between text-primary-color dark:text-slate-200">
                     <div><strong>Search for:</strong> <span class="font-medium">{{ $query }}</span></div>
-                    <strong class="ml-1 whitespace-nowrap text-primary-color lg:hidden">{{ $resultsCount }}
+                    <strong
+                        class="ml-1 whitespace-nowrap text-primary-color dark:text-slate-200 lg:hidden">{{ $resultsCount }}
                         @if ($resultsCount <= 1)
                             Result found
                         @else
@@ -18,28 +19,28 @@
                 </div>
                 <form wire:submit='searchNewDocu' class="-mt-2">
                     <div
-                        class="flex w-full items-center justify-between rounded-full bg-white px-2 py-1 drop-shadow-md backdrop-blur-md md:px-3 md:py-2">
+                        class="flex w-full items-center justify-between rounded-full bg-white px-2 py-1 drop-shadow-md backdrop-blur-md dark:bg-slate-800 md:px-3 md:py-2">
                         <div class="flex w-full items-center">
-                            <svg class="h-6 text-primary-color" fill="none" stroke="currentColor"
+                            <svg class="h-6 text-primary-color dark:text-slate-200" fill="none" stroke="currentColor"
                                 stroke-linecap="round" stroke-width="4" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="m21 21-2.243-2.247-2.243-2.247"></path>
                                 <path d="M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z"></path>
                             </svg>
                             <input
-                                class="mx-2 w-full p-2 font-medium text-primary-color focus:border-b focus:border-gray-500 focus:outline-none"
+                                class="mx-2 w-full p-2 font-medium text-primary-color focus:outline-none dark:bg-slate-800 dark:text-slate-200"
                                 wire:model='search' type="search" placeholder="Search now..."
                                 value="{{ $query }}" id="searchInput">
                         </div>
                         <div class="flex items-center gap-2">
-                            <option value="">Filter</option>
                             <button type="submit"
                                 class="rounded-full bg-blue-500 p-2 text-sm font-bold text-white drop-shadow-md duration-500 ease-in-out hover:bg-blue-800">Search</button>
                         </div>
                     </div>
                 </form>
                 <div class="flex w-full items-start justify-between">
-                    <strong class="ml-1 hidden whitespace-nowrap text-primary-color lg:block">{{ $resultsCount }}
+                    <strong
+                        class="ml-1 hidden whitespace-nowrap text-primary-color dark:text-slate-200 lg:block">{{ $resultsCount }}
                         @if ($resultsCount <= 1)
                             Result found
                         @else
@@ -48,11 +49,12 @@
                     </strong>
                     <section class="flex w-full justify-between gap-2 lg:w-fit lg:justify-normal">
                         <div
-                            class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm">
-                            <label for="items" class="mr-1 font-medium text-primary-color">Items: </label>
+                            class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100">
+                            <label for="items" class="mr-1 font-medium text-primary-color dark:text-slate-200">Items:
+                            </label>
                             <div class="relative">
                                 <select id="items" wire:model.live='items'
-                                    class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-1 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none">
+                                    class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-1 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none dark:border-slate-700 dark:bg-slate-700">
                                     <option value="5">5</option>
                                     <option value="15">15</option>
                                     <option value="20">20</option>
@@ -61,8 +63,8 @@
                                     <option value="50">50</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-                                    <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="h-5 w-5 text-gray-500 dark:text-slate-200" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 9l-7 7-7-7"></path>
                                     </svg>
@@ -70,11 +72,12 @@
                             </div>
                         </div>
                         <div
-                            class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm">
-                            <label for="sortBy" class="mr-1 font-medium text-primary-color">Sort by: </label>
+                            class="relative flex w-fit items-center justify-end rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 drop-shadow-sm dark:border-slate-800 dark:bg-slate-800">
+                            <label for="sortBy" class="mr-1 font-medium text-primary-color dark:text-slate-200">Sort
+                                by: </label>
                             <div class="relative">
                                 <select id="sortBy" wire:model.live='sort_by'
-                                    class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-4 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none">
+                                    class="cursor-pointer appearance-none rounded-md border border-slate-300 bg-white px-2 py-1 pl-8 pr-4 leading-tight drop-shadow-sm transition duration-300 ease-in-out focus:border-blue-500 focus:bg-white focus:shadow-md focus:outline-none dark:border-slate-700 dark:bg-slate-700 dark:text-slate-200">
                                     <option value="relevance">Relevance</option>
                                     <option value="newest">Newest</option>
                                     <option value="oldest">Oldest</option>
@@ -83,8 +86,8 @@
                                     <option value="most_cited">Most cited</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-                                    <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="h-5 w-5 text-gray-500 dark:text-slate-200" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 9l-7 7-7-7"></path>
                                     </svg>
@@ -99,27 +102,29 @@
                     <div class="relative flex w-full flex-col gap-5">
                         <div wire:loading wire:target='searchNewDocu, sort_by, items'
                             class="absolute z-30 h-full w-full bg-opacity-50 backdrop-blur">
-                            <div class="container mt-20 w-fit rounded-xl bg-white p-14 drop-shadow-md">
+                            <div
+                                class="container mt-20 w-fit rounded-xl bg-white p-14 drop-shadow-md dark:bg-slate-700">
                                 <div class="flex h-full flex-col items-center justify-center gap-2">
                                     <div
                                         class="relative h-24 w-24 animate-spin rounded-full bg-gradient-to-r from-yellow-500 to-blue-800">
                                         <div
-                                            class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-white bg-gray-200">
+                                            class="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 border-white bg-gray-200 dark:border-slate-700 dark:bg-slate-700">
                                         </div>
                                     </div>
-                                    <strong class="text-primary-color md:text-lg lg:text-xl">Searching...</strong>
+                                    <strong
+                                        class="text-primary-color dark:text-slate-200 md:text-lg lg:text-xl">Searching...</strong>
                                 </div>
                             </div>
                         </div>
                         @foreach ($results as $resultsItem)
                             <div
-                                class="w-full rounded-2xl border border-gray-200 bg-white px-5 py-2 text-gray-600 drop-shadow-md duration-500">
+                                class="w-full rounded-2xl border border-gray-200 bg-white px-5 py-2 text-gray-600 drop-shadow-md duration-500 dark:border-slate-700 dark:bg-slate-800">
                                 <div class="flex w-full flex-col gap-1 border-b border-gray-400 py-2">
                                     <div class="flex w-full items-start justify-between">
                                         <div class="flex w-full items-start">
                                             <a wire:click='viewsCount({{ $resultsItem->id }})'
                                                 href="{{ route('view-document', ['reference' => $resultsItem->reference]) }}"
-                                                class="text-md font-bold text-primary-color md:text-lg lg:text-xl"
+                                                class="text-md font-bold text-primary-color dark:text-slate-200 md:text-lg lg:text-xl"
                                                 target="">
                                                 {{ $resultsItem->title }}
                                             </a>
@@ -131,7 +136,7 @@
                                                     ->count();
                                             @endphp
                                             <svg wire:click="bookmark({{ $resultsItem->id }}, '{{ $resultsItem->reference }}')"
-                                                class="{{ $checkBookmark > 0 ? 'bg-gray-800 text-gray-50' : 'bg-gray-200' }} h-7 cursor-pointer rounded-md p-1"
+                                                class="{{ $checkBookmark > 0 ? 'bg-gray-800 text-gray-50  dark:bg-slate-700 dark:text-slate-400 ' : 'bg-gray-200 dark:bg-slate-800 dark:text-slate-300' }} h-7 cursor-pointer rounded-md p-1"
                                                 fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -140,7 +145,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="text-xs font-light capitalize lg:text-sm">
+                                    <div class="text-xs font-light capitalize dark:text-slate-200 lg:text-sm">
                                         {{-- @php
                                             $userData = \App\Models\User::find($resultsItem->user_id);
                                         @endphp --}}
@@ -171,11 +176,12 @@
                                 </div>
                                 <div class="border-b border-gray-400 py-2 md:py-6">
                                     <a href="{{ route('search-result-page', ['q' => $resultsItem->course]) }}"
-                                        target="_blank" class="text-xs font-semibold text-blue-600 lg:text-base">
-                                        <a class="leading-3">{{ $resultsItem->course }}</a>
+                                        target="_blank"
+                                        class="text-xs font-semibold text-blue-600 dark:text-slate-200 lg:text-base">
+                                        <a class="leading-3 dark:text-slate-200">{{ $resultsItem->course }}</a>
                                     </a>
                                     <div
-                                        class="mt-1 line-clamp-6 overflow-hidden rounded-lg bg-slate-100 p-1 font-medium md:mt-2 md:line-clamp-4 lg:line-clamp-5">
+                                        class="mt-1 line-clamp-6 overflow-hidden rounded-lg bg-slate-100 p-1 font-medium dark:bg-slate-700 dark:text-slate-200 md:mt-2 md:line-clamp-4 lg:line-clamp-5">
                                         <p class="text-sm lg:text-base lg:leading-relaxed">
                                             {{ $resultsItem->abstract_or_summary }}
                                         </p>
@@ -183,28 +189,47 @@
                                 </div>
 
                                 <p class="my-2 text-xs text-gray-600 lg:text-sm">
-                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600"
+                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
                                         href="{{ route('search-result-page', ['q' => $resultsItem->keyword_1]) }}"
                                         target="_blank" rel="noopener noreferrer">#{{ $resultsItem->keyword_1 }}</a>
-                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600"
+                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
                                         href="{{ route('search-result-page', ['q' => $resultsItem->keyword_2]) }}"
                                         target="_blank" rel="noopener noreferrer">#{{ $resultsItem->keyword_2 }}</a>
-                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600"
+                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
                                         href="{{ route('search-result-page', ['q' => $resultsItem->keyword_3]) }}"
                                         target="_blank" rel="noopener noreferrer">#{{ $resultsItem->keyword_3 }}</a>
-                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600"
+                                    <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
                                         href="{{ route('search-result-page', ['q' => $resultsItem->keyword_4]) }}"
                                         target="_blank" rel="noopener noreferrer">#{{ $resultsItem->keyword_4 }}</a>
                                     @if ($resultsItem->keyword_5 != null)
-                                        <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600"
+                                        <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
                                             href="{{ route('search-result-page', ['q' => $resultsItem->keyword_5]) }}"
                                             target="_blank"
                                             rel="noopener noreferrer">#{{ $resultsItem->keyword_5 }}</a>
                                     @endif
+                                    @if ($resultsItem->keyword_6 != null)
+                                        <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
+                                            href="{{ route('search-result-page', ['q' => $resultsItem->keyword_6]) }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer">#{{ $resultsItem->keyword_6 }}</a>
+                                    @endif
+                                    @if ($resultsItem->keyword_7 != null)
+                                        <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
+                                            href="{{ route('search-result-page', ['q' => $resultsItem->keyword_7]) }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer">#{{ $resultsItem->keyword_7 }}</a>
+                                    @endif
+                                    @if ($resultsItem->keyword_8 != null)
+                                        <a class="mr-1 bg-gray-50 px-1 hover:text-blue-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-600"
+                                            href="{{ route('search-result-page', ['q' => $resultsItem->keyword_8]) }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer">#{{ $resultsItem->keyword_8 }}</a>
+                                    @endif
                                 <div class="flex w-full items-center justify-between pb-2 lg:items-end">
                                     <div class="flex items-center gap-2">
-                                        <svg class="-mr-1 h-8 text-primary-color" fill="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <svg class="-mr-1 h-8 text-primary-color dark:text-slate-200"
+                                            fill="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M9.027 14.91c.168-.099.352-.195.551-.286-.168.25-.348.493-.54.727-.336.404-.597.62-.762.687a.312.312 0 0 1-.042.014.338.338 0 0 1-.031-.053c-.067-.132-.065-.26.048-.432.127-.198.383-.425.776-.658Zm2.946-1.977c-.142.03-.284.06-.427.094a25.2 25.2 0 0 0 .6-1.26c.19.351.394.695.612 1.03-.26.038-.523.083-.785.136Zm3.03 1.127a4.662 4.662 0 0 1-.522-.492c.274.006.521.026.735.065.38.068.559.176.621.25.02.021.031.049.032.077a.524.524 0 0 1-.072.24.368.368 0 0 1-.113.15.128.128 0 0 1-.083.017c-.108-.003-.31-.08-.598-.307Zm-2.67-5.695c-.048.293-.13.629-.24.995a5.82 5.82 0 0 1-.106-.416c-.092-.423-.105-.756-.056-.986.046-.212.132-.298.236-.34a.621.621 0 0 1 .174-.048.71.71 0 0 1 .038.238c.006.146-.008.332-.046.558v-.001Z">
                                             </path>
@@ -212,11 +237,19 @@
                                                 d="M7.2 2.4h9.6a2.4 2.4 0 0 1 2.4 2.4v14.4a2.4 2.4 0 0 1-2.4 2.4H7.2a2.4 2.4 0 0 1-2.4-2.4V4.8a2.4 2.4 0 0 1 2.4-2.4Zm.198 14.002c.108.216.276.412.525.503a.95.95 0 0 0 .696-.036c.382-.156.762-.523 1.112-.944.4-.48.82-1.112 1.225-1.812a13.979 13.979 0 0 1 2.396-.487c.36.46.732.856 1.092 1.14.336.264.724.484 1.121.5.216.011.43-.046.612-.165a1.24 1.24 0 0 0 .425-.499c.108-.217.174-.444.165-.676a1.013 1.013 0 0 0-.24-.621c-.27-.324-.715-.48-1.152-.558a6.91 6.91 0 0 0-1.602-.06 13.146 13.146 0 0 1-1.176-2.023c.3-.792.525-1.541.624-2.153a3.72 3.72 0 0 0 .058-.737 1.487 1.487 0 0 0-.152-.646.841.841 0 0 0-.573-.438c-.242-.051-.492 0-.72.093-.453.18-.692.564-.782.987-.088.408-.048.884.055 1.364.106.487.286 1.017.516 1.554a23.64 23.64 0 0 1-1.274 2.672 9.189 9.189 0 0 0-1.779.774c-.444.264-.839.576-1.076.944-.252.392-.33.857-.096 1.324Z"
                                                 clip-rule="evenodd"></path>
                                         </svg>
-                                        <a href="{{ route('search-result-page', ['q' => $resultsItem->document_type]) }}"
+                                        @php
+                                            $findDocuTypeConfig = \App\Models\DocuPostType::where('document_type_name', $resultsItem->document_type)->first();
+                                            // dump($findDocuTypeConfig);
+                                        @endphp
+                                        <a href=" {{ route('search-result-page', ['q' => $resultsItem->document_type]) }} "
+                                            target="_blank"
+                                            style="background-color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->bg_color }}; color: {{ $findDocuTypeConfig == null ? '' : $findDocuTypeConfig->text_color }}"
+                                            class="{{ $findDocuTypeConfig == null ? 'bg-sky-700 text-white' : '' }} rounded-lg px-2 py-1 text-sm duration-200 ease-in-out hover:bg-blue-800">{{ $resultsItem->document_type }}</a>
+                                        {{-- <a href="{{ route('search-result-page', ['q' => $resultsItem->document_type]) }}"
                                             target="_blank"
                                             class="rounded-lg border border-red-600 bg-red-100 px-2 py-1 text-xs text-red-600 md:text-sm">
                                             {{ $resultsItem->document_type }}
-                                        </a>
+                                        </a> --}}
                                         <div
                                             class="flex items-center gap-1 rounded-md bg-sky-500 p-1 font-semibold text-white">
                                             <svg class="h-5" fill="currentColor" viewBox="0 0 24 24"
@@ -228,7 +261,7 @@
                                             <small>{{ $resultsItem->citation_count }}</small>
                                         </div>
                                         <div wire:click="share('{{ $resultsItem->reference }}')"
-                                            class="flex cursor-pointer items-center gap-1 rounded-md bg-primary-color p-1 font-semibold text-white">
+                                            class="flex cursor-pointer items-center gap-1 rounded-md bg-primary-color p-1 font-semibold text-white dark:bg-slate-700">
                                             <svg class="h-5" fill="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -241,7 +274,7 @@
                                         </div>
                                     </div>
                                     <div
-                                        class="flex items-center gap-1 text-xs font-bold text-gray-600 lg:text-[0.9rem]">
+                                        class="flex items-center gap-1 text-xs font-bold text-gray-600 dark:text-slate-200 lg:text-[0.9rem]">
                                         <svg class="h-4" fill="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -256,7 +289,8 @@
                     </div>
                     <div class="sticky bottom-2 right-0 mt-2 flex w-full items-center justify-center">
                         @if ($results->hasPages())
-                            <div class="rounded-lg border border-gray-300 bg-opacity-50 px-4 py-2 backdrop-blur-lg">
+                            <div
+                                class="rounded-lg border border-gray-300 bg-opacity-50 px-4 py-2 backdrop-blur-lg dark:text-slate-100">
                                 {{ $results->links() }}
                             </div>
                         @endif
@@ -296,7 +330,7 @@
                 @endif
             </section>
             <div class="mb-4 h-[20rem] w-full lg:sticky lg:right-0 lg:top-[5rem] lg:w-1/2">
-                <div class="flex w-full flex-col gap-2 rounded-lg bg-white p-3 drop-shadow">
+                <div class="flex w-full flex-col gap-2 rounded-lg bg-white p-3 drop-shadow dark:bg-slate-800">
                     <div class="flex w-full items-center justify-start gap-2">
                         <div class="w-fit rounded-lg border border-green-800 bg-green-100 p-1 text-green-800">
                             <svg class="h-3" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -324,7 +358,7 @@
 
                             @foreach ($trendingPosts as $index => $item)
                                 <div
-                                    class="@if ($index == 0) animated-gradient @elseif($index == 1) bg-[#075DEF] @else  bg-sky-100 text-[#075DEF] @endif flex w-full gap-1 rounded-md px-3 py-2 text-white">
+                                    class="@if ($index == 0) animated-gradient @elseif($index == 1) bg-[#075DEF] @else  bg-sky-100 dark:bg-slate-600  text-[#075DEF] @endif flex w-full gap-1 rounded-md px-3 py-2 text-white dark:text-slate-200">
                                     <small
                                         class="@if ($index == 0) bg-sky-700 @elseif($index == 1) bg-[#4e88eb] @else  bg-sky-400 @endif flex min-h-[1.4rem] min-w-[1.4rem] items-center justify-center rounded-full text-[0.65rem] font-medium text-white">
                                         {{ $index + 1 }}
@@ -338,15 +372,17 @@
                         </section>
                     @endif
                 </div>
-                <div class="my-4 mb-4 flex w-full flex-col gap-2 rounded-lg bg-white p-3 drop-shadow lg:mt-8">
-                    <strong class="uppercase text-primary-color">Document Types</strong>
+                <div
+                    class="my-4 mb-4 flex w-full flex-col gap-2 rounded-lg bg-white p-3 drop-shadow dark:bg-slate-800 lg:mt-8">
+                    <strong class="uppercase text-primary-color dark:text-slate-200">Document Types</strong>
                     <div class="flex flex-col gap-2 lg:gap-3">
                         @foreach ($documentTypeCounts as $type => $count)
-                            <div class="flex w-full justify-between rounded bg-sky-100 px-3 py-2 font-semibold">
+                            <div
+                                class="flex w-full justify-between rounded bg-sky-100 px-3 py-2 font-semibold dark:bg-slate-600">
                                 <div class="flex gap-1">
                                     <span
                                         class="flex w-fit items-center justify-center rounded-md bg-sky-500 px-2 text-sm text-white">S</span>
-                                    <p class="line-clamp-1 text-sky-800">{{ $type }}</p>
+                                    <p class="line-clamp-1 text-sky-800 dark:text-slate-200">{{ $type }}</p>
                                 </div>
                                 <span
                                     class="w-10 rounded-md bg-sky-500 px-2 text-center text-white">{{ $count }}</span>

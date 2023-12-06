@@ -13,26 +13,24 @@ use App\Models\BachelorDegree;
 use Livewire\WithFileUploads;
 use setasign\Fpdi\Fpdi;
 
-class UploadDocument extends Component
-{
+class UploadDocument extends Component {
     use WithFileUploads;
     public $user, $bachelor_degree_value, $author1;
 
-    public function mount()
-    {
+    public function mount() {
         $this->user = Auth::user();
         $this->document_type = 'Capstone';
 
-        if ($this->user->is_admin) {
+        if($this->user->is_admin) {
             $this->bachelor_degree_value = '';
         } else {
             $this->bachelor_degree_value = $this->user->bachelor_degree;
-            $this->author1 = $this->user->first_name . ' ' . $this->user->last_name;
+            $this->author1 = $this->user->first_name.' '.$this->user->last_name;
         }
     }
     public $uploaded = false;
 
-    public $currentTab = 1;
+    public $currentTab = 3;
 
     public $title, $document_type, $date_of_approval, $physical_description, $language, $panel_chair, $advisor, $panel_member1, $panel_member2, $panel_member3, $panel_member4, $abstract_or_summary, $author2, $author3, $author4, $author5, $author6, $author7;
     public $keyword1, $keyword2, $keyword3, $keyword4, $keyword5, $keyword6, $keyword7, $keyword8, $recommended_citation, $user_upload, $pdf_path;
@@ -65,14 +63,13 @@ class UploadDocument extends Component
         'user_upload' => 'required|file|max:100000',
     ];
 
-    public function changeTab($tab)
-    {
+    public function changeTab($tab) {
         // Manually validate the fields based on the current tab
-        if ($this->currentTab == 1) {
+        if($this->currentTab == 1) {
             $this->validate($this->tab1Rules);
-        } elseif ($this->currentTab == 2) {
+        } elseif($this->currentTab == 2) {
             $this->validate($this->tab2Rules);
-        } elseif ($this->currentTab == 3) {
+        } elseif($this->currentTab == 3) {
             $this->validate($this->tab3Rules);
         }
 
@@ -80,14 +77,13 @@ class UploadDocument extends Component
         $this->currentTab = $tab;
     }
 
-    public function updated($propertyName)
-    {
+    public function updated($propertyName) {
         // Determine the tab and validate the current property accordingly
-        if ($this->currentTab == 1) {
+        if($this->currentTab == 1) {
             $this->validateOnly($propertyName, $this->tab1Rules);
-        } elseif ($this->currentTab == 2) {
+        } elseif($this->currentTab == 2) {
             $this->validateOnly($propertyName, $this->tab2Rules);
-        } elseif ($this->currentTab == 3) {
+        } elseif($this->currentTab == 3) {
             $this->validateOnly($propertyName, $this->tab3Rules);
         }
     }
@@ -96,20 +92,19 @@ class UploadDocument extends Component
 
     public $authorAPA;
 
-    public function citationAPA_generator()
-    {
+    public function citationAPA_generator() {
         $authors = [];
 
-        if (!empty($this->author1)) {
+        if(!empty($this->author1)) {
             $authors[] = $this->convertAuthorName($this->author1);
         }
-        if (!empty($this->author2)) {
+        if(!empty($this->author2)) {
             $authors[] = $this->convertAuthorName($this->author2);
         }
-        if (!empty($this->author3)) {
+        if(!empty($this->author3)) {
             $authors[] = $this->convertAuthorName($this->author3);
         }
-        if (!empty($this->author4)) {
+        if(!empty($this->author4)) {
             $authors[] = $this->convertAuthorName($this->author4);
         }
 
@@ -119,36 +114,33 @@ class UploadDocument extends Component
         $retrieveURL = route('view-document', ['reference' => $this->docuReference]);
 
         $year = date('Y', strtotime($this->date_of_approval));
-        $this->recommended_citation = $authorAPA . ' (' . $year . '). ' . $this->title . '. Retrieved from Theses Kiosk website: ' . $retrieveURL;
+        $this->recommended_citation = $authorAPA.' ('.$year.'). '.$this->title.'. Retrieved from Theses Kiosk website: '.$retrieveURL;
     }
 
-    public function convertAuthorName($name)
-    {
+    public function convertAuthorName($name) {
         $fullName = explode(' ', $name);
-        if (count($fullName) >= 2) {
+        if(count($fullName) >= 2) {
 
             $lastName = ucfirst(array_pop($fullName));
             $firstNameInitial = ucfirst(strtoupper(substr($fullName[0], 0, 1)));
 
             // Format the name as 'LastName Initial.'
 
-            $formattedName = $lastName . ' ' . $firstNameInitial . '.';
+            $formattedName = $lastName.' '.$firstNameInitial.'.';
             return $name = $formattedName;
         }
     }
 
 
 
-    public function boot()
-    {
+    public function boot() {
         do {
             $this->docuReference = Str::random(12);
         }
-        while (DocuPost::where('reference', $this->docuReference)->exists());
+        while(DocuPost::where('reference', $this->docuReference)->exists());
     }
-    public function uploadDocument()
-    {
-        if (auth()->user()->is_verified == 0) {
+    public function uploadDocument() {
+        if(auth()->user()->is_verified == 0) {
             return session()->flash('error', 'Your account is not verified, can\'t procceed. Verify you account first.');
         }
 
@@ -159,7 +151,7 @@ class UploadDocument extends Component
         );
 
         $checkMe = $this->validate($rules);
-        if ($checkMe) {
+        if($checkMe) {
             $this->createNewDocuPostEntry();
         } else {
             session()->flash('message', 'missing entry');
@@ -169,10 +161,9 @@ class UploadDocument extends Component
     public $rulesDone, $validationDone, $creatingDone, $successUploading;
     public $docuReference;
 
-    public function createNewDocuPostEntry()
-    {
+    public function createNewDocuPostEntry() {
         $findWatermark = SettingWatermark::where('is_set', 1)->count();
-        if ($findWatermark != 1) {
+        if($findWatermark != 1) {
             return session()->flash('error', 'Watermark missing, contact admin.');
         } else {
             $findWatermark = SettingWatermark::where('is_set', 1)->first();
@@ -184,17 +175,17 @@ class UploadDocument extends Component
 
 
         $currentDate = now()->format('Y-m-d');
-        $customFileName = $this->title . '-' . $this->docuReference . '-' . $currentDate . '.pdf';
-        if ($this->user_upload) {
+        $customFileName = $this->title.'-'.$this->docuReference.'-'.$currentDate.'.pdf';
+        if($this->user_upload) {
             $this->pdf_path = $this->user_upload->storeAs('PDF_uploads', $customFileName, 'public');
 
-            $filePath = 'storage/' . $this->pdf_path;
+            $filePath = 'storage/'.$this->pdf_path;
 
-            $text_image = 'storage/' . $getWatermarkData->file_link;
+            $text_image = 'storage/'.$getWatermarkData->file_link;
 
             // Set source PDF file
             $pdf = new Fpdi();
-            if (file_exists($filePath)) {
+            if(file_exists($filePath)) {
                 $pagecount = $pdf->setSourceFile($filePath);
             } else {
                 return;
@@ -202,7 +193,7 @@ class UploadDocument extends Component
             }
 
             // Add watermark image to PDF pages
-            for ($i = 1; $i <= $pagecount; $i++) {
+            for($i = 1; $i <= $pagecount; $i++) {
                 $tpl = $pdf->importPage($i);
                 $size = $pdf->getTemplateSize($tpl);
                 $pdf->AddPage('P', array($size['width'], $size['height']));
@@ -262,13 +253,13 @@ class UploadDocument extends Component
         Notification::create([
             'user_id' => $this->user->id,
             'header_message' => 'Document Pending Admin Review',
-            'content_message' => 'Dear user, your document with the title "' . $this->title . '" has been successfully uploaded and is now pending admin review. It will be made available to the community once approved. Thank you for your contribution📄🔍.',
+            'content_message' => 'Dear user, your document with the title "'.$this->title.'" has been successfully uploaded and is now pending admin review. It will be made available to the community once approved. Thank you for your contribution📄🔍.',
             'link' => route('edit-profile', ['activeTab' => 'tab4']),
             'category' => 'docu post',
         ]);
 
 
-        if (auth()->user()->is_admin) {
+        if(auth()->user()->is_admin) {
             return redirect()->route('admin-docu-post-panel');
         } else {
             $this->dispatch('open-suc');
@@ -279,14 +270,12 @@ class UploadDocument extends Component
 
     public $showUploadPdfBox = false;
 
-    public function uploadPdfFileBox()
-    {
+    public function uploadPdfFileBox() {
         $this->dispatch('open-pdf');
     }
 
-    public function render()
-    {
-        if (auth()->check()) {
+    public function render() {
+        if(auth()->check()) {
             $idAdmin = auth()->user()->is_admin;
         } else {
             $idAdmin = false;

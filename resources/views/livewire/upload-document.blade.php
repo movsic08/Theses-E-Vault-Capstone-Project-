@@ -84,11 +84,11 @@
                         </div>
                         @if ($currentTab == 1)
                             <a href="{{ route('edit-profile', 'tab4') }}"
-                                class="lg:1/12 w-1/2 rounded-md border border-gray-700 p-1 text-center duration-300 ease-in-out hover:bg-gray-600 hover:text-white md:w-1/4"
+                                class="lg:1/12 w-1/2 rounded-md border border-gray-700 p-1 text-center duration-300 ease-in-out hover:bg-gray-600 hover:text-white dark:text-slate-100 md:w-1/4"
                                 type="button" wire:click="changeTab({{ intval($currentTab) - 1 }})">Cancel</a>
                         @else
                             <button
-                                class="lg:1/12 w-1/2 rounded-md border border-gray-700 p-1 duration-300 ease-in-out hover:bg-gray-600 hover:text-white md:w-1/4"
+                                class="lg:1/12 w-1/2 rounded-md border border-gray-700 p-1 duration-300 ease-in-out hover:bg-gray-600 hover:text-white dark:text-slate-100 md:w-1/4"
                                 type="button" wire:click="changeTab({{ intval($currentTab) - 1 }})">Previous</button>
                         @endif
                         @php

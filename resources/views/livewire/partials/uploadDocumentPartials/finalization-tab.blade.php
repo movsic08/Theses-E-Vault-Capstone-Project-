@@ -1,11 +1,11 @@
  <div class="text-gray-700">
-     <h1 class="flex flex-col text-center text-base font-bold text-primary-color md:text-xl">
+     <h1 class="flex flex-col text-center text-base font-bold text-primary-color dark:text-slate-100 md:text-xl">
          Enter basic
          information
          about
          your
          work.
-         <small class="font-normal text-gray-400">Please fill in basic information so that
+         <small class="font-normal text-gray-400 dark:text-slate-200">Please fill in basic information so that
              the
              other
              users
@@ -20,8 +20,9 @@
              <div class="flex w-full flex-col">
                  <x-label-input for="abstract_or_summary">
                      Abstract/ Summary</x-label-input>
-                 <textarea class="custom-scrollbar rounded-md border border-gray-400 p-2 text-sm outline-primary-color" type="text"
-                     wire:model.live="abstract_or_summary" rows="25" id="abstract_or_summary"
+                 <textarea
+                     class="custom-scrollbar rounded-md border border-gray-400 p-2 text-sm outline-primary-color dark:bg-slate-700 dark:text-slate-100"
+                     type="text" wire:model.live="abstract_or_summary" rows="25" id="abstract_or_summary"
                      placeholder="Abstract or summary of your work"></textarea>
                  @error('abstract_or_summary')
                      <small class="text-red-500">{{ $message }}</small>
@@ -94,7 +95,7 @@
              <div class="flex w-full flex-col gap-2">
                  <x-label-input class="text-sm font-semibold" for="keywords">
                      Keywords/s</x-label-input>
-                 <small class="text-gray-500">Adding keywords or tags is important to help
+                 <small class="text-gray-500 dark:text-slate-100">Adding keywords or tags is important to help
                      others
                      discover your research easily. 🔍 Keywords act like labels, summarizing
                      what
@@ -172,7 +173,7 @@
      <div class="flex flex-col gap-2">
          <x-label-input for="recommended_citation">
              Recommended citation</x-label-input>
-         <small class="text-gray-600">This is auto generated based on the collected data
+         <small class="text-gray-600 dark:text-slate-100">This is auto generated based on the collected data
              from
              your
              inputs. You can change it to your desire recommended citation, but highly
@@ -182,11 +183,12 @@
          <div class="flex w-full gap-2">
              <button wire:click.prevent="citationAPA_generator"
                  class="w-fit rounded-md bg-blue-700 px-3 py-1 text-white duration-300 hover:bg-primary-color">Generate</button>
-             <div class="w-[30%] leading-tight text-gray-500"><small> Click the generate
+             <div class="w-[30%] leading-tight text-gray-500 dark:text-slate-100"><small> Click the generate
                      button to
                      generate a APA Citation of your document. </small></div>
          </div>
-         <textarea class="resize-none rounded-md border border-gray-400 p-2 text-sm md:resize-y lg:resize-none"
+         <textarea
+             class="resize-none rounded-md border border-gray-400 p-2 text-sm dark:bg-slate-700 dark:text-slate-100 md:resize-y lg:resize-none"
              wire:model.live="recommended_citation" rows="6" id="recommended_citation"></textarea>
          @error('recommended_citation')
              <small class="text-red-500">{{ $message }}</small>

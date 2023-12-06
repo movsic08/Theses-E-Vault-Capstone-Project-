@@ -1,4 +1,5 @@
 <section class="sticky top-0 z-30 bg-opacity-70 py-2 backdrop-blur-md md:py-0">
+
     <div class="container text-base font-semibold text-blue-950 dark:text-slate-100">
         <div class="flex w-full items-center justify-between md:p-2">
             @php
@@ -71,8 +72,8 @@
     </div>
     {{-- mobile version --}}
     <div class="relative">
-        <div id="mobileMenuItems" class="absolute top-2 hidden h-auto w-screen">
-            <section class="gradient-bg-light py-2 backdrop-blur-sm">
+        <div id="mobileMenuItems" class="absolute top-2 hidden h-auto w-screen text-slate-800 dark:text-slate-100">
+            <section class="py-2 backdrop-blur-sm light-background dark:dark-background">
                 <div class="container text-sm font-semibold">
                     <div id="sample"
                         class="div-container mb-2 flex items-center justify-between rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
@@ -92,8 +93,8 @@
                                 <p class="hideName block md:hidden">Notification</p>
                             </div>
                         </a>
-                        <p id="msgCount" class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1
-                            Notification</p>
+                        {{-- <p id="msgCount" class="rounded-lg bg-slate-200 px-4 py-1 text-xs font-normal md:hidden">1
+                            Notification</p> --}}
                     </div>
 
 
@@ -169,21 +170,21 @@
                 </div>
                 <div class="container">
                     <div class="text-sm font-semibold">
-                        <div
-                            class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
-                            <a href="" class="flex items-center">
-                                <div class="relative">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 11.807A9.002 9.002 0 0 1 10.049 2a9.942 9.942 0 0 0-5.12 2.735c-3.905 3.905-3.905 10.237 0 14.142 3.906 3.906 10.237 3.905 14.143 0a9.946 9.946 0 0 0 2.735-5.119A9.004 9.004 0 0 1 12 11.807Z">
-                                        </path>
-                                    </svg>
-                                </div>
 
-                                <p class="hideName block pl-2 md:hidden">Dark</p>
-                            </a>
-                        </div>
+                        {{-- <button
+                            class="{{ request()->routeIs('') ? ' bg-slate-200 dark:bg-slate-800' : 'hover:bg-slate-300 dark:hover:bg-slate-700   duration-500 ease-in-out' }} relative mx-1 my-2 flex rounded-xl p-2"
+                            id="darkmode">
+                            <div class="relative w-fit">
+                                <svg class="h-6 w-6 text-gray-700 dark:text-slate-50" fill="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 11.807A9.002 9.002 0 0 1 10.049 2a9.942 9.942 0 0 0-5.12 2.735c-3.905 3.905-3.905 10.237 0 14.142 3.906 3.906 10.237 3.905 14.143 0a9.946 9.946 0 0 0 2.735-5.119A9.004 9.004 0 0 1 12 11.807Z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <p class="hideName block pl-2 dark:text-slate-50 md:hidden" id="modeType">Dark</p>
+                        </button> --}}
+
                         <div
                             class="mx-1 my-2 rounded-md p-1 px-3 py-2.5 duration-500 hover:bg-gray-800 hover:text-white">
                             <a href="{{ route('help-and-support') }}" class="flex items-center">
