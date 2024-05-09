@@ -41,10 +41,11 @@ Install dependencies
 
 ```bash
   php artisan key:generate
+  php artisan storage:link
   npm install
   composer install
 ```
-
+PLEASE MAKE SURE THE STORAGE IS BINDED CORRECTLY, ELSE SOME FUNCTIONS AND DATA DUMP WILL NOT LOAD.
 
 Import the database (sql file) for faster and smooth use of the system.
 - The SQL dump file can be found in the folder "public/assets/sql/". You  need to use MySQl to import the database. THIS IS MUST, WITHOUT IMPORTING THE SQL DUMP YOU CAN'T USE THE FUNCTIONALITY OF THE SYSTEM SINCE I DIDN'T USED SEEDER FOR THIS.
