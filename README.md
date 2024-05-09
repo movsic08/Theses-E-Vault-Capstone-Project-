@@ -4,7 +4,7 @@
 An Archiving system for retrieving and storing reaserch works for PSU-Alaminos City Campus.
 
 
-## Authors $ Developer
+## Authors & Developer
 
 - Elmer Tirao
 - Milane Batan
@@ -45,10 +45,10 @@ Install dependencies
   npm install
   composer install
 ```
-PLEASE MAKE SURE THE STORAGE IS BINDED CORRECTLY, ELSE SOME FUNCTIONS AND DATA DUMP WILL NOT LOAD.
+PLEASE MAKE SURE THE STORAGE IS BINDED CORRECTLY, ELSE SOME FUNCTIONS AND DATA DUMP WILL NOT LOAD. To get the Data dump, contact the developer (me), to get the link of data dump files. After receiving the copy thru link, extract the folder in /storage and extract the following folder: sql, watermarks, PDF_uploads. These folders should be inside the /storage.
 
 Import the database (sql file) for faster and smooth use of the system.
-- The SQL dump file can be found in the folder "public/assets/sql/". You  need to use MySQl to import the database. THIS IS MUST, WITHOUT IMPORTING THE SQL DUMP YOU CAN'T USE THE FUNCTIONALITY OF THE SYSTEM SINCE I DIDN'T USED SEEDER FOR THIS.
+- The SQL dump file can be found in the folder "storage/sql/". You  need to use MySQl to import the database. THIS IS MUST, WITHOUT IMPORTING THE SQL DUMP YOU CAN'T USE THE FUNCTIONALITY OF THE SYSTEM SINCE I DIDN'T USED SEEDER FOR THIS.
 
 Start the server
 
